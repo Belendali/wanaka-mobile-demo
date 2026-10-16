@@ -27,7 +27,7 @@
   --glass:rgba(20,14,16,.55);
   --desk:#0C0809;
   --danger:#FF4837;
-  --grad:linear-gradient(90deg,#FF8A3D 0%,#F6C94B 50%,#9AD8C6 100%);
+  --grad:linear-gradient(90deg,#FD8020 0%,#F0BA42 25%,#BDD19A 66.346%,#4778B4 97.115%);
   --ui:'Poppins',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
   --pixel:'Press Start 2P',ui-monospace,Menlo,monospace;
   --sb:46px;
@@ -83,7 +83,7 @@ svg{display:block;flex:none}
 .lime{color:var(--lime)}
 .cta-lime{background:var(--lime);color:var(--lime-ink);font-weight:600;border-radius:999px}
 .cta-white{background:var(--white);color:var(--bg);font-weight:600;border-radius:999px}
-.cta-grad{background:var(--grad);color:#2A1B10;font-weight:600;border-radius:999px}
+.cta-grad{background:var(--grad);color:var(--bg);font-weight:600;border-radius:999px}
 .cta-soft{background:rgba(255,255,255,.1);font-weight:600;border-radius:999px}
 .muted{color:var(--muted)}
 
@@ -106,7 +106,6 @@ svg{display:block;flex:none}
 
 /* ---------- home ---------- */
 .topbar{position:absolute;top:var(--sb);left:0;right:0;height:32px;z-index:6;display:flex;align-items:center;padding:0 20px;transition:opacity .25s}
-.topbar .logo{height:12px;width:auto}
 .topbar .ftabs{position:absolute;left:50%;transform:translateX(-50%);width:max-content;white-space:nowrap;display:flex;gap:16px}
 .topbar .ftabs button{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:14px;font-weight:500;opacity:.38;transition:font-size .25s,opacity .25s}
 .topbar .ftabs button.on{opacity:.95}
@@ -126,19 +125,16 @@ svg{display:block;flex:none}
 @keyframes kb{from{transform:scale(1.02)}to{transform:scale(1.14) translate(-2%,-2%)}}
 .card .ov{position:absolute;inset:0;background:rgba(20,14,16,.5);opacity:0;pointer-events:none;transition:opacity .22s}
 .card.tapped .ov{opacity:1;pointer-events:auto}
-.ov .more{position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:18px;display:grid;place-items:center}
-.ov .more svg{width:22px;height:22px}
-.ov .ctas{position:absolute;left:50%;width:max-content;top:50%;transform:translate(-50%,-50%) scale(.94);display:grid;gap:12px;transition:transform .25s}
-.card.tapped .ov .ctas{transform:translate(-50%,-50%) scale(1)}
-.ov .ctas button{width:200px;height:54px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:16px}
-.ov .ctas svg{width:20px;height:20px}
-.ov .ctas .remix{border:1px solid rgba(255,255,255,.2)}
+.ov .more{position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:18px;display:grid;place-items:center;background:rgba(20,14,16,.6);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.ov .ctas{position:absolute;left:0;right:0;bottom:0;padding:24px;display:flex;gap:12px;transform:translateY(10px);transition:transform .25s cubic-bezier(.2,.8,.2,1)}
+.card.tapped .ov .ctas{transform:none}
+.ov .ctas button{flex:1;min-width:0;height:42px;box-sizing:border-box;border-radius:999px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:16px;font-weight:600;line-height:24px}
+.ov .ctas .b-remix{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.ov .ctas .b-play{background:var(--white);color:#222}
 .ov .menu{position:absolute;top:58px;right:14px;width:172px;padding:6px 0;border-radius:18px;background:rgba(34,34,34,.96);border:1px solid var(--line);box-shadow:0 12px 30px rgba(0,0,0,.5)}
 .ov .menu button{width:100%;display:flex;align-items:center;gap:12px;padding:12px 16px;font-size:14px;font-weight:500}
 .ov .menu svg{width:20px;height:20px}
 .ov .menu i{display:block;height:1px;margin:0 16px;background:var(--faint)}
-.hold-hint{position:absolute;left:50%;width:max-content;bottom:16px;transform:translateX(-50%);font-size:11px;font-weight:500;color:rgba(255,255,255,.8);padding:6px 12px;border-radius:999px;white-space:nowrap;opacity:0;transition:opacity .3s}
-.card.tapped .hold-hint{opacity:1}
 .meta{padding:0 8px;display:grid;gap:2px}
 .meta-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
 .who{display:flex;align-items:center;gap:8px;min-width:0}
@@ -406,7 +402,7 @@ svg{display:block;flex:none}
 .s-head .mid b{font-size:16px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
 .s-head .mid small{font-size:12px;color:var(--muted)}
 .s-head .r{display:flex;gap:8px;align-items:center}
-.s-head .pbtn{height:32px;padding:0 14px;font-size:15px}
+.s-head .pbtn{height:32px;padding:0 12px;font-size:16px;line-height:24px}
 .s-body{flex:1;min-height:0;position:relative}
 
 /* review / photo cam */
@@ -564,17 +560,28 @@ svg{display:block;flex:none}
 .typing i{width:6px;height:6px;border-radius:3px;background:rgba(255,255,255,.6);animation:tp 1s infinite}
 .typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
 @keyframes tp{50%{transform:translateY(-4px);opacity:.4}}
-.chat-foot{flex:none;padding:0 16px 30px;display:grid;gap:12px}
+.chat-foot{flex:none;padding:0 16px 30px;display:grid;gap:13px}
 .inbar{height:56px;border-radius:28px;background:var(--surface);border:1px solid var(--line);display:flex;align-items:center;gap:8px;padding:0 6px}
-.inbar .att-b{width:44px;height:44px;border-radius:22px;background:rgba(255,255,255,.08);display:grid;place-items:center}
-.inbar .att-b svg{width:20px;height:20px}
+.inbar .att-b{width:44px;height:44px;border-radius:22px;background:rgba(255,255,255,.15);display:grid;place-items:center;flex:none}
 .inbar input{flex:1;min-width:0;background:none;border:0;outline:none;color:var(--white);font:400 15px var(--ui)}
 .inbar input::placeholder{color:rgba(255,255,255,.45)}
-.inbar .mic{width:36px;height:44px;display:grid;place-items:center;opacity:.75}
-.inbar .mic svg{width:20px;height:20px}
-.inbar .go{width:44px;height:44px;border-radius:22px;display:grid;place-items:center;background:rgba(255,255,255,.12);color:rgba(255,255,255,.4)}
-.inbar .go.ready{background:var(--white);color:var(--bg)}
-.inbar .go svg{width:20px;height:20px}
+.inbar .mic{width:36px;height:44px;display:grid;place-items:center;flex:none}
+.inbar .go{width:44px;height:44px;border-radius:22px;display:grid;place-items:center;background:rgba(255,255,255,.2);flex:none;transition:background .2s}
+.inbar .go img{opacity:.45;transition:opacity .2s,filter .2s}
+.inbar .go.ready{background:var(--white)}
+.inbar .go.ready img{opacity:1;filter:invert(1)}
+.c4-title{flex:none;padding:10px 16px 0;display:grid;gap:2px}
+.c4-title h2{margin:0;font-size:22px;font-weight:600;line-height:1.2}
+.c4-title small{display:flex;align-items:center;gap:5px;font-size:12px;line-height:18px;color:rgba(255,255,255,.6)}
+.c4-title small img{opacity:.6}
+.c4-body{flex:1;min-height:0;display:flex;flex-direction:column}
+.c4-prev{position:relative;margin:14px 16px 0;flex:0 1 467px;min-height:220px;border-radius:32px;overflow:hidden;background:#000}
+.c4-prev .media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.c4-prev .dimv{position:absolute;inset:0;background:rgba(20,14,16,.25)}
+.c4-prev .tagpx{position:absolute;top:14px;left:14px;padding:6px 9px}
+.c4-prev .pl{position:absolute;left:50%;top:50%;width:72px;height:72px;margin:-36px 0 0 -36px;border-radius:36px;background:var(--white);display:grid;place-items:center}
+.c4-prev .fs{position:absolute;right:14px;bottom:14px;display:flex;align-items:center;gap:6px;padding:7px 12px 7px 10px;border-radius:999px;background:rgba(20,14,16,.6);font-size:12px;font-weight:500;line-height:18px}
+.c4-label{margin:0 0 -7px;font-size:12px;font-weight:500;line-height:18px;color:rgba(255,255,255,.7)}
 
 /* style pick */
 .cap-box{position:absolute;left:16px;right:16px;top:8px;height:42%;border-radius:32px;overflow:hidden;background:#111}
@@ -663,7 +670,6 @@ svg{display:block;flex:none}
       <!-- HOME -->
       <section class="screen" id="s-home">
         <div class="topbar" id="topbar">
-          <img class="logo" src="media/logo.svg" alt="Wanaka">
           <div class="ftabs" id="ftabs">
             <button class="on" data-ftab="explore">Explore</button>
             <button data-ftab="following">Following</button>
@@ -849,6 +855,7 @@ const I = {
   cell: `<svg width="18" height="11" viewBox="0 0 18 11" aria-hidden="true"><rect fill="currentColor" x="0" y="7" width="3" height="4" rx="1"/><rect fill="currentColor" x="5" y="5" width="3" height="6" rx="1"/><rect fill="currentColor" x="10" y="2.5" width="3" height="8.5" rx="1"/><rect fill="currentColor" x="15" y="0" width="3" height="11" rx="1"/></svg>`,
   batt: `<svg width="27" height="13" viewBox="0 0 27 13" aria-hidden="true"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="20" height="9" rx="2" fill="currentColor"/><path d="M25 4.5v4c.8-.3 1.4-1.1 1.4-2s-.6-1.7-1.4-2Z" fill="currentColor" opacity=".45"/></svg>`,
 };
+const IC = (n, s) => `<img src="media/icons/${n}.svg" width="${s}" height="${s}" alt="">`;
 const fillIcons = (root = document) => $$('[data-ic]', root).forEach(el => { if (!el.dataset.done) { el.insertAdjacentHTML('afterbegin', I[el.dataset.ic] || ''); el.dataset.done = 1; } });
 
 /* ---------------- data ---------------- */
@@ -929,23 +936,22 @@ function slideHTML(g) {
     <div class="card" data-card>
       ${mediaHTML(g)}
       <div class="ov">
-        <button class="more glass" data-act="card-more" aria-label="More">${I.more}</button>
+        <button class="more" data-act="card-more" aria-label="More">${IC('more', 22)}</button>
         <div class="ctas">
-          <button class="cta-lime" data-act="card-play">${I.play}<span>Play</span></button>
-          <button class="remix cta-soft glass" data-act="card-remix">${I.remix}<span>Remix</span></button>
+          <button class="b-remix" data-act="card-remix">${IC('remix', 20)}<span>Remix</span></button>
+          <button class="b-play" data-act="card-play">${IC('play-dark', 20)}<span>Play</span></button>
         </div>
         <div class="menu" hidden>
           <button data-act="card-download">${I.download}Download</button><i></i>
           <button data-act="card-report">${I.report}Report</button>
         </div>
-        <span class="hold-hint glass">Tip: long-press to jump straight in</span>
       </div>
     </div>
     <div class="meta">
       <div class="meta-row">
         <div class="who">
           <span class="av"><img src="${M(g.av + '.webp')}" alt=""><button class="follow" data-act="follow" aria-label="Follow">${I.plus}</button></span>
-          <span class="who-t"><b>${g.title}</b><small>${g.creator}</small></span>
+          <span class="who-t"><b>${g.title}</b><small>${g.creator.replace(/^@/, '')}</small></span>
         </div>
         <div class="stats">
           <button class="stat" data-act="like" aria-label="Like">${I.heart}<span>${g.likes}</span></button>
@@ -1385,29 +1391,43 @@ function runProgress(id, s, dur, done) {
 }
 function escapeHTML(t) { return String(t).replace(/[&<>"]/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c])); }
 
-/* C4-B chat */
-let chatGame = null, version = 1, published = false;
+/* C4 result (play, tweak, publish) → turns into a chat after the first tweak */
+let chatGame = null, version = 1, published = false, chatMode = false, chatText = '', chatAtts = [];
 function vcardHTML(g, v) {
   return `<div class="vcard" data-g="${g.id}">${mediaHTML(g)}<span class="dimv"></span><span class="tagpx">V${v} · LATEST</span>
     <button class="pl" data-act="chat-play" aria-label="Play">${I.play}</button><button class="fs glass" data-act="chat-play">${I.full}Full screen</button></div>`;
 }
+const inbarHTML = (id, label) => `<form class="inbar" id="${id}Form"><button type="button" class="att-b" data-act="noop" aria-label="Attach">${IC('plus', 20)}</button><input id="${id}In" placeholder="Tell me what to change…" autocomplete="off" aria-label="${label}"><button type="button" class="mic" data-act="noop" aria-label="Speak">${IC('mic', 22)}</button><button class="go" id="${id}Go" aria-label="Send">${IC('arrow-up', 20)}</button></form>`;
 function openChat(g, text, atts) {
   if (subStack.includes('sub-gen')) later('sub-chat', () => closeSub('sub-gen', true), 380);
-  chatGame = g; version = 1; published = false;
-  openSub('sub-chat', `${head(xBtn('chat-close'), `<b>${g.title}</b><small id="chatSub">Draft · v1 saved</small>`, `<button class="pbtn cta-grad" id="pubBtn" data-act="publish">Publish</button>`)}
-    <div class="thread-wrap"><div class="thread" id="thread">
-      <div class="mu">${atts.length ? `<div class="atts">${atts.map(a => `<img src="${M(a.img)}" alt="">`).join('')}</div>` : ''}${text ? `<div class="bub">${escapeHTML(text)}</div>` : ''}</div>
-      <div class="ma" id="m1"><p>${state.idea ? '<span class="note">✦ I added a few ideas to your prompt.</span><br>' : ''}Here’s <b>${g.title}</b>! ${g.desc} Tap Play to try it.</p>${vcardHTML(g, 1)}
-        <div class="macts"><button data-act="noop">${I.refresh}Retry</button><button data-act="good">${I.check}Good</button></div></div>
-    </div></div>
-    <div class="chat-foot"><div class="hscroll" id="sugg">${['Make it harder','Add a boss','Night mode','2-player'].map(s => `<button class="chip" data-act="sugg">${s}</button>`).join('')}</div>
-      <form class="inbar" id="chatForm"><button type="button" class="att-b" data-act="noop" aria-label="Attach">${I.plus}</button><input id="chatIn" placeholder="Tell me what to change…" autocomplete="off" aria-label="Message"><button type="button" class="mic" data-act="noop" aria-label="Speak">${I.mic}</button><button class="go" id="chatGo" aria-label="Send">${I.arrowUp}</button></form></div>`);
+  chatGame = g; version = 1; published = false; chatMode = false; chatText = text; chatAtts = atts.slice();
+  openSub('sub-chat', `${head(xBtn('chat-close'), '', `<button class="pbtn cta-grad" id="pubBtn" data-act="publish">Publish</button>`)}
+    <div class="c4-title"><h2>${g.title}</h2><small>${IC('check', 12)}<span id="chatSub">Draft saved · v1</span></small></div>
+    <div class="c4-body" id="c4Body">
+      <div class="c4-prev" data-g="${g.id}">${mediaHTML(g)}<span class="dimv"></span><span class="tagpx">PREVIEW</span>
+        <button class="pl" data-act="chat-play" aria-label="Play">${IC('play', 30)}</button>
+        <button class="fs" data-act="chat-play">${IC('fullscreen', 14)}Full screen</button></div>
+    </div>
+    <div class="chat-foot"><p class="c4-label" id="c4Label">Not quite right? Just say what to change</p>
+      <div class="hscroll" id="sugg">${['Make it harder','Add a boss','Night mode','2-player'].map(s => `<button class="chip" data-act="sugg">${s}</button>`).join('')}</div>
+      ${inbarHTML('chat', 'Message')}</div>`);
   const v = $('#sub-chat video'); v && v.play().catch(() => {});
   const f = $('#chatForm'); const inp = $('#chatIn');
   inp.addEventListener('input', () => $('#chatGo').classList.toggle('ready', !!inp.value.trim()));
   f.addEventListener('submit', e => { e.preventDefault(); const t = inp.value.trim(); if (!t) return; inp.value = ''; $('#chatGo').classList.remove('ready'); tweak(t); });
 }
+function toChatMode() {
+  if (chatMode) return; chatMode = true;
+  const g = chatGame, body = $('#c4Body');
+  $('#c4Label').hidden = true;
+  body.innerHTML = `<div class="thread-wrap"><div class="thread" id="thread">
+      <div class="mu">${chatAtts.length ? `<div class="atts">${chatAtts.map(a => `<img src="${M(a.img)}" alt="">`).join('')}</div>` : ''}${chatText ? `<div class="bub">${escapeHTML(chatText)}</div>` : ''}</div>
+      <button class="vmini" data-act="noop"><img src="${poster(g)}" alt=""><span class="t"><b>${g.title} · v1</b><small>Earlier version</small></span><span class="rs">Restore</span></button>
+    </div></div>`;
+  body.animate([{ opacity:0, transform:'translateY(12px)' }, { opacity:1, transform:'none' }], { duration:280, easing:'ease-out' });
+}
 function tweak(t) {
+  toChatMode();
   const th = $('#thread');
   th.insertAdjacentHTML('beforeend', `<div class="mu"><div class="bub">${escapeHTML(t)}</div></div><div class="ma" id="typing"><div class="typing"><i></i><i></i><i></i></div></div>`);
   th.scrollTo({ top:th.scrollHeight, behavior:'smooth' });
@@ -1416,7 +1436,7 @@ function tweak(t) {
     if (prev) { const pv = version; prev.outerHTML = `<button class="vmini" data-act="noop"><img src="${poster(g)}" alt=""><span class="t"><b>${g.title} · v${pv}</b><small>Earlier version</small></span><span class="rs">Restore</span></button>`; }
     version++;
     $('#typing').outerHTML = `<div class="ma"><p>Done! I applied “${escapeHTML(t)}”. Same style, new version.</p>${vcardHTML(g, version)}<div class="macts"><button data-act="noop">${I.refresh}Undo to v${version - 1}</button><button data-act="good">${I.check}Good</button></div></div>`;
-    $('#chatSub').textContent = published ? `Published · v${version} draft` : `Draft · v${version} saved`;
+    $('#chatSub').textContent = published ? `Published · v${version} draft` : `Draft saved · v${version}`;
     const v = $$('.vcard video', th).pop(); v && v.play().catch(() => {});
     th.scrollTo({ top:th.scrollHeight, behavior:'smooth' });
   }, 1600);
@@ -1480,7 +1500,7 @@ function openR3d() {
       <div class="busy" id="r3dBusy"><img src="${M('mascot-idle.gif')}" alt=""><span id="busyTxt">Restyling…</span></div></div>
     <div class="r3d-foot"><small>Change style</small>
       <div class="stylechips">${chips.map(s => `<button class="${s.k === r3dStyle ? 'on' : ''}" data-act="restyle" data-k="${s.k}"><span class="cth"><img src="${M(s.img)}" alt=""></span>${s.label}</button>`).join('')}</div>
-      <form class="inbar" id="r3dForm"><button type="button" class="att-b" data-act="noop" aria-label="Attach">${I.plus}</button><input id="r3dIn" placeholder="Tell me what to change…" autocomplete="off" aria-label="Change the model"><button type="button" class="mic" data-act="noop" aria-label="Speak">${I.mic}</button><button class="go" id="r3dGo" aria-label="Send">${I.arrowUp}</button></form>
+      ${inbarHTML('r3d', 'Change the model')}
     </div>`);
   applyStyle(r3dStyle, true);
   wireRotate($('#stage3d'));
@@ -1556,7 +1576,7 @@ const A = {
   'build-notify': () => { clearTimers('sub-build'); const c = Object.assign({}, snapCtx); closeSub('sub-build'); closeSub('sub-style'); setMode('snap'); toast('Building in the background'); setTimeout(() => toast(`${c.name} is ready in 3D`, 'Open', () => { if ($('#create').hidden) openCreate('snap'); snapCtx = c; setTimeout(openR3d, 400); }), 3800); },
   'sub-close': () => closeSub(),
   'chat-close': () => { closeSub('sub-chat'); resetPrompt(); },
-  'chat-play': (b) => { const card = b.closest('.vcard'); enterWorld(G[card.dataset.g], card, null, null, $('video', card)); },
+  'chat-play': (b) => { const card = b.closest('.vcard, .c4-prev'); enterWorld(G[card.dataset.g], card, null, null, $('video', card)); },
   'good': (b) => { b.style.color = 'var(--white)'; toast('Thanks for the feedback'); },
   'sugg': (b) => tweak(b.textContent),
   'publish': (b) => { if (published) return; published = true; b.textContent = 'Published'; b.className = 'pbtn cta-soft'; $('#chatSub').textContent = `Published · v${version}`; state.published.unshift(chatGame.id); buzz([10, 30, 10]); toast('Published · it’s on your profile now', 'View', () => { closeCreate(); setTimeout(() => { setTab('me'); state.meTab = 'games'; renderMe(); }, 400); }); },
