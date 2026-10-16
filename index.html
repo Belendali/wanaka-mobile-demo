@@ -318,10 +318,13 @@ svg{display:block;flex:none}
 .c-close{width:44px;height:40px;display:grid;place-items:center}
 .c-head .ttl{position:absolute;left:50%;width:max-content;transform:translateX(-50%);font-size:14px;font-weight:500;line-height:21px}
 .credits{height:32px;padding:0 12px 0 10px;box-sizing:border-box;border-radius:999px;background:rgba(255,255,255,.1);display:flex;align-items:center;font-size:12px;font-weight:500;line-height:18px}
-.c-track{flex:1;min-height:0;position:relative;overflow:hidden;margin-top:12px}
-.c-panes{position:absolute;inset:0;width:200%;display:flex;transition:transform .36s cubic-bezier(.2,.8,.2,1)}
-.c-panes.snap{transform:translateX(-50%)}
-.c-pane{width:50%;height:100%;padding:0 16px;box-sizing:border-box}
+/* Mode switch = one card flipping over: prompt box on the front, camera on the back */
+.c-track{flex:1;min-height:0;position:relative;margin-top:12px;perspective:1400px}
+.c-panes{position:absolute;inset:0 16px;transform-style:preserve-3d;transition:transform .72s cubic-bezier(.45,.05,.2,1)}
+.c-panes.snap{transform:rotateY(180deg)}
+.c-pane{position:absolute;inset:0;-webkit-backface-visibility:hidden;backface-visibility:hidden}
+.c-pane.back{transform:rotateY(180deg)}
+.c-panes.snap .c-pane.front,.c-panes:not(.snap) .c-pane.back{pointer-events:none}
 .pbox{height:100%;box-sizing:border-box;border-radius:28px;background:var(--surface);border:1px solid var(--line);position:relative;display:flex;flex-direction:column;padding:16px 12px 12px 18px}
 .pbox textarea{flex:1;min-height:0;resize:none;background:none;border:0;outline:none;color:var(--white);font:400 20px/1.5 var(--ui);padding:0 6px 0 0}
 .pbox textarea::placeholder{color:rgba(255,255,255,.4)}
@@ -756,7 +759,7 @@ svg{display:block;flex:none}
         </div>
         <div class="c-track" id="cTrack">
           <div class="c-panes" id="cPanes">
-            <div class="c-pane">
+            <div class="c-pane front">
               <div class="pbox" id="pbox">
                 <div class="attach-row" id="attachRow" hidden></div>
                 <div class="pfield">
@@ -772,7 +775,7 @@ svg{display:block;flex:none}
                 </div>
               </div>
             </div>
-            <div class="c-pane">
+            <div class="c-pane back">
               <div class="cam" id="cam">
                 <img class="feedimg" src="media/photo-shiba.webp" alt="Camera view">
                 <div class="cam-hint"><em>3D SNAP</em>Point at anything</div>
@@ -1267,7 +1270,12 @@ function closeCreate() {
 }
 function setMode(m) {
   mode = m;
-  $('#cPanes').classList.toggle('snap', m === 'snap');
+  const panes = $('#cPanes'), flip = panes.classList.contains('snap') !== (m === 'snap');
+  const shown = $('#create').classList.contains('in');
+  if (!shown) { panes.style.transition = 'none'; requestAnimationFrame(() => requestAnimationFrame(() => { panes.style.transition = ''; })); }
+  panes.classList.toggle('snap', m === 'snap');
+  // a small lift while the card turns over
+  if (flip && shown) { $('#cTrack').animate([{ transform:'scale(1)' }, { transform:'scale(.9)', offset:.45 }, { transform:'scale(1)' }], { duration:720, easing:'cubic-bezier(.45,.05,.2,1)' }); buzz(8); }
   $('#create').classList.toggle('snap', m === 'snap');
   if (m === 'snap') $('#cSheet').classList.remove('open');
   $$('#modes button').forEach(b => b.classList.toggle('on', b.dataset.mode === m));
