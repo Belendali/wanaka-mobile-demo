@@ -664,6 +664,174 @@ svg{display:block;flex:none}
 .stylechips .cth img{width:90%;height:90%;object-fit:contain}
 .icon-btn.del svg{opacity:.85}
 
+/* ---------- chats (4th tab) ---------- */
+.tabbar .tb{position:relative}
+.tabbar .tb .tdot{position:absolute;top:10px;right:12px;width:8px;height:8px;border-radius:4px;background:var(--danger);border:1.5px solid #1e191b}
+.ch-wrap{position:absolute;inset:0;padding:calc(var(--sb) + 6px) 0 120px;box-sizing:border-box}
+.ch-head{display:flex;align-items:center;justify-content:space-between;padding:0 20px}
+.ch-head h1{margin:0;font-size:24px;font-weight:600}
+.ch-tabs{margin:12px 20px 4px;height:40px;border-radius:999px;background:rgba(255,255,255,.06);padding:4px;display:grid;grid-template-columns:1fr 1fr;box-sizing:border-box}
+.ch-tabs button{border-radius:999px;font-size:14px;font-weight:500;color:rgba(255,255,255,.5);display:flex;align-items:center;justify-content:center;gap:4px}
+.ch-tabs button.on{background:var(--raised);color:var(--white);font-weight:600}
+.ch-tabs .dot{width:6px;height:6px;border-radius:3px;background:var(--danger)}
+.ch-list{padding:0 20px}
+.ch-label{font-size:12px;font-weight:500;color:rgba(255,255,255,.5);padding:14px 0 6px}
+.crow{position:relative;overflow:hidden}
+.crow-acts{position:absolute;right:0;top:0;bottom:0;display:flex;align-items:center;gap:8px}
+.crow-acts button{width:64px;height:64px;border-radius:18px;background:rgba(255,255,255,.12);display:grid;place-items:center;align-content:center;gap:4px;font-size:12px;font-weight:500}
+.crow-acts button svg{width:20px;height:20px}
+.crow-acts .del{background:var(--danger)}
+.crow-main{position:relative;z-index:1;display:flex;align-items:center;gap:12px;padding:10px 0;background:var(--bg);transition:transform .28s cubic-bezier(.2,.8,.2,1);touch-action:pan-y;cursor:pointer;user-select:none;-webkit-user-select:none}
+.crow.open .crow-main{transform:translateX(-224px)}
+.crow[data-f].open .crow-main{transform:translateX(-152px)}
+.cthumb{width:56px;height:56px;border-radius:16px;overflow:hidden;flex:none;display:grid;place-items:center;background:radial-gradient(circle at 50% 60%,#54473F 0%,#262121 100%)}
+.cthumb img{width:100%;height:100%;object-fit:cover}
+.cthumb.model img{width:88%;height:88%;object-fit:contain}
+.cthumb.round{border-radius:28px}
+.cthumb.work{background:var(--raised)}
+.cthumb.work img{width:80%;height:80%;object-fit:contain}
+.ctext{flex:1;min-width:0;display:grid}
+.ctext b{font-size:16px;font-weight:600;line-height:24px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ctext small{font-size:14px;color:rgba(255,255,255,.55);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:21px}
+.cmeta{flex:none;display:grid;justify-items:end;gap:8px;font-size:12px;color:rgba(255,255,255,.45)}
+.cmeta i{width:8px;height:8px;border-radius:4px;background:var(--danger)}
+.ch-empty{display:grid;justify-items:center;text-align:center;gap:8px;padding-top:110px}
+.ch-empty img{width:120px;height:120px;object-fit:contain}
+.ch-empty b{font-size:20px;font-weight:600}
+.ch-empty small{font-size:14px;color:var(--muted);max-width:240px}
+.ch-empty button{margin-top:12px;height:48px;padding:0 24px;font-size:16px}
+/* ---------- big card view: first result / a version / opened from Me ---------- */
+.vw-top{position:absolute;top:calc(var(--sb) + 4px);left:16px;right:16px;height:40px;display:flex;justify-content:space-between;align-items:center;z-index:5}
+.vw-toast{position:absolute;left:50%;top:calc(var(--sb) + 8px);width:max-content;z-index:6;display:flex;align-items:center;gap:6px;padding:8px 14px 8px 12px;border-radius:999px;background:var(--white);color:var(--bg);font-size:14px;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.35);animation:vwt 2.8s ease forwards;pointer-events:none}
+@keyframes vwt{0%{opacity:0;transform:translate(-50%,-8px)}12%,82%{opacity:1;transform:translate(-50%,0)}100%{opacity:0;transform:translate(-50%,-8px)}}
+.vw-toast svg{width:14px;height:14px}
+.vw-card{position:absolute;left:16px;right:16px;top:calc(var(--sb) + 56px);bottom:var(--vwb,108px);border-radius:32px;overflow:hidden;background:#000;cursor:pointer}
+.vw-card .media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.vw-card::after{content:"";position:absolute;left:0;right:0;bottom:0;height:200px;background:linear-gradient(rgba(20,14,16,0),rgba(20,14,16,.85));pointer-events:none}
+.vw-card .tagpx{position:absolute;top:14px;left:14px;z-index:2}
+.vw-play{position:absolute;left:50%;top:50%;width:72px;height:72px;margin:-36px 0 0 -36px;border-radius:36px;background:var(--white);color:var(--bg);display:grid;place-items:center;z-index:2}
+.vw-play svg{width:30px;height:30px}
+.vw-info{position:absolute;left:18px;right:18px;bottom:18px;z-index:2;display:grid;gap:4px}
+.vw-info h2{margin:0;font-size:24px;font-weight:600;line-height:30px}
+.vw-info small{display:flex;align-items:center;gap:5px;font-size:12px;color:rgba(255,255,255,.7)}
+.vw-info small svg{width:12px;height:12px;flex:none}
+.vw-stage{background:radial-gradient(circle at 50% 55%,#3B3332 0%,#1B1617 75%);touch-action:none;cursor:grab}
+.vw-stage .plate{position:absolute;left:50%;top:64%;width:240px;height:48px;margin-left:-120px;border-radius:50%;border:1.5px solid rgba(255,255,255,.18)}
+.vw-stage .mw{position:absolute;left:0;right:0;top:10%;height:58%;display:grid;place-items:end center;perspective:900px}
+.vw-stage .mw img{max-height:100%;max-width:80%;object-fit:contain;filter:drop-shadow(0 18px 24px rgba(0,0,0,.5));will-change:transform}
+.vw-foot{position:absolute;left:16px;right:16px;bottom:30px;display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
+.vw-styles{min-width:0}
+.vw-acts{display:flex;gap:12px}
+.vw-acts button{flex:1;height:54px;border-radius:999px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:16px;font-weight:600}
+.vw-acts svg{width:20px;height:20px}
+.vw-acts .sec{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16)}
+.vw-acts .pri{background:var(--white);color:var(--bg)}
+.vw-styles small{display:block;font-size:12px;color:rgba(255,255,255,.55);margin-bottom:8px}
+.pop{position:absolute;top:calc(var(--sb) + 52px);right:16px;width:180px;padding:6px 0;border-radius:18px;background:rgba(41,36,38,.97);border:1px solid var(--line);box-shadow:0 12px 30px rgba(0,0,0,.5);z-index:8}
+.pop button{width:100%;display:flex;align-items:center;gap:12px;padding:12px 16px;font-size:14px;font-weight:500}
+.pop button svg{width:20px;height:20px}
+.pop .red{color:var(--danger)}
+.pop i{display:block;height:1px;margin:0 16px;background:var(--faint)}
+/* chat cards */
+.vcard{cursor:pointer}
+.vcard .pl{pointer-events:none}
+.mcard{width:325px;max-width:100%;height:240px;border-radius:22px;position:relative;overflow:hidden;background:radial-gradient(circle at 50% 60%,#3B3332 0%,#1B1617 80%);cursor:pointer;flex:none}
+.mcard img.m{position:absolute;left:50%;top:20px;height:180px;max-width:80%;transform:translateX(-50%);object-fit:contain}
+.mcard .plate{position:absolute;left:50%;bottom:24px;width:180px;height:36px;margin-left:-90px;border-radius:50%;border:1.5px solid rgba(255,255,255,.16)}
+.mcard .tagpx{position:absolute;top:12px;left:12px}
+.mcard .rot{position:absolute;left:12px;bottom:10px;display:flex;align-items:center;gap:5px;font-size:12px;color:rgba(255,255,255,.6)}
+.mcard .rot svg{width:12px;height:12px}
+.mcard .busy{position:absolute;inset:0;display:grid;place-items:center;align-content:center;gap:8px;background:rgba(20,14,16,.6);font-family:var(--pixel);font-size:10px}
+.mcard .busy img{width:64px;height:64px}
+.mu .via{font-size:12px;color:rgba(255,255,255,.4)}
+.tagpx.lime{background:var(--lime);color:var(--lime-ink)}
+/* published */
+.pd{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center}
+.pd-card{margin-top:calc(var(--sb) + 74px);width:230px;height:320px;border-radius:28px;overflow:hidden;position:relative;transform:rotate(-3deg);box-shadow:0 20px 40px rgba(0,0,0,.5);animation:pdin .7s cubic-bezier(.2,1.3,.3,1)}
+@keyframes pdin{from{transform:rotate(-12deg) scale(.6);opacity:0}}
+.pd-card img{width:100%;height:100%;object-fit:cover}
+.pd-card .tagpx{position:absolute;top:12px;left:12px}
+.pd h2{margin:36px 0 4px;font-size:24px;font-weight:600}
+.pd p{margin:0;font-size:14px;color:rgba(255,255,255,.55)}
+.pd-share{display:flex;gap:22px;margin-top:28px}
+.pd-share button{display:grid;justify-items:center;gap:8px;font-size:12px;font-weight:500;color:rgba(255,255,255,.8)}
+.pd-share span{width:56px;height:56px;border-radius:28px;background:rgba(255,255,255,.1);display:grid;place-items:center}
+.pd-share svg{width:22px;height:22px}
+.pd-foot{margin-top:auto;align-self:stretch;padding:0 16px 30px;display:grid;justify-items:center;gap:6px}
+.pd-foot .pri{width:100%;height:54px;border-radius:999px;background:var(--white);color:var(--bg);font-weight:600;font-size:16px}
+.pd-foot .lnk{padding:12px;font-weight:600;font-size:14px;color:rgba(255,255,255,.75)}
+/* publish / rename / share / out-of-credits sheets */
+.pub h3{margin:0 0 6px;font-size:20px;font-weight:600}
+.pub .lb{font-size:12px;font-weight:500;color:rgba(255,255,255,.5);margin:14px 0 8px}
+.pub .covers{display:flex;gap:8px}
+.pub .covers button{width:80px;height:108px;border-radius:16px;overflow:hidden;position:relative;flex:none}
+.pub .covers img{width:100%;height:100%;object-fit:cover}
+.pub .covers .on::after{content:"";position:absolute;inset:0;border-radius:16px;box-shadow:inset 0 0 0 2.5px var(--white)}
+.pub .covers .ingame{background:rgba(255,255,255,.06);display:grid;place-items:center;align-content:center;gap:6px;font-size:12px;color:rgba(255,255,255,.7)}
+.pub .covers .ingame svg{width:20px;height:20px}
+.pub .field,.sf .field{width:100%;height:50px;border-radius:16px;background:rgba(255,255,255,.06);border:1px solid transparent;color:var(--white);font:400 15px var(--ui);padding:0 16px;box-sizing:border-box;outline:none}
+.pub .field:focus,.sf .field:focus{border-color:rgba(255,255,255,.3)}
+.pub .seg2{display:grid;grid-template-columns:repeat(3,1fr);height:44px;padding:4px;border-radius:999px;background:rgba(255,255,255,.06);box-sizing:border-box}
+.pub .seg2 button{border-radius:999px;font-size:14px;font-weight:500;color:rgba(255,255,255,.5)}
+.pub .seg2 .on{background:var(--raised);color:var(--white);font-weight:600}
+.pub .rowsw{display:flex;align-items:center;gap:12px;margin-top:16px}
+.pub .rowsw .t{flex:1;display:grid}
+.pub .rowsw b{font-size:14px;font-weight:600}
+.pub .rowsw small{font-size:12px;color:rgba(255,255,255,.5)}
+.pub .post,.sf .send2,.oc .pri{width:100%;height:54px;margin-top:20px;border-radius:999px;background:var(--white);color:var(--bg);font-size:16px;font-weight:600}
+.sf h3{margin:0 0 14px;font-size:16px;font-weight:600}
+.sf .ppl{display:flex;gap:14px;overflow-x:auto;scrollbar-width:none;padding:3px}
+.sf .ppl button{flex:none;display:grid;justify-items:center;gap:6px;font-size:12px;font-weight:500;color:rgba(255,255,255,.6);position:relative}
+.sf .ppl img{width:56px;height:56px;border-radius:28px;object-fit:cover}
+.sf .ppl .on{color:var(--white)}
+.sf .ppl .on img{box-shadow:0 0 0 2.5px var(--white)}
+.sf .ppl .ck{position:absolute;top:38px;left:38px;width:20px;height:20px;border-radius:10px;background:var(--white);color:var(--bg);display:none;place-items:center}
+.sf .ppl .on .ck{display:grid}
+.sf .ppl .ck svg{width:12px;height:12px}
+.sf .field{margin-top:16px}
+.sf .send2:disabled{opacity:.4}
+.sf .dm-pick{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sf .dm-pick button{display:grid;gap:6px;text-align:left}
+.sf .dm-pick b{font-size:14px;font-weight:600}
+.sf .dm-pick img{width:100%;aspect-ratio:16/10;border-radius:16px;object-fit:cover}
+.oc{display:grid;justify-items:center;text-align:center}
+.oc img{width:96px;height:96px;object-fit:contain}
+.oc h3{margin:12px 0 6px;font-size:20px;font-weight:600}
+.oc p{margin:0;font-size:14px;color:rgba(255,255,255,.55);line-height:1.5}
+.oc .lnk{margin-top:6px;padding:12px;font-weight:600;font-size:14px;color:rgba(255,255,255,.7)}
+.dr-sub{margin:0 0 14px;font-size:14px;color:var(--muted)}
+/* remix source in the prompt box */
+.remix-src{flex:none;display:flex;align-items:center;gap:10px;padding:8px 12px 8px 8px;border-radius:18px;background:rgba(255,255,255,.06);margin-bottom:14px}
+.remix-src img{width:48px;height:48px;border-radius:12px;object-fit:cover}
+.remix-src .t{flex:1;min-width:0;display:grid}
+.remix-src b{font-size:14px;font-weight:600;display:flex;align-items:center;gap:5px}
+.remix-src b svg{width:14px;height:14px}
+.remix-src small{font-size:12px;color:rgba(255,255,255,.55);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.remix-src .x2{width:24px;height:24px;border-radius:12px;background:rgba(255,255,255,.1);display:grid;place-items:center;flex:none}
+.remix-src .x2 svg{width:12px;height:12px}
+/* friends DM */
+.dm-head{flex:none;height:44px;margin-top:calc(var(--sb) + 2px);display:flex;align-items:center;gap:10px;padding:0 16px}
+.dm-head > img{width:36px;height:36px;border-radius:18px;object-fit:cover}
+.dm-head b{display:block;font-size:16px;font-weight:600;line-height:20px}
+.dm-head small{font-size:12px;color:rgba(255,255,255,.55)}
+.dm-thread{flex:1;min-height:0;overflow-y:auto;scrollbar-width:none;padding:16px;display:flex;flex-direction:column;gap:12px}
+.dm-day{align-self:center;font-size:12px;color:rgba(255,255,255,.4)}
+.dm-row{display:flex;gap:8px;align-items:flex-end}
+.dm-row.me{justify-content:flex-end}
+.dm-row > img{width:28px;height:28px;border-radius:14px;object-fit:cover;flex:none}
+.dm-bub{max-width:72%;padding:10px 14px;border-radius:20px 20px 20px 6px;background:rgba(255,255,255,.08);font-size:14px;line-height:1.45}
+.dm-row.me .dm-bub{border-radius:20px 20px 6px 20px;background:rgba(255,255,255,.16)}
+.dm-card{width:248px;padding:8px 8px 10px;border-radius:22px;background:rgba(255,255,255,.06);display:grid;gap:8px;box-sizing:border-box}
+.dm-row:not(.me) .dm-card{margin-left:36px}
+.dm-card .cv{display:block;height:132px;border-radius:16px;overflow:hidden;position:relative}
+.dm-card .cv img{width:100%;height:100%;object-fit:cover}
+.dm-card .cv .tagpx{position:absolute;top:8px;left:8px}
+.dm-card .bar{display:flex;align-items:center;gap:8px;padding:0 4px}
+.dm-card .bar .t{flex:1;min-width:0;display:grid}
+.dm-card .bar b{font-size:14px;font-weight:600}
+.dm-card .bar small{font-size:12px;color:rgba(255,255,255,.55)}
+.dm-card .bar button{height:32px;padding:0 14px;border-radius:999px;background:var(--white);color:var(--bg);font-size:14px;font-weight:600}
+
 /* toast */
 .toast{position:absolute;left:50%;width:max-content;bottom:96px;z-index:90;transform:translate(-50%,20px);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;display:flex;align-items:center;gap:10px;padding:10px 12px 10px 16px;border-radius:999px;background:var(--white);color:var(--bg);font-size:13px;font-weight:500;white-space:nowrap;box-shadow:0 10px 30px rgba(0,0,0,.4);max-width:calc(100% - 32px)}
 .toast.in{opacity:1;transform:translate(-50%,0);pointer-events:auto}
@@ -684,8 +852,9 @@ svg{display:block;flex:none}
     <ol>
       <li><span>01</span><span><b>Home</b>：上下滑刷视频；点一下出现 Play / Remix；<b>长按</b>直接进入游戏</span></li>
       <li><span>02</span><span><b>Discover</b>：推荐卡直接 Play；点网格卡片进入单独的 Feed</span></li>
-      <li><span>03</span><span><b>中间黑猫</b>：Create with AI 打字或加照片生成游戏；右滑到 <b>3D Snap</b> 拍照转 3D</span></li>
-      <li><span>04</span><span><b>Me</b>：会员、我的游戏、保存的 3D 资产、下载</span></li>
+      <li><span>03</span><span><b>中间黑猫</b>：Create with AI 生成游戏，右滑 <b>3D Snap</b> 拍照转 3D（自动存进 Assets）。所有修改、换风格都在 chat 里完成；点 chat 里的版本卡片可以单独 Publish</span></li>
+      <li><span>04</span><span><b>Chats</b>：Agents 是每个游戏 / 3D 的对话，左滑 Rename · Pin · Delete；Friends 是好友私信，可以互发游戏</span></li>
+      <li><span>05</span><span><b>Me</b>：Games 里是已发布的游戏，没发布的最新版本在 <b>Drafts</b>；Assets 里点模型可以 Keep editing 或 Put in a game</span></li>
     </ol>
     <div class="note">视频为示意素材；生成过程为模拟。</div>
   </aside>
@@ -725,9 +894,9 @@ svg{display:block;flex:none}
         </div>
       </section>
 
-      <!-- FRIENDS -->
-      <section class="screen" id="s-friends" hidden>
-        <div class="f-wrap vscroll" id="friendsWrap"></div>
+      <!-- CHATS: every conversation with Wana (Agents) and with friends -->
+      <section class="screen" id="s-chats" hidden>
+        <div class="ch-wrap vscroll" id="chatsWrap"></div>
       </section>
 
       <!-- ME -->
@@ -748,7 +917,7 @@ svg{display:block;flex:none}
           <button class="tb on" data-tab="home" aria-label="Home"></button>
           <button class="tb" data-tab="discover" aria-label="Discover"></button>
           <button class="tb-create" data-act="open-create" aria-label="Create"><img src="media/mascot-plus.webp" alt=""></button>
-          <button class="tb" data-tab="friends" aria-label="Friends"></button>
+          <button class="tb" data-tab="chats" aria-label="Chats"></button>
           <button class="tb" data-tab="me" aria-label="Me"></button>
         </div>
       </nav>
@@ -764,6 +933,7 @@ svg{display:block;flex:none}
           <div class="c-panes" id="cPanes">
             <div class="c-pane front">
               <div class="pbox" id="pbox">
+                <div class="remix-src" id="remixSrc" hidden></div>
                 <div class="attach-row" id="attachRow" hidden></div>
                 <div class="pfield">
                   <textarea id="prompt" placeholder="Describe it. We’ll make it playable…" aria-label="Describe your idea"></textarea>
@@ -808,7 +978,11 @@ svg{display:block;flex:none}
       <section class="sub" id="sub-chat" hidden></section>
       <section class="sub" id="sub-style" hidden></section>
       <section class="sub" id="sub-build" hidden></section>
-      <section class="sub" id="sub-r3d" hidden></section>
+      <section class="sub" id="sub-view" hidden></section>
+      <section class="sub" id="sub-view2" hidden></section>
+      <section class="sub" id="sub-pub" hidden></section>
+      <section class="sub" id="sub-drafts" hidden></section>
+      <section class="sub" id="sub-dm" hidden></section>
 
       <!-- PLAY -->
       <section class="screen play" id="play" hidden></section>
@@ -885,6 +1059,14 @@ const I = {
   batt: `<svg width="27" height="13" viewBox="0 0 27 13" aria-hidden="true"><rect x=".5" y=".5" width="23" height="12" rx="3.5" fill="none" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="20" height="9" rx="2" fill="currentColor"/><path d="M25 4.5v4c.8-.3 1.4-1.1 1.4-2s-.6-1.7-1.4-2Z" fill="currentColor" opacity=".45"/></svg>`,
 };
 const IC = (n, s) => `<img src="media/icons/${n}.svg" width="${s}" height="${s}" alt="">`;
+Object.assign(I, {
+  pencil: sv(`<path ${S} d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16v4Z"/><path ${S} d="m13.5 6.5 4 4"/>`),
+  pin: sv(`<path ${S} d="M9 4h6l-1 5 3 3v2H7v-2l3-3-1-5ZM12 14v6"/>`),
+  link: sv(`<path ${S} d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>`),
+  story: sv(`<circle ${S} cx="12" cy="12" r="8.5" stroke-dasharray="3 2.4"/><path ${S} d="M12 8.5v7M8.5 12h7"/>`),
+  publish: sv(`<path ${S} d="M12 15V4m0 0L7.5 8.5M12 4l4.5 4.5M5 14v3.5A2.5 2.5 0 0 0 7.5 20h9a2.5 2.5 0 0 0 2.5-2.5V14"/>`),
+});
+Object.assign(I, { pencilD: I.pencil, shareD: I.shareL, publishD: I.publish, gamesD: I.games, checkD: I.check, trashR: I.trash });
 const fillIcons = (root = document) => $$('[data-ic]', root).forEach(el => { if (!el.dataset.done) { el.insertAdjacentHTML('afterbegin', I[el.dataset.ic] || ''); el.dataset.done = 1; } });
 
 /* ---------------- data ---------------- */
@@ -923,15 +1105,7 @@ const SNAPS = { 'photo-cafe':{ model:'model-cafe', name:'Café Pup' }, 'photo-gi
 
 const state = {
   tab:'home', ftab:'explore', credits:3, attachments:[], idea:false,
-  published:['deep','paw','dark'], drafts:['deep','escape'],
-  assets:[
-    { name:'Café Pup', type:'3D · Soft plush', img:'model-cafe.webp' },
-    { name:'Park Reader', type:'3D · Figure', img:'model-girl.webp' },
-    { name:'Fluffy Pup', type:'3D · Plush', img:'model-plush.webp' },
-    { name:'Bonsai', type:'3D · Pixelated', img:'plant-pixel.webp' },
-    { name:'Fuzzy Plant', type:'3D · Flocked', img:'plant-flocked.webp' },
-    { name:'Sprout', type:'3D · Basic', img:'plant-basic.webp' },
-  ],
+  works:[], dms:{}, chatTab:'agents', chatsDot:false, remix:null,
   saved:['clash','neon','garden'],
   downloads:['ivy'],
   meTab:'games',
@@ -1116,7 +1290,7 @@ function exitPlay() {
 }
 function resumeVisible() {
   if (!$('#play').hidden) { const v = $('#play video'); v && v.play().catch(() => {}); return; }
-  if (!$('#create').hidden) { $$('.sub.in .vcard video').forEach(v => v.play().catch(() => {})); return; }
+  if (!$('#create').hidden || subStack.length) { $$('.sub.in .vcard video, .sub.in .vw-card video').forEach(v => v.play().catch(() => {})); return; }
   if ($('#gfeed').classList.contains('in')) syncFeed($('#gFeed'), true);
   else if (state.tab === 'home') syncFeed($('#homeFeed'), true);
   else if (state.tab === 'discover') playCarousel();
@@ -1144,13 +1318,14 @@ function setTab(t) {
     return;
   }
   state.tab = t;
-  ['home','discover','friends','me'].forEach(k => { $('#s-' + k).hidden = k !== t; });
+  ['home','discover','chats','me'].forEach(k => { $('#s-' + k).hidden = k !== t; });
   setCompact(t === 'home' && $('#homeFeed').scrollTop > 20);
   $$('.tabbar .tb').forEach(b => b.classList.toggle('on', b.dataset.tab === t));
   pauseAll();
   if (t === 'home') syncFeed($('#homeFeed'), true);
   if (t === 'discover') playCarousel(); else pauseCarousel();
   if (t === 'me') renderMe();
+  if (t === 'chats') { state.chatsDot = false; updateTabDot(); renderChats(); }
 }
 
 /* ---------------- discover ---------------- */
@@ -1215,23 +1390,132 @@ function closeGameFeed() {
   pauseAll(); setTimeout(() => { gf.hidden = true; $('#gFeed').innerHTML = ''; playCarousel(); }, 340);
 }
 
-/* ---------------- friends ---------------- */
-function renderFriends() {
-  const now = [['av-2','bowie','cafe'],['av-4','nekoium','neon'],['av-1','mossmaker','ivy'],['av-3','cienly','garden'],['av-6','mochi','deep']];
-  $('#friendsWrap').innerHTML = `<h1>Friends</h1><p class="f-sub">See what your friends are playing and making</p>
-    <div class="now">${now.map(([a, n, g]) => `<button data-act="friend-play" data-g="${g}"><span class="ph"><img class="a" src="${M(a + '.webp')}" alt=""><img class="g" src="${poster(G[g])}" alt=""></span><span>${n}</span></button>`).join('')}</div>
-    <div class="sec-label">Today</div>
-    <div class="f-list">
-      <div class="f-item"><img src="${M('av-2.webp')}" alt=""><span class="t"><b>bowie</b> beat your score in Neon Nights<small>2 min ago · 18,420 pts</small></span><button class="act cta-white" data-act="friend-play" data-g="neon">Rematch</button></div>
-      <div class="f-item"><img src="${M('av-6.webp')}" alt=""><span class="t"><b>mochi</b> remixed your Deep Feast<small>1 hr ago</small></span><img class="th" src="${M('cover-deep.webp')}" alt=""></div>
-      <div class="f-item"><img src="${M('av-3.webp')}" alt=""><span class="t"><b>cienly</b> invited you to Tiny Greenhouse<small>3 hr ago</small></span><button class="act cta-soft" data-act="friend-play" data-g="garden">Join</button></div>
-      <div class="f-item"><img src="${M('av-4.webp')}" alt=""><span class="t"><b>nekoium</b> made a new 3D character<small>5 hr ago</small></span><img class="th" src="${M('model-girl.webp')}" alt="" style="object-fit:contain;background:#3a3332"></div>
-    </div>`;
+/* ---------------- works: every game or 3D model is one chat with versions ---------------- */
+const STYLE_ALL = () => [...STYLES, ...COMMUNITY];
+const styleOf = k => STYLE_ALL().find(s => s.k === k) || { k, label: k ? k[0].toUpperCase() + k.slice(1) : 'Basic', filter:'none' };
+let workSeq = 0;
+function newWork(o) {
+  const w = Object.assign({ id:'w' + (++workSeq), versions:[], pinned:false, unread:false, publishedV:null, time:'now', last:'', working:null }, o);
+  state.works.unshift(w); return w;
+}
+const workById = id => state.works.find(w => w.id === id);
+const latest = w => w.versions[w.versions.length - 1];
+const verOf = (w, n) => w.versions.find(v => v.n === +n) || latest(w);
+const isDraft = w => w.kind === 'game' && w.versions.length && (w.publishedV == null || w.publishedV < latest(w).n);
+const gameOf = w => Object.assign({}, G[w.base], { id:w.id, title:w.title, creator:'@yy.makes', av:'av-6' });
+const pixelCache = {};
+function pixelate(img) {
+  const src = img.getAttribute('src');
+  if (pixelCache[src]) { img.src = pixelCache[src]; img.style.imageRendering = 'pixelated'; return; }
+  const im = new Image(); im.onload = () => { try { const w = 40, h = Math.round(im.height / im.width * w); const c1 = document.createElement('canvas'); c1.width = w; c1.height = h; c1.getContext('2d').drawImage(im, 0, 0, w, h); const c2 = document.createElement('canvas'); c2.width = w * 12; c2.height = h * 12; const x = c2.getContext('2d'); x.imageSmoothingEnabled = false; x.drawImage(c1, 0, 0, c2.width, c2.height); pixelCache[src] = c2.toDataURL(); img.src = pixelCache[src]; img.style.imageRendering = 'pixelated'; } catch (e) {} }; im.src = src;
+}
+function modelImg(w, v, cls = 'm') {
+  const s = styleOf(v.style);
+  return `<img class="${cls}" src="${M(w.model + '.webp')}" style="${s.filter && s.filter !== 'none' ? 'filter:' + s.filter : ''}" ${s.pixel ? 'data-px="1"' : ''} alt="${w.title}" draggable="false">`;
+}
+const pixelAll = root => $$('img[data-px]', root).forEach(pixelate);
+function workThumb(w) {
+  if (w.working != null) return `<span class="cthumb work"><img src="${M('mascot-think.webp')}" alt=""></span>`;
+  if (w.kind === '3d') { const v = latest(w); return `<span class="cthumb model">${modelImg(w, v, '')}</span>`; }
+  return `<span class="cthumb"><img src="${poster(G[w.base])}" alt=""></span>`;
+}
+function assetList() { const out = []; for (const w of state.works) if (w.kind === '3d' && w.working == null) for (const v of w.versions) out.push({ w, v, name: w.title + (w.versions.length > 1 ? ` v${v.n}` : ''), img: w.model + '.webp' }); return out; }
+function updateTabDot() { const tb = $('.tabbar .tb[data-tab="chats"]'); if (!tb) return; let d = $('.tdot', tb); if (state.chatsDot && !d) tb.insertAdjacentHTML('beforeend', '<i class="tdot"></i>'); if (!state.chatsDot && d) d.remove(); }
+
+/* ---------------- chats (4th tab) ---------------- */
+const FRIENDS = { bowie:'av-2', mochi:'av-6', nekoium:'av-4', cienly:'av-3', mossmaker:'av-1' };
+function renderChats() {
+  const wrap = $('#chatsWrap'); if (!wrap) return;
+  const agents = state.chatTab === 'agents';
+  const dmUnread = Object.values(state.dms).some(d => d.unread);
+  let list = '';
+  if (agents) {
+    if (!state.works.length) list = `<div class="ch-empty"><img src="${M('mascot-plus.webp')}" alt=""><b>No chats yet</b><small>Everything you make with Wana shows up here.</small><button class="cta-white" data-act="open-create">Start creating</button></div>`;
+    else {
+      const pinned = state.works.filter(w => w.pinned), rest = state.works.filter(w => !w.pinned);
+      const sec = (label, ws) => ws.length ? `<div class="ch-label">${label}</div>${ws.map(rowHTML).join('')}` : '';
+      list = sec('Pinned', pinned) + sec('Today', rest);
+    }
+  } else {
+    const names = Object.keys(state.dms);
+    const pinned = names.filter(n => state.dms[n].pinned), rest = names.filter(n => !state.dms[n].pinned);
+    const sec = (label, ns) => ns.length ? `<div class="ch-label">${label}</div>${ns.map(friendRowHTML).join('')}` : '';
+    list = sec('Pinned', pinned) + sec('Today', rest);
+  }
+  wrap.innerHTML = `<div class="ch-head"><h1>Chats</h1><button class="icon-btn" data-act="noop" aria-label="Search">${I.search}</button></div>
+    <div class="ch-tabs"><button class="${agents ? 'on' : ''}" data-act="ch-tab" data-k="agents">Agents</button><button class="${agents ? '' : 'on'}" data-act="ch-tab" data-k="friends">Friends${dmUnread && agents ? '<i class="dot"></i>' : ''}</button></div>
+    <div class="ch-list">${list}</div>`;
+  pixelAll(wrap);
+}
+function rowHTML(w) {
+  const meta = w.working != null ? `<span>${Math.round(w.working)}%</span>` : `<span>${w.time}</span>${w.unread ? '<i></i>' : ''}`;
+  const preview = w.working != null ? 'Wana: building…' : w.last;
+  return `<div class="crow" data-w="${w.id}"><div class="crow-acts"><button data-act="row-rename" data-w="${w.id}">${I.pencil}Rename</button><button data-act="row-pin" data-w="${w.id}">${I.pin}${w.pinned ? 'Unpin' : 'Pin'}</button><button class="del" data-act="row-del" data-w="${w.id}">${I.trash}Delete</button></div>
+    <div class="crow-main" data-act="row-open" data-w="${w.id}">${workThumb(w)}<span class="ctext"><b>${escapeHTML(w.title)}</b><small>${escapeHTML(preview)}</small></span><span class="cmeta">${meta}</span></div></div>`;
+}
+function friendRowHTML(n) {
+  const d = state.dms[n]; const last = d.msgs[d.msgs.length - 1];
+  const prev = last.game ? `${last.me ? 'You' : n}: sent a game · ${G[last.game] ? G[last.game].title : (workById(last.game) || {}).title || ''}` : `${last.me ? 'You: ' : ''}${last.text}`;
+  return `<div class="crow" data-f="${n}"><div class="crow-acts"><button data-act="row-pin-f" data-f="${n}">${I.pin}${d.pinned ? 'Unpin' : 'Pin'}</button><button class="del" data-act="row-del-f" data-f="${n}">${I.trash}Delete</button></div>
+    <div class="crow-main" data-act="dm-open" data-f="${n}"><span class="cthumb round"><img src="${M(FRIENDS[n] + '.webp')}" alt=""></span><span class="ctext"><b>${n}</b><small>${escapeHTML(prev)}</small></span><span class="cmeta"><span>${d.time}</span>${d.unread ? '<i></i>' : ''}</span></div></div>`;
+}
+// swipe a row left to reveal Rename / Pin / Delete
+let swipe = null, swipedJustNow = false;
+function wireChatsSwipe() {
+  const wrap = $('#chatsWrap');
+  wrap.addEventListener('pointerdown', e => { const m = e.target.closest('.crow-main'); if (!m) return; swipe = { m, row: m.parentElement, x: e.clientX, y: e.clientY, dx: 0, open: m.parentElement.classList.contains('open'), drag: false }; });
+  wrap.addEventListener('pointermove', e => { if (!swipe) return; const dx = e.clientX - swipe.x, dy = e.clientY - swipe.y;
+    if (!swipe.drag) { if (Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy)) { swipe.drag = true; swipe.m.style.transition = 'none'; } else return; }
+    const base = swipe.open ? -swipe.row.querySelector('.crow-acts').offsetWidth - 8 : 0; swipe.dx = dx;
+    swipe.m.style.transform = `translateX(${Math.min(0, Math.max(-260, base + dx))}px)`; });
+  const end = () => { if (!swipe) return; const s = swipe; swipe = null; if (!s.drag) return;
+    s.m.style.transition = ''; s.m.style.transform = ''; swipedJustNow = true; setTimeout(() => swipedJustNow = false, 50);
+    const open = s.open ? s.dx < 40 : s.dx < -50; $$('.crow.open', wrap).forEach(r => r !== s.row && r.classList.remove('open')); s.row.classList.toggle('open', open); };
+  wrap.addEventListener('pointerup', end); wrap.addEventListener('pointercancel', end);
+}
+function renameSheet(cur, onSave) {
+  openSheet(`<div class="pub"><h3>Rename</h3><input class="field" id="rnIn" value="${escapeHTML(cur)}" maxlength="40" aria-label="Name"><button class="post" data-act="rn-save">Save</button></div>`, { 'rn-save': () => { const v = $('#rnIn').value.trim(); if (v) onSave(v); closeSheet(); } });
+  setTimeout(() => { const i = $('#rnIn'); if (i) { i.focus(); i.select(); } }, 320);
+}
+function deleteWork(w) {
+  const i = state.works.indexOf(w); if (i < 0) return;
+  state.works.splice(i, 1); renderChats(); renderMe();
+  toast(`Deleted ${w.title}`, 'Undo', () => { state.works.splice(i, 0, w); renderChats(); renderMe(); });
+}
+
+/* friends DM */
+function openDM(n) {
+  const d = state.dms[n]; d.unread = false; renderChats();
+  const s = openSub('sub-dm', `<div class="dm-head">${xBtn('sub-close', 'back')}<img src="${M(FRIENDS[n] + '.webp')}" alt=""><span><b>${n}</b><small>Active now</small></span></div>
+    <div class="dm-thread" id="dmThread"></div>
+    <div class="chat-foot">${inbarHTML('dm', 'Message', `Message ${n}…`, 'dm-share')}</div>`);
+  s.dataset.f = n; renderDM(n);
+  const inp = $('#dmIn'); inp.addEventListener('input', () => $('#dmGo').classList.toggle('ready', !!inp.value.trim()));
+  $('#dmForm').addEventListener('submit', e => { e.preventDefault(); const t = inp.value.trim(); if (!t) return; inp.value = ''; $('#dmGo').classList.remove('ready'); d.msgs.push({ me:true, text:t }); d.time = 'now'; renderDM(n); renderChats();
+    later('sub-dm', () => { d.msgs.push({ me:false, text: ['haha ok', 'say less', 'trying it now', 'ok that’s good'][d.msgs.length % 4] }); renderDM(n); renderChats(); }, 1400); });
+}
+function dmCardHTML(m) {
+  const w = workById(m.game); const g = w ? gameOf(w) : G[m.game]; if (!g) return '';
+  return `<div class="dm-card"><span class="cv"><img src="${poster(g)}" alt=""><span class="tagpx">GAME</span></span><span class="bar"><span class="t"><b>${escapeHTML(g.title)}</b><small>${escapeHTML(m.sub || '')}</small></span><button data-act="dm-play" data-g="${m.game}">Play</button></span></div>`;
+}
+function renderDM(n) {
+  const d = state.dms[n], th = $('#dmThread'); if (!th) return;
+  th.innerHTML = `<span class="dm-day">Today 10:24</span>` + d.msgs.map(m => `<div class="dm-row ${m.me ? 'me' : ''}">${!m.me && !m.game ? `<img src="${M(FRIENDS[n] + '.webp')}" alt="">` : ''}${m.game ? dmCardHTML(m) : `<div class="dm-bub">${escapeHTML(m.text)}</div>`}</div>`).join('');
+  th.scrollTop = th.scrollHeight;
+}
+function shareToFriends(item) {
+  const sel = new Set();
+  const draw = () => { $$('#sfPpl button').forEach(b => b.classList.toggle('on', sel.has(b.dataset.f))); const s = $('#sfSend'); s.disabled = !sel.size; s.textContent = sel.size ? `Send to ${sel.size}` : 'Send'; };
+  openSheet(`<div class="sf"><h3>Send to friends</h3><div class="ppl" id="sfPpl">${Object.keys(FRIENDS).map(n => `<button data-act="sf-pick" data-f="${n}"><img src="${M(FRIENDS[n] + '.webp')}" alt=""><span class="ck">${I.check}</span>${n}</button>`).join('')}</div>
+    <input class="field" id="sfMsg" placeholder="Say something…" aria-label="Message"><button class="send2" id="sfSend" data-act="sf-send" disabled>Send</button></div>`, {
+    'sf-pick': b => { const f = b.dataset.f; sel.has(f) ? sel.delete(f) : sel.add(f); draw(); },
+    'sf-send': () => { const msg = $('#sfMsg').value.trim(); for (const f of sel) { const d = state.dms[f]; if (msg) d.msgs.push({ me:true, text:msg }); d.msgs.push({ me:true, game:item.id, sub:item.sub }); d.time = 'now'; }
+      const names = [...sel]; closeSheet(); renderChats(); toast(`Sent to ${names.length > 1 ? names.slice(0, -1).join(', ') + ' and ' + names[names.length - 1] : names[0]}`); }
+  });
 }
 
 /* ---------------- me ---------------- */
 function renderMe() {
-  const used = 5 - state.credits;
   const tabs = [['games', I.games], ['assets', I.cube], ['saved', I.bookmark], ['downloads', I.download]];
   const ti = tabs.findIndex(t => t[0] === state.meTab);
   $('#meScroll').innerHTML = `
@@ -1246,19 +1530,74 @@ function renderMe() {
     </div>
     <div class="ptabs">${tabs.map(([k, ic]) => `<button class="${k === state.meTab ? 'on' : ''}" data-act="me-tab" data-k="${k}" aria-label="${k}">${ic}</button>`).join('')}<span class="ul" style="left:calc(${ti} * 25% + 12.5% - 20px)"></span></div>
     <div class="me-panel">${mePanel()}</div>`;
+  pixelAll($('#meScroll'));
 }
 function mePanel() {
   if (state.meTab === 'games') {
+    const drafts = state.works.filter(isDraft), pub = state.works.filter(w => w.kind === 'game' && w.publishedV != null);
+    const a = drafts[0] ? poster(G[drafts[0].base]) : M('cover-escape.webp'), b = drafts[1] ? poster(G[drafts[1].base]) : M('cover-paw.webp');
     return `<div class="grid" style="padding:0">
-      <button class="gcard drafts" data-act="noop"><span class="cov"><img src="${poster(G[state.drafts[1]])}" alt="" style="left:26px;top:22px;transform:rotate(-8deg)"><img src="${poster(G[state.drafts[0]])}" alt="" style="left:80px;top:20px;transform:rotate(6deg)"></span><b>Drafts</b><span class="gmeta"><span class="cr">${state.drafts.length} projects · auto-saved</span></span></button>
-      ${state.published.map(id => gcardHTML(G[id] || genGames[id], 'Published')).join('')}</div>`;
+      <button class="gcard drafts" data-act="me-drafts"><span class="cov"><img src="${b}" alt="" style="left:26px;top:22px;transform:rotate(-8deg)"><img src="${a}" alt="" style="left:80px;top:20px;transform:rotate(6deg)"></span><b>Drafts</b><span class="gmeta"><span class="cr">${drafts.length} not published yet</span></span></button>
+      ${pub.map(w => `<button class="gcard" data-act="me-game" data-w="${w.id}"><span class="cov"><img src="${poster(G[w.base])}" alt=""></span><b>${escapeHTML(w.title)}</b><span class="gmeta"><span class="cr">Published · v${w.publishedV}</span><span class="lv">${I.eye}${G[w.base].plays}</span></span></button>`).join('')}</div>`;
   }
   if (state.meTab === 'assets') {
-    return `<div class="me-meta"><span><b style="font-weight:500">${state.assets.length} assets</b><span class="muted"> · synced to Studio</span></span>${I.filter}</div>
-      <div class="agrid">${state.assets.map(a => `<button class="atile" data-act="noop"><span class="th">${a.isNew ? '<span class="new">NEW</span>' : ''}<img src="${M(a.img)}" alt="" style="${a.filter ? 'filter:' + a.filter : ''}"></span><b>${a.name}</b><small>${a.type}</small></button>`).join('')}</div>`;
+    const list = assetList();
+    return `<div class="me-meta"><span><b style="font-weight:500">${list.length} assets</b><span class="muted"> · saved automatically · synced to Studio</span></span>${I.filter}</div>
+      <div class="agrid">${list.map(a => `<button class="atile" data-act="me-asset" data-w="${a.w.id}" data-v="${a.v.n}"><span class="th">${a.v.isNew ? '<span class="new">NEW</span>' : ''}${modelImg(a.w, a.v, '')}</span><b>${escapeHTML(a.name)}</b><small>3D · ${styleOf(a.v.style).label}</small></button>`).join('')}</div>`;
   }
   if (state.meTab === 'saved') return `<div class="grid" style="padding:0">${state.saved.map(id => gcardHTML(G[id])).join('')}</div>`;
   return `<div class="me-meta"><span class="muted">${state.downloads.length} games · play offline</span></div>${state.downloads.map(id => `<div class="dl-row"><img src="${poster(G[id])}" alt=""><span class="t"><b>${G[id].title}</b><small>${G[id].creator} · ready offline</small></span><button class="p cta-white" data-act="dl-play" data-g="${id}">Play</button></div>`).join('')}`;
+}
+function openDrafts() {
+  const drafts = state.works.filter(isDraft);
+  openSub('sub-drafts', `${head(xBtn('sub-close', 'back'), '<b>Drafts</b>')}
+    <div class="s-body vscroll" style="padding:4px 20px 40px"><p class="dr-sub">Latest versions you haven’t published</p>
+      <div class="grid" style="padding:0">${drafts.map(w => { const v = latest(w); return `<button class="gcard" data-act="me-draft" data-w="${w.id}"><span class="cov" style="position:relative"><img src="${poster(G[w.base])}" alt=""><span class="tagpx" style="position:absolute;top:10px;left:10px">DRAFT · V${v.n}</span></span><b>${escapeHTML(w.title)}</b><span class="gmeta"><span class="cr">v${v.n} · ${escapeHTML(v.note)}</span></span></button>`; }).join('') || '<p class="empty">Nothing waiting. Everything you made is published.</p>'}</div></div>`);
+}
+
+/* demo data: what this person has already made, and their friends */
+function seed() {
+  const ask3d = 'Turn my photo into 3D';
+  [
+    { id:'w-deep', kind:'game', title:'Deep Feast', base:'deep', pinned:true, unread:true, publishedV:1, time:'2m', last:'Wana: v2 is ready.', versions:[
+      { n:1, ask:'An underwater game where I eat smaller fish', atts:[], reply:'Here’s Deep Feast! Eat smaller fish, dodge bigger ones.', note:'First version' },
+      { n:2, ask:'Add a shark boss at the end', reply:'Done! I applied “Add a shark boss at the end”. Same style, new version.', note:'Add a shark boss' }] },
+    { id:'w-pup', kind:'3d', title:'Fluffy Pup', model:'model-plush', pinned:true, time:'1h', last:'Wana: v2 is ready.', versions:[
+      { n:1, ask:ask3d, atts:[{ img:'photo-shiba.webp' }], reply:'Here’s your 3D Fluffy Pup! Drag to spin it. It’s saved to your Assets.', style:'plush', note:'Soft plush' },
+      { n:2, ask:'Change the style to Flocked', via:'Change style', reply:'Done! Same Fluffy Pup, now Flocked. Saved to Assets.', style:'flocked', note:'Flocked style', isNew:true }] },
+    { id:'w-cafe', kind:'3d', title:'Café Pup', model:'model-cafe', time:'3h', last:'Wana: Here’s your 3D Café Pup!', versions:[
+      { n:1, ask:ask3d, atts:[{ img:'photo-cafe.webp' }], reply:'Here’s your 3D Café Pup! Drag to spin it. It’s saved to your Assets.', style:'plush', note:'Soft plush' }] },
+    { id:'w-dark', kind:'game', title:'Dark Room', base:'dark', publishedV:1, time:'Yesterday', last:'You published v1', versions:[
+      { n:1, ask:'A dungeon where the torches slowly run out', atts:[], reply:'Here’s Dark Room! Find the exit before the last torch burns out.', note:'First version' }] },
+    { id:'w-paw', kind:'game', title:'Paw Dash', base:'paw', publishedV:1, time:'Mon', last:'Wana: v2 is ready.', versions:[
+      { n:1, ask:'My cat dashing across rooftops', atts:[], reply:'Here’s Paw Dash! Dash through rooftops as a very fast cat.', note:'First version' },
+      { n:2, ask:'Make the rooftops longer', reply:'Done! I applied “Make the rooftops longer”. Same style, new version.', note:'Longer rooftops' }] },
+    { id:'w-reader', kind:'3d', title:'Park Reader', model:'model-girl', time:'Mon', last:'Wana: Here’s your 3D Park Reader!', versions:[
+      { n:1, ask:ask3d, atts:[{ img:'photo-girl.webp' }], reply:'Here’s your 3D Park Reader! Drag to spin it. It’s saved to your Assets.', style:'figure', note:'Tiny figure' }] },
+    { id:'w-escape', kind:'game', title:'Escape from Work', base:'escape', time:'Sun', last:'Wana: Escape from Work is ready.', versions:[
+      { n:1, ask:'Sprint out of the office before 5pm', atts:[], reply:'Here’s Escape from Work! Sprint out of the office before 5pm hits.', note:'First version' }] },
+    { id:'w-bonsai', kind:'3d', title:'Bonsai', model:'plant-pixel', time:'Sat', last:'Wana: Here’s your 3D Bonsai!', versions:[
+      { n:1, ask:'A tiny bonsai in pixel art', atts:[], reply:'Here’s your 3D Bonsai! It’s saved to your Assets.', style:'pixel art', note:'Pixel art' }] },
+    { id:'w-fuzzy', kind:'3d', title:'Fuzzy Plant', model:'plant-flocked', time:'Sat', last:'Wana: Here’s your 3D Fuzzy Plant!', versions:[
+      { n:1, ask:'A fuzzy little house plant', atts:[], reply:'Here’s your 3D Fuzzy Plant! It’s saved to your Assets.', style:'fuzzy', note:'Fuzzy' }] },
+  ].forEach(o => newWork(o));
+  state.works.reverse();
+  state.dms = {
+    bowie: { pinned:true, unread:true, time:'5m', msgs:[{ me:true, text:'what are you making' }, { me:false, text:'a café on a pier. try it' }, { me:false, game:'cafe', sub:'by @bowie' }] },
+    mochi: { unread:true, time:'20m', msgs:[{ me:true, game:'w-deep', sub:'My game · play it' }, { me:false, text:'the shark at the end got me' }] },
+    nekoium: { time:'2h', msgs:[{ me:false, game:'neon', sub:'by @nekoium' }, { me:true, text:'the snow looks so good' }] },
+    cienly: { time:'Yesterday', msgs:[{ me:false, text:'can I remix Paw Dash?' }, { me:true, text:'yes go for it' }] },
+    mossmaker: { time:'Mon', msgs:[{ me:false, text:'Ivy Keep II when' }] },
+  };
+}
+function rowGuard(b) {
+  if (swipedJustNow) return true;
+  const open = $('.crow.open'); if (open) { open.classList.remove('open'); return true; }
+  return false;
+}
+function backToChat(w) {
+  ['sub-pub', 'sub-view2', 'sub-view'].forEach(id => subStack.includes(id) && closeSub(id));
+  const th = $('#thread'); if (th) { th.innerHTML = threadHTML(w); pixelAll(th); $$('video', th).forEach(v => v.play().catch(() => {})); th.scrollTop = th.scrollHeight; }
 }
 
 /* ---------------- create ---------------- */
@@ -1266,7 +1605,11 @@ let mode = 'ai';
 function openCreate(m = 'ai', preset) {
   const c = $('#create'); c.hidden = false; pauseAll(); pauseCarousel();
   setMode(m); renderSheet();
-  if (preset) { $('#prompt').value = preset.prompt || ''; if (preset.att) addAttachment(preset.att, 'Remix source'); updateSend(); }
+  if (preset && preset.remix) {
+    resetPrompt(); state.remix = preset.remix; renderRemix();
+    if (!state.idea) { state.idea = true; $('#idea').classList.add('on'); $('#idea').setAttribute('aria-pressed', 'true'); }
+    setTimeout(() => showIdea('Make it co-op: two explorers share one torch.'), 420);
+  }
   requestAnimationFrame(() => requestAnimationFrame(() => c.classList.add('in')));
 }
 function closeCreate() {
@@ -1310,10 +1653,11 @@ function setCat(think) {
   if (c.getAttribute('src') !== src) c.setAttribute('src', src);
   c.classList.toggle('think', think);
 }
-function showIdea() {
+let ghostText = '';
+function showIdea(custom) {
   const g = $('#ghost'), out = $('#ghostTxt');
-  ideaIdx = (ideaIdx + 1) % IDEAS.length;
-  const text = IDEAS[ideaIdx];
+  if (!custom) ideaIdx = (ideaIdx + 1) % IDEAS.length;
+  const text = ghostText = custom || IDEAS[ideaIdx];
   clearTimeout(typeTimer);
   g.hidden = false; g.classList.add('typing'); out.textContent = '';
   $('#prompt').placeholder = ''; setCat(true); updateSend();
@@ -1334,19 +1678,19 @@ function clearGhost() {
 // Tapping the suggestion (or sending it) makes it the real prompt.
 function acceptGhost() {
   if ($('#ghost').hidden) return false;
-  const text = IDEAS[ideaIdx], ta = $('#prompt');
+  const text = ghostText || IDEAS[ideaIdx], ta = $('#prompt');
   clearGhost(); ta.value = text;
   const k = PROMPTS.findIndex(p => p.t === text);
   if (k > -1) ta.dataset.preset = k; else delete ta.dataset.preset;
   updateSend(); return true;
 }
 function updateSend() {
-  const ok = $('#prompt').value.trim().length > 0 || state.attachments.length > 0 || !$('#ghost').hidden;
+  const ok = $('#prompt').value.trim().length > 0 || state.attachments.length > 0 || !$('#ghost').hidden || !!state.remix;
   $('#sendBtn').classList.toggle('ready', ok); $('#sendBtn').disabled = !ok;
 }
 function renderAttachments() {
   const r = $('#attachRow'); r.hidden = !state.attachments.length;
-  r.innerHTML = state.attachments.map((a, i) => `<span class="att"><img src="${M(a.img)}" alt="">${i === 0 ? '<span class="hero">HERO</span>' : ''}<button class="x" data-act="att-x" data-i="${i}" aria-label="Remove">${I.close}</button></span>`).join('') + (state.attachments.length < 4 ? `<button class="att-more" data-act="attach" aria-label="Add more">${I.plus}</button>` : '');
+  r.innerHTML = state.attachments.map((a, i) => `<span class="att"><img src="${M(a.img)}" alt="" style="${a.filter && a.filter !== 'none' ? 'filter:' + a.filter : ''}">${i === 0 ? '<span class="hero">HERO</span>' : ''}<button class="x" data-act="att-x" data-i="${i}" aria-label="Remove">${I.close}</button></span>`).join('') + (state.attachments.length < 4 ? `<button class="att-more" data-act="attach" aria-label="Add more">${I.plus}</button>` : '');
   updateSend();
 }
 function addAttachment(img, role) { if (state.attachments.length >= 4) return; state.attachments.push({ img, role }); renderAttachments(); }
@@ -1356,6 +1700,7 @@ const subStack = [];
 function openSub(id, html, dir) {
   const s = $('#' + id); s.innerHTML = html; fillIcons(s); s.hidden = false;
   if (dir === 'up') s.classList.add('up');
+  s.style.zIndex = Math.max(45, ...subStack.map(x => +$('#' + x).style.zIndex || 45)) + 1; // newest sub always on top
   subStack.push(id);
   requestAnimationFrame(() => requestAnimationFrame(() => s.classList.add('in')));
   return s;
@@ -1414,7 +1759,7 @@ function openPicker(cfg) {
     <div class="pick-foot" style="padding-bottom:30px"><span class="muted" style="font-size:12px">${pickerCfg.multi ? 'Up to ' + pickerCfg.max : 'Pick one photo'}</span><button class="add cta-white" id="pickAdd" data-act="picker-done" disabled style="opacity:.4">${pickerCfg.multi ? 'Add' : 'Next'}</button></div>`, 'up');
 }
 const PHOTOS = ['photo-shiba.webp','photo-cafe.webp','photo-girl.webp','cover-paw.webp','cover-escape.webp','cover-deep.webp','photo-cafe.webp','photo-girl.webp','photo-shiba.webp','cover-dungeon.webp','cover-clash.webp'];
-const ASSET_IMGS = () => state.assets.map(a => a.img);
+const ASSET_IMGS = () => [...new Set(assetList().map(a => a.img))];
 function refreshPicker() {
   const s = $('#sub-picker');
   $$('[data-act="pick"]', s).forEach(b => { const k = pickerCfg.sel.indexOf(+b.dataset.i); b.classList.toggle('on', k > -1); $('.sel', b).textContent = k > -1 && pickerCfg.multi ? k + 1 : (k > -1 ? '✓' : ''); });
@@ -1423,7 +1768,7 @@ function refreshPicker() {
 }
 
 /* C3 generating */
-let lastPrompt = '', lastAtts = [], genGames = {};
+let genWork = null;
 function pickBase(text) {
   const t = text.toLowerCase();
   if (/underwater|shark|deep sea/.test(t)) return 'deep';
@@ -1433,26 +1778,37 @@ function pickBase(text) {
   if (/castle|ivy|island|pancake|build|world|kingdom|ruin/.test(t)) return 'ivy';
   return ['garden','cafe','neon','ivy'][t.length % 4];
 }
-const NAMES = { cafe:'Pier Panic', garden:'Window Garden', neon:'Neon Rush', ivy:'Ivy Keep II', deep:'Deep Feast' };
-function startCreate(text, atts, preset) {
-  if (state.credits <= 0) { toast('No free creations left today', 'Get Plus', () => toast('Plus: 50 creations a day')); return; }
-  state.credits--; $('#credits').textContent = `${state.credits} / 5 free`;
-  lastPrompt = text; lastAtts = atts.slice();
+const NAMES = { cafe:'Pier Panic', garden:'Window Garden', neon:'Neon Rush', ivy:'Ivy Keep II', deep:'Deep Feast', dark:'Dark Room' };
+function updateCredits() { $$('.credits').forEach(c => c.textContent = `${state.credits} / 5 free`); }
+function outOfCredits() {
+  openSheet(`<div class="oc"><img src="${M('mascot-plus.webp')}" alt=""><h3>That’s today’s 5 free creations</h3><p>Free creations come back at midnight.<br>Plus gives you 50 a day.</p><button class="pri" data-act="get-plus">Get Plus</button><button class="lnk" data-act="sheet-close">Maybe later</button></div>`);
+}
+function startCreate(text, atts, preset, remix) {
+  if (state.credits <= 0) { outOfCredits(); return; }
+  state.credits--; updateCredits();
   if (preset && preset.k === '3D') { openBuild({ photo:null, model:preset.model, name:preset.name, style:preset.style, prompt:text }); return; }
-  const base = preset && preset.base ? preset.base : pickBase(text);
-  const id = 'gen' + Date.now();
-  const g = Object.assign({}, G[base], { id, title: preset && preset.name ? preset.name : NAMES[base], desc: preset && preset.desc ? preset.desc : 'Built from your idea: world, characters and rules.', creator:'@yy.makes', av:'av-6', likes:'0', comments:'0', plays:'0', views:'0', prompt:text });
-  genGames[id] = g; G[id] = g;
+  const base = remix ? remix.id : (preset && preset.base ? preset.base : pickBase(text));
+  const title = remix ? (/co-?op/i.test(text) ? `${remix.title}: Co-op` : `${remix.title} Remix`) : (preset && preset.name ? preset.name : NAMES[base]);
+  const w = newWork({ kind:'game', title, base, prompt:text || 'Make a game from my photo', atts:atts.slice(), desc: preset && preset.desc, remixOf: remix ? { id:remix.id, title:remix.title, creator:remix.creator } : null, working:0, time:'now' });
+  genWork = w; renderChats();
   const sq = Array.from({ length:15 * 18 }, () => `<i class="${Math.random() > .7 ? 'hi' : ''}"></i>`).join('');
-  const s = openSub('sub-gen', `${head(xBtn('sub-close'), '', `<span class="credits">${state.credits} / 5 free</span>`)}
+  const s = openSub('sub-gen', `${head(xBtn('gen-notify'), '', `<span class="credits">${state.credits} / 5 free</span>`)}
     <div class="s-body"><div class="gen">
-      <div class="quote">${atts.length ? `<img src="${M(atts[0].img)}" alt="">` : ''}<span class="qt">“${escapeHTML(text || 'Make a game from my photo')}”</span></div>
-      <div class="pv"><img class="bgimg" src="${poster(g)}" alt=""><div class="pxgrid">${sq}</div>
+      <div class="quote">${atts.length ? `<img src="${M(atts[0].img)}" alt="">` : remix ? `<img src="${poster(remix)}" alt="">` : ''}<span class="qt">“${escapeHTML(text || 'Make a game from my photo')}”</span></div>
+      <div class="pv"><img class="bgimg" src="${poster(G[base])}" alt=""><div class="pxgrid">${sq}</div>
         <div class="mid"><img src="${M('mascot-idle.gif')}" alt=""><span class="pct" id="gPct">0%</span><span class="pbar"><i id="gBar"></i></span></div></div>
       <div class="steps">${['Understanding your idea','Designing the world','Making the characters','Wiring the rules'].map(t => `<div class="step"><span class="c">${I.check}</span>${t}</div>`).join('')}</div>
       <div class="gen-foot"><button class="cta-soft" data-act="gen-notify">Notify me &amp; go play</button><small>About 1 min · keeps building in the background</small></div>
     </div></div>`);
-  runProgress('sub-gen', s, 4600, () => openChat(g, text, atts));
+  runProgress('sub-gen', s, 4600, () => finishGame(w, true));
+}
+function finishGame(w, show) {
+  if (w.versions.length) return;
+  w.working = null;
+  const desc = w.desc || (G[w.base] && G[w.base].desc) || 'Built from your idea.';
+  w.versions.push({ n:1, ask:w.prompt, atts:w.atts, reply: w.remixOf ? `Here’s your remix of ${w.remixOf.title}! ${desc}` : `Here’s ${w.title}! ${desc}`, note:'First version' });
+  w.last = `Wana: ${w.title} is ready.`; w.time = 'now'; renderChats(); renderMe();
+  if (show) openView(w, { v:1, ctx:'create', first:true });
 }
 function runProgress(id, s, dur, done) {
   const steps = $$('.step', s); const cells = $$('.pxgrid i', s); const order = cells.map((_, i) => i).sort(() => Math.random() - .5);
@@ -1471,57 +1827,137 @@ function runProgress(id, s, dur, done) {
   };
   requestAnimationFrame(frame);
 }
+// keeps building after "Notify me": the row in Chats shows the progress, then a banner + red dot
+function finishInBackground(w, onDone) {
+  w.working = Math.max(w.working || 0, 35); renderChats();
+  const t = setInterval(() => { w.working = Math.min(100, w.working + 9); renderChats(); if (w.working >= 100) { clearInterval(t); onDone(); state.chatsDot = state.tab !== 'chats'; updateTabDot(); } }, 450);
+}
 function escapeHTML(t) { return String(t).replace(/[&<>"]/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c])); }
+function closeCreateSaved(w) {
+  closeCreate(); resetPrompt();
+  if (w && state.works.includes(w)) setTimeout(() => toast(w.kind === '3d' ? 'Saved in Chats and Assets' : 'Saved in Chats', 'View', () => { setTab('chats'); }), 420);
+}
 
-/* C4 result (play, tweak, publish) → turns into a chat after the first tweak */
-let chatGame = null, version = 1, published = false, chatMode = false, chatText = '', chatAtts = [];
-function vcardHTML(g, v) {
-  return `<div class="vcard" data-g="${g.id}">${mediaHTML(g)}<span class="dimv"></span><span class="tagpx">V${v} · LATEST</span>
-    <button class="pl" data-act="chat-play" aria-label="Play">${I.play}</button><button class="fs glass" data-act="chat-play">${I.full}Full screen</button></div>`;
+/* Big card view: first result, a version opened from the chat, or a game / asset opened from Me */
+const inbarHTML = (id, label, ph = 'Tell me what to change…', plusAct = 'noop') => `<form class="inbar" id="${id}Form"><button type="button" class="att-b" data-act="${plusAct}" aria-label="Attach">${IC('plus', 20)}</button><input id="${id}In" placeholder="${ph}" autocomplete="off" aria-label="${label}"><button type="button" class="mic" data-act="noop" aria-label="Speak">${IC('mic', 22)}</button><button class="go" id="${id}Go" aria-label="Send">${IC('arrow-up', 20)}</button></form>`;
+function openView(w, o) {
+  const v = verOf(w, o.v); const g3 = w.kind === '3d';
+  const left = o.ctx === 'create' ? `<button class="icon-btn" data-act="vw-close" data-w="${w.id}" aria-label="Close">${I.close}</button>` : `<button class="icon-btn" data-act="sub-close" aria-label="Back">${I.back}</button>`;
+  let tag, line, acts, extra = '';
+  const btn = (cls, act, icon, label) => `<button class="${cls}" data-act="${act}" data-w="${w.id}" data-v="${v.n}" data-ctx="${o.ctx}">${icon}${label}</button>`;
+  const meCtx = o.ctx === 'me';
+  if (!g3) {
+    const live = w.publishedV === v.n;
+    if (o.first) { tag = w.remixOf ? 'YOUR REMIX · V1' : 'YOUR GAME · V1'; line = w.remixOf ? `${I.remix}Remix of ${escapeHTML(w.remixOf.title)} by ${w.remixOf.creator}` : `${I.check}Saved in Chats · only you can see it`; }
+    else if (meCtx && live) { tag = `PUBLISHED · V${v.n}`; line = `${G[w.base].plays} plays · ${G[w.base].likes} likes${isDraft(w) ? ` · v${latest(w).n} is in Drafts` : ''}`; }
+    else if (meCtx) { tag = `DRAFT · V${v.n}`; line = `${I.check}Not published · only you can see it`; }
+    else { tag = `V${v.n}${v.n === latest(w).n ? ' · LATEST' : ''}${live ? ' · LIVE' : ''}`; line = `Version ${v.n} · ${escapeHTML(v.note)}`; }
+    const pubBtn = live ? btn('pri', 'vw-share', I.shareD, 'Share') : btn('pri', 'vw-publish', I.publishD, 'Publish');
+    acts = o.ctx === 'chat' ? pubBtn : btn('sec', 'vw-edit', I.pencil, 'Keep editing') + pubBtn;
+  } else {
+    tag = `3D · ${styleOf(v.style).label.toUpperCase()}${o.first ? '' : ' · V' + v.n}`;
+    line = meCtx ? `${I.check}In Assets · synced to Studio` : o.first ? 'Drag to spin it' : `Version ${v.n} · ${escapeHTML(v.note)}`;
+    if (o.first) {
+      extra = `<div class="vw-styles"><small>Change style</small><div class="stylechips">${[...STYLES, COMMUNITY[0]].map(s => `<button class="${s.k === v.style ? 'on' : ''}" data-act="vw-style" data-w="${w.id}" data-k="${s.k}" data-ctx="${o.ctx}"><span class="cth"><img src="${M(s.img)}" alt=""></span>${s.label}</button>`).join('')}</div></div>`;
+      acts = btn('pri', 'vw-edit', I.pencilD, 'Keep editing');
+    } else if (o.ctx === 'chat') acts = btn('pri', 'vw-game', I.gamesD, 'Make a game with it');
+    else acts = btn('sec', 'vw-edit', I.pencil, 'Keep editing') + btn('pri', 'vw-game', I.gamesD, 'Put in a game');
+  }
+  const card = g3
+    ? `<div class="vw-card vw-stage" id="vwStage"><span class="tagpx">${tag}</span><span class="plate"></span><div class="mw">${modelImg(w, v)}</div><div class="vw-info"><h2>${escapeHTML(w.title)}</h2><small>${line}</small></div></div>`
+    : `<div class="vw-card" data-act="vw-play" data-w="${w.id}">${mediaHTML(G[w.base], 'media', true)}<span class="tagpx">${tag}</span><span class="vw-play">${I.play}</span><div class="vw-info"><h2>${escapeHTML(w.title)}</h2><small>${line}</small></div></div>`;
+  const id = subStack.includes('sub-view') ? 'sub-view2' : 'sub-view';
+  const s = openSub(id, `<div class="vw-top">${left}<button class="icon-btn" data-act="vw-more" data-w="${w.id}" data-v="${v.n}" aria-label="More">${I.more}</button></div>
+    ${g3 && o.first ? `<div class="vw-toast">${I.checkD}Saved to Assets</div>` : ''}
+    ${card}<div class="vw-foot">${extra}<div class="vw-acts">${acts}</div></div>`);
+  s.style.setProperty('--vwb', extra ? '186px' : '108px');
+  pixelAll(s);
+  if (g3) wireSpin($('#vwStage', s), $('.mw img', s));
+  else { const vid = $('video', s); vid && vid.play().catch(() => {}); }
+  if (o.first && subStack.includes('sub-gen')) later(id, () => closeSub('sub-gen', true), 380);
+  const under = ['sub-build', 'sub-style'].filter(x => subStack.includes(x)); if (o.first && under.length) setTimeout(() => under.forEach(x => closeSub(x, true)), 380);
 }
-const inbarHTML = (id, label) => `<form class="inbar" id="${id}Form"><button type="button" class="att-b" data-act="noop" aria-label="Attach">${IC('plus', 20)}</button><input id="${id}In" placeholder="Tell me what to change…" autocomplete="off" aria-label="${label}"><button type="button" class="mic" data-act="noop" aria-label="Speak">${IC('mic', 22)}</button><button class="go" id="${id}Go" aria-label="Send">${IC('arrow-up', 20)}</button></form>`;
-function openChat(g, text, atts) {
-  if (subStack.includes('sub-gen')) later('sub-chat', () => closeSub('sub-gen', true), 380);
-  chatGame = g; version = 1; published = false; chatMode = false; chatText = text; chatAtts = atts.slice();
-  openSub('sub-chat', `${head(xBtn('chat-close'), '', `<button class="pbtn cta-grad" id="pubBtn" data-act="publish">Publish</button>`)}
-    <div class="c4-title"><h2>${g.title}</h2><small>${IC('check', 12)}<span id="chatSub">Draft saved · v1</span></small></div>
-    <div class="c4-body" id="c4Body">
-      <div class="c4-prev" data-g="${g.id}">${mediaHTML(g)}<span class="dimv"></span><span class="tagpx">PREVIEW</span>
-        <button class="pl" data-act="chat-play" aria-label="Play">${IC('play', 30)}</button>
-        <button class="fs" data-act="chat-play">${IC('fullscreen', 14)}Full screen</button></div>
-    </div>
-    <div class="chat-foot"><p class="c4-label" id="c4Label">Not quite right? Just say what to change</p>
-      <div class="hscroll" id="sugg">${['Make it harder','Add a boss','Night mode','2-player'].map(s => `<button class="chip" data-act="sugg">${s}</button>`).join('')}</div>
-      ${inbarHTML('chat', 'Message')}</div>`);
-  const v = $('#sub-chat video'); v && v.play().catch(() => {});
-  const f = $('#chatForm'); const inp = $('#chatIn');
-  inp.addEventListener('input', () => $('#chatGo').classList.toggle('ready', !!inp.value.trim()));
-  f.addEventListener('submit', e => { e.preventDefault(); const t = inp.value.trim(); if (!t) return; inp.value = ''; $('#chatGo').classList.remove('ready'); tweak(t); });
+function moreMenu(b) {
+  const sub = b.closest('.sub'); const old = $('.pop', sub); if (old) { old.remove(); return; }
+  const w = workById(b.dataset.w); if (!w) return;
+  sub.insertAdjacentHTML('beforeend', `<div class="pop"><button data-act="vw-rename" data-w="${w.id}">${I.pencil}Rename</button><i></i><button class="red" data-act="vw-delete" data-w="${w.id}" data-v="${b.dataset.v}">${I.trashR}Delete</button></div>`);
 }
-function toChatMode() {
-  if (chatMode) return; chatMode = true;
-  const g = chatGame, body = $('#c4Body');
-  $('#c4Label').hidden = true;
-  body.innerHTML = `<div class="thread-wrap"><div class="thread" id="thread">
-      <div class="mu">${chatAtts.length ? `<div class="atts">${chatAtts.map(a => `<img src="${M(a.img)}" alt="">`).join('')}</div>` : ''}${chatText ? `<div class="bub">${escapeHTML(chatText)}</div>` : ''}</div>
-      <button class="vmini" data-act="noop"><img src="${poster(g)}" alt=""><span class="t"><b>${g.title} · v1</b><small>Earlier version</small></span><span class="rs">Restore</span></button>
-    </div></div>`;
-  body.animate([{ opacity:0, transform:'translateY(12px)' }, { opacity:1, transform:'none' }], { duration:280, easing:'ease-out' });
+
+/* The chat: every change to a game or 3D model happens here */
+function versionCardHTML(w, v) {
+  const isLatest = v.n === latest(w).n, live = w.publishedV === v.n;
+  const tag = `${w.kind === '3d' ? '3D · ' : ''}V${v.n}${isLatest ? ' · LATEST' : ''}${live ? ' · LIVE' : ''}`;
+  if (w.kind === '3d') return `<div class="mcard" data-act="vc-open" data-w="${w.id}" data-v="${v.n}"><span class="plate"></span>${modelImg(w, v)}<span class="tagpx">${tag}</span><span class="rot">${I.rotate}360°</span></div>`;
+  return `<div class="vcard" data-act="vc-open" data-w="${w.id}" data-v="${v.n}">${mediaHTML(G[w.base])}<span class="dimv"></span><span class="tagpx">${tag}</span><span class="pl">${I.play}</span><button class="fs glass" data-act="vc-full" data-w="${w.id}">${I.full}Full screen</button></div>`;
 }
-function tweak(t) {
-  toChatMode();
-  const th = $('#thread');
-  th.insertAdjacentHTML('beforeend', `<div class="mu"><div class="bub">${escapeHTML(t)}</div></div><div class="ma" id="typing"><div class="typing"><i></i><i></i><i></i></div></div>`);
-  th.scrollTo({ top:th.scrollHeight, behavior:'smooth' });
+function threadHTML(w) {
+  return w.versions.map(v => `<div class="mu">${v.atts && v.atts.length ? `<div class="atts">${v.atts.map(a => `<img src="${M(a.img)}" alt="">`).join('')}</div>` : ''}<div class="bub">${escapeHTML(v.ask)}</div>${v.via ? `<span class="via">Sent from ${v.via}</span>` : ''}</div>
+    <div class="ma"><p>${escapeHTML(v.reply)}</p>${versionCardHTML(w, v)}</div>`).join('');
+}
+function openWorkChat(w, o = {}) {
+  w.unread = false; renderChats();
+  const left = o.ctx === 'create' ? `<button class="icon-btn" data-act="vw-close" data-w="${w.id}" aria-label="Close">${I.close}</button>` : `<button class="icon-btn" data-act="sub-close" aria-label="Back">${I.back}</button>`;
+  const chips = w.kind === '3d' ? ['Try Flocked','Try Pixelated','Bigger eyes','Sitting pose'] : ['Make it harder','Add a boss','Night mode','2-player'];
+  const s = openSub('sub-chat', `${head(left, `<b>${escapeHTML(w.title)}</b>`)}
+    <div class="thread-wrap"><div class="thread" id="thread">${threadHTML(w)}</div></div>
+    <div class="chat-foot"><div class="hscroll">${chips.map(c => `<button class="chip" data-act="chat-sugg" data-w="${w.id}">${c}</button>`).join('')}</div>${inbarHTML('chat', 'Message')}</div>`);
+  s.dataset.w = w.id; pixelAll(s);
+  const th = $('#thread'); th.scrollTop = th.scrollHeight;
+  $$('#thread video').forEach(v => v.play().catch(() => {}));
+  const inp = $('#chatIn'); inp.addEventListener('input', () => $('#chatGo').classList.toggle('ready', !!inp.value.trim()));
+  $('#chatForm').addEventListener('submit', e => { e.preventDefault(); const t = inp.value.trim(); if (!t) return; inp.value = ''; $('#chatGo').classList.remove('ready'); tweak(w, t); });
+  if (o.auto) later('sub-chat', () => tweak(w, o.auto, { via:'Change style', style:o.style }), 450);
+}
+function tweak(w, text, opt = {}) {
+  const th = $('#thread'); if (!th) return;
+  const style = opt.style || (w.kind === '3d' ? ((text.match(/flocked|pixel|realistic|basic|plush|figure/i) || [])[0] || '').toLowerCase().replace(/^pixel$/, 'pixelated') : '');
+  th.insertAdjacentHTML('beforeend', `<div class="mu"><div class="bub">${escapeHTML(text)}</div>${opt.via ? `<span class="via">Sent from ${opt.via}</span>` : ''}</div><div class="ma" id="typing">${w.kind === '3d' ? `<p>On it${style ? ` — same ${escapeHTML(w.title)}, ${styleOf(style).label} style` : ''}.</p><div class="mcard"><span class="plate"></span>${modelImg(w, latest(w))}<span class="busy"><img src="${M('mascot-think.webp')}" alt="">Making v${latest(w).n + 1}…</span></div>` : '<div class="typing"><i></i><i></i><i></i></div>'}</div>`);
+  pixelAll(th); th.scrollTo({ top:th.scrollHeight, behavior:'smooth' });
   later('sub-chat', () => {
-    const g = chatGame; const prev = $$('.vcard', th).pop();
-    if (prev) { const pv = version; prev.outerHTML = `<button class="vmini" data-act="noop"><img src="${poster(g)}" alt=""><span class="t"><b>${g.title} · v${pv}</b><small>Earlier version</small></span><span class="rs">Restore</span></button>`; }
-    version++;
-    $('#typing').outerHTML = `<div class="ma"><p>Done! I applied “${escapeHTML(t)}”. Same style, new version.</p>${vcardHTML(g, version)}<div class="macts"><button data-act="noop">${I.refresh}Undo to v${version - 1}</button><button data-act="good">${I.check}Good</button></div></div>`;
-    $('#chatSub').textContent = published ? `Published · v${version} draft` : `Draft saved · v${version}`;
-    const v = $$('.vcard video', th).pop(); v && v.play().catch(() => {});
-    th.scrollTo({ top:th.scrollHeight, behavior:'smooth' });
-  }, 1600);
+    const prev = latest(w); const n = prev.n + 1;
+    const v = w.kind === '3d'
+      ? { n, ask:text, via:opt.via, style: style || prev.style, note: style ? styleOf(style).label + ' style' : text, reply: style ? `Done! Same ${w.title}, now ${styleOf(style).label}. Saved to Assets.` : `Done! I applied “${text}”. Saved to Assets.`, isNew:true }
+      : { n, ask:text, note:text, reply:`Done! I applied “${text}”. Same style, new version.` };
+    w.versions.push(v); w.last = `Wana: v${n} is ready.`; w.time = 'now';
+    $('#thread').innerHTML = threadHTML(w); pixelAll($('#thread'));
+    $$('#thread video').forEach(x => x.play().catch(() => {}));
+    const t2 = $('#thread'); t2.scrollTo({ top:t2.scrollHeight, behavior:'smooth' });
+    renderChats(); renderMe();
+  }, w.kind === '3d' ? 2200 : 1600);
+}
+
+/* Publish (a specific version) → published → share */
+let pubCtx = null;
+function publishSheet(w, n, ctx) {
+  pubCtx = { w, n, ctx, who:'Everyone', remix:true, cover:0 };
+  const g = G[w.base];
+  openSheet(`<div class="pub"><h3>Publish${w.versions.length > 1 ? ' v' + n : ''}</h3>
+    <div class="lb">Cover</div><div class="covers">${[0, 1, 2].map(i => `<button class="${i === 0 ? 'on' : ''}" data-act="pub-cover" data-i="${i}"><img src="${poster(g)}" alt="" style="object-position:${['30% 50%', '70% 50%', '50% 20%'][i]};${i === 2 ? 'transform:scale(1.4)' : ''}"></button>`).join('')}<button class="ingame" data-act="noop">${I.plus}In game</button></div>
+    <div class="lb">Title</div><input class="field" id="pubTitle" value="${escapeHTML(w.title)}" maxlength="40">
+    <div class="lb">Who can play</div><div class="seg2">${['Everyone','Friends','Only me'].map((x, i) => `<button class="${i === 0 ? 'on' : ''}" data-act="pub-who" data-k="${x}">${x}</button>`).join('')}</div>
+    <div class="rowsw"><span class="t"><b>Allow remix</b><small>Others can make their own version</small></span><button class="switch on" data-act="pub-remix" aria-label="Allow remix"><i></i></button></div>
+    <button class="post" data-act="pub-post">Post</button></div>`);
+}
+function openPublished(w, ctx) {
+  const g = G[w.base];
+  openSub('sub-pub', `<div class="pd"><div class="pd-card"><img src="${poster(g)}" alt=""><span class="tagpx lime">LIVE</span></div>
+    <h2>${escapeHTML(w.title)} is live!</h2><p>${pubCtx && pubCtx.who === 'Friends' ? 'Your friends can play it now.' : 'Anyone can play' + (pubCtx && !pubCtx.remix ? ' it.' : ' and remix it.')}</p>
+    <div class="pd-share"><button data-act="pd-link">${'<span>' + I.link + '</span>'}Copy link</button><button data-act="pd-friends" data-w="${w.id}"><span>${I.frL}</span>Friends</button><button data-act="pd-story"><span>${I.story}</span>Story</button><button data-act="pd-link"><span>${I.more}</span>More</button></div>
+    <div class="pd-foot"><button class="pri" data-act="pd-done" data-w="${w.id}" data-ctx="${ctx}">Done</button><button class="lnk" data-act="pd-edit" data-w="${w.id}" data-ctx="${ctx}">Keep editing</button></div></div>`);
+  buzz([10, 30, 10]);
+}
+
+/* Put a model into a game: back to Create with the model as the hero */
+function putInGame(w, n) {
+  const v = verOf(w, n);
+  const go = () => {
+    resetPrompt(); setMode('ai');
+    state.attachments.push({ img: w.model + '.webp', role:'Hero', filter: styleOf(v.style).filter }); renderAttachments();
+    if (!state.idea) { state.idea = true; $('#idea').classList.add('on'); $('#idea').setAttribute('aria-pressed', 'true'); }
+    showIdea(`${w.title} guards a pillow fort from sock monsters. Cozy low-poly style.`);
+  };
+  const fromTabs = $('#create').hidden; closeAllSubs();
+  if (fromTabs) { openCreate('ai'); setTimeout(go, 60); } else setTimeout(go, 380);
 }
 
 /* S2 style pick */
@@ -1546,7 +1982,7 @@ function openStyle(photo) {
 function openBuild(ctx) {
   if (ctx) snapCtx = Object.assign({ styleK:(ctx.style || 'basic').toLowerCase() }, ctx);
   const c = snapCtx;
-  const s = openSub('sub-build', `${head(xBtn('sub-close'), '', `<span class="credits">${state.credits} / 5 free</span>`)}
+  const s = openSub('sub-build', `${head(xBtn('build-notify'), '', `<span class="credits">${state.credits} / 5 free</span>`)}
     <div class="s-body"><div class="gen">
       <div class="quote">${c.photo ? `<img src="${M(c.photo + '.webp')}" alt="">` : `<img src="${M('mascot-plus.webp')}" alt="" style="object-fit:contain;background:#2b2425">`}<span class="qt"><b id="bTitle">${c.photo ? 'Turning your photo into 3D' : 'Making your 3D model'}</b><small>Style · ${c.style} · about 20s</small></span></div>
       <div class="pv snap" id="bPv">${c.photo ? `<img class="photo" src="${M(c.photo + '.webp')}" alt="">` : `<div class="photo" style="background:radial-gradient(circle,#3b3332,#151012)"></div>`}<div class="dim"></div><div class="mesh"></div><div class="scan"></div>
@@ -1567,54 +2003,23 @@ function reveal(s) {
     p.animate([{ transform:'translate(0,0) scale(1)' }, { transform:`translate(${W / 2 - x}px,${150 - y}px) scale(.2)`, opacity:0 }], { duration:700 + Math.random() * 300, easing:'cubic-bezier(.6,0,.3,1)', fill:'forwards' });
   }
   later('sub-build', () => { pv.classList.add('reveal'); buzz(20); $('#bHint', s).innerHTML = '<em>3D SNAP</em>Almost there · unfolding'; $('#bTitle', s).textContent = 'Your 3D is ready!'; }, 520);
-  later('sub-build', () => { openR3d(); }, 2000);
+  later('sub-build', () => finish3D(null, true), 2000);
 }
-/* 3D result */
-let r3dStyle = 'basic', r3dVer = 1, r3dSaved = false;
-function openR3d() {
-  const under = ['sub-build', 'sub-style'].filter(id => subStack.includes(id));
-  setTimeout(() => under.forEach(id => closeSub(id, true)), 380);
-  const c = snapCtx; r3dStyle = c.styleK || 'basic'; r3dVer = 1; r3dSaved = false;
-  const chips = [...STYLES, ...COMMUNITY.slice(0, 1)];
-  openSub('sub-r3d', `${head(xBtn('r3d-close'), '', `<button class="icon-btn del" data-act="r3d-delete" aria-label="Delete">${I.trash}</button><button class="pbtn cta-grad" id="saveBtn" data-act="r3d-save">Save</button>`)}
-    <div class="r3d-title"><h2>${c.name}</h2><small id="r3dSub">${I.check}Auto-saved draft · v1</small></div>
-    <div class="stage3d" id="stage3d"><span class="tagpx">3D · <b id="r3dTag">${c.style.toUpperCase()}</b></span><span class="shadow"></span><span class="plate"></span>
-      <div class="mw"><img id="r3dImg" src="${M(c.model + '.webp')}" alt="${c.name} 3D model" draggable="false"></div>
-      <span class="rot">${I.rotate}Drag to rotate</span><button class="fsb glass" data-act="r3d-full">${I.full}<span>Full screen</span></button>
-      <div class="busy" id="r3dBusy"><img src="${M('mascot-idle.gif')}" alt=""><span id="busyTxt">Restyling…</span></div></div>
-    <div class="r3d-foot"><small>Change style</small>
-      <div class="stylechips">${chips.map(s => `<button class="${s.k === r3dStyle ? 'on' : ''}" data-act="restyle" data-k="${s.k}"><span class="cth"><img src="${M(s.img)}" alt=""></span>${s.label}</button>`).join('')}</div>
-      ${inbarHTML('r3d', 'Change the model')}
-    </div>`);
-  applyStyle(r3dStyle, true);
-  wireRotate($('#stage3d'));
-  const inp = $('#r3dIn');
-  inp.addEventListener('input', () => $('#r3dGo').classList.toggle('ready', !!inp.value.trim()));
-  $('#r3dForm').addEventListener('submit', e => {
-    e.preventDefault(); const t = inp.value.trim(); if (!t) return; inp.value = ''; $('#r3dGo').classList.remove('ready');
-    busy(`Updating · “${t.length > 24 ? t.slice(0, 24) + '…' : t}”`, () => { r3dVer++; $('#r3dSub').innerHTML = `${I.check}Auto-saved draft · v${r3dVer}`; toast(`Updated · v${r3dVer}`); });
-  });
+/* 3D: building finishes → new 3D work (auto-saved to Assets) → result view */
+function finish3D(ctx, show) {
+  const c = ctx || snapCtx;
+  const k = (c.styleK || (c.style || 'basic')).toLowerCase();
+  const w = newWork({ kind:'3d', title:c.name, model:c.model, prompt:c.prompt || 'Turn my photo into 3D', time:'now',
+    versions:[{ n:1, ask: c.prompt || 'Turn my photo into 3D', atts: c.photo ? [{ img: c.photo + '.webp' }] : [], reply:`Here’s your 3D ${c.name}! Drag to spin it. It’s saved to your Assets.`, style:k, note:styleOf(k).label, isNew:true }] });
+  w.last = `Wana: Here’s your 3D ${c.name}!`; renderChats(); renderMe();
+  if (show) openView(w, { v:1, ctx:'create', first:true });
+  return w;
 }
-function busy(txt, done) { const b = $('#r3dBusy'); if (!b) return; $('#busyTxt').textContent = txt; b.classList.add('on'); later('sub-r3d', () => { b.classList.remove('on'); done && done(); }, 1500); }
-const pixelCache = {};
-function applyStyle(k, instant) {
-  const img = $('#r3dImg'); if (!img) return;
-  const all = [...STYLES, ...COMMUNITY]; const s = all.find(x => x.k === k) || STYLES[0];
-  const src = M(snapCtx.model + '.webp');
-  const set = () => {
-    if (s.pixel) {
-      if (pixelCache[src]) { img.src = pixelCache[src]; img.style.filter = 'none'; img.style.imageRendering = 'pixelated'; return; }
-      const im = new Image(); im.onload = () => { try { const w = 40, h = Math.round(im.height / im.width * w); const c1 = document.createElement('canvas'); c1.width = w; c1.height = h; c1.getContext('2d').drawImage(im, 0, 0, w, h); const c2 = document.createElement('canvas'); c2.width = w * 12; c2.height = h * 12; const x = c2.getContext('2d'); x.imageSmoothingEnabled = false; x.drawImage(c1, 0, 0, c2.width, c2.height); pixelCache[src] = c2.toDataURL(); img.src = pixelCache[src]; img.style.filter = 'none'; } catch (e) { img.style.filter = 'contrast(1.3) saturate(1.3)'; } }; im.src = src;
-    } else { img.src = src; img.style.filter = s.filter; img.style.imageRendering = ''; }
-  };
-  $('#r3dTag') && ($('#r3dTag').textContent = s.label.toUpperCase());
-  if (instant) set(); else busy(`Restyling · ${s.label}`, set);
-}
-function wireRotate(st) {
-  const img = $('#r3dImg'); let sx = null, base = 0, ang = 0, idleA;
+function wireSpin(st, img) {
+  if (!st || !img) return; let sx = null, base = 0, ang = 0, idleA;
   const draw = () => { img.style.transform = `rotateY(${ang}deg) scaleX(${Math.max(.72, Math.cos(ang * Math.PI / 180))})`; };
-  const idle = () => { let t0 = performance.now(); const f = now => { if (sx !== null || !document.contains(img)) return; ang = Math.sin((now - t0) / 1100) * 14; draw(); idleA = requestAnimationFrame(f); }; idleA = requestAnimationFrame(f); };
-  st.addEventListener('pointerdown', e => { if (e.target.closest('button')) return; sx = e.clientX; base = ang; cancelAnimationFrame(idleA); st.setPointerCapture(e.pointerId); });
+  const idle = () => { const t0 = performance.now(); const f = now => { if (sx !== null || !document.contains(img)) return; ang = Math.sin((now - t0) / 1100) * 14; draw(); idleA = requestAnimationFrame(f); }; idleA = requestAnimationFrame(f); };
+  st.addEventListener('pointerdown', e => { if (e.target.closest('button')) return; sx = e.clientX; base = ang; cancelAnimationFrame(idleA); try { st.setPointerCapture(e.pointerId); } catch (x) {} });
   st.addEventListener('pointermove', e => { if (sx === null) return; ang = Math.max(-40, Math.min(40, base + (e.clientX - sx) * .5)); draw(); });
   const up = () => { if (sx === null) return; sx = null; img.animate([{ transform:img.style.transform }, { transform:'rotateY(0deg) scaleX(1)' }], { duration:500, easing:'cubic-bezier(.2,1.4,.4,1)' }); ang = 0; draw(); setTimeout(idle, 600); };
   st.addEventListener('pointerup', up); st.addEventListener('pointercancel', up);
@@ -1625,7 +2030,7 @@ function wireRotate(st) {
 const slideGame = el => { const s = el.closest('[data-g]'); return s ? G[s.dataset.g] : null; };
 const A = {
   'card-play': (b) => { const card = b.closest('[data-card]'); card.classList.remove('tapped'); enterWorld(slideGame(b), card, null, null, $('video', card)); },
-  'card-remix': (b) => { const g = slideGame(b); b.closest('[data-card]').classList.remove('tapped'); openCreate('ai', { prompt:`Remix ${g.title}: `, att: g.video ? g.video + '.jpg' : g.img }); setTimeout(() => $('#prompt').focus(), 420); },
+  'card-remix': (b) => { const g = slideGame(b); b.closest('[data-card]').classList.remove('tapped'); openCreate('ai', { remix:g }); },
   'card-more': (b) => { const m = $('.menu', b.closest('.card')); m.hidden = !m.hidden; },
   'card-download': (b) => { const g = slideGame(b); b.closest('.menu').hidden = true; b.closest('[data-card]').classList.remove('tapped'); if (!state.downloads.includes(g.id)) state.downloads.unshift(g.id); toast(`Downloaded ${g.title} · play offline in Me`); },
   'card-report': (b) => { b.closest('.menu').hidden = true; b.closest('[data-card]').classList.remove('tapped'); toast('Thanks — we’ll review this game'); },
@@ -1655,34 +2060,24 @@ const A = {
   'picker-done': () => { const items = pickerCfg.sel.map(i => pickerCfg.items[i]); const p = pickerCfg.purpose; closeSub('sub-picker');
     if (p === 'snap') { const ph = items[0].replace('.webp', ''); setTimeout(() => openStyle(SNAPS[ph] ? ph : 'photo-cafe'), 200); }
     else { items.forEach(x => addAttachment(x, 'Main character')); toast(`Added ${items.length} to your idea`); } },
-  'send': () => { acceptGhost(); const ta = $('#prompt'); const t = ta.value.trim(); if (!t && !state.attachments.length) return; const preset = ta.dataset.preset != null && PROMPTS[+ta.dataset.preset] && PROMPTS[+ta.dataset.preset].t === t ? PROMPTS[+ta.dataset.preset] : null; startCreate(t, state.attachments, preset); },
-  'gen-notify': () => { const g = Object.values(genGames).pop(); clearTimers('sub-gen'); closeCreate(); toast('Building in the background · we’ll ping you'); setTimeout(() => toast(`${g.title} is ready`, 'Open', () => { openCreate('ai'); setTimeout(() => openChat(g, lastPrompt, lastAtts), 400); }), 4200); },
-  'build-notify': () => { clearTimers('sub-build'); const c = Object.assign({}, snapCtx); closeSub('sub-build'); closeSub('sub-style'); setMode('snap'); toast('Building in the background'); setTimeout(() => toast(`${c.name} is ready in 3D`, 'Open', () => { if ($('#create').hidden) openCreate('snap'); snapCtx = c; setTimeout(openR3d, 400); }), 3800); },
+  'send': () => { acceptGhost(); const ta = $('#prompt'); const t = ta.value.trim() || (state.remix ? `Remix ${state.remix.title}` : ''); if (!t && !state.attachments.length) return; const preset = ta.dataset.preset != null && PROMPTS[+ta.dataset.preset] && PROMPTS[+ta.dataset.preset].t === t ? PROMPTS[+ta.dataset.preset] : null; startCreate(t, state.attachments, preset, state.remix); },
+  'gen-notify': () => { const w = genWork; clearTimers('sub-gen'); closeCreate(); resetPrompt(); toast('Building in the background · it’s in Chats'); finishInBackground(w, () => { finishGame(w, false); w.unread = true; renderChats(); toast(`${w.title} is ready`, 'Open', () => openView(w, { v:1, ctx:'chats', first:true })); }); },
+  'build-notify': () => { clearTimers('sub-build'); const c = Object.assign({}, snapCtx); closeSub('sub-build'); closeSub('sub-style'); setMode('snap'); toast('Building in the background · it’s in Chats');
+    const ph = newWork({ kind:'3d', title:c.name, model:c.model, working:0 }); renderChats();
+    finishInBackground(ph, () => { state.works.splice(state.works.indexOf(ph), 1); const w = finish3D(c, false); w.unread = true; renderChats(); toast(`${w.title} is ready in 3D`, 'Open', () => openView(w, { v:1, ctx:'chats', first:true })); }); },
   'sub-close': () => closeSub(),
-  'chat-close': () => { closeSub('sub-chat'); resetPrompt(); },
-  'chat-play': (b) => { const card = b.closest('.vcard, .c4-prev'); enterWorld(G[card.dataset.g], card, null, null, $('video', card)); },
   'good': (b) => { b.style.color = 'var(--white)'; toast('Thanks for the feedback'); },
-  'sugg': (b) => tweak(b.textContent),
-  'publish': (b) => { if (published) return; published = true; b.textContent = 'Published'; b.className = 'pbtn cta-soft'; $('#chatSub').textContent = `Published · v${version}`; state.published.unshift(chatGame.id); buzz([10, 30, 10]); toast('Published · it’s on your profile now', 'View', () => { closeCreate(); setTimeout(() => { setTab('me'); state.meTab = 'games'; renderMe(); }, 400); }); },
   'shutter': () => { const f = $('#flash'); f.animate([{ opacity:.95 }, { opacity:0 }], { duration:320 }); buzz(12); setTimeout(() => openStyle('photo-shiba'), 260); },
   'snap-upload': () => openPicker({ items:['photo-cafe.webp','photo-girl.webp','photo-shiba.webp'], multi:false, max:1, title:'Pick a photo', purpose:'snap' }),
   'snap-insp': (b) => openStyle(b.dataset.p),
   'flip': () => toast('Front camera on a real device'),
   'pick-style': (b) => { $$('[data-act="pick-style"]', $('#sub-style')).forEach(x => x.classList.toggle('on', x === b)); snapCtx.style = b.dataset.l; snapCtx.styleK = b.dataset.k; $('#make3d small').textContent = `· ${b.dataset.l} · ~20s`; },
   'ps-toggle': () => $('#psSheet').classList.toggle('open'),
-  'make-3d': () => { if (state.credits <= 0) { toast('No free creations left today'); return; } state.credits--; $('#credits').textContent = `${state.credits} / 5 free`; openBuild(); },
-  'r3d-close': () => { closeSub('sub-r3d'); },
-  'r3d-save': (b) => { if (r3dSaved) return; r3dSaved = true; b.innerHTML = `<span style="display:flex;align-items:center;gap:5px">${I.check.replace('<svg', '<svg width="14" height="14"')}Saved</span>`; b.className = 'pbtn cta-soft'; const all = [...STYLES, ...COMMUNITY]; const st = all.find(x => x.k === r3dStyle) || STYLES[0];
-    state.assets.unshift({ name:snapCtx.name, type:'3D · ' + st.label, img:snapCtx.model + '.webp', filter:st.filter && st.filter !== 'none' ? st.filter : '', isNew:true }); $('#r3dSub').innerHTML = `${I.check}In Assets · v${r3dVer}`; buzz([10, 30, 10]);
-    toast('Saved to Assets · synced to Studio', 'View', () => { closeCreate(); setTimeout(() => { state.meTab = 'assets'; setTab('me'); renderMe(); }, 400); }); },
-  'r3d-delete': () => openSheet(`<div class="confirm"><h3>Delete ${snapCtx.name}?</h3><p>${r3dSaved ? 'It will also be removed from your Assets.' : 'This draft will be removed.'}</p><button class="dbtn" data-act="r3d-delete-yes">Delete</button><button class="cbtn" data-act="sheet-close">Cancel</button></div>`),
-  'r3d-delete-yes': () => { closeSheet(); if (r3dSaved) state.assets = state.assets.filter(a => !(a.isNew && a.name === snapCtx.name)); closeSub('sub-r3d'); setMode('snap'); toast('Deleted'); },
-  'restyle': (b) => { if (b.classList.contains('on')) return; $$('[data-act="restyle"]', b.parentElement).forEach(x => x.classList.toggle('on', x === b)); r3dStyle = b.dataset.k; applyStyle(r3dStyle); },
-  'r3d-full': (b) => { const st = $('#stage3d'); st.classList.toggle('full'); $('span', b).textContent = st.classList.contains('full') ? 'Exit' : 'Full screen'; },
+  'make-3d': () => { if (state.credits <= 0) { outOfCredits(); return; } state.credits--; updateCredits(); openBuild(); },
   'sheet-close': closeSheet,
   'play-menu': playMenu,
   'play-exit': exitPlay,
-  'ig-remix': () => { closeSheet(); const g = playGame; exitPlay(); setTimeout(() => openCreate('ai', { prompt:`Remix ${g.title}: `, att: g.video ? g.video + '.jpg' : g.img }), 280); },
+  'ig-remix': () => { closeSheet(); const g = playGame; exitPlay(); setTimeout(() => openCreate('ai', { remix:g }), 280); },
   'ig-share': () => { closeSheet(); A.share(); },
   'ig-restart': () => { closeSheet(); const v = $('#play video'); if (v) { v.currentTime = 0; v.play().catch(() => {}); } toast('Restarted'); },
   'ig-download': () => { closeSheet(); if (!state.downloads.includes(playGame.id)) state.downloads.unshift(playGame.id); toast('Downloaded · play offline in Me'); },
@@ -1692,26 +2087,83 @@ const A = {
   'open-feed': (b) => openGameFeed(b.dataset.g, 'Trending remixes'),
   'gfeed-back': closeGameFeed,
   'dchip': (b) => { $$('#dChipRow .chip').forEach(x => x.classList.toggle('on', x === b)); const g = $('#dGrid'); const kids = [...g.children]; kids.sort(() => Math.random() - .5).forEach(k => g.appendChild(k)); },
-  'friend-play': (b) => enterWorld(G[b.dataset.g], b.querySelector('img') || b, null, null, null),
   'me-tab': (b) => { state.meTab = b.dataset.k; renderMe(); },
   'dl-play': (b) => enterWorld(G[b.dataset.g], b.closest('.dl-row').querySelector('img'), null, null, null),
-  'get-plus': () => toast('Plus · 50 creations a day, longer games'),
+  'get-plus': () => { closeSheet(); toast('Plus · 50 creations a day, longer games'); },
+  // big card view (first result / version / from Me)
+  'vw-close': (b) => closeCreateSaved(workById(b.dataset.w)),
+  'vw-more': (b) => moreMenu(b),
+  'vw-rename': (b) => { const w = workById(b.dataset.w); $$('.pop').forEach(p => p.remove()); renameSheet(w.title, v => { w.title = v; $$('.sub.in .vw-info h2').forEach(h => h.textContent = v); const ch = $('#sub-chat'); if (ch.dataset.w === w.id) { const hb = $('.s-head .mid b', ch); hb && (hb.textContent = v); } renderChats(); renderMe(); toast('Renamed'); }); },
+  'vw-delete': (b) => { const w = workById(b.dataset.w); $$('.pop').forEach(p => p.remove());
+    const p = w.kind === '3d' ? 'Its chat and all its versions in Assets will be removed.' : w.publishedV != null ? 'Its chat and all versions will be removed, and the published game comes down.' : 'Its chat and all versions will be removed.';
+    openSheet(`<div class="confirm"><h3>Delete ${escapeHTML(w.title)}?</h3><p>${p}</p><button class="dbtn" data-act="vw-delete-yes" data-w="${w.id}">Delete</button><button class="cbtn" data-act="sheet-close">Cancel</button></div>`); },
+  'vw-delete-yes': (b) => { const w = workById(b.dataset.w); closeSheet(); if (!$('#create').hidden) { closeCreate(); resetPrompt(); } else closeAllSubs(); setTimeout(() => deleteWork(w), 300); },
+  'vw-play': (b) => { const w = workById(b.dataset.w); enterWorld(gameOf(w), b, null, null, $('video', b)); },
+  'vw-edit': (b) => openWorkChat(workById(b.dataset.w), { ctx: b.dataset.ctx === 'create' ? 'create' : 'sub' }),
+  'vw-publish': (b) => publishSheet(workById(b.dataset.w), +b.dataset.v, b.dataset.ctx),
+  'vw-share': (b) => { const w = workById(b.dataset.w); shareToFriends({ id:w.id, sub:'My game · play it' }); },
+  'vw-game': (b) => putInGame(workById(b.dataset.w), +b.dataset.v),
+  'vw-style': (b) => { const w = workById(b.dataset.w), s = styleOf(b.dataset.k); if (s.k === latest(w).style) return; openWorkChat(w, { ctx: b.dataset.ctx === 'create' ? 'create' : 'sub', auto:`Change the style to ${s.label}`, style:s.k }); },
+  // chat
+  'vc-open': (b) => openView(workById(b.dataset.w), { v:+b.dataset.v, ctx:'chat' }),
+  'vc-full': (b) => { const w = workById(b.dataset.w), card = b.closest('.vcard'); enterWorld(gameOf(w), card, null, null, $('video', card)); },
+  'chat-sugg': (b) => tweak(workById(b.dataset.w), b.textContent),
+  // publish → published
+  'pub-cover': (b) => { if (b.classList.contains('ingame')) return; $$('[data-act="pub-cover"]').forEach(x => x.classList.toggle('on', x === b)); pubCtx.cover = +b.dataset.i; },
+  'pub-who': (b) => { $$('[data-act="pub-who"]').forEach(x => x.classList.toggle('on', x === b)); pubCtx.who = b.dataset.k; },
+  'pub-remix': (b) => { b.classList.toggle('on'); pubCtx.remix = b.classList.contains('on'); },
+  'pub-post': () => { const { w, n, ctx } = pubCtx; const t = $('#pubTitle').value.trim(); if (t) w.title = t; w.publishedV = n; w.last = `You published v${n}`; w.time = 'now'; closeSheet(); renderChats(); renderMe(); setTimeout(() => openPublished(w, ctx), 260); },
+  'pd-link': () => { try { navigator.clipboard.writeText('https://wanaka.world/g/demo').catch(() => {}); } catch (e) {} toast('Link copied'); },
+  'pd-friends': (b) => shareToFriends({ id:b.dataset.w, sub:'My new game · play it' }),
+  'pd-story': () => toast('Posted to your story'),
+  'pd-done': (b) => { const w = workById(b.dataset.w), ctx = b.dataset.ctx;
+    if (ctx === 'create') { closeCreate(); resetPrompt(); setTimeout(() => toast('Published · it’s on your profile', 'View', () => { state.meTab = 'games'; setTab('me'); }), 420); return; }
+    if (ctx === 'chat') { backToChat(w); return; }
+    closeAllSubs(); if (ctx === 'me') { state.meTab = 'games'; renderMe(); } },
+  'pd-edit': (b) => { const w = workById(b.dataset.w), ctx = b.dataset.ctx;
+    if (subStack.includes('sub-chat')) { backToChat(w); return; }
+    ['sub-pub', 'sub-view2', 'sub-view'].forEach(id => subStack.includes(id) && closeSub(id, true)); openWorkChat(w, { ctx: ctx === 'create' ? 'create' : 'sub' }); },
+  // chats tab
+  'ch-tab': (b) => { state.chatTab = b.dataset.k; renderChats(); },
+  'row-open': (b) => { if (rowGuard(b)) return; const w = workById(b.dataset.w); if (!w) return; if (w.working != null) { toast('Still building · almost there'); return; } openWorkChat(w, { ctx:'sub' }); },
+  'row-rename': (b) => { const w = workById(b.dataset.w); renameSheet(w.title, v => { w.title = v; renderChats(); renderMe(); toast('Renamed'); }); },
+  'row-pin': (b) => { const w = workById(b.dataset.w); w.pinned = !w.pinned; renderChats(); toast(w.pinned ? 'Pinned' : 'Unpinned'); },
+  'row-del': (b) => deleteWork(workById(b.dataset.w)),
+  'row-pin-f': (b) => { const d = state.dms[b.dataset.f]; d.pinned = !d.pinned; renderChats(); toast(d.pinned ? 'Pinned' : 'Unpinned'); },
+  'row-del-f': (b) => { const n = b.dataset.f, d = state.dms[n]; delete state.dms[n]; renderChats(); toast(`Deleted chat with ${n}`, 'Undo', () => { state.dms[n] = d; renderChats(); }); },
+  'dm-open': (b) => { if (rowGuard(b)) return; openDM(b.dataset.f); },
+  'dm-play': (b) => { const id = b.dataset.g, w = workById(id); enterWorld(w ? gameOf(w) : G[id], b.closest('.dm-card').querySelector('.cv'), null, null, null); },
+  'dm-share': () => { const n = $('#sub-dm').dataset.f; const items = state.works.filter(w => w.kind === 'game' && w.publishedV != null);
+    openSheet(`<div class="sf"><h3>Send a game to ${n}</h3><div class="dm-pick">${items.slice(0, 4).map(w => `<button data-act="dm-pick" data-w="${w.id}"><img src="${poster(G[w.base])}" alt=""><b>${escapeHTML(w.title)}</b></button>`).join('')}</div></div>`, {
+      'dm-pick': (x) => { const w = workById(x.dataset.w), d = state.dms[n]; d.msgs.push({ me:true, game:w.id, sub:'My game · play it' }); d.time = 'now'; closeSheet(); renderDM(n); renderChats(); } }); },
+  // me
+  'me-drafts': () => openDrafts(),
+  'me-draft': (b) => { const w = workById(b.dataset.w); openView(w, { v:latest(w).n, ctx:'me' }); },
+  'me-game': (b) => { const w = workById(b.dataset.w); openView(w, { v:w.publishedV, ctx:'me' }); },
+  'me-asset': (b) => openView(workById(b.dataset.w), { v:+b.dataset.v, ctx:'me' }),
+  // remix
+  'remix-x': () => { state.remix = null; renderRemix(); },
   'noop': () => {},
 };
-function resetPrompt() { clearGhost(); const ta = $('#prompt'); ta.value = ''; delete ta.dataset.preset; state.attachments = []; renderAttachments(); }
+function renderRemix() {
+  const r = $('#remixSrc'), x = state.remix; r.hidden = !x;
+  r.innerHTML = x ? `<img src="${poster(x)}" alt=""><span class="t"><b>${I.remix}Remixing ${escapeHTML(x.title)}</b><small>by ${x.creator} · their game stays theirs</small></span><button class="x2" data-act="remix-x" aria-label="Remove">${I.close}</button>` : '';
+  updateSend();
+}
+function resetPrompt() { clearGhost(); state.remix = null; renderRemix(); const ta = $('#prompt'); ta.value = ''; delete ta.dataset.preset; state.attachments = []; renderAttachments(); }
 
 document.addEventListener('click', e => {
-  const b = e.target.closest('[data-act]'); if (!b) {
-    // tap outside an open card menu closes it
-    return;
-  }
+  if (!e.target.closest('.pop, [data-act="vw-more"]')) $$('.pop').forEach(p => p.remove());
+  if (!e.target.closest('.crow')) $$('.crow.open').forEach(r => r.classList.remove('open'));
+  const b = e.target.closest('[data-act]'); if (!b) return;
   const fn = A[b.dataset.act]; if (fn) { e.preventDefault(); fn(b, e); }
 });
 
 /* ---------------- wire up ---------------- */
 function init() {
+  seed();
   $('#sysIcons').innerHTML = I.cell + I.wifi + I.batt;
-  $$('.tabbar .tb').forEach(b => { const k = { home:'home', discover:'disc', friends:'fr', me:'me' }[b.dataset.tab]; b.innerHTML = I[k + 'L'] + I[k + 'F']; b.addEventListener('click', () => setTab(b.dataset.tab)); });
+  $$('.tabbar .tb').forEach(b => { const k = { home:'home', discover:'disc', chats:'fr', me:'me' }[b.dataset.tab]; b.innerHTML = I[k + 'L'] + I[k + 'F']; b.addEventListener('click', () => setTab(b.dataset.tab)); });
   $('#gBackIc').innerHTML = I.back; $('#swipeHint').innerHTML = I.up + 'Swipe up for more';
   fillIcons();
   const hf = $('#homeFeed');
@@ -1723,7 +2175,7 @@ function init() {
     if (b.dataset.ftab === 'friends') { const d = $('.rd', b); d && d.remove(); }
     state.ftab = b.dataset.ftab; $('#topbar').classList.remove('immersive'); setCompact(false); pauseAll(); renderFeed(hf, FEEDS[state.ftab]);
   }));
-  renderDiscover(); renderFriends(); renderMe(); tickCountdown(); setInterval(tickCountdown, 1000);
+  renderDiscover(); renderChats(); wireChatsSwipe(); renderMe(); tickCountdown(); setInterval(tickCountdown, 1000);
   // create
   $('#prompt').addEventListener('input', () => { delete $('#prompt').dataset.preset; updateSend(); });
   $('#idea').addEventListener('click', e => {
