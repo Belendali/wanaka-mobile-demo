@@ -78,20 +78,24 @@ svg{display:block;flex:none}
 .muted{color:var(--muted)}
 
 /* ---------- tab bar ---------- */
-.tabbar{position:absolute;left:50%;bottom:26px;width:max-content;transform:translateX(-50%);z-index:20;transition:transform .3s,opacity .3s}
+.tabbar{position:absolute;left:50%;bottom:26px;width:max-content;transform:translateX(-50%);z-index:20;transition:transform .3s,opacity .3s;
+  /* Regular (Figma TabBar size=Regular) */
+  --h:50px;--pad:6px;--gap:10px;--tw:54px;--ic:26px;--cw:70px;--m:62px;--mt:-16px}
+/* Compact while swiping the Home feed (Instagram-style), Figma size=Compact */
+.tabbar.compact{--h:42px;--pad:4px;--gap:16px;--tw:44px;--ic:24px;--cw:64px;--m:56px;--mt:-14px}
 .tabbar .bar > *{flex:none}
 .tabbar.away{transform:translate(-50%,140%);opacity:0;pointer-events:none}
-.tabbar .bar{height:42px;padding:0 4px;display:flex;align-items:center;gap:16px;border-radius:999px;background:rgba(30,25,27,.86);border:1px solid var(--line);
+.tabbar .bar{height:var(--h);padding:0 var(--pad);display:flex;align-items:center;gap:var(--gap);transition:height .3s cubic-bezier(.2,.8,.2,1),padding .3s,gap .3s cubic-bezier(.2,.8,.2,1);border-radius:999px;background:rgba(30,25,27,.86);border:1px solid var(--line);
   -webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);box-shadow:0 10px 28px rgba(0,0,0,.45)}
-.tabbar .tb{width:44px;height:48px;display:grid;place-items:center;color:var(--white)}
-.tabbar .tb svg{width:24px;height:24px}
+.tabbar .tb{width:var(--tw);height:var(--h);display:grid;place-items:center;color:var(--white);transition:width .3s cubic-bezier(.2,.8,.2,1),height .3s}
+.tabbar .tb svg{width:var(--ic);height:var(--ic);transition:width .3s,height .3s}
 .tabbar .tb .f{display:none}
 .tabbar .tb.on .f{display:block}
 .tabbar .tb.on .l{display:none}
 .tabbar .tb:not(.on){opacity:.45}
 .tabbar .tb .dot{position:absolute}
-.tabbar .tb-create{width:64px;height:48px;position:relative}
-.tabbar .tb-create img{position:absolute;left:4px;top:-14px;width:56px;height:56px;max-width:none;transition:transform .2s}
+.tabbar .tb-create{width:var(--cw);height:var(--h);position:relative;transition:width .3s cubic-bezier(.2,.8,.2,1),height .3s}
+.tabbar .tb-create img{position:absolute;left:4px;top:var(--mt);width:var(--m);height:var(--m);max-width:none;transition:transform .2s,width .3s,height .3s,top .3s}
 .tabbar .tb-create:active img{transform:scale(.92)}
 
 /* ---------- home ---------- */
@@ -1122,14 +1126,17 @@ function playMenu() {
 }
 
 /* ---------------- tabs ---------------- */
+// Tab bar shrinks a little while you swipe the Home feed; full size everywhere else.
+function setCompact(on) { $('#tabbar').classList.toggle('compact', on); }
 function setTab(t) {
   if (t === state.tab) {
-    if (t === 'home') { $('#homeFeed').scrollTo({ top:0, behavior:'smooth' }); $('#topbar').classList.remove('immersive'); }
+    if (t === 'home') { $('#homeFeed').scrollTo({ top:0, behavior:'smooth' }); $('#topbar').classList.remove('immersive'); setCompact(false); }
     if (t === 'discover') $('#dScroll').scrollTo({ top:0, behavior:'smooth' });
     return;
   }
   state.tab = t;
   ['home','discover','friends','me'].forEach(k => { $('#s-' + k).hidden = k !== t; });
+  setCompact(t === 'home' && $('#homeFeed').scrollTop > 20);
   $$('.tabbar .tb').forEach(b => b.classList.toggle('on', b.dataset.tab === t));
   pauseAll();
   if (t === 'home') syncFeed($('#homeFeed'), true);
@@ -1700,12 +1707,12 @@ function init() {
   fillIcons();
   const hf = $('#homeFeed');
   renderFeed(hf, FEEDS.explore);
-  wireFeed(hf, { onScroll: top => $('#topbar').classList.toggle('immersive', top > 20) });
+  wireFeed(hf, { onScroll: top => { $('#topbar').classList.toggle('immersive', top > 20); setCompact(state.tab === 'home' && top > 20); } });
   wireFeed($('#gFeed'), { onScroll: top => { if (top > 40) $('#swipeHint').style.opacity = 0; } });
   $$('#ftabs button').forEach(b => b.addEventListener('click', () => {
     $$('#ftabs button').forEach(x => x.classList.toggle('on', x === b));
     if (b.dataset.ftab === 'friends') { const d = $('.rd', b); d && d.remove(); }
-    state.ftab = b.dataset.ftab; $('#topbar').classList.remove('immersive'); pauseAll(); renderFeed(hf, FEEDS[state.ftab]);
+    state.ftab = b.dataset.ftab; $('#topbar').classList.remove('immersive'); setCompact(false); pauseAll(); renderFeed(hf, FEEDS[state.ftab]);
   }));
   renderDiscover(); renderFriends(); renderMe(); tickCountdown(); setInterval(tickCountdown, 1000);
   // create
