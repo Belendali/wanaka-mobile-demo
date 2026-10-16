@@ -72,7 +72,6 @@ svg{display:block;flex:none}
 .vscroll{overflow-y:auto;scrollbar-width:none;overscroll-behavior:contain}
 .tagpx{font-family:var(--pixel);font-size:7px;letter-spacing:.04em;padding:6px 8px;border-radius:8px;background:rgba(20,14,16,.72);display:inline-block}
 .lime{color:var(--lime)}
-.cta-lime{background:var(--lime);color:var(--lime-ink);font-weight:600;border-radius:999px}
 .cta-white{background:var(--white);color:var(--bg);font-weight:600;border-radius:999px}
 .cta-grad{background:var(--grad);color:var(--bg);font-weight:600;border-radius:999px}
 .cta-soft{background:rgba(255,255,255,.1);font-weight:600;border-radius:999px}
@@ -1227,7 +1226,7 @@ function renderMe() {
       <h1>Yuanyuan</h1><span class="muted" style="font-size:14px">@yy.makes</span>
       <div class="me-stats"><span><b>12.4k</b>likes</span><span><b>1.2k</b>followers</span><span><b>86</b>following</span></div>
       <div class="me-actions"><button class="edit">Edit profile</button><button class="share" aria-label="Share profile">${I.shareL}</button></div>
-      <div class="member"><div class="mi"><span class="pl">FREE PLAN</span><span class="cr">${I.gem}${state.credits} / 5 free creations today</span><span class="us"><i style="width:${(state.credits / 5) * 100}%"></i></span></div><button class="plus cta-lime" data-act="get-plus">Get Plus</button></div>
+      <div class="member"><div class="mi"><span class="pl">FREE PLAN</span><span class="cr">${I.gem}${state.credits} / 5 free creations today</span><span class="us"><i style="width:${(state.credits / 5) * 100}%"></i></span></div><button class="plus cta-white" data-act="get-plus">Get Plus</button></div>
     </div>
     <div class="ptabs">${tabs.map(([k, ic]) => `<button class="${k === state.meTab ? 'on' : ''}" data-act="me-tab" data-k="${k}" aria-label="${k}">${ic}</button>`).join('')}<span class="ul" style="left:calc(${ti} * 25% + 12.5% - 20px)"></span></div>
     <div class="me-panel">${mePanel()}</div>`;
@@ -1384,7 +1383,7 @@ function openReview(img) {
   openSub('sub-review', `${head(xBtn('sub-close', 'back'), '<b>Your photo</b>')}
     <div class="s-body"><div class="photo-box"><img src="${M(img)}" alt=""></div>
     <div class="useas"><small>Use it as</small><div class="hscroll">${['Main character','Background','Style reference'].map((r, i) => `<button class="chip${i ? '' : ' on'}" data-act="role" data-r="${r}">${r}</button>`).join('')}</div></div>
-    <div class="bottom-actions"><button class="cta-soft" style="width:130px" data-act="sub-close">${I.refresh}Retake</button><button class="cta-lime" style="flex:1" data-act="use-photo" data-img="${img}">Use photo</button></div></div>`);
+    <div class="bottom-actions"><button class="cta-soft" style="width:130px" data-act="sub-close">${I.refresh}Retake</button><button class="cta-white" style="flex:1" data-act="use-photo" data-img="${img}">Use photo</button></div></div>`);
 }
 /* A4 picker */
 let pickerCfg = null;
@@ -1396,7 +1395,7 @@ function openPicker(cfg) {
       <div class="seg"><button class="${pickerCfg.assets ? '' : 'on'}" data-act="picker-src" data-s="photos">Photos</button><button class="${pickerCfg.assets ? 'on' : ''}" data-act="picker-src" data-s="assets">My Assets</button></div>
       <div class="pgrid">${pickerCfg.assets ? '' : `<button class="camtile" data-act="picker-cam">${I.camera}Camera</button>`}${it.map((x, i) => `<button data-act="pick" data-i="${i}" class="${pickerCfg.assets ? 'contain' : ''}"><img src="${M(x)}" alt=""><span class="sel"></span></button>`).join('')}</div>
     </div>
-    <div class="pick-foot" style="padding-bottom:30px"><span class="muted" style="font-size:12px">${pickerCfg.multi ? 'Up to ' + pickerCfg.max : 'Pick one photo'}</span><button class="add cta-lime" id="pickAdd" data-act="picker-done" disabled style="opacity:.4">${pickerCfg.multi ? 'Add' : 'Next'}</button></div>`, 'up');
+    <div class="pick-foot" style="padding-bottom:30px"><span class="muted" style="font-size:12px">${pickerCfg.multi ? 'Up to ' + pickerCfg.max : 'Pick one photo'}</span><button class="add cta-white" id="pickAdd" data-act="picker-done" disabled style="opacity:.4">${pickerCfg.multi ? 'Add' : 'Next'}</button></div>`, 'up');
 }
 const PHOTOS = ['photo-shiba.webp','photo-cafe.webp','photo-girl.webp','cover-paw.webp','cover-escape.webp','cover-deep.webp','photo-cafe.webp','photo-girl.webp','photo-shiba.webp','cover-dungeon.webp','cover-clash.webp'];
 const ASSET_IMGS = () => state.assets.map(a => a.img);
