@@ -586,27 +586,34 @@ svg{display:block;flex:none}
 .c4-prev .fs{position:absolute;right:14px;bottom:14px;display:flex;align-items:center;gap:6px;padding:7px 12px 7px 10px;border-radius:999px;background:rgba(20,14,16,.6);font-size:12px;font-weight:500;line-height:18px}
 .c4-label{margin:0 0 -7px;font-size:12px;font-weight:500;line-height:18px;color:rgba(255,255,255,.7)}
 
-/* style pick */
-.cap-box{position:absolute;left:16px;right:16px;top:8px;height:42%;border-radius:32px;overflow:hidden;background:#111}
-.cap-box > img{width:100%;height:100%;object-fit:cover}
-.cap-box .cut{position:absolute;left:18%;right:18%;top:14%;bottom:12%;border:2px dashed rgba(255,255,255,.9);border-radius:46px}
-.cap-box .rt{position:absolute;left:14px;bottom:14px;display:flex;align-items:center;gap:6px;padding:8px 14px 8px 12px;border-radius:999px;font-size:14px;font-weight:500}
-.cap-box .rt svg{width:16px;height:16px}
-.cap-box .hintp{position:absolute;top:14px;left:50%;width:max-content;transform:translateX(-50%);display:flex;gap:8px;align-items:center;padding:8px 12px;border-radius:999px;font-size:12px;font-weight:500;white-space:nowrap}
-.cap-box .hintp em{font-style:normal;font-family:var(--pixel);font-size:8px;color:var(--lime)}
-.style-sheet{position:absolute;left:0;right:0;bottom:0;top:calc(42% + 22px);border-radius:32px 32px 0 0;background:var(--surface);padding:22px 20px 0;display:flex;flex-direction:column}
-.style-sheet h3{margin:0 0 12px;font-size:16px;font-weight:600}
-.styles{display:flex;gap:12px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
-.styles::-webkit-scrollbar{display:none}
-.styles button{flex:none;display:grid;justify-items:center;gap:6px;font-size:12px;color:rgba(255,255,255,.6)}
-.styles .th{width:60px;height:60px;border-radius:18px;overflow:hidden;background:rgba(255,255,255,.07);display:grid;place-items:center;position:relative;box-sizing:border-box}
-.styles .th img{width:86%;height:86%;object-fit:contain}
-.styles .th img.full{width:100%;height:100%;object-fit:cover}
-.styles .on{color:var(--white)}
-.styles .on .th{box-shadow:inset 0 0 0 2px var(--white)}
-.styles .th .by{position:absolute;right:3px;bottom:3px;width:18px;height:18px;border-radius:9px;border:2px solid var(--surface);object-fit:cover}
-.style-sheet .cta{margin:auto 0 28px;height:54px;font-size:16px;display:flex;align-items:center;justify-content:center;gap:6px}
-.style-sheet .cta small{font-size:14px;opacity:.6;font-weight:500}
+/* style pick (Figma 48608-3537) */
+.sub.ps{--ph:min(448.75px, calc(100% - var(--sb) - 342px))}
+.ps-photo{position:absolute;left:50%;top:calc(var(--sb) + 52px);height:var(--ph);aspect-ratio:300/448.75;transform:translateX(-50%);border-radius:32px;overflow:hidden;background:#111}
+.ps-photo > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ps-photo::after{content:"";position:absolute;left:0;right:0;bottom:0;height:27.8%;background:linear-gradient(rgba(20,14,16,0),rgba(20,14,16,.7));pointer-events:none}
+.ps-retake{position:absolute;top:16px;right:16px;z-index:2;display:flex;align-items:center;gap:6px;padding:8px 14px 8px 12px;border-radius:999px;background:rgba(20,14,16,.1);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);font-size:14px;font-weight:500;line-height:21px}
+.ps-sheet{position:absolute;left:0;right:0;bottom:0;top:calc(var(--sb) + 64px + var(--ph));z-index:3;background:var(--surface);border-radius:32px 32px 0 0;padding:10px 0 0;display:flex;flex-direction:column;gap:8px;transition:top .34s cubic-bezier(.2,.8,.2,1)}
+.ps-sheet.open{top:calc(var(--sb) + 52px)}
+.ps-grab{flex:none;align-self:center;width:36px;height:5px;border-radius:3px;background:var(--white);position:relative}
+.ps-grab::before{content:"";position:absolute;inset:-12px -40px}
+.ps-scroll{flex:1;min-height:0;overflow-y:auto;scrollbar-width:none;padding:0 20px 120px;display:flex;flex-direction:column;gap:12px}
+.ps-scroll::-webkit-scrollbar{display:none}
+.ps-scroll > *{flex:none}
+.ps-scroll h3{margin:0;font-size:16px;font-weight:600;line-height:24px}
+.ps-styles{display:flex;gap:12px;overflow-x:auto;scrollbar-width:none;margin:0 -20px;padding:0 20px}
+.ps-styles::-webkit-scrollbar{display:none}
+.ps-styles button{flex:none;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12px;font-weight:500;line-height:18px}
+.ps-th{position:relative;width:80px;height:80px;border-radius:24px;overflow:hidden;background:rgba(255,255,255,.07)}
+.ps-th img{position:absolute;left:1.33px;top:2.67px;width:77.33px;height:77.33px;max-width:none;object-fit:cover}
+.ps-th::after{content:"";position:absolute;inset:0;border-radius:24px;box-shadow:inset 0 0 0 2.667px transparent;transition:box-shadow .15s}
+.ps-styles .on .ps-th::after{box-shadow:inset 0 0 0 2.667px var(--white)}
+.ps-comm{display:grid;grid-template-columns:1fr 1fr;gap:8.8px}
+.ps-comm .ba .pic::after{content:"";position:absolute;inset:0;z-index:3;border-radius:inherit;box-shadow:inset 0 0 0 2.667px transparent;pointer-events:none;transition:box-shadow .15s}
+.ps-comm .ba.on .pic::after{box-shadow:inset 0 0 0 2.667px var(--white)}
+.ps-cta{position:absolute;left:0;right:0;bottom:0;z-index:4;padding:24px 16px 32px;background:linear-gradient(to top,#000 25%,rgba(0,0,0,0))}
+.ps-cta button{width:100%;height:54px;border-radius:999px;background:var(--white);box-shadow:0 4px 4px rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap}
+.ps-cta b{font-size:16px;font-weight:600;line-height:24px;color:var(--bg)}
+.ps-cta small{font-size:14px;font-weight:500;line-height:21px;color:#222}
 
 /* 3D result */
 .r3d-title{flex:none;padding:6px 16px 0}
@@ -885,14 +892,14 @@ const PROMPTS = [
   { k:'WORLD', t:'A floating island made of giant pancakes', base:'ivy', name:'Pancake Isle', desc:'Hop across fluffy stacks and collect syrup drops.' },
 ];
 const STYLES = [
-  { k:'basic', label:'Basic', img:'plant-basic.webp', filter:'none' },
-  { k:'flocked', label:'Flocked', img:'plant-flocked.webp', filter:'saturate(.72) brightness(1.08) contrast(.9) blur(.35px)' },
-  { k:'pixelated', label:'Pixelated', img:'plant-pixel.webp', pixel:true },
-  { k:'realistic', label:'Realistic', img:'plant-real.webp', filter:'contrast(1.14) saturate(1.15)' },
+  { k:'basic', label:'Basic', img:'plant-basic.webp', th:'style-basic.webp', filter:'none' },
+  { k:'flocked', label:'Flocked', img:'plant-flocked.webp', th:'style-flocked.webp', filter:'saturate(.72) brightness(1.08) contrast(.9) blur(.35px)' },
+  { k:'pixelated', label:'Pixelated', img:'plant-pixel.webp', th:'style-pixel.webp', pixel:true },
+  { k:'realistic', label:'Realistic', img:'plant-real.webp', th:'style-real.webp', filter:'contrast(1.14) saturate(1.15)' },
 ];
 const COMMUNITY = [
-  { k:'plush', label:'Soft plush', img:'model-cafe.webp', by:'av-1', filter:'sepia(.16) saturate(.92) brightness(1.04)' },
-  { k:'figure', label:'Tiny figure', img:'model-girl.webp', by:'av-4', filter:'contrast(1.1) saturate(1.2)' },
+  { k:'plush', label:'Soft plush', img:'model-cafe.webp', photo:'photo-cafe.webp', title:'Café pup · Soft plush', by:'av-1', filter:'sepia(.16) saturate(.92) brightness(1.04)' },
+  { k:'figure', label:'Tiny figure', img:'model-girl.webp', photo:'photo-girl.webp', title:'Park reader · Figure', by:'av-4', filter:'contrast(1.1) saturate(1.2)' },
 ];
 const SNAPS = { 'photo-cafe':{ model:'model-cafe', name:'Café Pup' }, 'photo-girl':{ model:'model-girl', name:'Park Reader' }, 'photo-shiba':{ model:'model-plush', name:'Nice Pup' } };
 
@@ -1458,16 +1465,18 @@ let snapCtx = null;
 function openStyle(photo) {
   const map = SNAPS[photo] || SNAPS['photo-cafe'];
   snapCtx = { photo, model:map.model, name:map.name, style:'Basic', styleK:'basic' };
-  openSub('sub-style', `${head(xBtn('sub-close'), '', `<span class="credits">${state.credits} / 5 free</span>`)}
-    <div class="s-body">
-      <div class="cap-box"><img src="${M(photo + '.webp')}" alt=""><span class="cut"></span><span class="hintp glass"><em>3D SNAP</em>Got it · 1 object</span><button class="rt glass" data-act="sub-close">${I.refresh}Retake</button></div>
-      <div class="style-sheet"><h3>Pick a style</h3>
-        <div class="styles" id="stylesRow"><button data-act="pick-style" data-k="auto" data-l="Auto"><span class="th"><img class="full" src="${M(photo + '.webp')}" alt=""></span>Auto</button>${STYLES.map(s => `<button class="${s.k === 'basic' ? 'on' : ''}" data-act="pick-style" data-k="${s.k}" data-l="${s.label}"><span class="th"><img src="${M(s.img)}" alt=""></span>${s.label}</button>`).join('')}</div>
-        <h3 style="margin-top:18px">From the community</h3>
-        <div class="styles">${COMMUNITY.map(c => `<button data-act="pick-style" data-k="${c.k}" data-l="${c.label}"><span class="th"><img src="${M(c.img)}" alt=""><img class="by" src="${M(c.by + '.webp')}" alt=""></span>${c.label}</button>`).join('')}</div>
-        <button class="cta cta-lime" data-act="make-3d" id="make3d">Make it 3D <small>· Basic · ~20s</small></button>
+  const s = openSub('sub-style', `<div class="c-head"><button class="c-close" data-act="sub-close" aria-label="Close"><img src="${M('icons/close-24.svg')}" width="24" height="24" alt=""></button><span class="ttl">Create with AI</span><span class="credits">${state.credits} / 5 free</span></div>
+    <div class="ps-photo"><img src="${M(photo + '.webp')}" alt="Your photo"><button class="ps-retake" data-act="sub-close">${IC('retake', 16)}Retake</button></div>
+    <div class="ps-sheet" id="psSheet"><button class="ps-grab" data-act="ps-toggle" aria-label="Expand"></button>
+      <div class="ps-scroll">
+        <h3>Pick a style</h3>
+        <div class="ps-styles">${STYLES.map(st => `<button class="${st.k === 'basic' ? 'on' : ''}" data-act="pick-style" data-k="${st.k}" data-l="${st.label}"><span class="ps-th"><img src="${M(st.th)}" alt=""></span>${st.label}</button>`).join('')}</div>
+        <h3>From the community</h3>
+        <div class="ps-comm">${COMMUNITY.map(c => `<button class="ba" data-act="pick-style" data-k="${c.k}" data-l="${c.label}"><span class="pic"><span class="top"><img src="${M(c.photo)}" alt=""></span><span class="bot"><img src="${M(c.img)}" alt=""></span><span class="t1 tagpx">PHOTO</span><span class="t2 tagpx lime">3D</span><span class="arr">${IC('arrow-down', 16)}</span></span><b>${c.title}</b></button>`).join('')}</div>
       </div>
-    </div>`);
+    </div>
+    <div class="ps-cta"><button data-act="make-3d" id="make3d"><b>Make it 3D</b><small>· Basic · ~20s</small></button></div>`);
+  s.classList.add('ps');
 }
 /* S3 build */
 function openBuild(ctx) {
@@ -1595,7 +1604,8 @@ const A = {
   'snap-upload': () => openPicker({ items:['photo-cafe.webp','photo-girl.webp','photo-shiba.webp'], multi:false, max:1, title:'Pick a photo', purpose:'snap' }),
   'snap-insp': (b) => openStyle(b.dataset.p),
   'flip': () => toast('Front camera on a real device'),
-  'pick-style': (b) => { $$('[data-act="pick-style"]', $('#sub-style')).forEach(x => x.classList.toggle('on', x === b)); snapCtx.style = b.dataset.l; snapCtx.styleK = b.dataset.k === 'auto' ? 'basic' : b.dataset.k; $('#make3d').innerHTML = `Make it 3D <small>· ${b.dataset.l} · ~20s</small>`; },
+  'pick-style': (b) => { $$('[data-act="pick-style"]', $('#sub-style')).forEach(x => x.classList.toggle('on', x === b)); snapCtx.style = b.dataset.l; snapCtx.styleK = b.dataset.k; $('#make3d small').textContent = `· ${b.dataset.l} · ~20s`; },
+  'ps-toggle': () => $('#psSheet').classList.toggle('open'),
   'make-3d': () => { if (state.credits <= 0) { toast('No free creations left today'); return; } state.credits--; $('#credits').textContent = `${state.credits} / 5 free`; openBuild(); },
   'r3d-close': () => { closeSub('sub-r3d'); },
   'r3d-save': (b) => { if (r3dSaved) return; r3dSaved = true; b.innerHTML = `<span style="display:flex;align-items:center;gap:5px">${I.check.replace('<svg', '<svg width="14" height="14"')}Saved</span>`; b.className = 'pbtn cta-soft'; const all = [...STYLES, ...COMMUNITY]; const st = all.find(x => x.k === r3dStyle) || STYLES[0];
