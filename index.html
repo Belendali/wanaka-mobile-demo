@@ -314,10 +314,11 @@ svg{display:block;flex:none}
 /* ---------- create ---------- */
 .create{z-index:40;display:flex;flex-direction:column;transform:translateY(100%);transition:transform .38s cubic-bezier(.2,.8,.2,1)}
 .create.in{transform:none}
-.c-head{flex:none;height:44px;margin-top:calc(var(--sb) + 4px);display:flex;align-items:center;justify-content:space-between;padding:0 16px;position:relative}
-.c-head .ttl{position:absolute;left:50%;width:max-content;transform:translateX(-50%);font-size:15px;font-weight:500}
-.credits{height:32px;padding:0 12px;border-radius:999px;background:var(--faint);display:flex;align-items:center;font-size:12px;font-weight:500}
-.c-track{flex:1;min-height:0;position:relative;overflow:hidden;margin-top:8px}
+.c-head{flex:none;height:40px;margin-top:var(--sb);display:flex;align-items:center;justify-content:space-between;padding:0 8px;position:relative}
+.c-close{width:44px;height:40px;display:grid;place-items:center}
+.c-head .ttl{position:absolute;left:50%;width:max-content;transform:translateX(-50%);font-size:14px;font-weight:500;line-height:21px}
+.credits{height:32px;padding:0 12px 0 10px;box-sizing:border-box;border-radius:999px;background:rgba(255,255,255,.1);display:flex;align-items:center;font-size:12px;font-weight:500;line-height:18px}
+.c-track{flex:1;min-height:0;position:relative;overflow:hidden;margin-top:12px}
 .c-panes{position:absolute;inset:0;width:200%;display:flex;transition:transform .36s cubic-bezier(.2,.8,.2,1)}
 .c-panes.snap{transform:translateX(-50%)}
 .c-pane{width:50%;height:100%;padding:0 16px;box-sizing:border-box}
@@ -351,28 +352,30 @@ svg{display:block;flex:none}
 .cam{height:100%;border-radius:32px;overflow:hidden;position:relative;background:#111}
 .cam .feedimg{position:absolute;inset:-6%;width:112%;height:112%;max-width:none;object-fit:cover;animation:live 7s ease-in-out infinite alternate}
 @keyframes live{from{transform:translate(0,0) scale(1)}to{transform:translate(-1.5%,1%) scale(1.03)}}
-.cam::after{content:"";position:absolute;left:0;right:0;bottom:0;height:150px;background:linear-gradient(rgba(20,14,16,0),rgba(20,14,16,.6));pointer-events:none}
-.cam-hint{position:absolute;top:18px;left:50%;width:max-content;transform:translateX(-50%);z-index:2;display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;font-size:12px;font-weight:500;white-space:nowrap}
+.cam::after{content:"";position:absolute;left:0;right:0;bottom:0;height:150px;background:linear-gradient(rgba(20,14,16,0),rgba(20,14,16,.7));pointer-events:none}
+.cam-hint{position:absolute;top:18px;left:50%;width:max-content;transform:translateX(-50%);z-index:2;display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;font-size:12px;font-weight:500;line-height:18px;white-space:nowrap;background:rgba(20,14,16,.45);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
 .cam-hint em{font-style:normal;font-family:var(--pixel);font-size:8px;color:var(--lime)}
-.cam-ctrl{position:absolute;left:0;right:0;bottom:24px;z-index:2;display:flex;align-items:center;justify-content:space-around}
-.cam-thumb{width:46px;height:46px;border-radius:14px;border:2px solid var(--white);overflow:hidden}
+.cam-ctrl{position:absolute;left:0;right:0;bottom:61px;height:76px;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:0 56px;opacity:0;pointer-events:none;transform:translateY(24px);transition:opacity .3s,transform .36s cubic-bezier(.2,.8,.2,1)}
+.create.snap .cam-ctrl{opacity:1;pointer-events:auto;transform:none}
+.cam-thumb{width:46px;height:46px;border-radius:14px;border:2px solid var(--white);overflow:hidden;box-sizing:border-box}
 .cam-thumb img{width:100%;height:100%;object-fit:cover}
-.shutter{width:76px;height:76px;border-radius:38px;border:4px solid var(--white);display:grid;place-items:center;box-sizing:border-box}
-.shutter span{width:60px;height:60px;border-radius:30px;background:var(--white);color:var(--bg);display:grid;place-items:center;transition:transform .15s}
+.shutter{position:relative;width:76px;height:76px;display:grid;place-items:center}
+.shutter .ring{position:absolute;inset:0}
+.shutter span{width:62px;height:62px;border-radius:31px;background:var(--white);display:grid;place-items:center;transition:transform .15s}
 .shutter:active span{transform:scale(.88)}
-.shutter svg{width:26px;height:26px}
-.cam-flip{width:46px;height:46px;border-radius:23px;display:grid;place-items:center}
-.cam-flip svg{width:22px;height:22px}
+.cam-flip{width:46px;height:46px;border-radius:23px;display:grid;place-items:center;background:rgba(20,14,16,.55);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
 .flash{position:absolute;inset:0;background:var(--white);z-index:9;pointer-events:none;opacity:0}
-.modes{flex:none;height:46px;display:flex;justify-content:center;gap:28px;align-items:center}
-.modes button{font-family:var(--pixel);font-size:10px;opacity:.45;display:grid;justify-items:center;gap:7px;transition:opacity .2s}
-.modes button::after{content:"";width:5px;height:5px;border-radius:3px;background:transparent}
-.modes button.on{opacity:1}
+.modes{flex:none;height:23px;margin-top:24px;position:relative}
+.mrow{position:absolute;left:0;top:0;display:flex;gap:28px;transition:transform .32s cubic-bezier(.2,.8,.2,1)}
+.modes button{font-family:var(--pixel);font-size:10px;line-height:10px;display:grid;justify-items:center;gap:8px;white-space:nowrap}
+.modes button::after{content:"";width:5px;height:5px;border-radius:3px;background:transparent;transition:background .2s}
 .modes button.on::after{background:var(--white)}
-.c-sheet{flex:none;height:150px;border-radius:32px 32px 0 0;background:var(--surface);position:relative;z-index:3;transition:height .32s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column}
+.c-foot{flex:none;height:167px}
+.c-sheet{position:absolute;left:0;right:0;bottom:0;height:149px;border-radius:32px 32px 0 0;background:var(--surface);z-index:3;transition:height .32s cubic-bezier(.2,.8,.2,1),transform .36s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column}
 .c-sheet.open{height:62%}
 .c-sheet .grab-area{flex:none;padding:10px 20px 0;cursor:pointer}
-.c-sheet .grab{width:36px;height:5px;border-radius:3px;background:rgba(255,255,255,.25);margin:0 auto 14px}
+.c-sheet .grab{width:36px;height:5px;border-radius:3px;background:var(--white);margin:0 auto 8px}
+.create.snap .c-sheet{transform:translateY(100%)}
 .c-sheet h3{margin:0 0 12px;font-size:16px;font-weight:600}
 .c-sheet .sbody{flex:1;min-height:0;padding:0 20px 24px}
 .pchip{flex:none;display:flex;align-items:center;gap:8px;padding:8px 12px 8px 8px;border-radius:14px;background:rgba(255,255,255,.07);border:1px solid var(--faint);text-align:left;max-width:240px}
@@ -729,7 +732,7 @@ svg{display:block;flex:none}
       <!-- CREATE -->
       <section class="screen create" id="create" hidden>
         <div class="c-head">
-          <button class="icon-btn" data-act="create-close" aria-label="Close" data-ic="close"></button>
+          <button class="c-close" data-act="create-close" aria-label="Close"><img src="media/icons/close-24.svg" width="24" height="24" alt=""></button>
           <span class="ttl">Create with AI</span>
           <span class="credits" id="credits">3 / 5 free</span>
         </div>
@@ -752,19 +755,20 @@ svg{display:block;flex:none}
             </div>
             <div class="c-pane">
               <div class="cam" id="cam">
-                <img class="feedimg" src="media/photo-cafe.webp" alt="Camera view">
-                <div class="cam-hint glass"><em>3D SNAP</em>Point at anything</div>
-                <div class="cam-ctrl">
-                  <button class="cam-thumb" data-act="snap-upload" aria-label="Choose a photo"><img src="media/photo-girl.webp" alt=""></button>
-                  <button class="shutter" data-act="shutter" aria-label="Take photo"><span data-ic="cube"></span></button>
-                  <button class="cam-flip glass" data-act="flip" aria-label="Flip camera" data-ic="flip"></button>
-                </div>
+                <img class="feedimg" src="media/photo-shiba.webp" alt="Camera view">
+                <div class="cam-hint"><em>3D SNAP</em>Point at anything</div>
                 <div class="flash" id="flash"></div>
               </div>
             </div>
           </div>
         </div>
-        <div class="modes" id="modes"><button class="on" data-mode="ai">Create</button><button data-mode="snap">3D Snap</button></div>
+        <div class="modes" id="modes"><div class="mrow" id="mrow"><button class="on" data-mode="ai">Create</button><button data-mode="snap">3D Snap</button></div></div>
+        <div class="c-foot"></div>
+        <div class="cam-ctrl">
+          <button class="cam-thumb" data-act="snap-upload" aria-label="Choose a photo"><img src="media/upload-thumb.webp" alt=""></button>
+          <button class="shutter" data-act="shutter" aria-label="Take photo"><img class="ring" src="media/icons/shutter-ring.svg" width="76" height="76" alt=""><span><img src="media/icons/asset.svg" width="26" height="26" alt=""></span></button>
+          <button class="cam-flip" data-act="flip" aria-label="Flip camera"><img src="media/icons/rotate.svg" width="22" height="22" alt=""></button>
+        </div>
         <div class="c-sheet" id="cSheet">
           <div class="grab-area" data-act="sheet-toggle"><div class="grab"></div><h3>Inspiration</h3></div>
           <div class="sbody vscroll" id="cSheetBody"></div>
@@ -1245,9 +1249,16 @@ function closeCreate() {
 function setMode(m) {
   mode = m;
   $('#cPanes').classList.toggle('snap', m === 'snap');
+  $('#create').classList.toggle('snap', m === 'snap');
+  if (m === 'snap') $('#cSheet').classList.remove('open');
   $$('#modes button').forEach(b => b.classList.toggle('on', b.dataset.mode === m));
-  $('.c-head .ttl').textContent = m === 'snap' ? '3D Snap' : 'Create with AI';
+  placeModes();
   renderSheet();
+}
+// Like a camera mode dial: the active mode sits in the center.
+function placeModes() {
+  const row = $('#mrow'), on = $('#mrow .on'); if (!on || !row.offsetWidth) return;
+  row.style.transform = `translateX(${$('#modes').clientWidth / 2 - (on.offsetLeft + on.offsetWidth / 2)}px)`;
 }
 function renderSheet() {
   const b = $('#cSheetBody');
@@ -1580,7 +1591,7 @@ const A = {
   'good': (b) => { b.style.color = 'var(--white)'; toast('Thanks for the feedback'); },
   'sugg': (b) => tweak(b.textContent),
   'publish': (b) => { if (published) return; published = true; b.textContent = 'Published'; b.className = 'pbtn cta-soft'; $('#chatSub').textContent = `Published · v${version}`; state.published.unshift(chatGame.id); buzz([10, 30, 10]); toast('Published · it’s on your profile now', 'View', () => { closeCreate(); setTimeout(() => { setTab('me'); state.meTab = 'games'; renderMe(); }, 400); }); },
-  'shutter': () => { const f = $('#flash'); f.animate([{ opacity:.95 }, { opacity:0 }], { duration:320 }); buzz(12); setTimeout(() => openStyle('photo-cafe'), 260); },
+  'shutter': () => { const f = $('#flash'); f.animate([{ opacity:.95 }, { opacity:0 }], { duration:320 }); buzz(12); setTimeout(() => openStyle('photo-shiba'), 260); },
   'snap-upload': () => openPicker({ items:['photo-cafe.webp','photo-girl.webp','photo-shiba.webp'], multi:false, max:1, title:'Pick a photo', purpose:'snap' }),
   'snap-insp': (b) => openStyle(b.dataset.p),
   'flip': () => toast('Front camera on a real device'),
@@ -1653,6 +1664,7 @@ function init() {
   const device = $('#device');
   const fit = () => { if (innerWidth <= 520) { device.style.transform = ''; return; } const s = Math.min(1, (innerHeight - 40) / 852, (innerWidth - 40) / 393); device.style.transform = `scale(${s})`; };
   fit(); addEventListener('resize', fit);
+  try { document.fonts.ready.then(placeModes); } catch (e) {}
   document.addEventListener('visibilitychange', () => { if (document.hidden) pauseAll(); else resumeVisible(); });
 }
 init();
