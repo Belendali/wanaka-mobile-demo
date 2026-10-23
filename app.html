@@ -834,6 +834,389 @@ svg{display:block;flex:none}
 .toast .ta{padding:5px 12px;border-radius:999px;background:var(--bg);color:var(--white);font-size:12px;font-weight:600}
 .toast .ta[hidden]{display:none}
 
+/* ================= v3 · Figma section 1022 ================= */
+.pxl{font-family:var(--pixel);font-size:7px;letter-spacing:.04em;color:rgba(255,255,255,.5)}
+/* home: Remix tab */
+.rx-cats{position:absolute;top:calc(var(--sb) + 40px);left:0;right:0;z-index:6;padding:0 16px}
+#homeFeed.rx{top:calc(var(--sb) + 80px)}
+.why{position:absolute;top:16px;left:16px;z-index:2;display:flex;align-items:center;gap:6px;padding:4px 10px 4px 4px;border-radius:999px;font-size:12px;font-weight:500;pointer-events:none}
+.why img{width:22px;height:22px;border-radius:11px;object-fit:cover}
+.rx-n{position:absolute;top:16px;left:16px;z-index:2;display:flex;align-items:center;gap:5px;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:500;pointer-events:none}
+.rx-n svg{width:14px;height:14px}
+.rx-in{position:absolute;left:12px;right:12px;bottom:12px;z-index:2;height:52px;border-radius:26px;display:flex;align-items:center;gap:10px;padding:0 6px 0 8px;text-align:left;border:1px solid rgba(255,255,255,.16)}
+.rx-in .ri{width:36px;height:36px;border-radius:18px;background:rgba(255,255,255,.14);display:grid;place-items:center;flex:none}
+.rx-in .ri svg{width:18px;height:18px}
+.rx-in .rt{flex:1;min-width:0;font-size:14px;line-height:20px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:rgba(255,255,255,.88)}
+.rx-in .go{width:40px;height:40px;border-radius:20px;background:var(--white);color:var(--bg);display:grid;place-items:center;flex:none}
+.rx-in .go svg{width:18px;height:18px}
+.slide.rx .card{cursor:pointer}
+/* create: ✦ idea under the prompt, Plan mode switch + first-time tip */
+.gen-idea{position:absolute;left:0;top:74px;width:36px;height:36px;border-radius:18px;background:rgba(255,255,255,.1);display:grid;place-items:center;transition:top .2s,opacity .2s}
+.gen-idea svg{width:18px;height:18px}
+.gen-idea.busy{opacity:.35;pointer-events:none}
+.plan-tip{position:absolute;left:-10px;bottom:106px;z-index:3;width:max-content;max-width:220px;padding:10px 14px;border-radius:16px;background:var(--white);color:var(--bg);display:grid;gap:2px;box-shadow:0 10px 24px rgba(0,0,0,.4);animation:tipin .35s cubic-bezier(.2,1.3,.4,1);pointer-events:none}
+.plan-tip::after{content:"";position:absolute;left:30px;bottom:-6px;width:12px;height:12px;background:var(--white);transform:rotate(45deg);border-radius:2px}
+.plan-tip b{font-size:14px;font-weight:600;line-height:20px}
+.plan-tip small{font-size:12px;line-height:18px;color:rgba(20,14,16,.7)}
+@keyframes tipin{from{opacity:0;transform:translateY(8px) scale(.94)}}
+/* sign in */
+.si{display:grid;justify-items:center;text-align:center;padding-bottom:4px}
+.si .cat{width:84px;height:84px;object-fit:contain}
+.si h3{margin:6px 0 4px;font-size:22px;font-weight:600}
+.si > p{margin:0 0 18px;font-size:14px;color:var(--muted)}
+.si-apple,.si-google{width:100%;height:52px;border-radius:999px;font-size:16px;font-weight:600}
+.si-apple{background:var(--white);color:var(--bg)}
+.si-google{margin-top:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16)}
+.si-new{margin-top:16px;font-size:14px;color:var(--muted)}
+.si-new button{font-weight:600;color:var(--white);text-decoration:underline;text-underline-offset:3px}
+.si-note{margin-top:18px;display:flex;gap:10px;align-items:flex-start;text-align:left;padding:12px 14px;border-radius:16px;background:rgba(255,255,255,.05);font-size:12px;line-height:1.5;color:rgba(255,255,255,.7)}
+.si-note svg{width:20px;height:20px;margin-top:1px;color:var(--white)}
+.si-terms{margin-top:12px;font-size:12px;color:rgba(255,255,255,.4)}
+/* plan card in chat */
+.plan-card{width:300px;max-width:100%;padding:14px;border-radius:22px;background:rgba(255,255,255,.06);border:1px solid var(--line);display:grid;gap:12px;box-sizing:border-box;cursor:pointer}
+.pc-row{display:flex;gap:12px;align-items:flex-start}
+.pc-ic{width:44px;height:44px;border-radius:14px;background:var(--raised);display:grid;place-items:center;flex:none}
+.pc-ic svg{width:22px;height:22px}
+.pc-t{display:grid;gap:2px;min-width:0}
+.pc-t b{font-size:15px;font-weight:600}
+.pc-t small{font-size:12px;line-height:1.45;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pc-btn{height:40px;border-radius:999px;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;gap:4px;font-size:14px;font-weight:600}
+.pc-btn svg{width:16px;height:16px}
+/* plan page */
+.pl-body{flex:1;min-height:0;padding:8px 20px 150px;display:flex;flex-direction:column;gap:18px}
+.pl-body > *{flex:none}
+.pl-cover{position:relative;aspect-ratio:16/10;max-width:100%;border-radius:24px;overflow:hidden;background:var(--surface)}
+.pl-cover img{width:100%;height:100%;object-fit:cover;transition:filter .3s,opacity .3s}
+.pl-cover .tagpx{position:absolute;top:12px;left:12px}
+.pl-cover.regen img{filter:blur(14px);opacity:.6}
+.pl-cover.regen::after{content:"Making a new cover…";position:absolute;inset:0;display:grid;place-items:center;font-size:14px;font-weight:600}
+.pl-regen{position:absolute;right:10px;bottom:10px;display:flex;align-items:center;gap:6px;height:34px;padding:0 12px;border-radius:999px;background:rgba(20,14,16,.6);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);font-size:12px;font-weight:600}
+.pl-regen svg{width:14px;height:14px}
+.pl-cover.regen .pl-regen{opacity:0}
+.pl-name{width:100%;background:none;border:0;border-bottom:1px solid var(--faint);outline:none;color:var(--white);font:600 24px/1.3 var(--ui);padding:0 0 10px;box-sizing:border-box}
+.pl-name:focus{border-bottom-color:rgba(255,255,255,.35)}
+.pl-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pl-g{display:grid;gap:8px;min-width:0}
+.pl-chip{height:48px;border-radius:16px;background:rgba(255,255,255,.06);display:flex;align-items:center;gap:8px;padding:0 12px;font-size:14px;font-weight:500;min-width:0}
+.pl-chip span{flex:1;min-width:0;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pl-chip svg{width:18px;height:18px;opacity:.8}
+.pl-chip.look img{width:28px;height:28px;border-radius:8px;object-fit:cover;flex:none}
+.pl-field{width:100%;border-radius:16px;background:rgba(255,255,255,.06);border:1px solid transparent;color:var(--white);font:400 15px/1.5 var(--ui);padding:12px 14px;box-sizing:border-box;resize:none;outline:none}
+.pl-field:focus{border-color:rgba(255,255,255,.3)}
+.pl-field:disabled,.pl-name:disabled{color:rgba(255,255,255,.8);-webkit-text-fill-color:rgba(255,255,255,.8);opacity:1}
+.pl-seg{display:grid;grid-template-columns:repeat(3,1fr);height:44px;padding:4px;border-radius:999px;background:rgba(255,255,255,.06);box-sizing:border-box}
+.pl-seg button{border-radius:999px;font-size:14px;font-weight:500;color:rgba(255,255,255,.5)}
+.pl-seg .on{background:var(--raised);color:var(--white);font-weight:600}
+.pl-seg.ro button:not(.on){opacity:.5}
+.pl-foot{position:absolute;left:0;right:0;bottom:0;padding:28px 16px 30px;background:linear-gradient(rgba(20,14,16,0),var(--bg) 36%);z-index:3}
+.pl-foot .cta-white{width:100%;height:54px;font-size:16px}
+.pl-foot p{margin:0;padding:12px 8px 6px;text-align:center;font-size:13px;line-height:1.5;color:var(--muted)}
+.pick-list{display:grid}
+.pick-list button{height:52px;display:flex;align-items:center;justify-content:space-between;font-size:15px;font-weight:500;border-bottom:1px solid var(--faint);color:rgba(255,255,255,.8)}
+.pick-list button.on{color:var(--white);font-weight:600}
+.pick-list svg{width:18px;height:18px}
+.pk-note{margin:14px 0 0;font-size:12px;line-height:1.5;color:var(--muted)}
+.lk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px 10px;padding-bottom:6px}
+.lk-grid button{display:grid;gap:6px;font-size:13px;font-weight:500;color:rgba(255,255,255,.75)}
+.lk-grid .th{position:relative;aspect-ratio:1;max-width:100%;border-radius:18px;overflow:hidden}
+.lk-grid .th img{width:100%;height:100%;object-fit:cover}
+.lk-grid .on{color:var(--white)}
+.lk-grid .on .th{box-shadow:inset 0 0 0 2.5px var(--white)}
+.lk-grid .th i{position:absolute;right:6px;top:6px;width:22px;height:22px;border-radius:11px;background:var(--white);color:var(--bg);display:grid;place-items:center}
+.lk-grid .th i svg{width:12px;height:12px}
+/* chat states */
+.thought{display:grid;gap:8px;cursor:pointer;justify-self:start}
+.th-h{display:flex;align-items:center;gap:2px;font-size:13px;color:var(--muted)}
+.th-h svg{width:14px;height:14px;transition:transform .2s}
+.thought.open .th-h svg{transform:rotate(90deg)}
+.th-list{display:none;gap:6px;padding:2px 0 2px 10px;border-left:2px solid var(--faint)}
+.thought.open .th-list{display:grid}
+.th-list span{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.7)}
+.th-list svg{width:12px;height:12px;flex:none}
+.think-row{display:flex;align-items:center;gap:8px}
+.think-row img{width:40px;height:40px;object-fit:contain}
+.think-row b{font-size:14px;font-weight:600;background:linear-gradient(90deg,rgba(255,255,255,.5),#fff,rgba(255,255,255,.5));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shim 1.6s linear infinite}
+@keyframes shim{to{background-position:-200% 0}}
+.ma p.live-line{font-size:13px;color:rgba(255,255,255,.5);margin-top:-4px}
+.csteps{display:grid;gap:8px}
+.csteps span{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.35)}
+.csteps svg{width:14px;height:14px;padding:3px;border-radius:50%;border:1.5px solid currentColor;box-sizing:content-box;opacity:.5}
+.csteps .doing{color:var(--white)}
+.csteps .doing svg{opacity:1;color:transparent;border-color:var(--white);border-style:dashed;animation:spin 1.2s linear infinite}
+.csteps .done{color:rgba(255,255,255,.8)}
+.csteps .done svg{opacity:1;background:var(--white);color:var(--bg);border-color:var(--white)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.vcard.bld{cursor:default}
+.vcard.bld .media{filter:blur(10px) saturate(.7);transform:scale(1.1)}
+.vcard.bld .veil{position:absolute;inset:0;background:rgba(20,14,16,.45)}
+.vcard.bld .prog{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:grid;justify-items:center;gap:10px;width:60%}
+.vcard.bld .prog b{font-size:28px;font-weight:600}
+.vcard.bld .prog i{display:block;width:100%;height:4px;border-radius:2px;background:rgba(255,255,255,.2);overflow:hidden}
+.vcard.bld .prog u{display:block;height:100%;background:var(--white);border-radius:2px;transition:width .12s linear}
+.fail-card{width:300px;max-width:100%;padding:16px;border-radius:20px;background:rgba(255,72,55,.08);border:1px solid rgba(255,72,55,.3);display:grid;gap:6px;box-sizing:border-box}
+.fail-card b{font-size:15px;font-weight:600}
+.fail-card p{margin:0;font-size:13px;color:rgba(255,255,255,.65)}
+.fail-card button{margin-top:8px;height:40px;font-size:14px}
+.inbar .go.stop{background:var(--white);color:var(--bg)}
+.inbar .go svg{width:18px;height:18px}
+.chat-atts{display:flex;gap:8px;flex-wrap:wrap}
+.ca-chip{display:flex;align-items:center;gap:8px;height:40px;padding:0 6px 0 4px;border-radius:14px;background:rgba(255,255,255,.08);font-size:13px;font-weight:500}
+.ca-chip .aa,.mu .aa{width:32px;height:32px;border-radius:10px;overflow:hidden;display:grid;place-items:center;background:var(--raised);flex:none}
+.mu .aa{width:64px;height:64px;border-radius:14px}
+.aa img{width:100%;height:100%;object-fit:cover}
+.ca-chip button,.ca-img button{width:22px;height:22px;border-radius:11px;background:rgba(255,255,255,.14);display:grid;place-items:center}
+.ca-chip button svg,.ca-img button svg{width:10px;height:10px}
+.ca-img{position:relative;width:48px;height:48px}
+.ca-img img{width:48px;height:48px;border-radius:12px;object-fit:cover}
+.ca-img button{position:absolute;right:-6px;top:-6px;background:var(--bg);border:1px solid rgba(255,255,255,.25)}
+.ingame-row{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none}
+.ingame-row button{flex:none;width:72px;display:grid;gap:6px;font-size:12px;color:rgba(255,255,255,.75);text-align:left}
+.ingame-row .ia{width:72px;height:72px;border-radius:16px;overflow:hidden;display:grid;place-items:center;background:var(--raised)}
+.ingame-row .ia img{width:100%;height:100%;object-fit:cover}
+.mdl-bg{width:100%;height:100%;display:grid;place-items:center;background:radial-gradient(circle,#4D4240 0%,#2B2424 100%)}
+.crop{display:block;width:100%;height:100%;background-repeat:no-repeat}
+.aa .mdl-bg img,.ia .mdl-bg img,.th .mdl-bg img{width:84%;height:84%;object-fit:contain}
+/* chats: one list + filter */
+.ch-head h1{display:flex;align-items:center;gap:10px}
+.ch-btns{display:flex;gap:8px}
+.ch-btns .icon-btn.on{background:var(--white);color:var(--bg)}
+.ch-fchip{display:flex;align-items:center;gap:4px;height:28px;padding:0 8px 0 12px;border-radius:999px;background:rgba(255,255,255,.12);font-size:13px;font-weight:500}
+.ch-fchip svg{width:12px;height:12px}
+.pop.chf{width:170px}
+.pop.chf button{justify-content:space-between}
+.pop.chf svg{width:16px;height:16px}
+/* me: project */
+.pj-tabs{flex:none;display:flex;gap:24px;padding:8px 20px 0;border-bottom:1px solid var(--faint)}
+.pj-tabs button{height:40px;font-size:15px;font-weight:500;color:rgba(255,255,255,.5);position:relative;display:flex;align-items:center;gap:6px}
+.pj-tabs button.on{color:var(--white);font-weight:600}
+.pj-tabs button.on::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;border-radius:2px;background:var(--white)}
+.pj-tabs i{font-style:normal;font-size:11px;padding:1px 6px;border-radius:999px;background:rgba(255,255,255,.12)}
+.pj-body{flex:1;min-height:0;position:relative;display:flex;flex-direction:column;overflow-y:auto;scrollbar-width:none}
+.pj-hero{position:relative;flex:none;height:330px;margin:16px 16px 0;border-radius:28px;overflow:hidden;background:#000;cursor:pointer}
+.pj-hero .media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.pj-hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:160px;background:linear-gradient(rgba(20,14,16,0),rgba(20,14,16,.85));pointer-events:none}
+.pj-hero .tagpx{position:absolute;top:14px;left:14px;z-index:2}
+.pj-lb{flex:none;margin:18px 20px 10px;font-size:14px;font-weight:600}
+.pj-vers{flex:none;padding:0 20px;gap:10px}
+.pj-ver{flex:none;width:118px;display:grid;gap:6px;text-align:left}
+.pj-ver .th{position:relative;height:80px;border-radius:16px;overflow:hidden}
+.pj-ver .th img{width:100%;height:100%;object-fit:cover}
+.pj-ver .th .tagpx{position:absolute;left:6px;top:6px;font-size:6px;padding:4px 5px}
+.pj-ver.on .th{box-shadow:inset 0 0 0 2.5px var(--white)}
+.pj-ver small{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pj-foot{flex:none;margin-top:auto;display:flex;gap:12px;padding:20px 16px 30px}
+.pj-foot button{flex:1;height:54px;border-radius:999px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:16px;font-weight:600}
+.pj-foot svg{width:20px;height:20px}
+.pj-foot .sec{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16)}
+.pj-foot .pri{background:var(--white);color:var(--bg)}
+.pj-af{flex:none;padding:16px 20px 0}
+.pj-assets{display:grid;grid-template-columns:repeat(3,1fr);gap:14px 10px;padding:16px 20px 0}
+.pj-asset{display:grid;gap:4px;text-align:left;min-width:0}
+.pj-asset .th{position:relative;aspect-ratio:1;max-width:100%;border-radius:20px;overflow:hidden;background:var(--raised)}
+.pj-asset .th > img{width:100%;height:100%;object-fit:cover}
+.pj-asset .tagpx{position:absolute;left:6px;top:6px;font-size:6px;padding:4px 5px}
+.pj-asset b{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pj-asset small{font-size:12px;color:var(--muted)}
+.pj-asset .sw{position:absolute;inset:0;background:rgba(20,14,16,.65);display:grid;place-items:center;align-content:center;gap:8px;padding:0 14px}
+.pj-asset .sw b{font-size:12px}
+.pj-asset .sw i{display:block;width:100%;height:3px;border-radius:2px;background:rgba(255,255,255,.2);overflow:hidden}
+.pj-asset .sw u{display:block;height:100%;width:30%;background:var(--white);animation:swp 2.6s ease-in-out forwards}
+@keyframes swp{to{width:100%}}
+.pj-tip{margin:16px 20px 0;font-size:12px;color:var(--muted)}
+.pj-chat{flex:1;min-height:0;position:relative}
+.pj-chat .thread{padding-top:16px}
+.pj-foot .wide{flex:1}
+/* swap sheet */
+.swap h3{margin:0 0 16px}
+.sw-cmp{display:flex;align-items:center;justify-content:center;gap:14px}
+.sw-c{display:grid;justify-items:center;gap:6px;font-size:12px;color:var(--muted);width:112px;text-align:center}
+.sw-c .th{width:104px;height:104px;border-radius:22px;overflow:hidden;display:grid;place-items:center;background:var(--raised)}
+.sw-c .th > img{width:100%;height:100%;object-fit:cover}
+.sw-c .th img.m,.sw-c .th > img:not([style]){object-fit:contain;width:84%;height:84%}
+.sw-c .th.ph{border:1.5px dashed rgba(255,255,255,.25);background:none;font-size:12px;color:var(--muted);padding:0 10px;box-sizing:border-box;text-align:center}
+.sw-c .th.on{background:radial-gradient(circle,#4D4240 0%,#2B2424 100%);box-shadow:inset 0 0 0 2px var(--white)}
+.sw-ar svg{width:22px;height:22px;opacity:.6}
+.sw-lb{margin:20px 0 10px;font-size:14px;font-weight:600}
+.sw-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px 8px}
+.sw-grid button{display:grid;gap:5px;font-size:11px;color:rgba(255,255,255,.7);min-width:0;text-align:center}
+.sw-grid .th{aspect-ratio:1;max-width:100%;border-radius:16px;overflow:hidden;display:grid;place-items:center;background:radial-gradient(circle,#4D4240 0%,#2B2424 100%)}
+.sw-grid .th img{width:84%;height:84%;object-fit:contain}
+.sw-grid .on{color:var(--white)}
+.sw-grid .on .th{box-shadow:inset 0 0 0 2.5px var(--white)}
+.sw-snap .th{background:rgba(255,255,255,.06);border:1.5px dashed rgba(255,255,255,.25);box-sizing:border-box;align-content:center;gap:4px;font-size:11px}
+.sw-snap .th svg{width:22px;height:22px}
+.sw-snap .th b{font-weight:600;color:var(--white)}
+.swap .post{width:100%;height:54px;margin-top:20px;border-radius:999px;background:var(--white);color:var(--bg);font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px}
+.swap .post svg{width:18px;height:18px}
+.pub .post:disabled,.swap .post:disabled{opacity:.4}
+/* my 3D sheet */
+.my3d .stage{position:relative;height:280px;border-radius:24px;overflow:hidden;background:radial-gradient(circle at 50% 55%,#3B3332 0%,#1B1617 75%);touch-action:none;cursor:grab}
+.my3d .stage .tagpx{position:absolute;top:12px;left:12px}
+.my3d .plate{position:absolute;left:50%;bottom:44px;width:200px;height:40px;margin-left:-100px;border-radius:50%;border:1.5px solid rgba(255,255,255,.18)}
+.my3d .mw{position:absolute;left:0;right:0;top:24px;height:200px;display:grid;place-items:end center;perspective:900px}
+.my3d .mw img{max-height:100%;max-width:70%;object-fit:contain;filter:drop-shadow(0 16px 20px rgba(0,0,0,.5))}
+.my3d .spin{position:absolute;left:0;right:0;bottom:12px;display:flex;justify-content:center;gap:5px;font-size:12px;color:rgba(255,255,255,.55)}
+.my3d .spin svg{width:12px;height:12px}
+.m3-t{display:flex;align-items:center;gap:12px;margin:16px 0}
+.m3-t > span{flex:1;display:grid}
+.m3-t b{font-size:20px;font-weight:600}
+.m3-t small{font-size:12px;color:var(--muted)}
+.m3-menu{display:flex;gap:8px;margin:-6px 0 14px}
+.m3-menu button{flex:1;height:44px;border-radius:14px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;gap:8px;font-size:14px;font-weight:500}
+.m3-menu svg{width:18px;height:18px}
+.m3-menu .red{color:var(--danger)}
+.m3-acts{display:flex;gap:12px}
+.m3-acts button{flex:1;height:54px;border-radius:999px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:16px;font-weight:600}
+.m3-acts svg{width:20px;height:20px}
+.m3-acts .sec{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16)}
+.m3-acts .pri{background:var(--white);color:var(--bg)}
+/* notifications + settings */
+.s-body.nt,.s-body.set{flex:1;min-height:0;padding:4px 20px 40px}
+.nt-lb{margin:14px 0 4px;font-size:12px;font-weight:500;color:rgba(255,255,255,.5)}
+.nt-row{display:flex;align-items:center;gap:12px;padding:10px 0}
+.nt-row .av{width:44px;height:44px;border-radius:22px;object-fit:cover;flex:none;background:var(--raised)}
+.nt-row .t{flex:1;min-width:0;display:grid;gap:2px;font-size:14px;line-height:1.4;color:rgba(255,255,255,.8)}
+.nt-row .t b{font-weight:600;color:var(--white)}
+.nt-row .t small{font-size:12px;color:var(--muted)}
+.nt-row.new .t small::before{content:"";display:inline-block;width:6px;height:6px;border-radius:3px;background:var(--danger);margin-right:6px;vertical-align:1px}
+.nt-g{width:48px;height:48px;border-radius:12px;overflow:hidden;flex:none}
+.nt-g img{width:100%;height:100%;object-fit:cover}
+.nt-follow{height:32px;padding:0 14px;border-radius:999px;background:var(--white);color:var(--bg);font-size:13px;font-weight:600;flex:none}
+.nt-follow.done{background:rgba(255,255,255,.1);color:var(--white)}
+.set .pxl{display:block;margin:18px 4px 8px}
+.set-card{border-radius:20px;background:rgba(255,255,255,.05);padding:0 16px}
+.set-row{width:100%;min-height:52px;display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:15px;font-weight:500;border-bottom:1px solid var(--faint);box-sizing:border-box;text-align:left}
+.set-card > :last-child{border-bottom:0}
+.set-row > span:first-child{flex:1}
+.set-row small{font-size:13px;color:var(--muted);font-weight:400}
+.set-row svg{width:16px;height:16px;opacity:.5}
+.set-row.red{color:var(--danger)}
+.mini-w{height:32px;padding:0 14px;border-radius:999px;background:var(--white);color:var(--bg);font-size:13px;font-weight:600}
+/* publish: 15s preview takes */
+.pub .lb span{float:right;font-weight:400;color:rgba(255,255,255,.4)}
+.takes{gap:10px;margin:0 -20px;padding:2px 20px 4px}
+.take{flex:none;width:118px;display:grid;gap:4px}
+.take .th{position:relative;width:118px;height:176px;border-radius:18px;overflow:hidden;background:var(--raised)}
+.take .th > img{width:100%;height:100%;object-fit:cover}
+.take.on .th{box-shadow:inset 0 0 0 2.5px var(--white)}
+.take .tagpx{position:absolute;left:6px;top:6px;font-size:6px;padding:4px 5px}
+.take > b{font-size:13px;font-weight:600}
+.take > small{font-size:11px;color:var(--muted)}
+.tk-play{position:absolute;left:50%;top:50%;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:20px;background:rgba(255,255,255,.9);color:var(--bg);display:grid;place-items:center}
+.tk-play svg{width:18px;height:18px}
+.tk-dur{position:absolute;left:8px;bottom:8px;font-size:11px;font-weight:600;text-shadow:0 1px 4px rgba(0,0,0,.6)}
+.tk-new{position:absolute;right:6px;bottom:6px;width:28px;height:28px;border-radius:14px;background:rgba(20,14,16,.65);display:grid;place-items:center}
+.tk-new svg{width:14px;height:14px}
+.tk-ck{position:absolute;right:6px;top:6px;width:22px;height:22px;border-radius:11px;background:var(--white);color:var(--bg);display:grid;place-items:center}
+.tk-ck svg{width:12px;height:12px}
+.tk-mk{position:absolute;inset:0;background:rgba(20,14,16,.62);display:grid;place-items:center;align-content:center;gap:6px;padding:0 12px;text-align:center}
+.tk-mk small{font-size:11px;color:rgba(255,255,255,.75)}
+.tk-mk b{font-size:12px;font-weight:600}
+.tk-mk i{display:block;width:100%;height:3px;border-radius:2px;background:rgba(255,255,255,.2);overflow:hidden}
+.tk-mk u{display:block;height:100%;background:var(--white)}
+.take.add .th{background:none;border:1.5px dashed rgba(255,255,255,.25);box-sizing:border-box;display:grid;place-items:center;align-content:center;gap:8px;width:118px}
+.take.add .tk-plus{width:40px;height:40px;border-radius:20px;background:rgba(255,255,255,.1);display:grid;place-items:center}
+.take.add .tk-plus svg{width:20px;height:20px}
+.take.add .th b{font-size:13px;font-weight:600}
+/* take viewer + record */
+.sub.tv{background:#000}
+.tv-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:kb 15s linear infinite alternate}
+.tv-fade{position:absolute;left:0;right:0;bottom:0;height:300px;background:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.8));pointer-events:none}
+.tv-prog,.rec-bar{position:absolute;left:16px;right:16px;top:calc(var(--sb) + 2px);height:3px;border-radius:2px;background:rgba(255,255,255,.25);overflow:hidden;z-index:3}
+.tv-prog u{display:block;height:100%;background:var(--white);animation:tvp 15s linear infinite}
+@keyframes tvp{from{width:0}to{width:100%}}
+.rec-bar u{display:block;height:100%;width:0;background:var(--danger);transition:width .26s linear}
+.sub.tv > .icon-btn{position:absolute;top:calc(var(--sb) + 14px);left:16px;z-index:4;background:rgba(20,14,16,.5)}
+.tv-pills{position:absolute;top:calc(var(--sb) + 14px);left:64px;right:16px;display:flex;justify-content:center;gap:6px;z-index:3}
+.tv-pills button{height:32px;padding:0 12px;border-radius:999px;background:rgba(20,14,16,.5);font-size:12px;font-weight:600;color:rgba(255,255,255,.7)}
+.tv-pills .on{background:var(--white);color:var(--bg)}
+.tv-tag{position:absolute;top:calc(var(--sb) + 22px);left:50%;transform:translateX(-50%);z-index:3}
+.tv-info{position:absolute;left:20px;right:20px;bottom:110px;display:grid;gap:4px;z-index:2}
+.tv-info h2{margin:0;font-size:24px;font-weight:600}
+.tv-info small{font-size:13px;color:rgba(255,255,255,.7)}
+.tv-acts{position:absolute;left:16px;right:16px;bottom:30px;display:flex;gap:12px;z-index:2}
+.tv-acts button{flex:1;height:54px;border-radius:999px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:16px;font-weight:600}
+.tv-acts svg{width:20px;height:20px}
+.tv-acts .sec{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.tv-acts .pri{background:var(--white);color:var(--bg)}
+.rec-hud{position:absolute;left:0;right:0;bottom:60px;height:120px;pointer-events:none}
+.rec-joy{position:absolute;left:36px;bottom:0;width:100px;height:100px;border-radius:50%;border:2px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08)}
+.rec-joy::after{content:"";position:absolute;left:30px;top:30px;width:40px;height:40px;border-radius:20px;background:rgba(255,255,255,.55);animation:joy 2.4s ease-in-out infinite}
+@keyframes joy{25%{transform:translate(14px,-8px)}50%{transform:translate(-10px,-12px)}75%{transform:translate(8px,10px)}}
+.rec-act{position:absolute;right:40px;bottom:16px;width:64px;height:64px;border-radius:32px;border:2px solid rgba(255,255,255,.35);background:rgba(255,255,255,.12)}
+.rec-start{position:absolute;left:20px;right:20px;top:50%;transform:translateY(-50%);padding:24px 20px 20px;border-radius:28px;background:rgba(20,14,16,.78);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);display:grid;justify-items:center;text-align:center;gap:6px;z-index:3}
+.rec-ic{width:52px;height:52px;border-radius:26px;border:2px solid var(--white);display:grid;place-items:center;margin-bottom:6px}
+.rec-ic i{width:22px;height:22px;border-radius:11px;background:var(--danger)}
+.rec-start h2{margin:0;font-size:22px;font-weight:600}
+.rec-start p{margin:0 0 10px;font-size:14px;line-height:1.5;color:rgba(255,255,255,.65)}
+.rec-start .cta-white{width:100%;height:52px;font-size:16px}
+.rec-start small{font-size:12px;color:rgba(255,255,255,.45);margin-top:4px}
+.rec-count{position:absolute;inset:0;display:grid;place-items:center;font-size:120px;font-weight:700;z-index:3;text-shadow:0 8px 30px rgba(0,0,0,.5);animation:cnt .6s ease-out infinite}
+@keyframes cnt{from{transform:scale(1.25);opacity:.4}}
+.rec-pill{position:absolute;top:calc(var(--sb) + 16px);left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:8px;height:32px;padding:0 12px;border-radius:999px;background:rgba(20,14,16,.6);font-size:13px;z-index:3}
+.rec-pill i{width:8px;height:8px;border-radius:4px;background:var(--danger);animation:blink 1s steps(1) infinite}
+.rec-pill em{font-style:normal;font-family:var(--pixel);font-size:8px;color:var(--danger)}
+.rec-pill b{font-weight:600;font-variant-numeric:tabular-nums}
+.rec-stop{position:absolute;left:50%;bottom:34px;width:72px;height:72px;margin-left:-36px;border-radius:36px;border:4px solid var(--white);display:grid;place-items:center;z-index:3;box-sizing:border-box}
+.rec-stop i{width:26px;height:26px;border-radius:6px;background:var(--danger)}
+/* onboarding */
+.onb{position:absolute;inset:0;z-index:60;background:var(--bg);overflow:hidden;transition:opacity .38s}
+.onb.out{opacity:0;pointer-events:none}
+.onb-wall{position:absolute;left:-40px;right:-40px;top:20px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;transform:rotate(-8deg);animation:wall 24s linear infinite alternate}
+.onb-wall img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:20px}
+.onb-wall img:nth-child(3n+2){transform:translateY(40px)}
+@keyframes wall{to{transform:rotate(-8deg) translateY(-120px)}}
+.onb-fade{position:absolute;inset:0;background:linear-gradient(rgba(20,14,16,.1) 0%,rgba(20,14,16,.55) 38%,var(--bg) 62%)}
+.onb-w{position:absolute;left:0;right:0;bottom:0;padding:0 20px 40px;display:grid;justify-items:center;text-align:center}
+.onb-w .cat{width:96px;height:96px;object-fit:contain}
+.onb-w h1{margin:8px 0 6px;font-size:32px;line-height:1.2;font-weight:600;text-wrap:balance}
+.onb-w p{margin:0 0 26px;font-size:15px;color:var(--muted)}
+.onb-w .cta-white,.onb-l .go{width:100%;height:54px;font-size:16px}
+.onb .lnk{padding:14px;font-size:14px;font-weight:600;color:rgba(255,255,255,.75)}
+.onb-l{position:absolute;inset:0;padding:calc(var(--sb) + 40px) 20px 36px;display:flex;flex-direction:column}
+.onb-l .skip{position:absolute;top:calc(var(--sb) + 4px);right:8px}
+.onb-l h2{margin:0;font-size:26px;font-weight:600;line-height:1.25}
+.onb-l > p{margin:6px 0 20px;font-size:14px;color:var(--muted)}
+.onb-grid{flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;gap:10px;align-content:start}
+.onb-grid button{position:relative;height:150px;border-radius:22px;overflow:hidden;text-align:left}
+.onb-grid img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.onb-grid button::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(20,14,16,0) 40%,rgba(20,14,16,.8))}
+.onb-grid b{position:absolute;left:14px;bottom:12px;z-index:2;font-size:16px;font-weight:600}
+.onb-grid .on{box-shadow:inset 0 0 0 3px var(--white)}
+.onb-grid i{position:absolute;right:10px;top:10px;z-index:2;width:26px;height:26px;border-radius:13px;background:var(--white);color:var(--bg);display:grid;place-items:center}
+.onb-grid i svg{width:14px;height:14px}
+.onb-l .go{margin-top:16px;flex:none}
+/* coach marks on Home */
+.coach{position:absolute;inset:0;z-index:30;pointer-events:none}
+.coach.s3{pointer-events:auto}
+.co-dots{position:absolute;top:calc(var(--sb) + 52px);left:50%;transform:translateX(-50%);display:flex;gap:6px;padding:6px 10px;border-radius:999px;background:rgba(20,14,16,.6);z-index:2}
+.coach.s3 .co-dots{top:calc(var(--sb) + 10px)}
+.co-dots i{width:6px;height:6px;border-radius:3px;background:rgba(255,255,255,.3)}
+.co-dots i.on{width:16px;background:var(--white)}
+.co-skipb{position:absolute;top:calc(var(--sb) + 48px);right:16px;height:30px;padding:0 12px;border-radius:999px;background:rgba(20,14,16,.6);font-size:12px;font-weight:600;pointer-events:auto;z-index:2}
+.co-bub{position:absolute;left:50%;transform:translateX(-50%);width:max-content;max-width:280px;padding:10px 16px;border-radius:16px;background:var(--white);color:var(--bg);font-size:15px;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,.4);animation:tipin .4s cubic-bezier(.2,1.3,.4,1);z-index:2}
+.co-bub.down::after{content:"";position:absolute;left:50%;bottom:-6px;width:12px;height:12px;margin-left:-6px;background:var(--white);transform:rotate(45deg);border-radius:2px}
+.co-swipe{position:absolute;left:50%;top:330px;width:60px;height:240px;margin-left:-30px}
+.co-swipe .hand{position:absolute;left:8px;top:170px;width:52px;height:52px;animation:swp-h 1.8s cubic-bezier(.5,0,.3,1) infinite}
+.co-swipe .trail{position:absolute;left:24px;top:40px;width:12px;height:170px;border-radius:6px;background:linear-gradient(rgba(255,255,255,0),rgba(255,255,255,.55));transform-origin:bottom;animation:swp-t 1.8s cubic-bezier(.5,0,.3,1) infinite}
+@keyframes swp-h{0%{transform:translateY(0);opacity:0}12%{opacity:1}70%{transform:translateY(-150px);opacity:1}100%{transform:translateY(-150px);opacity:0}}
+@keyframes swp-t{0%,10%{transform:scaleY(0);opacity:0}70%{transform:scaleY(1);opacity:1}100%{opacity:0}}
+.co-tap{position:absolute;left:50%;top:400px;width:0;height:0}
+.co-tap i{position:absolute;left:-30px;top:-30px;width:60px;height:60px;border-radius:30px;border:2px solid var(--white);animation:rip 1.6s ease-out infinite}
+.co-tap i:nth-child(2){animation-delay:.5s}
+@keyframes rip{from{transform:scale(.4);opacity:1}to{transform:scale(1.8);opacity:0}}
+.co-tap .hand{position:absolute;left:-6px;top:-4px;width:52px;height:52px;animation:tap 1.6s ease-in-out infinite}
+@keyframes tap{0%,100%{transform:translate(6px,10px)}40%{transform:translate(0,0) scale(.92)}}
+.co-ring{position:absolute;width:84px;height:84px;border-radius:50%;box-shadow:0 0 0 2px var(--white),0 0 0 2000px rgba(20,14,16,.66);animation:glow 1.6s ease-in-out infinite}
+.co-ring.r2{width:120px;height:120px;box-shadow:0 0 0 1.5px rgba(255,255,255,.4);animation:rip 1.8s ease-out infinite}
+@keyframes glow{50%{box-shadow:0 0 0 2px var(--white),0 0 26px 6px rgba(255,255,255,.35),0 0 0 2000px rgba(20,14,16,.66)}}
+.co-skip{position:absolute;left:0;right:0;top:calc(var(--sb) + 38px);text-align:center;font-size:12px;color:rgba(255,255,255,.6)}
+/* selected rings sit above images */
+.onb-grid .on::before,.lk-grid .on .th::after,.take.on .th::after,.pj-ver.on .th::after,.sw-c .th.on::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 3px var(--white);z-index:3;pointer-events:none}
+.sw-c .th{position:relative}
+.onb-grid i{z-index:4}
+.onb-grid i,.lk-grid .th i,.tk-ck{box-shadow:0 2px 8px rgba(0,0,0,.5)}
+
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
@@ -843,15 +1226,16 @@ svg{display:block;flex:none}
   <aside class="guide" aria-label="How to use this demo">
     <span class="tag">WANAKA · MOBILE DEMO</span>
     <h2>刷、玩、造、存</h2>
-    <div>按照 Figma 1015 区块的逻辑做的可点击 Demo。</div>
+    <div>按照 Figma 1022 区块做的可点击 Demo。</div>
     <ol>
-      <li><span>01</span><span><b>Home</b>：上下滑刷视频；点一下出现 Play / Remix；<b>长按</b>直接进入游戏</span></li>
-      <li><span>02</span><span><b>Discover</b>：推荐卡直接 Play；点网格卡片进入单独的 Feed</span></li>
-      <li><span>03</span><span><b>中间黑猫</b>：Create with AI 生成游戏，右滑 <b>3D Snap</b> 拍照转 3D（自动存进 Assets）。所有修改、换风格都在 chat 里完成；点 chat 里的版本卡片可以单独 Publish</span></li>
-      <li><span>04</span><span><b>Chats</b>：Agents 是每个游戏 / 3D 的对话，左滑 Rename · Pin · Delete；Friends 是好友私信，可以互发游戏</span></li>
-      <li><span>05</span><span><b>Me</b>：Games 里是已发布的游戏，没发布的最新版本在 <b>Drafts</b>；Assets 里点模型可以 Keep editing 或 Put in a game</span></li>
+      <li><span>00</span><span><b>首次进入</b>：欢迎页 → 选喜欢的类型 → Home 上 3 步提示（上滑 / 点一下 / 黑猫）。第一次发送时才要求登录</span></li>
+      <li><span>01</span><span><b>Home</b>：Explore / Following / Friends / <b>Remix</b>。Remix 点视频直接玩，点底部输入框带着这个游戏去 Create</span></li>
+      <li><span>02</span><span><b>Create</b>：✦ 写一个点子，↻ 换一个；黑猫开关是 <b>Plan mode</b>，先出计划再 Build it</span></li>
+      <li><span>03</span><span><b>Chat</b>：Thinking → Building（可以离开）→ 完成，“Thought for” 可展开；+ 可加照片 / 3D / 游戏里的素材。输入 online 可看失败状态</span></li>
+      <li><span>04</span><span><b>Publish</b>：15 秒预览视频，Wana 自动录或自己录，可左右滑对比</span></li>
+      <li><span>05</span><span><b>Chats</b> 一个列表 + 筛选；<b>Me</b> 里点游戏进 Project（Game / Assets / Chat），Assets 可 Swap；铃铛 = 通知，齿轮 = 设置</span></li>
     </ol>
-    <div class="note">视频为示意素材；生成过程为模拟。</div>
+    <div class="note">视频为示意素材；生成过程为模拟。网址加 #intro 可重看引导。</div>
   </aside>
 
   <div class="device" id="device">
@@ -865,8 +1249,10 @@ svg{display:block;flex:none}
             <button class="on" data-ftab="explore">Explore</button>
             <button data-ftab="following">Following</button>
             <button data-ftab="friends"><span>Friends<span class="rd"></span></span></button>
+            <button data-ftab="remix">Remix</button>
           </div>
         </div>
+        <div class="rx-cats hscroll" id="rxCats" hidden></div>
         <div class="feed" id="homeFeed"></div>
       </section>
 
@@ -932,10 +1318,10 @@ svg{display:block;flex:none}
                 <div class="attach-row" id="attachRow" hidden></div>
                 <div class="pfield">
                   <textarea id="prompt" placeholder="Describe it. We’ll make it playable…" aria-label="Describe your idea"></textarea>
-                  <div class="ghost" id="ghost" hidden><p><span id="ghostTxt"></span><i class="caret"></i></p><button class="tb" data-act="reroll" aria-label="Another idea"><img src="media/icons/reload.svg" width="18" height="18" alt=""></button></div>
+                  <button class="gen-idea" id="genIdea" data-act="gen-idea" aria-label="Give me an idea"></button>
                 </div>
                 <div class="ptools">
-                  <span class="idea-wrap"><img class="cat" id="cat" src="media/mascot-idle.gif" alt=""><button class="idea" id="idea" aria-label="Idea" aria-pressed="false"><span class="knob" data-ic="bulb"></span></button></span>
+                  <span class="idea-wrap"><span class="plan-tip" id="planTip" hidden><b>Plan mode</b><small>See a plan before I build.</small></span><img class="cat" id="cat" src="media/mascot-idle.gif" alt=""><button class="idea" id="idea" aria-label="Plan mode" aria-pressed="false"><span class="knob" data-ic="bulb"></span></button></span>
                   <button class="tb" data-act="attach" aria-label="Add photo" data-ic="plus"></button>
                   <span class="sp"></span>
                   <button class="tb" data-act="mic" aria-label="Speak" data-ic="mic" id="micBtn"></button>
@@ -978,6 +1364,16 @@ svg{display:block;flex:none}
       <section class="sub" id="sub-pub" hidden></section>
       <section class="sub" id="sub-drafts" hidden></section>
       <section class="sub" id="sub-dm" hidden></section>
+      <section class="sub" id="sub-plan" hidden></section>
+      <section class="sub" id="sub-project" hidden></section>
+      <section class="sub" id="sub-notif" hidden></section>
+      <section class="sub" id="sub-settings" hidden></section>
+      <section class="sub tv" id="sub-take" hidden></section>
+      <section class="sub tv" id="sub-rec" hidden></section>
+
+      <!-- first visit: welcome → likes → 3 hints on Home -->
+      <div class="coach" id="coach" hidden></div>
+      <div class="onb" id="onb" hidden></div>
 
       <!-- PLAY -->
       <section class="screen play" id="play" hidden></section>
@@ -1100,7 +1496,7 @@ const SNAPS = { 'photo-cafe':{ model:'model-cafe', name:'Café Pup' }, 'photo-gi
 
 const state = {
   tab:'home', ftab:'explore', credits:3, attachments:[], idea:false,
-  works:[], dms:{}, chatTab:'agents', chatsDot:false, remix:null,
+  works:[], dms:{}, chatsDot:false, remix:null,
   saved:['clash','neon','garden'],
   downloads:['ivy'],
   meTab:'games',
@@ -1128,44 +1524,6 @@ function mediaHTML(g, cls = 'media', autoplay = false) {
   return g.video
     ? `<video class="${cls}" src="${M(g.video + '.mp4')}" poster="${M(g.video + '.jpg')}" muted playsinline loop preload="metadata"${autoplay ? ' autoplay' : ''}></video>`
     : `<img class="${cls} kb" src="${M(g.img)}" alt="">`;
-}
-function slideHTML(g) {
-  return `<article class="slide" data-g="${g.id}">
-    <div class="card" data-card>
-      ${mediaHTML(g)}
-      <div class="ov">
-        <button class="more" data-act="card-more" aria-label="More">${IC('more', 22)}</button>
-        <div class="ctas">
-          <button class="b-remix" data-act="card-remix">${IC('remix', 20)}<span>Remix</span></button>
-          <button class="b-play" data-act="card-play">${IC('play-dark', 20)}<span>Play</span></button>
-        </div>
-        <div class="menu" hidden>
-          <button data-act="card-download">${I.download}Download</button><i></i>
-          <button data-act="card-report">${I.report}Report</button>
-        </div>
-      </div>
-    </div>
-    <div class="meta">
-      <div class="meta-row">
-        <div class="who">
-          <span class="av"><img src="${M(g.av + '.webp')}" alt=""><button class="follow" data-act="follow" aria-label="Follow">${I.plus}</button></span>
-          <span class="who-t"><b>${g.title}</b><small>${g.creator.replace(/^@/, '')}</small></span>
-        </div>
-        <div class="stats">
-          <button class="stat" data-act="like" aria-label="Like">${I.heart}<span>${g.likes}</span></button>
-          <span class="stat">${I.comment}<span>${g.comments}</span></span>
-          <span class="stat">${I.plays}<span>${g.plays}</span></span>
-          <button class="stat" data-act="share" aria-label="Share">${I.share}</button>
-        </div>
-      </div>
-      <p class="desc">${g.desc}</p>
-    </div>
-  </article>`;
-}
-function renderFeed(el, ids) {
-  el.innerHTML = ids.map(id => slideHTML(G[id])).join('');
-  el.scrollTop = 0;
-  requestAnimationFrame(() => syncFeed(el));
 }
 function currentSlide(el) { const i = Math.round(el.scrollTop / Math.max(1, el.clientHeight)); return $$('.slide', el)[i]; }
 function syncFeed(el, active = true) {
@@ -1213,6 +1571,8 @@ function wireFeed(el, opts = {}) {
     if (!c || e.target.closest('button')) return;
     if (e.target.closest('.menu')) return;
     const s = c.closest('.slide');
+    if (s.classList.contains('rx')) { enterWorld(G[s.dataset.g], c, e.clientX, e.clientY, $('video', c)); return; }
+    if (state.coach === 2 && !c.classList.contains('tapped')) setTimeout(() => coachStep(3), 1500);
     if (c.classList.contains('tapped')) { c.classList.remove('tapped'); closeMenu(s); }
     else c.classList.add('tapped');
   });
@@ -1460,29 +1820,6 @@ function updateTabDot() { const tb = $('.tabbar .tb[data-tab="chats"]'); if (!tb
 
 /* ---------------- chats (4th tab) ---------------- */
 const FRIENDS = { bowie:'av-2', mochi:'av-6', nekoium:'av-4', cienly:'av-3', mossmaker:'av-1' };
-function renderChats() {
-  const wrap = $('#chatsWrap'); if (!wrap) return;
-  const agents = state.chatTab === 'agents';
-  const dmUnread = Object.values(state.dms).some(d => d.unread);
-  let list = '';
-  if (agents) {
-    if (!state.works.length) list = `<div class="ch-empty"><img src="${M('mascot-plus.webp')}" alt=""><b>No chats yet</b><small>Everything you make with Wana shows up here.</small><button class="cta-white" data-act="open-create">Start creating</button></div>`;
-    else {
-      const pinned = state.works.filter(w => w.pinned), rest = state.works.filter(w => !w.pinned);
-      const sec = (label, ws) => ws.length ? `<div class="ch-label">${label}</div>${ws.map(rowHTML).join('')}` : '';
-      list = sec('Pinned', pinned) + sec('Today', rest);
-    }
-  } else {
-    const names = Object.keys(state.dms);
-    const pinned = names.filter(n => state.dms[n].pinned), rest = names.filter(n => !state.dms[n].pinned);
-    const sec = (label, ns) => ns.length ? `<div class="ch-label">${label}</div>${ns.map(friendRowHTML).join('')}` : '';
-    list = sec('Pinned', pinned) + sec('Today', rest);
-  }
-  wrap.innerHTML = `<div class="ch-head"><h1>Chats</h1><button class="icon-btn" data-act="noop" aria-label="Search">${I.search}</button></div>
-    <div class="ch-tabs"><button class="${agents ? 'on' : ''}" data-act="ch-tab" data-k="agents">Agents</button><button class="${agents ? '' : 'on'}" data-act="ch-tab" data-k="friends">Friends${dmUnread && agents ? '<i class="dot"></i>' : ''}</button></div>
-    <div class="ch-list">${list}</div>`;
-  pixelAll(wrap);
-}
 function rowHTML(w) {
   const meta = w.working != null ? `<span>${Math.round(w.working)}%</span>` : `<span>${w.time}</span>${w.unread ? '<i></i>' : ''}`;
   const preview = w.working != null ? 'Wana: building…' : w.last;
@@ -1556,7 +1893,7 @@ function renderMe() {
   const ti = tabs.findIndex(t => t[0] === state.meTab);
   $('#meScroll').innerHTML = `
     <div class="cover"><img src="${M('plant-pixel.webp')}" alt="" style="left:148px;top:96px;height:96px;transform:rotate(5deg)"><img src="${M('model-cafe.webp')}" alt="" style="left:198px;top:72px;height:128px;transform:rotate(-5deg)"><img src="${M('model-plush.webp')}" alt="" style="left:276px;top:86px;height:112px;transform:rotate(4deg)"></div>
-    <div class="me-btns"><button class="icon-btn" aria-label="Notifications">${I.bell}<span class="badge"></span></button><button class="icon-btn" aria-label="Settings">${I.gear}</button></div>
+    <div class="me-btns"><button class="icon-btn" data-act="me-notif" aria-label="Notifications">${I.bell}${state.notifSeen ? '' : '<span class="badge"></span>'}</button><button class="icon-btn" data-act="me-settings" aria-label="Settings">${I.gear}</button></div>
     <div class="me-av"><img src="${M('avatar-me.webp')}" alt="Your avatar"></div>
     <div class="me-body">
       <h1>Yuanyuan</h1><span class="muted" style="font-size:14px">@yy.makes</span>
@@ -1638,16 +1975,6 @@ function backToChat(w) {
 
 /* ---------------- create ---------------- */
 let mode = 'ai';
-function openCreate(m = 'ai', preset) {
-  const c = $('#create'); c.hidden = false; pauseAll(); pauseCarousel();
-  setMode(m); renderSheet();
-  if (preset && preset.remix) {
-    resetPrompt(); state.remix = preset.remix; renderRemix();
-    if (!state.idea) { state.idea = true; $('#idea').classList.add('on'); $('#idea').setAttribute('aria-pressed', 'true'); }
-    setTimeout(() => showIdea('Make it co-op: two explorers share one torch.'), 420);
-  }
-  requestAnimationFrame(() => requestAnimationFrame(() => c.classList.add('in')));
-}
 function closeCreate() {
   const c = $('#create'); c.classList.remove('in'); $('#cSheet').classList.remove('open');
   closeAllSubs();
@@ -1681,7 +2008,7 @@ function renderSheet() {
     b.innerHTML = `<div class="insp-grid" style="margin-top:0">${[['photo-cafe','model-cafe','Café pup · Soft plush'],['photo-girl','model-girl','Park reader · Figure']].map(([p, m, l]) => `<button class="ba" data-act="snap-insp" data-p="${p}"><span class="pic"><span class="top"><img src="${M(p + '.webp')}" alt=""></span><span class="bot"><img src="${M(m + '.webp')}" alt=""></span><span class="t1 tagpx">PHOTO</span><span class="t2 tagpx lime">3D</span><span class="arr">${I.arrowDown}</span></span><b>${l}</b></button>`).join('')}</div>`;
   }
 }
-/* Idea on → the cat thinks and types an example prompt (ghost text) */
+/* ✦ under an empty prompt types an idea; the cat thinks while it writes */
 const IDEAS = ['An underwater game where you eat smaller fish and dodge bigger ones. Cute low-poly style.', ...PROMPTS.map(p => p.t)];
 let ideaIdx = -1, typeTimer = 0;
 function setCat(think) {
@@ -1689,47 +2016,11 @@ function setCat(think) {
   if (c.getAttribute('src') !== src) c.setAttribute('src', src);
   c.classList.toggle('think', think);
 }
-let ghostText = '';
-function showIdea(custom) {
-  const g = $('#ghost'), out = $('#ghostTxt');
-  if (!custom) ideaIdx = (ideaIdx + 1) % IDEAS.length;
-  const text = ghostText = custom || IDEAS[ideaIdx];
-  clearTimeout(typeTimer);
-  g.hidden = false; g.classList.add('typing'); out.textContent = '';
-  $('#prompt').placeholder = ''; setCat(true); updateSend();
-  let i = 0;
-  const step = () => {
-    i++; out.textContent = text.slice(0, i);
-    if (i < text.length) typeTimer = setTimeout(step, text[i - 1] === ' ' ? 60 : 22 + Math.random() * 34);
-    else g.classList.remove('typing');
-  };
-  typeTimer = setTimeout(step, 280);
-}
-function clearGhost() {
-  clearTimeout(typeTimer);
-  const g = $('#ghost'); if (g.hidden) return;
-  g.hidden = true; $('#ghostTxt').textContent = '';
-  $('#prompt').placeholder = 'Describe it. We’ll make it playable…'; setCat(false); updateSend();
-}
-// Tapping the suggestion (or sending it) makes it the real prompt.
-function acceptGhost() {
-  if ($('#ghost').hidden) return false;
-  const text = ghostText || IDEAS[ideaIdx], ta = $('#prompt');
-  clearGhost(); ta.value = text;
-  const k = PROMPTS.findIndex(p => p.t === text);
-  if (k > -1) ta.dataset.preset = k; else delete ta.dataset.preset;
-  updateSend(); return true;
-}
-function updateSend() {
-  const ok = $('#prompt').value.trim().length > 0 || state.attachments.length > 0 || !$('#ghost').hidden || !!state.remix;
-  $('#sendBtn').classList.toggle('ready', ok); $('#sendBtn').disabled = !ok;
-}
 function renderAttachments() {
   const r = $('#attachRow'); r.hidden = !state.attachments.length;
   r.innerHTML = state.attachments.map((a, i) => `<span class="att"><img src="${M(a.img)}" alt="" style="${a.filter && a.filter !== 'none' ? 'filter:' + a.filter : ''}">${i === 0 ? '<span class="hero">HERO</span>' : ''}<button class="x" data-act="att-x" data-i="${i}" aria-label="Remove">${I.close}</button></span>`).join('') + (state.attachments.length < 4 ? `<button class="att-more" data-act="attach" aria-label="Add more">${I.plus}</button>` : '');
   updateSend();
 }
-function addAttachment(img, role) { if (state.attachments.length >= 4) return; state.attachments.push({ img, role }); renderAttachments(); }
 
 /* sub-screen stack */
 const subStack = [];
@@ -1842,7 +2133,7 @@ function finishGame(w, show) {
   if (w.versions.length) return;
   w.working = null;
   const desc = w.desc || (G[w.base] && G[w.base].desc) || 'Built from your idea.';
-  w.versions.push({ n:1, ask:w.prompt, atts:w.atts, reply: w.remixOf ? `Here’s your remix of ${w.remixOf.title}! ${desc}` : `Here’s ${w.title}! ${desc}`, note:'First version' });
+  w.versions.push({ n:1, thought:{ secs:38, steps:['Read your idea', 'Designed the world', 'Made the characters', 'Played it to check'] }, ask:w.prompt, atts:w.atts, reply: w.remixOf ? `Here’s your remix of ${w.remixOf.title}! ${desc}` : `Here’s ${w.title}! ${desc}`, note:'First version' });
   w.last = `Wana: ${w.title} is ready.`; w.time = 'now'; renderChats(); renderMe();
   if (show) openView(w, { v:1, ctx:'create', first:true });
 }
@@ -1926,54 +2217,8 @@ function versionCardHTML(w, v) {
   if (w.kind === '3d') return `<div class="mcard" data-act="vc-open" data-w="${w.id}" data-v="${v.n}"><span class="plate"></span>${modelImg(w, v)}<span class="tagpx">${tag}</span><span class="rot">${I.rotate}360°</span></div>`;
   return `<div class="vcard" data-act="vc-open" data-w="${w.id}" data-v="${v.n}">${mediaHTML(G[w.base])}<span class="dimv"></span><span class="tagpx">${tag}</span><span class="pl">${I.play}</span><button class="fs glass" data-act="vc-full" data-w="${w.id}">${I.full}Full screen</button></div>`;
 }
-function threadHTML(w) {
-  return w.versions.map(v => `<div class="mu">${v.atts && v.atts.length ? `<div class="atts">${v.atts.map(a => `<img src="${M(a.img)}" alt="">`).join('')}</div>` : ''}<div class="bub">${escapeHTML(v.ask)}</div>${v.via ? `<span class="via">Sent from ${v.via}</span>` : ''}</div>
-    <div class="ma"><p>${escapeHTML(v.reply)}</p>${versionCardHTML(w, v)}</div>`).join('');
-}
-function openWorkChat(w, o = {}) {
-  w.unread = false; renderChats();
-  const left = o.ctx === 'create' ? `<button class="icon-btn" data-act="vw-close" data-w="${w.id}" aria-label="Close">${I.close}</button>` : `<button class="icon-btn" data-act="sub-close" aria-label="Back">${I.back}</button>`;
-  const chips = w.kind === '3d' ? ['Try Flocked','Try Pixelated','Bigger eyes','Sitting pose'] : ['Make it harder','Add a boss','Night mode','2-player'];
-  const s = openSub('sub-chat', `${head(left, `<b>${escapeHTML(w.title)}</b>`)}
-    <div class="thread-wrap"><div class="thread" id="thread">${threadHTML(w)}</div></div>
-    <div class="chat-foot"><div class="hscroll">${chips.map(c => `<button class="chip" data-act="chat-sugg" data-w="${w.id}">${c}</button>`).join('')}</div>${inbarHTML('chat', 'Message')}</div>`);
-  s.dataset.w = w.id; pixelAll(s);
-  const th = $('#thread'); th.scrollTop = th.scrollHeight;
-  $$('#thread video').forEach(v => v.play().catch(() => {}));
-  const inp = $('#chatIn'); inp.addEventListener('input', () => $('#chatGo').classList.toggle('ready', !!inp.value.trim()));
-  $('#chatForm').addEventListener('submit', e => { e.preventDefault(); const t = inp.value.trim(); if (!t) return; inp.value = ''; $('#chatGo').classList.remove('ready'); tweak(w, t); });
-  if (o.auto) later('sub-chat', () => tweak(w, o.auto, { via:'Change style', style:o.style }), 450);
-}
-function tweak(w, text, opt = {}) {
-  const th = $('#thread'); if (!th) return;
-  const style = opt.style || (w.kind === '3d' ? ((text.match(/flocked|pixel|realistic|basic|plush|figure/i) || [])[0] || '').toLowerCase().replace(/^pixel$/, 'pixelated') : '');
-  th.insertAdjacentHTML('beforeend', `<div class="mu"><div class="bub">${escapeHTML(text)}</div>${opt.via ? `<span class="via">Sent from ${opt.via}</span>` : ''}</div><div class="ma" id="typing">${w.kind === '3d' ? `<p>On it${style ? ` — same ${escapeHTML(w.title)}, ${styleOf(style).label} style` : ''}.</p><div class="mcard"><span class="plate"></span>${modelImg(w, latest(w))}<span class="busy"><img src="${M('mascot-think.webp')}" alt="">Making v${latest(w).n + 1}…</span></div>` : '<div class="typing"><i></i><i></i><i></i></div>'}</div>`);
-  pixelAll(th); th.scrollTo({ top:th.scrollHeight, behavior:'smooth' });
-  later('sub-chat', () => {
-    const prev = latest(w); const n = prev.n + 1;
-    const v = w.kind === '3d'
-      ? { n, ask:text, via:opt.via, style: style || prev.style, note: style ? styleOf(style).label + ' style' : text, reply: style ? `Done! Same ${w.title}, now ${styleOf(style).label}. Saved to Assets.` : `Done! I applied “${text}”. Saved to Assets.`, isNew:true }
-      : { n, ask:text, note:text, reply:`Done! I applied “${text}”. Same style, new version.` };
-    w.versions.push(v); w.last = `Wana: v${n} is ready.`; w.time = 'now';
-    $('#thread').innerHTML = threadHTML(w); pixelAll($('#thread'));
-    $$('#thread video').forEach(x => x.play().catch(() => {}));
-    const t2 = $('#thread'); t2.scrollTo({ top:t2.scrollHeight, behavior:'smooth' });
-    renderChats(); renderMe();
-  }, w.kind === '3d' ? 2200 : 1600);
-}
 
 /* Publish (a specific version) → published → share */
-let pubCtx = null;
-function publishSheet(w, n, ctx) {
-  pubCtx = { w, n, ctx, who:'Everyone', remix:true, cover:0 };
-  const g = G[w.base];
-  openSheet(`<div class="pub"><h3>Publish${w.versions.length > 1 ? ' v' + n : ''}</h3>
-    <div class="lb">Cover</div><div class="covers">${[0, 1, 2].map(i => `<button class="${i === 0 ? 'on' : ''}" data-act="pub-cover" data-i="${i}"><img src="${poster(g)}" alt="" style="object-position:${['30% 50%', '70% 50%', '50% 20%'][i]};${i === 2 ? 'transform:scale(1.4)' : ''}"></button>`).join('')}<button class="ingame" data-act="noop">${I.plus}In game</button></div>
-    <div class="lb">Title</div><input class="field" id="pubTitle" value="${escapeHTML(w.title)}" maxlength="40">
-    <div class="lb">Who can play</div><div class="seg2">${['Everyone','Friends','Only me'].map((x, i) => `<button class="${i === 0 ? 'on' : ''}" data-act="pub-who" data-k="${x}">${x}</button>`).join('')}</div>
-    <div class="rowsw"><span class="t"><b>Allow remix</b><small>Others can make their own version</small></span><button class="switch on" data-act="pub-remix" aria-label="Allow remix"><i></i></button></div>
-    <button class="post" data-act="pub-post">Post</button></div>`);
-}
 function openPublished(w, ctx) {
   const g = G[w.base];
   openSub('sub-pub', `<div class="pd"><div class="pd-card"><img src="${poster(g)}" alt=""><span class="tagpx lime">LIVE</span></div>
@@ -1984,17 +2229,6 @@ function openPublished(w, ctx) {
 }
 
 /* Put a model into a game: back to Create with the model as the hero */
-function putInGame(w, n) {
-  const v = verOf(w, n);
-  const go = () => {
-    resetPrompt(); setMode('ai');
-    state.attachments.push({ img: w.model + '.webp', role:'Hero', filter: styleOf(v.style).filter }); renderAttachments();
-    if (!state.idea) { state.idea = true; $('#idea').classList.add('on'); $('#idea').setAttribute('aria-pressed', 'true'); }
-    showIdea(`${w.title} guards a pillow fort from sock monsters. Cozy low-poly style.`);
-  };
-  const fromTabs = $('#create').hidden; closeAllSubs();
-  if (fromTabs) { openCreate('ai'); setTimeout(go, 60); } else setTimeout(go, 380);
-}
 
 /* S2 style pick */
 let snapCtx = null;
@@ -2062,26 +2296,535 @@ function wireSpin(st, img) {
   idle();
 }
 
+/* ================= v3 · matches Figma section 1022 ================= */
+Object.assign(I, {
+  sparkle: sv(`<path ${S} d="M11 3l1.9 5.1L18 10l-5.1 1.9L11 17l-1.9-5.1L4 10l5.1-1.9L11 3Z"/><path ${F} d="M18.5 15l.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9.9-2.1Z"/>`),
+  plan: sv(`<path ${S} d="M10 6h10M10 12h10M10 18h10M3.5 6l1.5 1.5L8 4.5M3.5 12l1.5 1.5L8 10.5M3.5 18l1.5 1.5L8 16.5"/>`),
+  swap: sv(`<path ${S} d="M7 4 3 8l4 4M3 8h14M17 20l4-4-4-4M21 16H7"/>`),
+  devices: sv(`<rect ${S} x="2" y="4" width="15" height="11" rx="2"/><path ${S} d="M6 19h7M9.5 15v4"/><rect ${S} x="16" y="9" width="6" height="11" rx="1.5"/>`),
+  chevR: sv(`<path ${S} d="m9 6 6 6-6 6"/>`),
+  reload: sv(`<path ${S} d="M4 12a8 8 0 1 0 2.3-5.6M4 4v4h4"/>`),
+  stop: sv(`<rect ${F} x="7" y="7" width="10" height="10" rx="2.5"/>`),
+  hand: `<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" stroke="#140E10" stroke-width="1.1" stroke-linejoin="round" d="M10 9.5V4a2 2 0 0 0-4 0v10l-1.6-1.6a2 2 0 0 0-2.8 2.8l3.6 3.6C6.7 20.3 8.4 21 11 21h1a8 8 0 0 0 8-8v-3a2 2 0 0 0-4 0v1-1a2 2 0 0 0-4 0v1-2a2 2 0 0 0-2-2"/></svg>`,
+});
+Object.assign(state, { plan:false, signedIn:false, chatFilter:'all', chatAtts:[], planTipShown:false, notifSeen:false, coach:0, openThoughts:new Set(), settings:{ push:true, putMe:'Friends', who:'Everyone', remix:'Everyone' } });
+let attachTarget = 'create';
+const nowRank = { now:0, '2m':2, '5m':5, '12m':12, '20m':20, '1h':60, '2h':120, '3h':180, Yesterday:1440, Mon:2880, Sun:4320, Sat:5760 };
+const recOf = t => Date.now() - (nowRank[t] != null ? nowRank[t] : 9000) * 60000;
+
+/* ---------- Home: Explore / Following / Friends / Remix ---------- */
+FEEDS.remix = ['clash', 'paw', 'neon', 'deep', 'ivy', 'cafe'];
+const WHY = { neon:['mochi', 'av-6', 'liked'], ivy:['nekoium', 'av-4', 'played'], cafe:['bowie', 'av-2', 'made'] };
+const REMIX_IDEAS = { clash:'Make it a snowball fight', paw:'Swap the cat for my Fluffy Pup', neon:'Turn the club into a roller rink', deep:'Make it a chase in space', ivy:'Put a dragon on the tower', cafe:'Run a ramen stand instead', garden:'Grow candy plants', dark:'Bring a friend with a lantern', escape:'Escape from school instead' };
+function rxCats() { return ['For you', 'Runner', 'Shooter', 'Dress-up', 'Pet', 'Puzzle', 'Party'].map((c, i) => `<button class="chip${i ? '' : ' on'}" data-act="rx-cat">${c}</button>`).join(''); }
+function setHomeTab(t) {
+  state.ftab = t; const hf = $('#homeFeed');
+  $$('#ftabs button').forEach(x => x.classList.toggle('on', x.dataset.ftab === t));
+  $('#rxCats').hidden = t !== 'remix'; hf.classList.toggle('rx', t === 'remix');
+  $('#topbar').classList.remove('immersive'); setCompact(false); pauseAll(); renderFeed(hf, FEEDS[t]);
+}
+
+/* ---------- Create: Plan mode switch + ✦ for an idea ---------- */
+let ideaTyping = 0, lastIdea = '', typingIdea = false;
+function setGen(st) { const b = $('#genIdea'); if (!b) return; b.hidden = st === 'hide'; b.innerHTML = st === 'again' ? I.reload : I.sparkle; b.classList.toggle('busy', st === 'typing'); b.setAttribute('aria-label', st === 'again' ? 'Another idea' : 'Give me an idea'); placeGen(); }
+function textH(ta) { const st = ta.style, f = st.flex, h = st.height; st.flex = 'none'; st.height = '0px'; const sh = ta.scrollHeight; st.flex = f; st.height = h; return sh; }
+function placeGen() { const b = $('#genIdea'), ta = $('#prompt'); if (!b || b.hidden) return; b.style.top = (ta.value.trim() ? Math.min(textH(ta) + 12, ta.clientHeight - 40) : 74) + 'px'; }
+function syncGen() { if (typingIdea) return; const v = $('#prompt').value; if (!v.trim()) setGen('new'); else if (v === lastIdea) setGen('again'); else setGen('hide'); }
+function showIdea(custom) {
+  const ta = $('#prompt'); clearTimeout(ideaTyping);
+  if (!custom) ideaIdx = (ideaIdx + 1) % IDEAS.length;
+  const text = lastIdea = custom || IDEAS[ideaIdx];
+  ta.value = ''; delete ta.dataset.preset; typingIdea = true; setCat(true); setGen('typing');
+  let i = 0;
+  const step = () => { i++; ta.value = text.slice(0, i); updateSend(); placeGen();
+    if (i < text.length) ideaTyping = setTimeout(step, text[i - 1] === ' ' ? 45 : 14 + Math.random() * 22);
+    else { typingIdea = false; setCat(false); setGen('again'); const k = PROMPTS.findIndex(p => p.t === text); if (k > -1) ta.dataset.preset = k; } };
+  ideaTyping = setTimeout(step, 200);
+}
+function clearGhost() { clearTimeout(ideaTyping); if (typingIdea) { typingIdea = false; setCat(false); } }
+function acceptGhost() { return false; }
+function updateSend() {
+  const ok = $('#prompt').value.trim().length > 0 || state.attachments.length > 0 || !!state.remix;
+  $('#sendBtn').classList.toggle('ready', ok); $('#sendBtn').disabled = !ok; syncGen();
+}
+function openCreate(m = 'ai', preset) {
+  const c = $('#create'); c.hidden = false; pauseAll(); pauseCarousel();
+  setMode(m); renderSheet(); attachTarget = 'create';
+  if (preset && preset.remix) { resetPrompt(); state.remix = preset.remix; renderRemix(); setTimeout(() => showIdea(preset.idea || REMIX_IDEAS[preset.remix.id] || 'Make it co-op: two players, one goal.'), 420); }
+  if (!state.planTipShown && m === 'ai') { state.planTipShown = true; setTimeout(() => { const t = $('#planTip'); t.hidden = false; setTimeout(() => { t.hidden = true; }, 4200); }, 650); }
+  syncGen();
+  requestAnimationFrame(() => requestAnimationFrame(() => c.classList.add('in')));
+}
+function putInGame(w, n) {
+  const v = verOf(w, n);
+  const go = () => { resetPrompt(); setMode('ai'); attachTarget = 'create'; state.attachments.push({ img: w.model + '.webp', role:'Hero', filter: styleOf(v.style).filter }); renderAttachments(); showIdea(`${w.title} guards a pillow fort from sock monsters. Cozy low-poly style.`); };
+  const fromTabs = $('#create').hidden; closeSheet(); closeAllSubs();
+  if (fromTabs) { openCreate('ai'); setTimeout(go, 60); } else setTimeout(go, 380);
+}
+function addAttachment(img, role) {
+  if (attachTarget === 'chat') { if (state.chatAtts.length < 4) state.chatAtts.push({ img }); renderChatAtts(); return; }
+  if (state.attachments.length >= 4) return; state.attachments.push({ img, role }); renderAttachments();
+}
+
+/* ---------- sign in: only when you first make something ---------- */
+function needSignIn(then) { if (state.signedIn) { then(); return; } signInSheet(then); }
+function signInSheet(then) {
+  const done = (msg) => { state.signedIn = true; closeSheet(); toast(msg); if (then) setTimeout(then, 320); };
+  openSheet(`<div class="si"><img class="cat" src="${M('mascot-idle.gif')}" alt=""><h3>Keep what you make</h3><p>Sign in so your games and 3D are saved.</p>
+    <button class="si-apple" data-act="si-apple">Sign in with Apple</button><button class="si-google" data-act="si-google">Sign in with Google</button>
+    <div class="si-new">New to Wanaka? <button data-act="si-create">Create an account</button></div>
+    <div class="si-note">${I.devices}<span>Same account as Wanaka Studio on PC. Use one account on both and your games and 3D stay in sync.</span></div>
+    <small class="si-terms">Terms · Privacy</small></div>`, {
+    'si-apple': () => done('Signed in with Apple'), 'si-google': () => done('Signed in with Google'), 'si-create': () => done('Account created · welcome to Wanaka'),
+  });
+}
+
+/* ---------- Plan mode: plan card → plan page → Build it ---------- */
+const GENRES = ['Adventure', 'Platformer', 'Racing', 'Puzzle', 'Shooter', 'Party', 'Cozy'];
+const LOOKS = [['Default', null], ['Low-poly', 'cover-deep.webp'], ['Cartoon', 'cover-paw.webp'], ['Toy town', 'g-cafe.jpg'], ['Moody', 'cover-dungeon.webp'], ['Arcade', 'cover-clash.webp']];
+const GENRE_OF = { deep:'Adventure', cafe:'Cozy', garden:'Cozy', neon:'Racing', ivy:'Adventure', paw:'Platformer', clash:'Shooter', dark:'Puzzle', escape:'Platformer' };
+const FEELS = { deep:'Hungry and a little scared. Every fish could be lunch.', cafe:'Warm and busy, like a Saturday morning rush.', garden:'Calm and curious. Something odd is always growing.', neon:'Fast, loud and bright, like a night out.', ivy:'Patient and proud as the castle comes back.', paw:'Light, quick and a bit cheeky.' };
+function startPlan(text, atts, remix) {
+  const base = remix ? remix.id : pickBase(text);
+  const w = newWork({ kind:'game', title:'New game', base, prompt:text, atts:atts.slice(), remixOf: remix ? { id:remix.id, title:remix.title, creator:remix.creator } : null, time:'now', rec:Date.now(), last:'Wana: here’s the plan.' });
+  w.plan = { name: remix ? `${remix.title} Remix` : (NAMES[base] || 'New game'), base, cover: poster(G[base]), genre: GENRE_OF[base] || 'Adventure', look:'Default', what: text, feels: FEELS[base] || 'Bright, quick and a little silly.', diff:'Normal', used:false, notes:[] };
+  w.title = w.plan.name; w.planning = true; renderChats();
+  openWorkChat(w, { ctx:'create' });
+  setTimeout(() => { w.planning = false; rerenderThread(w); }, 1600);
+}
+function planCardHTML(w) { const p = w.plan; return `<div class="plan-card" data-act="plan-open" data-w="${w.id}"><span class="pc-row"><span class="pc-ic">${I.plan}</span><span class="pc-t"><b>${escapeHTML(p.name)}</b><small>${escapeHTML(p.what)}</small></span></span><span class="pc-btn">Open plan ${I.chevR}</span></div>`; }
+const PLAN_COVERS = ['cover-deep.webp', 'cover-paw.webp', 'cover-escape.webp', 'cover-clash.webp', 'cover-dungeon.webp', 'g-ivy.jpg', 'g-cafe.jpg', 'g-neon.jpg', 'g-garden.jpg'];
+function openPlan(w) {
+  const p = w.plan, ro = p.used, look = LOOKS.find(l => l[0] === p.look);
+  const lookImg = look && look[1] ? M(look[1]) : p.cover;
+  const s = openSub('sub-plan', `${head(xBtn('plan-back', 'back'), '<b>Plan</b>')}
+    <div class="s-body vscroll pl-body">
+      <div class="pl-cover"><img id="plCover" src="${p.cover}" alt="">${ro ? '<span class="tagpx lime">USED FOR V1</span>' : `<button class="pl-regen" data-act="plan-regen">${I.reload}Regenerate cover</button>`}</div>
+      <input class="pl-name" id="plName" value="${escapeHTML(p.name)}" ${ro ? 'disabled' : ''} aria-label="Name">
+      <div class="pl-row"><div class="pl-g"><small class="pxl">GENRE</small><button class="pl-chip" data-act="${ro ? 'noop' : 'plan-genre'}">${I.games}<span id="plGenre">${p.genre}</span>${ro ? '' : I.chevDown}</button></div>
+        <div class="pl-g"><small class="pxl">LOOK</small><button class="pl-chip look" data-act="${ro ? 'noop' : 'plan-look'}"><img id="plLookImg" src="${lookImg}" alt=""><span id="plLook">${p.look}</span>${ro ? '' : I.chevDown}</button></div></div>
+      <div class="pl-g"><small class="pxl">WHAT YOU DO</small><textarea class="pl-field" id="plWhat" rows="3" ${ro ? 'disabled' : ''}>${escapeHTML(p.what)}</textarea></div>
+      <div class="pl-g"><small class="pxl">HOW IT FEELS</small><textarea class="pl-field" id="plFeels" rows="2" ${ro ? 'disabled' : ''}>${escapeHTML(p.feels)}</textarea></div>
+      <div class="pl-g"><small class="pxl">DIFFICULTY</small><div class="pl-seg${ro ? ' ro' : ''}">${['Gentle', 'Normal', 'Tough'].map(d => `<button class="${d === p.diff ? 'on' : ''}" data-act="${ro ? 'noop' : 'plan-diff'}" data-k="${d}">${d}</button>`).join('')}</div></div>
+    </div>
+    <div class="pl-foot">${ro ? '<p>v1 was built from this plan. To change the game, tell Wana in chat.</p>' : `<button class="cta-white" data-act="plan-build" data-w="${w.id}">Build it</button>`}</div>`);
+  s.dataset.w = w.id;
+}
+function savePlanFields(w) { const p = w.plan; const n = $('#plName'); if (!n || p.used) return; p.name = n.value.trim() || p.name; p.what = $('#plWhat').value.trim() || p.what; p.feels = $('#plFeels').value.trim() || p.feels; w.title = p.name; }
+function planSheet(kind, w) {
+  const p = w.plan;
+  if (kind === 'genre') openSheet(`<div class="pick-list"><h3>Genre</h3>${GENRES.map(g => `<button data-act="pg-pick" data-k="${g}" class="${g === p.genre ? 'on' : ''}">${g}${g === p.genre ? I.check : ''}</button>`).join('')}</div>`, { 'pg-pick': b => { p.genre = b.dataset.k; $('#plGenre').textContent = p.genre; closeSheet(); } });
+  else openSheet(`<div class="pick-looks"><h3>Look</h3><div class="lk-grid">${LOOKS.map(([l, img]) => `<button data-act="pl-pick" data-k="${l}" class="${l === p.look ? 'on' : ''}"><span class="th"><img src="${img ? M(img) : p.cover}" alt="">${l === p.look ? `<i>${I.check}</i>` : ''}</span>${l}</button>`).join('')}</div></div>`, { 'pl-pick': b => { p.look = b.dataset.k; const lk = LOOKS.find(x => x[0] === p.look); $('#plLook').textContent = p.look; $('#plLookImg').src = lk[1] ? M(lk[1]) : p.cover; closeSheet(); } });
+}
+function buildFromPlan(w) {
+  savePlanFields(w);
+  if (state.credits <= 0) { outOfCredits(); return; }
+  state.credits--; updateCredits(); w._cost = 1; closeSub('sub-plan');
+  const p = w.plan; const steps = [`Finding the ${GENRE_OF[p.base] === 'Racing' ? 'cars and track' : 'hero and the world'}`, 'Building the levels', 'Writing the rules', 'Playing it to check'];
+  w.working = 0; w.building = { steps, n:1, label:`Building ${p.name} from your plan.` }; w.rec = Date.now(); renderChats();
+  const ch = $('#chatTitle'); if (ch && $('#sub-chat').dataset.w === w.id) ch.textContent = p.name;
+  rerenderThread(w); setStop(true, w);
+  runBuild(w, 4200, () => {
+    w.versions.push({ n:1, fromPlan:true, note:'From your plan', reply:`Here’s ${p.name}! ${G[p.base].desc}`, thought:{ secs:52, steps:[`Read the plan: ${p.genre}, ${p.look}, ${p.diff}`, ...steps.slice(0, 3), 'Played it to check'] } });
+    p.used = true; w.building = null; w._cost = 0; w.last = 'Wana: v1 is ready.'; w.time = 'now'; w.rec = Date.now();
+    rerenderThread(w); setStop(false, w); renderChats(); renderMe();
+    if (!$('#sub-chat').classList.contains('in') || $('#sub-chat').dataset.w !== w.id) { w.unread = true; state.chatsDot = state.tab !== 'chats'; updateTabDot(); toast(`${p.name} is ready`, 'Open', () => openWorkChat(w, { ctx:'sub' })); }
+  });
+}
+// progress that keeps going if you leave the chat (Chats row shows %)
+function runBuild(w, dur, done) {
+  const t0 = performance.now();
+  const iv = setInterval(() => {
+    const e = Math.min(1, (performance.now() - t0) / dur); w.working = Math.round(e * 100);
+    const live = $('#live'); if (live && live.dataset.w === w.id) { const b = $('.prog b', live), u = $('.prog u', live); if (b) b.textContent = w.working + '%'; if (u) u.style.width = w.working + '%';
+      $$('.csteps span', live).forEach((s, i, all) => { const a = i / all.length, z = (i + 1) / all.length; s.className = e >= z ? 'done' : e >= a ? 'doing' : ''; }); }
+    if (state.tab === 'chats') renderChats();
+    if (e >= 1) { clearInterval(iv); w.working = null; done(); }
+  }, 120);
+  w._iv = iv;
+}
+
+/* ---------- the chat: thinking → building → ready, + sheet, attachments ---------- */
+const liveLine = t => { const s = t.toLowerCase();
+  if (/boss/.test(s)) return 'Adding a boss at the end of the last level, then giving it a health bar.';
+  if (/hard|fast/.test(s)) return 'Speeding things up and putting tougher enemies on later levels.';
+  if (/night|dark/.test(s)) return 'Turning the lights down and making the important bits glow.';
+  if (/2-player|co-?op|friend/.test(s)) return 'Splitting the screen so two players each get their own controls.';
+  return `Working out the best way to ${s.replace(/[.!]$/, '')}.`; };
+const stepsFor = t => { const s = t.toLowerCase();
+  if (/boss/.test(s)) return ['Add a boss at the end', 'Give it a health bar', 'Playing it to check'];
+  if (/hard|fast/.test(s)) return ['Faster enemies on every level', 'Tighter timer', 'Playing it to check'];
+  if (/night|dark/.test(s)) return ['Night lighting', 'Glow on things you can grab', 'Playing it to check'];
+  return [t.length > 34 ? t.slice(0, 32) + '…' : t, 'Updating the levels', 'Playing it to check']; };
+function thoughtHTML(t, key) { const open = state.openThoughts.has(key); return `<div class="thought${open ? ' open' : ''}" data-act="thought" data-k="${key}"><span class="th-h">Thought for ${t.secs}s ${I.chevR}</span><div class="th-list">${t.steps.map(s => `<span>${I.check}${escapeHTML(s)}</span>`).join('')}</div></div>`; }
+function userBubbleHTML(text, atts, via) { return `<div class="mu">${atts && atts.length ? `<div class="atts">${atts.map(a => a.asset ? `<span class="aa">${a.thumb}</span>` : `<img src="${M(a.img)}" alt="">`).join('')}</div>` : ''}<div class="bub">${escapeHTML(text)}</div>${via ? `<span class="via">Sent from ${via}</span>` : ''}</div>`; }
+function buildCardHTML(w, n, pct) { return `<div class="vcard bld"><img class="media" src="${w.plan ? w.plan.cover : poster(G[w.base])}" alt=""><span class="veil"></span><span class="tagpx">V${n} · BUILDING</span><span class="prog"><b>${pct}%</b><i><u style="width:${pct}%"></u></i></span></div>`; }
+function buildingHTML(w) { const b = w.building; return `<div class="ma" id="live" data-w="${w.id}"><p>${escapeHTML(b.label)}</p><div class="csteps">${b.steps.map(s => `<span>${I.check}${escapeHTML(s)}</span>`).join('')}</div>${buildCardHTML(w, b.n, w.working || 0)}<small class="note">About 1 min · you can leave, I’ll let you know</small></div>`; }
+function thinkingHTML(w, line) { return `<div class="ma" id="live" data-w="${w.id}"><div class="think-row"><img src="${M('mascot-think.webp')}" alt=""><b>Thinking…</b></div><p class="live-line">${escapeHTML(line)}</p></div>`; }
+const defaultThought = (w, v) => w.kind !== 'game' ? null : v.n === 1 ? { secs:38, steps:['Read your idea', 'Built the world and characters', 'Played it to check'] } : { secs: 9 + (v.n * 5) % 12, steps:[`Read it: ${String(v.ask || v.note).toLowerCase()}`, 'Updated the levels', 'Played it to check'] };
+function threadHTML(w) {
+  let h = '';
+  if (w.plan) {
+    h += userBubbleHTML(w.prompt, w.atts);
+    if (w.planning) return h + thinkingHTML(w, 'Working out the world, the rules and how it should feel.');
+    h += `<div class="ma">${thoughtHTML({ secs:6, steps:['Read your idea', `Picked a ${w.plan.genre.toLowerCase()} game`, 'Wrote the plan'] }, w.id + '-plan')}<p>Here’s my plan. Change anything, or build it.</p>${planCardHTML(w)}</div>`;
+    h += (w.plan.notes || []).map(n => userBubbleHTML(n) + `<div class="ma"><p>Got it, I added that to the plan. Open it to check.</p></div>`).join('');
+  }
+  h += w.versions.map(v => { const t = v.thought || defaultThought(w, v); return (v.fromPlan ? '' : userBubbleHTML(v.ask, v.atts, v.via)) + `<div class="ma">${t ? thoughtHTML(t, w.id + '-' + v.n) : ''}<p>${escapeHTML(v.reply)}</p>${versionCardHTML(w, v)}</div>`; }).join('');
+  if (w.pending) h += userBubbleHTML(w.pending.ask, w.pending.atts, w.pending.via);
+  if (w.building) h += buildingHTML(w); else if (w.pending) h += thinkingHTML(w, liveLine(w.pending.ask));
+  return h;
+}
+function rerenderThread(w) {
+  for (const id of ['thread', 'pjThread']) { const th = $('#' + id); if (!th) continue; const host = th.closest('.sub'); if (host && host.dataset.w !== w.id) continue;
+    th.innerHTML = threadHTML(w); pixelAll(th); if (id === 'thread') { $$('video', th).forEach(x => x.play().catch(() => {})); th.scrollTo({ top:th.scrollHeight, behavior:'smooth' }); } }
+}
+function setStop(on, w) {
+  const go = $('#chatGo'); if (!go || ($('#sub-chat').dataset.w !== (w && w.id))) return;
+  go.classList.toggle('stop', on); go.classList.toggle('ready', on); go.innerHTML = on ? I.stop : IC('arrow-up', 20);
+  const chips = $('#chatChips'); if (chips) chips.hidden = on;
+}
+function stopRun(w) {
+  clearTimeout(w._tt); if (w._iv) { clearInterval(w._iv); w._iv = null; }
+  const asked = w.pending; w.working = null; w.building = null; w.pending = null;
+  if (w._cost) { state.credits += w._cost; w._cost = 0; updateCredits(); }
+  rerenderThread(w);
+  const th = $('#thread'); if (th) { th.insertAdjacentHTML('beforeend', `${asked ? userBubbleHTML(asked.ask, asked.atts) : ''}<div class="ma"><p class="muted">Stopped. Nothing changed.</p></div>`); th.scrollTop = th.scrollHeight; }
+  setStop(false, w); renderChats();
+}
+function openWorkChat(w, o = {}) {
+  w.unread = false; renderChats(); state.chatAtts = []; attachTarget = 'chat';
+  const left = o.ctx === 'create' ? `<button class="icon-btn" data-act="vw-close" data-w="${w.id}" aria-label="Close">${I.close}</button>` : `<button class="icon-btn" data-act="sub-close" aria-label="Back">${I.back}</button>`;
+  const planStage = w.plan && !w.plan.used && !w.versions.length;
+  const chips = w.kind === '3d' ? ['Try Flocked', 'Try Pixelated', 'Bigger eyes', 'Sitting pose'] : planStage ? ['Make it co-op', 'Add a pet', 'Night time', 'Shorter'] : ['Make it harder', 'Add a boss', 'Night mode', '2-player'];
+  const s = openSub('sub-chat', `${head(left, `<b id="chatTitle">${escapeHTML(w.title)}</b>`)}
+    <div class="thread-wrap"><div class="thread" id="thread">${threadHTML(w)}</div></div>
+    <div class="chat-foot"><div class="hscroll" id="chatChips">${chips.map(c => `<button class="chip" data-act="chat-sugg" data-w="${w.id}">${c}</button>`).join('')}</div><div class="chat-atts" id="chatAtts" hidden></div>${inbarHTML('chat', 'Message', 'Tell me what to change…', 'chat-add')}</div>`);
+  s.dataset.w = w.id; pixelAll(s);
+  const th = $('#thread'); th.scrollTop = th.scrollHeight;
+  $$('#thread video').forEach(v => v.play().catch(() => {}));
+  const inp = $('#chatIn'); inp.addEventListener('input', () => { if (!$('#chatGo').classList.contains('stop')) $('#chatGo').classList.toggle('ready', !!inp.value.trim()); });
+  $('#chatForm').addEventListener('submit', e => { e.preventDefault(); if ($('#chatGo').classList.contains('stop')) { stopRun(w); return; } const t = inp.value.trim(); if (!t) return; inp.value = ''; $('#chatGo').classList.remove('ready'); tweak(w, t); });
+  if (w.building && w.working != null) setStop(true, w);
+  if (o.auto) later('sub-chat', () => tweak(w, o.auto, { via:'Change style', style:o.style }), 450);
+}
+function chatAddSheet(w) {
+  attachTarget = 'chat';
+  const assets = w.kind === 'game' ? gameAssets(w) : [];
+  openSheet(`<h3>Add to this change</h3>
+    <div class="opt3"><button data-act="att-camera">${I.camera}Camera<small>Snap now</small></button><button data-act="att-photos">${I.image}Photos<small>From library</small></button><button data-act="att-assets">${I.cube}My Assets<small>3D you made</small></button></div>
+    ${assets.length ? `<div class="rowhead">In this game</div><div class="ingame-row">${assets.map((a, i) => `<button data-act="chat-asset" data-i="${i}"><span class="ia">${assetThumbHTML(w, a)}</span>${escapeHTML(a.name)}</button>`).join('')}</div>` : ''}
+    <div class="rowhead">Recent<span>See all</span></div>
+    <div class="recent">${['photo-shiba', 'photo-cafe', 'photo-girl', 'cover-escape'].map(p => `<button data-act="att-recent" data-img="${p}.webp"><img src="${M(p + '.webp')}" alt=""></button>`).join('')}</div>`, {
+    'chat-asset': b => { const a = assets[+b.dataset.i]; if (state.chatAtts.length < 4) state.chatAtts.push({ asset:a.name, thumb:assetThumbHTML(w, a) }); closeSheet(); renderChatAtts(); },
+  });
+  pixelAll($('#sheetBody'));
+}
+function renderChatAtts() {
+  const r = $('#chatAtts'); if (!r) return; r.hidden = !state.chatAtts.length;
+  r.innerHTML = state.chatAtts.map((a, i) => a.asset ? `<span class="ca-chip"><span class="aa">${a.thumb}</span>${escapeHTML(a.asset)}<button data-act="ca-x" data-i="${i}" aria-label="Remove">${I.close}</button></span>` : `<span class="ca-img"><img src="${M(a.img)}" alt=""><button data-act="ca-x" data-i="${i}" aria-label="Remove">${I.close}</button></span>`).join('');
+}
+function tweak(w, text, opt = {}) {
+  const th = $('#thread'); if (!th) return;
+  const atts = state.chatAtts.slice(); state.chatAtts = []; renderChatAtts();
+  w.rec = Date.now();
+  if (w.plan && !w.plan.used && !w.versions.length) { // still planning: changes go into the plan
+    w.plan.notes.push(text); w.plan.what = `${w.plan.what} ${text}.`.replace(/\.\./g, '.');
+    rerenderThread(w); return; }
+  if (w.kind === '3d') {
+    const style = opt.style || ((text.match(/flocked|pixel|realistic|basic|plush|figure/i) || [])[0] || '').toLowerCase().replace(/^pixel$/, 'pixelated');
+    th.insertAdjacentHTML('beforeend', userBubbleHTML(text, atts, opt.via) + `<div class="ma"><p>On it${style ? ` — same ${escapeHTML(w.title)}, ${styleOf(style).label} style` : ''}.</p><div class="mcard"><span class="plate"></span>${modelImg(w, latest(w))}<span class="busy"><img src="${M('mascot-think.webp')}" alt="">Making v${latest(w).n + 1}…</span></div></div>`);
+    pixelAll(th); th.scrollTo({ top:th.scrollHeight, behavior:'smooth' });
+    later('sub-chat', () => { const prev = latest(w); const n = prev.n + 1;
+      w.versions.push({ n, ask:text, atts, via:opt.via, style: style || prev.style, note: style ? styleOf(style).label + ' style' : text, reply: style ? `Done! Same ${w.title}, now ${styleOf(style).label}. Saved to Assets.` : `Done! I applied “${text}”. Saved to Assets.`, isNew:true, thought:{ secs:8, steps:['Kept the same shape', style ? `Repainted it ${styleOf(style).label}` : text, 'Saved it to Assets'] } });
+      w.last = `Wana: v${n} is ready.`; w.time = 'now'; rerenderThread(w); renderChats(); renderMe(); }, 2200);
+    return;
+  }
+  if (w.pending || w.building) { toast('Wana is still on the last change'); return; }
+  // thinking → building (keeps going if you leave the chat) → ready, or failed
+  const steps = stepsFor(text); const n = latest(w).n + 1;
+  w.pending = { ask:text, atts, via:opt.via }; w.last = 'Wana: thinking…'; rerenderThread(w); setStop(true, w); renderChats();
+  w._tt = setTimeout(() => {
+    w.building = { steps, n, label:'On it:' }; w.working = 0; rerenderThread(w);
+    runBuild(w, 2400, () => {
+      const p = w.pending; w.building = null; w.pending = null;
+      if (!opt.retry && /online|mmo|1000 players/i.test(text)) { // a demo of the failed state
+        rerenderThread(w); setStop(false, w); renderChats();
+        const t = $('#thread'); if (t && $('#sub-chat').dataset.w === w.id) { t.insertAdjacentHTML('beforeend', userBubbleHTML(p.ask, p.atts, p.via) + `<div class="ma"><div class="fail-card"><b>That change didn’t work</b><p>Your v${n - 1} is safe. This didn’t use a free creation.</p><button class="cta-white" data-act="chat-retry" data-w="${w.id}" data-t="${escapeHTML(text)}">Try again</button></div></div>`); t.scrollTo({ top:t.scrollHeight, behavior:'smooth' }); }
+        w.last = 'Wana: that didn’t work. v' + (n - 1) + ' is safe.'; return;
+      }
+      w.versions.push({ n, ask:text, atts:p.atts, via:p.via, note:text, reply:`Done! I applied “${text}”. Same style, new version.`, thought:{ secs: 9 + Math.round(Math.random() * 10), steps:[`Read it: ${text.toLowerCase()}`, ...steps.slice(0, 2), 'Played it to check'] } });
+      w.last = `Wana: v${n} is ready.`; w.time = 'now'; w.rec = Date.now(); rerenderThread(w); setStop(false, w); renderChats(); renderMe();
+      if (!$('#sub-chat').classList.contains('in') || $('#sub-chat').dataset.w !== w.id) { w.unread = true; state.chatsDot = state.tab !== 'chats'; updateTabDot(); renderChats(); toast(`${w.title} v${n} is ready`, 'Open', () => openWorkChat(w, { ctx:'sub' })); }
+    });
+  }, 1500);
+}
+
+/* ---------- Chats: one list + a small filter ---------- */
+function renderChats() {
+  const wrap = $('#chatsWrap'); if (!wrap) return;
+  const f = state.chatFilter, items = [];
+  const recNow = x => x.time === 'now' ? Math.max(x.rec || 0, Date.now() - 1) : (x.rec || recOf(x.time));
+  if (f !== 'friends') state.works.forEach(w => items.push({ t:'w', w, pin:w.pinned, rec:recNow(w) }));
+  if (f !== 'wana') Object.keys(state.dms).forEach(n => items.push({ t:'f', n, pin:state.dms[n].pinned, rec:recNow(state.dms[n]) }));
+  items.sort((a, b) => b.rec - a.rec);
+  const row = it => it.t === 'w' ? rowHTML(it.w) : friendRowHTML(it.n);
+  const day = Date.now() - 1440 * 60000;
+  const pinned = items.filter(i => i.pin), today = items.filter(i => !i.pin && i.rec > day), older = items.filter(i => !i.pin && i.rec <= day);
+  const sec = (l, a) => a.length ? `<div class="ch-label">${l}</div>${a.map(row).join('')}` : '';
+  const list = items.length ? sec('Pinned', pinned) + sec('Today', today) + sec('Earlier', older) :`<div class="ch-empty"><img src="${M('mascot-plus.webp')}" alt=""><b>No chats yet</b><small>Everything you make with Wana shows up here.</small><button class="cta-white" data-act="open-create">Start creating</button></div>`;
+  const label = { all:'', wana:'With Wana', friends:'Friends' }[f];
+  wrap.innerHTML = `<div class="ch-head"><h1>Chats${label ? `<button class="ch-fchip" data-act="ch-filter-set" data-k="all">${label}${I.close}</button>` : ''}</h1><span class="ch-btns"><button class="icon-btn${f !== 'all' ? ' on' : ''}" data-act="ch-filter" aria-label="Filter">${I.filter}</button><button class="icon-btn" data-act="noop" aria-label="Search">${I.search}</button></span></div><div class="ch-list">${list}</div>`;
+  pixelAll(wrap);
+}
+function chatFilterMenu(b) {
+  const host = $('#s-chats'); const old = $('.pop.chf', host); if (old) { old.remove(); return; }
+  host.insertAdjacentHTML('beforeend', `<div class="pop chf">${[['all', 'All'], ['wana', 'With Wana'], ['friends', 'Friends']].map(([k, l]) => `<button data-act="ch-filter-set" data-k="${k}">${l}${state.chatFilter === k ? I.check : ''}</button>`).join('')}</div>`);
+}
+
+/* ---------- Me: Project (Game / Assets / Chat), Swap, My 3D, Notifications, Settings ---------- */
+const GAME_ASSETS = { // [name, type, centre x, centre y, crop size] in the cover image's pixels
+  deep:[['Shark boss', 'Character', 195, 175, 250], ['Red fish', 'Character', 358, 262, 110], ['Yellow fish', 'Character', 288, 322, 80], ['Reef', 'World', 90, 330, 150]],
+  paw:[['Cat runner', 'Character', 480, 170, 260], ['Rooftops', 'World', 500, 360, 120], ['Logo', 'Prop', 230, 175, 300]],
+  dark:[['Torch hero', 'Character', 329, 347, 180], ['Statue', 'Prop', 480, 285, 160], ['Dungeon', 'World', 360, 500, 500]],
+  escape:[['Runner', 'Character', 305, 235, 200], ['Office', 'World', 620, 130, 220], ['Coins', 'Prop', 500, 300, 140]],
+};
+const IMG_WH = { deep:[720, 405], paw:[720, 405], escape:[720, 405], clash:[720, 405], dark:[720, 720] };
+function gameAssets(w) { if (!w.assets) w.assets = (GAME_ASSETS[w.base] || [['Hero', 'Character', 270, 600, 300], ['Rival', 'Character', 380, 480, 300], ['World', 'World', 270, 300, 500]]).map(([name, type, cx, cy, r]) => ({ name, type, cx, cy, r })); return w.assets; }
+function assetThumbHTML(w, a) {
+  if (a.model) return `<span class="mdl-bg"><img class="mdl" src="${M(a.model + '.webp')}" alt=""></span>`;
+  const [W, H] = IMG_WH[w.base] || [540, 960], pc = (c, n) => Math.max(0, Math.min(100, (c - a.r / 2) / (n - a.r) * 100));
+  return `<span class="crop" style="background-image:url('${poster(G[w.base])}');background-size:${W / a.r * 100}% auto;background-position:${pc(a.cx, W)}% ${pc(a.cy, H)}%"></span>`;
+}
+function openProject(w, tab = 'game') { openSub('sub-project', ''); renderProject(w, tab); }
+function renderProject(w, tab) {
+  const s = $('#sub-project'); s.dataset.w = w.id; s.dataset.tab = tab;
+  const v = latest(w), live = w.publishedV, draft = isDraft(w), g = G[w.base];
+  let body = '';
+  if (tab === 'game') body = `<div class="pj-hero" data-act="pj-play" data-w="${w.id}">${mediaHTML(g, 'media', true)}<span class="tagpx">V${v.n} · ${draft ? 'DRAFT' : 'LIVE'}</span><span class="vw-play">${I.play}</span><div class="vw-info"><h2>${escapeHTML(w.title)}</h2><small>${live ? `v${live} is live · ${g.plays} plays · ${g.likes} likes` : 'Not published yet · only you can see it'}</small></div></div>
+    <div class="pj-lb">Versions</div><div class="pj-vers hscroll">${[...w.versions].reverse().map(x => `<button class="pj-ver${x.n === v.n ? ' on' : ''}" data-act="pj-ver" data-w="${w.id}" data-v="${x.n}"><span class="th"><img src="${poster(g)}" alt=""><span class="tagpx${live === x.n ? ' lime' : ''}">${live === x.n ? 'LIVE' : (x.n === v.n && draft ? 'DRAFT' : 'V' + x.n)}</span></span><small>V${x.n} · ${escapeHTML(x.note)}</small></button>`).join('')}</div>
+    <div class="pj-foot"><button class="sec" data-act="pj-edit" data-w="${w.id}">${I.pencil}Keep editing</button>${draft ? `<button class="pri" data-act="vw-publish" data-w="${w.id}" data-v="${v.n}" data-ctx="me">${I.publish}Publish v${v.n}</button>` : `<button class="pri" data-act="vw-share" data-w="${w.id}">${I.shareL}Share</button>`}</div>`;
+  const af = s.dataset.af || 'All';
+  if (tab === 'assets') body = `<div class="pj-af hscroll">${['All', 'Character', 'World', 'Prop'].map(k => `<button class="chip${k === af ? ' on' : ''}" data-act="pj-af" data-k="${k}">${k === 'All' ? 'All' : k + 's'}</button>`).join('')}</div><div class="pj-assets">${gameAssets(w).map((a, i) => af !== 'All' && a.type !== af ? '' : `<button class="pj-asset" data-act="${a.swapping ? 'noop' : 'pj-asset'}" data-w="${w.id}" data-i="${i}"><span class="th">${assetThumbHTML(w, a)}${a.swapping ? `<span class="sw"><b>Swapping…</b><i><u></u></i></span>` : ''}${a.isNew ? `<span class="tagpx lime">NEW · V${a.isNew}</span>` : ''}</span><b>${escapeHTML(a.name)}</b><small>${a.swapping ? 'Swapping in…' : a.model ? a.type + ' · your 3D' : a.type}</small></button>`).join('')}</div><p class="pj-tip">Tap an asset to swap it.</p>`;
+  if (tab === 'chat') body = `<div class="pj-chat"><div class="thread" id="pjThread">${threadHTML(w)}</div></div><div class="pj-foot"><button class="pri wide" data-act="pj-edit" data-w="${w.id}">${I.pencil}Keep editing</button></div>`;
+  s.innerHTML = `${head(xBtn('sub-close', 'back'), `<b>${escapeHTML(w.title)}</b>`, `<button class="icon-btn" data-act="vw-more" data-w="${w.id}" data-v="${v.n}" aria-label="More">${I.more}</button>`)}
+    <div class="pj-tabs">${['game', 'assets', 'chat'].map(t => `<button class="${t === tab ? 'on' : ''}" data-act="pj-tab" data-k="${t}">${t[0].toUpperCase() + t.slice(1)}${t === 'assets' ? `<i>${gameAssets(w).length}</i>` : ''}</button>`).join('')}</div>
+    <div class="pj-body">${body}</div>`;
+  fillIcons(s); pixelAll(s);
+  const vid = $('.pj-hero video', s); vid && vid.play().catch(() => {});
+  const pt = $('#pjThread'); if (pt) { $$('video', pt).forEach(x => x.removeAttribute('autoplay')); pt.scrollTop = pt.scrollHeight; }
+}
+let swapCtx = null;
+function swapSheet(w, i) {
+  const a = gameAssets(w)[i]; const mine = assetList(); swapCtx = { w, i, pick:null };
+  openSheet(`<div class="swap"><h3>Swap ${escapeHTML(a.name)}</h3>
+    <div class="sw-cmp"><div class="sw-c"><span class="th">${assetThumbHTML(w, a)}</span><small>Now · ${escapeHTML(a.name)}</small></div><span class="sw-ar">${I.arrowR}</span><div class="sw-c" id="swNew"><span class="th ph">Pick one below</span><small>New</small></div></div>
+    <div class="sw-lb">Your 3D</div>
+    <div class="sw-grid"><button class="sw-snap" data-act="sw-snap"><span class="th">${I.cube}<b>Snap 3D</b></span></button>${mine.map((m, k) => `<button data-act="sw-pick" data-k="${k}"><span class="th">${modelImg(m.w, m.v, '')}</span>${escapeHTML(m.name)}</button>`).join('')}</div>
+    <button class="post" id="swGo" data-act="sw-go" disabled>${I.swap}Swap</button></div>`, {
+    'sw-pick': b => { swapCtx.pick = mine[+b.dataset.k]; $$('.sw-grid [data-act="sw-pick"]').forEach(x => x.classList.toggle('on', x === b)); $('#swNew').innerHTML = `<span class="th on">${modelImg(swapCtx.pick.w, swapCtx.pick.v, '')}</span><small>New · ${escapeHTML(swapCtx.pick.w.title)}</small>`; pixelAll($('#swNew')); const g = $('#swGo'); g.disabled = false; g.innerHTML = `${I.swap}Swap · makes v${latest(w).n + 1}`; },
+    'sw-go': () => doSwap(),
+    'sw-snap': () => { closeSheet(); closeAllSubs(); openCreate('snap'); },
+  });
+  pixelAll($('#sheetBody'));
+}
+function doSwap() {
+  const { w, i, pick } = swapCtx; if (!pick) return; closeSheet();
+  const a = gameAssets(w)[i]; const old = a.name; const n = latest(w).n + 1;
+  a.swapping = true; a.model = pick.w.model; renderProject(w, 'assets'); toast(`Making v${n} with your ${pick.w.title}`);
+  setTimeout(() => { a.swapping = false; a.name = pick.w.title; a.isNew = n;
+    w.versions.push({ n, ask:`Swap the ${old} for my ${pick.w.title}`, via:'Swap', atts:[{ img: pick.w.model + '.webp' }], note:`${pick.w.title} replaces the ${old}`, reply:`Done! Your ${pick.w.title} is the new ${old.toLowerCase()}.`, thought:{ secs:11, steps:[`Swapped the ${old} for your ${pick.w.title}`, 'Kept the same moves and size', 'Played it to check'] } });
+    w.last = `Wana: v${n} is ready.`; w.time = 'now'; w.rec = Date.now(); renderChats(); renderMe();
+    if (subStack.includes('sub-project') && $('#sub-project').dataset.w === w.id) renderProject(w, $('#sub-project').dataset.tab);
+    toast(`v${n} is ready · ${pick.w.title} is in`); }, 2600);
+}
+function my3DSheet(w, n) {
+  const v = verOf(w, n);
+  openSheet(`<div class="my3d"><div class="stage" id="m3Stage"><span class="tagpx">3D · ${styleOf(v.style).label.toUpperCase()}</span><span class="plate"></span><div class="mw">${modelImg(w, v)}</div><span class="spin">${I.rotate}Drag to spin</span></div>
+    <div class="m3-t"><span><b>${escapeHTML(w.title)}</b><small>Your 3D · in Assets · synced to Studio</small></span><button class="icon-btn" data-act="m3-more" data-w="${w.id}" aria-label="More">${I.more}</button></div>
+    <div class="m3-acts"><button class="sec" data-act="m3-edit" data-w="${w.id}">${I.pencil}Keep editing</button><button class="pri" data-act="m3-game" data-w="${w.id}" data-v="${v.n}">${I.games}Put in a game</button></div></div>`);
+  pixelAll($('#sheetBody')); wireSpin($('#m3Stage'), $('#m3Stage .mw img'));
+}
+function openNotifs() {
+  state.notifSeen = true; renderMe();
+  const rows = [
+    ['new', 'av-2.webp', 'bowie', ' remixed your Paw Dash', '5m', 'cover-paw.webp', 'paw'],
+    ['new', 'av-6.webp', 'mochi', ' and 23 others liked Deep Feast', '1h', 'cover-deep.webp', 'deep'],
+    ['new', 'av-4.webp', 'nekoium', ' put you in their game', '2h', 'cover-clash.webp', 'clash'],
+    ['old', 'mascot-plus.webp', 'Dark Room', ' passed 1,000 plays', '1d', 'cover-dungeon.webp', 'dark'],
+    ['old', 'av-3.webp', 'cienly', ' started following you', '1d', null, null],
+    ['old', 'mascot-plus.webp', 'Your 5 free creations', ' are back', '2d', null, null],
+  ];
+  const row = r => `<div class="nt-row${r[0] === 'new' ? ' new' : ''}"><img class="av" src="${M(r[1])}" alt=""><span class="t"><span><b>${r[2]}</b>${r[3]}</span><small>${r[4]}</small></span>${r[5] ? `<button class="nt-g" data-act="nt-game" data-g="${r[6]}"><img src="${M(r[5])}" alt=""></button>` : r[2] === 'cienly' ? '<button class="nt-follow" data-act="nt-follow">Follow back</button>' : ''}</div>`;
+  openSub('sub-notif', `${head(xBtn('sub-close', 'back'), '<b>Notifications</b>')}<div class="s-body vscroll nt"><div class="nt-lb">New</div>${rows.filter(r => r[0] === 'new').map(row).join('')}<div class="nt-lb">Earlier</div>${rows.filter(r => r[0] === 'old').map(row).join('')}</div>`);
+}
+function openSettings() {
+  const st = state.settings;
+  const r = (l, right, act, cls = '') => `<button class="set-row ${cls}" data-act="${act || 'noop'}"><span>${l}</span>${right}</button>`;
+  const v = (t) => `<small>${t}</small>${I.chevR}`;
+  const sw = (on, k) => `<span class="switch${on ? ' on' : ''}" data-k="${k}"><i></i></span>`;
+  openSub('sub-settings', `${head(xBtn('sub-close', 'back'), '<b>Settings</b>')}<div class="s-body vscroll set">
+    <small class="pxl">ACCOUNT</small><div class="set-card">${r('Edit profile', I.chevR)}${r('Username', v('@yy.makes'))}${r(state.signedIn ? 'Signed in' : 'Sign in', state.signedIn ? '<small>Apple</small>' : I.chevR, state.signedIn ? 'noop' : 'set-signin')}</div>
+    <small class="pxl">PLAN</small><div class="set-card"><div class="set-row"><span>Free · ${state.credits} / 5 today</span><button class="mini-w" data-act="get-plus">Get Plus</button></div></div>
+    <small class="pxl">PRIVACY</small><div class="set-card">${r('Who can play my games', v(st.who), 'set-pick" data-k="who')}${r('Who can remix them', v(st.remix), 'set-pick" data-k="remix')}${r('Who can put me in games', v(st.putMe), 'set-pick" data-k="putMe')}</div>
+    <small class="pxl">NOTIFICATIONS</small><div class="set-card">${r('Push notifications', sw(st.push, 'push'), 'set-toggle')}</div>
+    <small class="pxl">MORE</small><div class="set-card">${r('Help & about', I.chevR)}${r('Replay intro', I.chevR, 'set-intro')}${state.signedIn ? r('Log out', '', 'set-logout', 'red') : ''}</div>
+  </div>`);
+}
+
+/* ---------- Publish: 15s preview video (Wana plays it / record yours, swipe to compare) ---------- */
+const TAKE_CROPS = ['45%', '25%', '75%', '60%', '35%']; // which part of the game each take frames
+let pubCtx = null;
+function publishSheet(w, n, ctx) {
+  pubCtx = { w, n, ctx, who:'Everyone', remix:true, takes:[{ id:'wana', by:'wana', ready:false, pct:0, crop:0 }], sel:'wana', k:0 };
+  openPubSheet(); runWanaTake();
+}
+function selTake() { return pubCtx.takes.find(t => t.id === pubCtx.sel); }
+function takeCard(t) {
+  const on = t.id === pubCtx.sel, g = G[pubCtx.w.base];
+  const x = TAKE_CROPS[t.crop % TAKE_CROPS.length], inner = t.ready ? `<img src="${poster(g)}" style="object-position:${x} 50%;transform:scale(1.5);transform-origin:${x} 85%" alt=""><span class="tk-play" data-act="take-view" data-id="${t.id}">${I.play}</span><span class="tk-dur">0:15</span>${t.by === 'wana' ? `<span class="tk-new" data-act="take-new">${I.reload}</span>` : ''}`
+    : `<img src="${poster(g)}" alt=""><span class="tk-mk"><small>Wana is playing…</small><b>0:${String(Math.round(t.pct * .15)).padStart(2, '0')} / 0:15</b><i><u style="width:${t.pct}%"></u></i></span>`;
+  return `<div class="take${on ? ' on' : ''}"><button class="th" data-act="take-pick" data-id="${t.id}">${inner}<span class="tagpx lime">${t.by === 'wana' ? 'BY WANA' : 'TAKE ' + t.k}</span>${on ? `<span class="tk-ck">${I.check}</span>` : ''}</button><b>${t.by === 'wana' ? 'Wana’s take' : 'Take ' + t.k}</b><small>${t.by === 'wana' ? 'AI camera, first-person' : 'Your play · just now'}</small></div>`;
+}
+function takesHTML() { return pubCtx.takes.map(takeCard).join('') + `<div class="take add"><button class="th" data-act="take-add"><span class="tk-plus">${I.plus}</span><b>Record</b></button><b>Add</b><small>Record another take</small></div>`; }
+function keepPubTitle() { const t = $('#pubTitle'); if (t) pubCtx.title = t.value; }
+function openPubSheet() {
+  const { w, n } = pubCtx, ready = selTake().ready;
+  openSheet(`<div class="pub"><h3>Publish${w.versions.length > 1 ? ' v' + n : ''}</h3>
+    <div class="lb">Preview video <span>15s · swipe to compare</span></div><div class="takes hscroll" id="takes">${takesHTML()}</div>
+    <div class="lb">Title</div><input class="field" id="pubTitle" value="${escapeHTML(pubCtx.title != null ? pubCtx.title : w.title)}" maxlength="40">
+    <div class="lb">Who can play</div><div class="seg2">${['Everyone', 'Friends', 'Only me'].map(x => `<button class="${x === pubCtx.who ? 'on' : ''}" data-act="pub-who" data-k="${x}">${x}</button>`).join('')}</div>
+    <div class="rowsw"><span class="t"><b>Allow remix</b><small>Others can make their own version</small></span><button class="switch${pubCtx.remix ? ' on' : ''}" data-act="pub-remix" aria-label="Allow remix"><i></i></button></div>
+    <button class="post" id="pubPost" data-act="pub-post" ${ready ? '' : 'disabled'}>${ready ? 'Post' : 'Post · preview almost ready'}</button></div>`);
+}
+function refreshTakes() { const t = $('#takes'); if (!t) return; const sl = t.scrollLeft; t.innerHTML = takesHTML(); t.scrollLeft = sl; const p = $('#pubPost'), ready = selTake().ready; if (p) { p.disabled = !ready; p.textContent = ready ? 'Post' : 'Post · preview almost ready'; } }
+function runWanaTake() {
+  const t = pubCtx.takes.find(x => x.id === 'wana'); t.ready = false; t.pct = 0;
+  clearInterval(pubCtx.iv);
+  pubCtx.iv = setInterval(() => { t.pct = Math.min(100, t.pct + 4); if (t.pct >= 100) { t.ready = true; clearInterval(pubCtx.iv); } refreshTakes(); }, 110);
+}
+function openViewer(id) {
+  keepPubTitle(); closeSheet(); const ts = pubCtx.takes.filter(t => t.ready); let cur = Math.max(0, ts.findIndex(t => t.id === id));
+  const draw = () => { const t = ts[cur], s = $('#sub-take'); const g = G[pubCtx.w.base];
+    s.innerHTML = `<img class="tv-img" src="${poster(g)}" style="object-position:${TAKE_CROPS[t.crop % TAKE_CROPS.length]} 50%" alt=""><span class="tv-fade"></span>
+      <div class="tv-prog"><u></u></div>${xBtn('tv-back')}<div class="tv-pills">${ts.map((x, i) => `<button class="${i === cur ? 'on' : ''}" data-act="tv-go" data-i="${i}">${x.by === 'wana' ? 'Wana' : 'Take ' + x.k}</button>`).join('')}</div>
+      <div class="tv-info"><h2>${escapeHTML(pubCtx.w.title)}</h2><small>${t.by === 'wana' ? 'Wana’s take' : 'Take ' + t.k} · swipe to compare</small></div>
+      <div class="tv-acts">${t.by === 'wana' ? `<button class="sec" data-act="tv-new">${I.reload}New take</button>` : `<button class="sec" data-act="tv-del" data-id="${t.id}">${I.trash}Delete</button>`}<button class="pri" data-act="tv-use" data-id="${t.id}">Use this</button></div>`;
+    fillIcons(s); };
+  openSub('sub-take', '', 'up'); draw(); $('#sub-take')._draw = (i) => { cur = (i + ts.length) % ts.length; draw(); };
+  const s = $('#sub-take'); let sx = null;
+  s.onpointerdown = e => { if (e.target.closest('button')) return; sx = e.clientX; };
+  s.onpointerup = e => { if (sx == null) return; const dx = e.clientX - sx; sx = null; if (Math.abs(dx) > 40) s._draw(cur + (dx < 0 ? 1 : -1)); };
+}
+function backToPub() { closeSub('sub-take'); closeSub('sub-rec'); setTimeout(() => { openPubSheet(); const t = $('#takes'), on = t && $('.take.on', t); if (on) t.scrollLeft = on.offsetLeft - 20; }, 280); }
+const recStartHTML = () => `<img class="tv-img" src="${poster(G[pubCtx.w.base])}" alt=""><div class="rec-hud"><span class="rec-joy"></span><span class="rec-act"></span></div>
+    <div class="rec-start" id="recStart"><span class="rec-ic"><i></i></span><h2>Play for 15 seconds</h2><p>We record what you see. It becomes your game’s preview.</p><button class="cta-white" data-act="rec-go">Start recording</button><small>Starts after 3 · 2 · 1</small></div>
+    ${xBtn('rec-x')}`;
+function openRecord() { keepPubTitle(); closeSheet(); openSub('sub-rec', recStartHTML(), 'up'); }
+function recGo() {
+  const s = $('#sub-rec'); $('#recStart').remove();
+  s.insertAdjacentHTML('beforeend', '<div class="rec-count" id="recCount">3</div>');
+  let c = 3; const tick = () => { c--; const el = $('#recCount'); if (!el) return; if (c > 0) { el.textContent = c; later('sub-rec', tick, 600); return; } el.remove();
+    s.insertAdjacentHTML('beforeend', `<div class="rec-bar"><u id="recU"></u></div><div class="rec-pill"><i></i><em>REC</em><b id="recT">0:00 / 0:15</b></div><button class="rec-stop" data-act="rec-stop" aria-label="Stop"><i></i></button>`);
+    let sec = 0; const run = () => { sec++; const t = $('#recT'), u = $('#recU'); if (!t) return; t.textContent = `0:${String(sec).padStart(2, '0')} / 0:15`; u.style.width = (sec / 15 * 100) + '%'; if (sec >= 15) recDone(); else later('sub-rec', run, 260); }; later('sub-rec', run, 260); };
+  later('sub-rec', tick, 600);
+}
+function recDone() {
+  clearTimers('sub-rec'); const s = $('#sub-rec'); pubCtx.k++; const k = pubCtx.k;
+  pubCtx.pending = { id:'t' + k, by:'me', k, ready:true, crop:k };
+  s.innerHTML = `<img class="tv-img" src="${poster(G[pubCtx.w.base])}" style="object-position:${TAKE_CROPS[k % TAKE_CROPS.length]} 50%" alt=""><span class="tv-fade"></span><div class="tv-prog"><u></u></div>${xBtn('rec-x')}<span class="tagpx lime tv-tag">YOUR PLAY · 0:15</span>
+    <div class="tv-info"><h2>${escapeHTML(pubCtx.w.title)}</h2><small>This is how it plays in the feed</small></div>
+    <div class="tv-acts"><button class="sec" data-act="rec-again">${I.reload}Record again</button><button class="pri" data-act="rec-use">Use this</button></div>`;
+  fillIcons(s);
+}
+
+/* ---------- Onboarding: welcome → what you like → 3 hints on Home ---------- */
+function onbDone() { try { localStorage.setItem('wk-onb', '1'); } catch (e) {} }
+function startOnboarding() {
+  const o = $('#onb'); o.hidden = false; o.classList.remove('out');
+  o.innerHTML = `<div class="onb-wall">${['cover-deep.webp', 'cover-paw.webp', 'cover-dungeon.webp', 'cover-clash.webp', 'g-cafe.jpg', 'cover-escape.webp', 'g-neon.jpg', 'g-ivy.jpg', 'g-garden.jpg'].map(c => `<img src="${M(c)}" alt="">`).join('')}</div><span class="onb-fade"></span>
+    <div class="onb-w"><img class="cat" src="${M('mascot-idle.gif')}" alt=""><h1>Play games.<br>Make your own.</h1><p>Tap to play. Type to make.</p><button class="cta-white" data-act="onb-start">Start playing</button><button class="lnk" data-act="onb-signin">I have an account</button></div>`;
+}
+function onbLikes() {
+  const o = $('#onb'); const picks = new Set(['Adventure', 'Pets']);
+  const tiles = [['Adventure', 'cover-dungeon.webp'], ['Racing', 'g-neon.jpg'], ['Pets', 'cover-paw.webp'], ['Battle', 'cover-clash.webp'], ['Ocean', 'cover-deep.webp'], ['Cozy', 'g-cafe.jpg']];
+  const draw = () => { o.innerHTML = `<div class="onb-l"><button class="lnk skip" data-act="onb-go">Skip</button><h2>What do you like to play?</h2><p>Pick a few. We’ll fill your feed.</p>
+    <div class="onb-grid">${tiles.map(([l, img]) => `<button class="${picks.has(l) ? 'on' : ''}" data-act="onb-like" data-k="${l}"><img src="${M(img)}" alt=""><b>${l}</b>${picks.has(l) ? `<i>${I.check}</i>` : ''}</button>`).join('')}</div>
+    <button class="cta-white go" data-act="onb-go">${picks.size ? `Continue · ${picks.size} picked` : 'Continue'}</button></div>`; };
+  o._toggle = k => { picks.has(k) ? picks.delete(k) : picks.add(k); draw(); };
+  draw();
+}
+function onbFinish() { const o = $('#onb'); o.classList.add('out'); setTimeout(() => { o.hidden = true; o.innerHTML = ''; }, 380); setTab('home'); setTimeout(() => coachStep(1), 500); }
+function coachStep(n) {
+  const c = $('#coach'); state.coach = n; c.hidden = false; c.className = 'coach s' + n;
+  const dots = `<div class="co-dots">${[1, 2, 3].map(i => `<i class="${i === n ? 'on' : ''}"></i>`).join('')}</div>${n < 3 ? '<button class="co-skipb" data-act="coach-skip">Skip</button>' : ''}`;
+  if (n === 3) $$('.card.tapped').forEach(x => x.classList.remove('tapped'));
+  if (n === 1) c.innerHTML = `${dots}<div class="co-bub" style="top:230px">Swipe up for more games</div><div class="co-swipe"><span class="trail"></span><span class="hand">${I.hand}</span></div>`;
+  if (n === 2) c.innerHTML = `${dots}<div class="co-bub" style="top:250px">Play it now, or Remix it your way</div><div class="co-tap"><i></i><i></i><span class="hand">${I.hand}</span></div>`;
+  if (n === 3) { const tb = $('#tabbar').getBoundingClientRect(), pr = phone.getBoundingClientRect(), sc = pr.width / phone.clientWidth; const cx = (tb.left - pr.left + tb.width / 2) / sc, cy = (tb.top - pr.top + tb.height / 2) / sc - 4;
+    c.innerHTML = `${dots}<span class="co-ring" style="left:${cx - 42}px;top:${cy - 42}px"></span><span class="co-ring r2" style="left:${cx - 60}px;top:${cy - 60}px"></span><div class="co-bub down" style="top:${cy - 116}px">Make your own game here</div><small class="co-skip">Tap anywhere to start</small>`; }
+}
+function coachEnd() { const c = $('#coach'); c.hidden = true; c.innerHTML = ''; state.coach = 0; onbDone(); }
+
+/* ---------- feed cards: Friends shows why, Remix has an idea box ---------- */
+function slideHTML(g, ctx = '') {
+  const why = ctx === 'friends' && WHY[g.id], rx = ctx === 'remix';
+  return `<article class="slide${rx ? ' rx' : ''}" data-g="${g.id}">
+    <div class="card" data-card>
+      ${mediaHTML(g)}
+      ${why ? `<span class="why glass"><img src="${M(why[1] + '.webp')}" alt="">${why[0]} ${why[2]}</span>` : ''}
+      ${rx ? `<button class="rx-in glass" data-act="rx-input"><span class="ri">${I.remix}</span><span class="rt">${REMIX_IDEAS[g.id] || 'Make it your own'}</span><span class="go">${I.arrowUp}</span></button><span class="rx-n glass">${I.remix}${(g.plays || '1k').replace(/\..*k/, 'k')} remixes</span>` : ''}
+      <div class="ov">
+        <button class="more" data-act="card-more" aria-label="More">${IC('more', 22)}</button>
+        <div class="ctas">
+          <button class="b-remix" data-act="card-remix">${IC('remix', 20)}<span>Remix</span></button>
+          <button class="b-play" data-act="card-play">${IC('play-dark', 20)}<span>Play</span></button>
+        </div>
+        <div class="menu" hidden>
+          <button data-act="card-download">${I.download}Download</button><i></i>
+          <button data-act="card-report">${I.report}Report</button>
+        </div>
+      </div>
+    </div>
+    <div class="meta">
+      <div class="meta-row">
+        <div class="who">
+          <span class="av"><img src="${M(g.av + '.webp')}" alt=""><button class="follow" data-act="follow" aria-label="Follow">${I.plus}</button></span>
+          <span class="who-t"><b>${g.title}</b><small>${g.creator.replace(/^@/, '')}</small></span>
+        </div>
+        <div class="stats">
+          <button class="stat" data-act="like" aria-label="Like">${I.heart}<span>${g.likes}</span></button>
+          <span class="stat">${I.comment}<span>${g.comments}</span></span>
+          <span class="stat">${I.plays}<span>${g.plays}</span></span>
+          <button class="stat" data-act="share" aria-label="Share">${I.share}</button>
+        </div>
+      </div>
+      <p class="desc">${g.desc}</p>
+    </div>
+  </article>`;
+}
+function renderFeed(el, ids) {
+  const ctx = el.id === 'homeFeed' ? state.ftab : '';
+  el.innerHTML = ids.map(id => slideHTML(G[id], ctx)).join('');
+  el.scrollTop = 0;
+  requestAnimationFrame(() => syncFeed(el));
+}
+
 /* ---------------- actions ---------------- */
 const slideGame = el => { const s = el.closest('[data-g]'); return s ? G[s.dataset.g] : null; };
 const A = {
   'card-play': (b) => { const card = b.closest('[data-card]'); card.classList.remove('tapped'); enterWorld(slideGame(b), card, null, null, $('video', card)); },
-  'card-remix': (b) => { const g = slideGame(b); b.closest('[data-card]').classList.remove('tapped'); openCreate('ai', { remix:g }); },
   'card-more': (b) => { const m = $('.menu', b.closest('.card')); m.hidden = !m.hidden; },
   'card-download': (b) => { const g = slideGame(b); b.closest('.menu').hidden = true; b.closest('[data-card]').classList.remove('tapped'); if (!state.downloads.includes(g.id)) state.downloads.unshift(g.id); toast(`Downloaded ${g.title} · play offline in Me`); },
   'card-report': (b) => { b.closest('.menu').hidden = true; b.closest('[data-card]').classList.remove('tapped'); toast('Thanks — we’ll review this game'); },
-  'follow': (b) => { b.classList.toggle('done'); b.innerHTML = b.classList.contains('done') ? I.check : I.plus; if (b.classList.contains('done')) { buzz(8); toast(`Following ${slideGame(b).creator}`); } },
   'like': (b) => { b.classList.toggle('liked'); if (b.classList.contains('liked')) buzz(8); },
   'share': () => { try { navigator.clipboard.writeText('https://wanaka.world/g/demo').catch(() => {}); } catch (e) {} toast('Link copied'); },
   'open-create': () => openCreate('ai'),
   'open-snap': () => openCreate('snap'),
   'create-close': closeCreate,
   'sheet-toggle': () => $('#cSheet').classList.toggle('open'),
-  'use-prompt': (b) => { clearGhost(); const p = PROMPTS[+b.dataset.i]; $('#prompt').value = p.t; $('#prompt').dataset.preset = b.dataset.i; updateSend(); $('#cSheet').classList.remove('open'); },
   'insp-game': (b) => { clearGhost(); const g = G[b.dataset.g]; $('#prompt').value = g.prompt; delete $('#prompt').dataset.preset; updateSend(); $('#cSheet').classList.remove('open'); },
-  'reroll': () => showIdea(),
   'mic': (b) => { if (b.classList.contains('listening')) return; clearGhost(); b.classList.add('listening'); const ta = $('#prompt'); const old = ta.placeholder; ta.placeholder = 'Listening…'; setTimeout(() => { b.classList.remove('listening'); ta.placeholder = old; ta.value = 'A game where my dog delivers pizza across the city'; delete ta.dataset.preset; updateSend(); }, 1600); },
-  'attach': () => attachSheet(),
   'att-x': (b) => { state.attachments.splice(+b.dataset.i, 1); renderAttachments(); },
   'att-camera': () => { closeSheet(); openPhotoCam(); },
   'att-photos': () => { closeSheet(); openPicker({ items:PHOTOS, multi:true, max:4 - state.attachments.length, title:'Photos', purpose:'attach' }); },
@@ -2096,7 +2839,6 @@ const A = {
   'picker-done': () => { const items = pickerCfg.sel.map(i => pickerCfg.items[i]); const p = pickerCfg.purpose; closeSub('sub-picker');
     if (p === 'snap') { const ph = items[0].replace('.webp', ''); setTimeout(() => openStyle(SNAPS[ph] ? ph : 'photo-cafe'), 200); }
     else { items.forEach(x => addAttachment(x, 'Main character')); toast(`Added ${items.length} to your idea`); } },
-  'send': () => { acceptGhost(); const ta = $('#prompt'); const t = ta.value.trim() || (state.remix ? `Remix ${state.remix.title}` : ''); if (!t && !state.attachments.length) return; const preset = ta.dataset.preset != null && PROMPTS[+ta.dataset.preset] && PROMPTS[+ta.dataset.preset].t === t ? PROMPTS[+ta.dataset.preset] : null; startCreate(t, state.attachments, preset, state.remix); },
   'gen-notify': () => { const w = genWork; clearTimers('sub-gen'); closeCreate(); resetPrompt(); toast('Building in the background · it’s in Chats'); finishInBackground(w, () => { finishGame(w, false); w.unread = true; renderChats(); toast(`${w.title} is ready`, 'Open', () => openView(w, { v:1, ctx:'chats', first:true })); }); },
   'build-notify': () => { clearTimers('sub-build'); const c = Object.assign({}, snapCtx); closeSub('sub-build'); closeSub('sub-style'); setMode('snap'); toast('Building in the background · it’s in Chats');
     const ph = newWork({ kind:'3d', title:c.name, model:c.model, working:0 }); renderChats();
@@ -2109,7 +2851,6 @@ const A = {
   'flip': () => toast('Front camera on a real device'),
   'pick-style': (b) => { $$('[data-act="pick-style"]', $('#sub-style')).forEach(x => x.classList.toggle('on', x === b)); snapCtx.style = b.dataset.l; snapCtx.styleK = b.dataset.k; $('#make3d small').textContent = `· ${b.dataset.l} · ~20s`; },
   'ps-toggle': () => $('#psSheet').classList.toggle('open'),
-  'make-3d': () => { if (state.credits <= 0) { outOfCredits(); return; } state.credits--; updateCredits(); openBuild(); },
   'sheet-close': closeSheet,
   'play-menu': playMenu,
   'play-exit': exitPlay,
@@ -2135,8 +2876,6 @@ const A = {
     openSheet(`<div class="confirm"><h3>Delete ${escapeHTML(w.title)}?</h3><p>${p}</p><button class="dbtn" data-act="vw-delete-yes" data-w="${w.id}">Delete</button><button class="cbtn" data-act="sheet-close">Cancel</button></div>`); },
   'vw-delete-yes': (b) => { const w = workById(b.dataset.w); closeSheet(); if (!$('#create').hidden) { closeCreate(); resetPrompt(); } else closeAllSubs(); setTimeout(() => deleteWork(w), 300); },
   'vw-play': (b) => { const w = workById(b.dataset.w); enterWorld(gameOf(w), b, null, null, $('video', b)); },
-  'vw-edit': (b) => openWorkChat(workById(b.dataset.w), { ctx: b.dataset.ctx === 'create' ? 'create' : 'sub' }),
-  'vw-publish': (b) => publishSheet(workById(b.dataset.w), +b.dataset.v, b.dataset.ctx),
   'vw-share': (b) => { const w = workById(b.dataset.w); shareToFriends({ id:w.id, sub:'My game · play it' }); },
   'vw-game': (b) => putInGame(workById(b.dataset.w), +b.dataset.v),
   'vw-style': (b) => { const w = workById(b.dataset.w), s = styleOf(b.dataset.k); if (s.k === latest(w).style) return; openWorkChat(w, { ctx: b.dataset.ctx === 'create' ? 'create' : 'sub', auto:`Change the style to ${s.label}`, style:s.k }); },
@@ -2148,20 +2887,13 @@ const A = {
   'pub-cover': (b) => { if (b.classList.contains('ingame')) return; $$('[data-act="pub-cover"]').forEach(x => x.classList.toggle('on', x === b)); pubCtx.cover = +b.dataset.i; },
   'pub-who': (b) => { $$('[data-act="pub-who"]').forEach(x => x.classList.toggle('on', x === b)); pubCtx.who = b.dataset.k; },
   'pub-remix': (b) => { b.classList.toggle('on'); pubCtx.remix = b.classList.contains('on'); },
-  'pub-post': () => { const { w, n, ctx } = pubCtx; const t = $('#pubTitle').value.trim(); if (t) w.title = t; w.publishedV = n; w.last = `You published v${n}`; w.time = 'now'; closeSheet(); renderChats(); renderMe(); setTimeout(() => openPublished(w, ctx), 260); },
   'pd-link': () => { try { navigator.clipboard.writeText('https://wanaka.world/g/demo').catch(() => {}); } catch (e) {} toast('Link copied'); },
   'pd-friends': (b) => shareToFriends({ id:b.dataset.w, sub:'My new game · play it' }),
   'pd-story': () => toast('Posted to your story'),
-  'pd-done': (b) => { const w = workById(b.dataset.w), ctx = b.dataset.ctx;
-    if (ctx === 'create') { closeCreate(); resetPrompt(); setTimeout(() => toast('Published · it’s on your profile', 'View', () => { state.meTab = 'games'; setTab('me'); }), 420); return; }
-    if (ctx === 'chat') { backToChat(w); return; }
-    closeAllSubs(); if (ctx === 'me') { state.meTab = 'games'; renderMe(); } },
   'pd-edit': (b) => { const w = workById(b.dataset.w), ctx = b.dataset.ctx;
     if (subStack.includes('sub-chat')) { backToChat(w); return; }
     ['sub-pub', 'sub-view2', 'sub-view'].forEach(id => subStack.includes(id) && closeSub(id, true)); openWorkChat(w, { ctx: ctx === 'create' ? 'create' : 'sub' }); },
   // chats tab
-  'ch-tab': (b) => { state.chatTab = b.dataset.k; renderChats(); },
-  'row-open': (b) => { if (rowGuard(b)) return; const w = workById(b.dataset.w); if (!w) return; if (w.working != null) { toast('Still building · almost there'); return; } openWorkChat(w, { ctx:'sub' }); },
   'row-rename': (b) => { const w = workById(b.dataset.w); renameSheet(w.title, v => { w.title = v; renderChats(); renderMe(); toast('Renamed'); }); },
   'row-pin': (b) => { const w = workById(b.dataset.w); w.pinned = !w.pinned; renderChats(); toast(w.pinned ? 'Pinned' : 'Unpinned'); },
   'row-del': (b) => deleteWork(workById(b.dataset.w)),
@@ -2174,13 +2906,106 @@ const A = {
       'dm-pick': (x) => { const w = workById(x.dataset.w), d = state.dms[n]; d.msgs.push({ me:true, game:w.id, sub:'My game · play it' }); d.time = 'now'; closeSheet(); renderDM(n); renderChats(); } }); },
   // me
   'me-drafts': () => openDrafts(),
-  'me-draft': (b) => { const w = workById(b.dataset.w); openView(w, { v:latest(w).n, ctx:'me' }); },
-  'me-game': (b) => { const w = workById(b.dataset.w); openView(w, { v:w.publishedV, ctx:'me' }); },
-  'me-asset': (b) => openView(workById(b.dataset.w), { v:+b.dataset.v, ctx:'me' }),
   // remix
   'remix-x': () => { state.remix = null; renderRemix(); },
   'noop': () => {},
 };
+/* v3 actions */
+let rxIdx = 0;
+const rxIdeas = g => [REMIX_IDEAS[g.id] || 'Make it your own', 'Make it co-op: two players, one goal.', 'Swap the hero for my Fluffy Pup', 'Make it night time', 'Add a boss at the end'];
+Object.assign(A, {
+  // home
+  'rx-cat': (b) => { $$('#rxCats .chip').forEach(x => x.classList.toggle('on', x === b)); renderFeed($('#homeFeed'), [...FEEDS.remix].sort(() => Math.random() - .5)); },
+  'rx-input': (b) => { const g = slideGame(b); rxIdx = 0; openCreate('ai', { remix:g, idea:REMIX_IDEAS[g.id] }); },
+  'card-remix': (b) => { const g = slideGame(b); b.closest('[data-card]').classList.remove('tapped'); rxIdx = 0; openCreate('ai', { remix:g }); },
+  'follow': (b) => needSignIn(() => { b.classList.toggle('done'); b.innerHTML = b.classList.contains('done') ? I.check : I.plus; if (b.classList.contains('done')) { buzz(8); toast(`Following ${slideGame(b).creator}`); } }),
+  // create
+  'attach': () => { attachTarget = 'create'; attachSheet(); },
+  'gen-idea': () => { if (state.remix) { rxIdx++; const l = rxIdeas(state.remix); showIdea(l[rxIdx % l.length]); } else showIdea(); },
+  'reroll': () => A['gen-idea'](),
+  'use-prompt': (b) => { clearGhost(); const p = PROMPTS[+b.dataset.i]; $('#prompt').value = p.t; $('#prompt').dataset.preset = b.dataset.i; lastIdea = ''; updateSend(); $('#cSheet').classList.remove('open'); },
+  'send': () => { const ta = $('#prompt'); const t = ta.value.trim() || (state.remix ? `Remix ${state.remix.title}` : ''); if (!t && !state.attachments.length) return; clearGhost();
+    const preset = ta.dataset.preset != null && PROMPTS[+ta.dataset.preset] && PROMPTS[+ta.dataset.preset].t === t ? PROMPTS[+ta.dataset.preset] : null;
+    needSignIn(() => {
+      if (state.plan && !(preset && preset.k === '3D')) { if (state.credits <= 0) { outOfCredits(); return; } startPlan(t || 'Make a game from my photo', state.attachments, state.remix); }
+      else startCreate(t, state.attachments, preset, state.remix);
+    }); },
+  'make-3d': () => needSignIn(() => { if (state.credits <= 0) { outOfCredits(); return; } state.credits--; updateCredits(); openBuild(); }),
+  // plan
+  'plan-open': (b) => openPlan(workById(b.dataset.w)),
+  'plan-back': () => { const w = workById($('#sub-plan').dataset.w); savePlanFields(w); closeSub('sub-plan'); rerenderThread(w); renderChats(); },
+  'plan-regen': () => { const w = workById($('#sub-plan').dataset.w), p = w.plan, box = $('.pl-cover'); if (box.classList.contains('regen')) return;
+    box.classList.add('regen'); setTimeout(() => { const pool = PLAN_COVERS.map(M).filter(c => c !== p.cover); p.cover = pool[Math.floor(Math.random() * pool.length)]; $('#plCover').src = p.cover; if (p.look === 'Default') $('#plLookImg').src = p.cover; box.classList.remove('regen'); }, 1100); },
+  'plan-genre': () => { const w = workById($('#sub-plan').dataset.w); savePlanFields(w); planSheet('genre', w); },
+  'plan-look': () => { const w = workById($('#sub-plan').dataset.w); savePlanFields(w); planSheet('look', w); },
+  'plan-diff': (b) => { const w = workById($('#sub-plan').dataset.w); w.plan.diff = b.dataset.k; $$('.pl-seg button').forEach(x => x.classList.toggle('on', x === b)); },
+  'plan-build': (b) => buildFromPlan(workById(b.dataset.w)),
+  // chat
+  'thought': (b) => { const k = b.dataset.k; b.classList.toggle('open'); b.classList.contains('open') ? state.openThoughts.add(k) : state.openThoughts.delete(k); },
+  'chat-add': () => { const w = workById($('#sub-chat').dataset.w); if (w) chatAddSheet(w); },
+  'ca-x': (b) => { state.chatAtts.splice(+b.dataset.i, 1); renderChatAtts(); },
+  'chat-retry': (b) => { const ma = b.closest('.ma'), mu = ma.previousElementSibling; if (mu && mu.classList.contains('mu')) mu.remove(); ma.remove(); tweak(workById(b.dataset.w), b.dataset.t, { retry:true }); },
+  'vw-edit': (b) => { attachTarget = 'chat'; openWorkChat(workById(b.dataset.w), { ctx: b.dataset.ctx === 'create' ? 'create' : 'sub' }); },
+  'vw-publish': (b) => needSignIn(() => publishSheet(workById(b.dataset.w), +b.dataset.v, b.dataset.ctx)),
+  'row-open': (b) => { if (rowGuard(b)) return; const w = workById(b.dataset.w); if (!w) return; if (w.working != null && !w.building) { toast('Still building · almost there'); return; } openWorkChat(w, { ctx:'sub' }); },
+  // chats filter
+  'ch-filter': (b) => chatFilterMenu(b),
+  'ch-filter-set': (b) => { state.chatFilter = b.dataset.k; $$('.pop.chf').forEach(p => p.remove()); renderChats(); },
+  // me
+  'me-notif': () => openNotifs(),
+  'me-settings': () => openSettings(),
+  'me-draft': (b) => openProject(workById(b.dataset.w)),
+  'me-game': (b) => openProject(workById(b.dataset.w)),
+  'me-asset': (b) => my3DSheet(workById(b.dataset.w), +b.dataset.v),
+  'pj-tab': (b) => { const s = $('#sub-project'); renderProject(workById(s.dataset.w), b.dataset.k); },
+  'pj-af': (b) => { const s = $('#sub-project'); s.dataset.af = b.dataset.k; renderProject(workById(s.dataset.w), 'assets'); },
+  'pj-play': (b, e) => { if (e.target.closest('button')) return; const w = workById(b.dataset.w); enterWorld(gameOf(w), b, null, null, $('video', b)); },
+  'pj-ver': (b) => openView(workById(b.dataset.w), { v:+b.dataset.v, ctx:'me' }),
+  'pj-edit': (b) => openWorkChat(workById(b.dataset.w), { ctx:'sub' }),
+  'pj-asset': (b) => swapSheet(workById(b.dataset.w), +b.dataset.i),
+  'm3-more': (b) => { const m = $('.m3-menu'); if (m) { m.remove(); return; } b.closest('.m3-t').insertAdjacentHTML('afterend', `<div class="m3-menu"><button data-act="m3-rename" data-w="${b.dataset.w}">${I.pencil}Rename</button><button class="red" data-act="m3-delete" data-w="${b.dataset.w}">${I.trash}Delete</button></div>`); },
+  'm3-rename': (b) => { const w = workById(b.dataset.w); renameSheet(w.title, v => { w.title = v; renderChats(); renderMe(); toast('Renamed'); }); },
+  'm3-delete': (b) => { const w = workById(b.dataset.w); openSheet(`<div class="confirm"><h3>Delete ${escapeHTML(w.title)}?</h3><p>It’s removed from Assets and its chat. Games already using it keep their copy.</p><button class="dbtn" data-act="vw-delete-yes" data-w="${w.id}">Delete</button><button class="cbtn" data-act="sheet-close">Cancel</button></div>`); },
+  'm3-edit': (b) => { closeSheet(); openWorkChat(workById(b.dataset.w), { ctx:'sub' }); },
+  'm3-game': (b) => putInGame(workById(b.dataset.w), +b.dataset.v),
+  'nt-game': (b) => { const id = b.dataset.g, mine = state.works.find(w => w.base === id && w.kind === 'game'); if (mine) openProject(mine); else enterWorld(G[id], b, null, null, null); },
+  'nt-follow': (b) => { b.classList.toggle('done'); b.textContent = b.classList.contains('done') ? 'Following' : 'Follow back'; },
+  'set-signin': () => signInSheet(() => { closeSub('sub-settings', true); openSettings(); }),
+  'set-toggle': (b) => { state.settings.push = !state.settings.push; $('.switch', b).classList.toggle('on', state.settings.push); },
+  'set-pick': (b) => { const k = b.dataset.k, st = state.settings; const opts = k === 'putMe' ? ['Everyone', 'Friends', 'No one'] : ['Everyone', 'Friends', 'Only me'];
+    const title = { who:'Who can play my games', remix:'Who can remix them', putMe:'Who can put me in games' }[k];
+    openSheet(`<div class="pick-list"><h3>${title}</h3>${opts.map(o => `<button data-act="sp-pick" data-k="${o}" class="${o === st[k] ? 'on' : ''}">${o}${o === st[k] ? I.check : ''}</button>`).join('')}${k === 'putMe' ? '<p class="pk-note">Friends can use your avatar in their games. You can remove yourself anytime.</p>' : ''}</div>`, { 'sp-pick': x => { st[k] = x.dataset.k; closeSheet(); $('small', b).textContent = st[k]; } }); },
+  'set-intro': () => { closeAllSubs(); setTab('home'); setTimeout(startOnboarding, 380); },
+  'set-logout': () => { state.signedIn = false; closeSub('sub-settings', true); openSettings(); toast('Logged out'); },
+  'pd-done': (b) => { const w = workById(b.dataset.w), ctx = b.dataset.ctx;
+    if (ctx === 'create') { closeCreate(); resetPrompt(); setTimeout(() => toast('Published · it’s on your profile', 'View', () => { state.meTab = 'games'; setTab('me'); }), 420); return; }
+    if (ctx === 'chat') { backToChat(w); return; }
+    if (subStack.includes('sub-project')) { ['sub-pub', 'sub-view2', 'sub-view'].forEach(id => subStack.includes(id) && closeSub(id)); renderProject(w, 'game'); renderMe(); return; }
+    closeAllSubs(); if (ctx === 'me') { state.meTab = 'games'; renderMe(); } },
+  // publish: preview takes
+  'take-pick': (b) => { pubCtx.sel = b.dataset.id; refreshTakes(); },
+  'take-view': (b) => openViewer(b.dataset.id),
+  'take-new': () => { const t = pubCtx.takes.find(x => x.id === 'wana'); t.crop++; pubCtx.sel = 'wana'; runWanaTake(); },
+  'take-add': () => openRecord(),
+  'tv-back': () => backToPub(),
+  'tv-go': (b) => $('#sub-take')._draw(+b.dataset.i),
+  'tv-new': () => { A['take-new'](); backToPub(); },
+  'tv-del': (b) => { pubCtx.takes = pubCtx.takes.filter(t => t.id !== b.dataset.id); if (pubCtx.sel === b.dataset.id) pubCtx.sel = 'wana'; backToPub(); toast('Take deleted'); },
+  'tv-use': (b) => { pubCtx.sel = b.dataset.id; backToPub(); },
+  'rec-go': () => recGo(),
+  'rec-stop': () => recDone(),
+  'rec-x': () => { clearTimers('sub-rec'); if (pubCtx.pending) { pubCtx.pending = null; } backToPub(); },
+  'rec-again': () => { pubCtx.k--; pubCtx.pending = null; const s = $('#sub-rec'); s.innerHTML = recStartHTML(); fillIcons(s); },
+  'rec-use': () => { const t = pubCtx.pending; if (t) { pubCtx.takes.push(t); pubCtx.sel = t.id; pubCtx.pending = null; } backToPub(); },
+  'pub-post': () => { if (!selTake().ready) return; clearInterval(pubCtx.iv); const { w, n, ctx } = pubCtx; const t = $('#pubTitle').value.trim(); if (t) w.title = t; w.publishedV = n; w.last = `You published v${n}`; w.time = 'now'; w.rec = Date.now(); closeSheet(); renderChats(); renderMe(); setTimeout(() => openPublished(w, ctx), 260); },
+  // onboarding
+  'onb-start': () => onbLikes(),
+  'onb-signin': () => signInSheet(() => onbFinish()),
+  'onb-like': (b) => $('#onb')._toggle(b.dataset.k),
+  'onb-go': () => onbFinish(),
+  'coach-skip': () => coachEnd(),
+});
+
 function renderRemix() {
   const r = $('#remixSrc'), x = state.remix; r.hidden = !x;
   r.innerHTML = x ? `<img src="${poster(x)}" alt=""><span class="t"><b>${I.remix}Remixing ${escapeHTML(x.title)}</b><small>by ${x.creator} · their game stays theirs</small></span><button class="x2" data-act="remix-x" aria-label="Remove">${I.close}</button>` : '';
@@ -2189,7 +3014,7 @@ function renderRemix() {
 function resetPrompt() { clearGhost(); state.remix = null; renderRemix(); const ta = $('#prompt'); ta.value = ''; delete ta.dataset.preset; state.attachments = []; renderAttachments(); }
 
 document.addEventListener('click', e => {
-  if (!e.target.closest('.pop, [data-act="vw-more"]')) $$('.pop').forEach(p => p.remove());
+  if (!e.target.closest('.pop, [data-act="vw-more"], [data-act="ch-filter"]')) $$('.pop').forEach(p => p.remove());
   if (!e.target.closest('.crow')) $$('.crow.open').forEach(r => r.classList.remove('open'));
   const b = e.target.closest('[data-act]'); if (!b) return;
   const fn = A[b.dataset.act]; if (fn) { e.preventDefault(); fn(b, e); }
@@ -2198,30 +3023,31 @@ document.addEventListener('click', e => {
 /* ---------------- wire up ---------------- */
 function init() {
   seed();
+  state.works.forEach(w => { w.rec = recOf(w.time); }); Object.values(state.dms).forEach(d => { d.rec = recOf(d.time); });
   $('#sysIcons').innerHTML = I.cell + I.wifi + I.batt;
   $$('.tabbar .tb').forEach(b => { const k = { home:'home', discover:'disc', chats:'fr', me:'me' }[b.dataset.tab]; b.innerHTML = I[k + 'L'] + I[k + 'F']; b.addEventListener('click', () => setTab(b.dataset.tab)); });
   $('#gBackIc').innerHTML = I.back; $('#swipeHint').innerHTML = I.up + 'Swipe up for more';
   fillIcons();
   const hf = $('#homeFeed');
   renderFeed(hf, FEEDS.explore);
-  wireFeed(hf, { onScroll: top => { $('#topbar').classList.toggle('immersive', top > 20); setCompact(state.tab === 'home' && top > 20); } });
+  wireFeed(hf, { onScroll: top => { $('#topbar').classList.toggle('immersive', top > 20); setCompact(state.tab === 'home' && top > 20); if (state.coach === 1 && top > hf.clientHeight * .6) coachStep(2); } });
   wireFeed($('#gFeed'), { onScroll: top => { if (top > 40) $('#swipeHint').style.opacity = 0; } });
   $$('#ftabs button').forEach(b => b.addEventListener('click', () => {
-    $$('#ftabs button').forEach(x => x.classList.toggle('on', x === b));
     if (b.dataset.ftab === 'friends') { const d = $('.rd', b); d && d.remove(); }
-    state.ftab = b.dataset.ftab; $('#topbar').classList.remove('immersive'); setCompact(false); pauseAll(); renderFeed(hf, FEEDS[state.ftab]);
+    setHomeTab(b.dataset.ftab);
   }));
+  $('#rxCats').innerHTML = rxCats();
   renderDiscover(); renderChats(); wireChatsSwipe(); renderMe(); tickCountdown(); setInterval(tickCountdown, 1000);
   // create
-  $('#prompt').addEventListener('input', () => { delete $('#prompt').dataset.preset; updateSend(); });
+  $('#prompt').addEventListener('input', () => { clearGhost(); delete $('#prompt').dataset.preset; updateSend(); });
+  // the cat's switch is Plan mode: Wana shows a plan before building
   $('#idea').addEventListener('click', e => {
-    const b = e.currentTarget; state.idea = !state.idea;
-    b.classList.toggle('on', state.idea); b.setAttribute('aria-pressed', state.idea);
-    if (!state.idea) clearGhost();
-    else if (!$('#prompt').value.trim()) showIdea();
+    const b = e.currentTarget; state.plan = !state.plan; $('#planTip').hidden = true;
+    b.classList.toggle('on', state.plan); b.setAttribute('aria-pressed', state.plan); buzz(8);
+    toast(state.plan ? 'Plan mode on · see a plan before I build' : 'Plan mode off');
   });
-  $('#prompt').addEventListener('focus', () => { if (acceptGhost()) { const ta = $('#prompt'); ta.setSelectionRange(ta.value.length, ta.value.length); } });
-  $('#ghost').addEventListener('click', e => { if (e.target.closest('[data-act]')) return; acceptGhost(); const ta = $('#prompt'); ta.focus(); ta.setSelectionRange(ta.value.length, ta.value.length); });
+  $('#genIdea').innerHTML = I.sparkle;
+  $('#coach').addEventListener('click', e => { if (state.coach !== 3) return; const r = $('.tabbar .tb-create').getBoundingClientRect(); const hit = e.clientX > r.left - 16 && e.clientX < r.right + 16 && e.clientY > r.top - 30 && e.clientY < r.bottom + 10; coachEnd(); if (hit) openCreate('ai'); });
   $$('#modes button').forEach(b => b.addEventListener('click', () => setMode(b.dataset.mode)));
   const tr = $('#cTrack'); let sx = null, sy = 0;
   tr.addEventListener('pointerdown', e => { if (e.target.closest('textarea,button')) return; sx = e.clientX; sy = e.clientY; });
@@ -2234,6 +3060,8 @@ function init() {
   const fit = () => { if (innerWidth <= 520) { device.style.transform = ''; return; } const s = Math.min(1, (innerHeight - 40) / 852, (innerWidth - 40) / 393); device.style.transform = `scale(${s})`; };
   fit(); addEventListener('resize', fit);
   try { document.fonts.ready.then(placeModes); } catch (e) {}
+  let seen = false; try { seen = localStorage.getItem('wk-onb') === '1'; } catch (e) {}
+  if (!seen || location.hash === '#intro') startOnboarding();
   document.addEventListener('visibilitychange', () => { if (document.hidden) pauseAll(); else resumeVisible(); });
 }
 init();
