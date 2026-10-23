@@ -160,14 +160,6 @@ svg{display:block;flex:none}
 .fx-world{position:absolute;z-index:65;border-radius:40px;overflow:hidden;pointer-events:none;background:#000;will-change:transform,left,top,width,height}
 .fx-scene{position:absolute;inset:0;background-size:cover;background-position:center;will-change:transform,filter}
 .fx-scene .media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.fx-vig{position:absolute;inset:0;opacity:0;background:radial-gradient(ellipse at 50% 50%,rgba(20,14,16,0) 0,rgba(20,14,16,0) 28%,rgba(20,14,16,.92) 78%)}
-.fx-flash{position:absolute;inset:0;opacity:0;background:radial-gradient(circle at 50% 50%,#fff 0,rgba(255,255,255,.85) 40%,rgba(255,255,255,.4) 100%)}
-.fx-label{position:absolute;left:0;right:0;top:44%;text-align:center;z-index:3;opacity:0}
-.fx-label em{display:block;font-style:normal;font-family:var(--pixel);font-size:9px;color:var(--lime);letter-spacing:.1em}
-.fx-label b{display:block;margin-top:10px;font-size:26px;font-weight:600;text-shadow:0 2px 16px rgba(0,0,0,.6)}
-.fx-warp{position:absolute;inset:0;z-index:66;pointer-events:none;overflow:hidden}
-.fx-warp i{position:absolute;left:50%;top:50%;width:6px;height:6px;margin:-3px 0 0 -3px;background:var(--white);border-radius:1px;opacity:0}
-.fx-warp i.l{background:var(--lime)}
 
 /* ---------- play ---------- */
 .play{z-index:60;background:#000}
@@ -1618,77 +1610,48 @@ function localRect(el) {
   const r = el.getBoundingClientRect();
   return { l:(r.left - pr.left) / sc, t:(r.top - pr.top) / sc, w:r.width / sc, h:r.height / sc, sc, pr };
 }
-/* Play: dive through the card and fall into the game world (~1.5s)
-   lean in → the card tips back like a trapdoor → it swallows the screen while we fall
-   (feed rushes past, pixels streak by) → flash as we cross → land with a small bump */
-const WORLD_MS = matchMedia('(prefers-reduced-motion: reduce)').matches ? 600 : 1500;
+/* Play: the video shakes a little, then grows to fill the screen and we're in the game (~1.3s).
+   No card tricks, no flash or labels — just the video coming closer. */
+const WORLD_MS = matchMedia('(prefers-reduced-motion: reduce)').matches ? 500 : 1300;
 function enterWorld(g, fromEl, px, py, vid) {
   if (!g || $('.fx-world:not(.out)')) return;
-  buzz(10);
-  const D = WORLD_MS, at = f => f * D;
+  buzz([6, 40, 6, 40, 6]);
+  const D = WORLD_MS;
   const b = localRect(fromEl); const W = phone.clientWidth, H = phone.clientHeight;
   const R = parseFloat(getComputedStyle(fromEl).borderRadius) || 32;
   const t = vid ? vid.currentTime : 0;
   const fx = document.createElement('div'); fx.className = 'fx-world';
-  fx.innerHTML = `<div class="fx-scene" style="background-image:url('${poster(g)}')"></div><div class="fx-vig"></div><div class="fx-flash"></div><div class="fx-label"><em>ENTERING</em><b>${g.title}</b></div>`;
+  fx.innerHTML = `<div class="fx-scene" style="background-image:url('${poster(g)}')"></div>`;
   const scene = $('.fx-scene', fx);
   let clone = null;
   if (vid) { clone = vid.cloneNode(); clone.className = 'media'; clone.removeAttribute('style'); clone.muted = true; clone.currentTime = t; scene.appendChild(clone); clone.play().catch(() => {}); }
   phone.appendChild(fx);
-  // 1 · the card: tips back, then opens to the whole screen (and keeps going a touch)
-  const rect = (l, tp, w, h, r, tf) => ({ left:l + 'px', top:tp + 'px', width:w + 'px', height:h + 'px', borderRadius:r + 'px', transform:tf });
+  const rect = (l, tp, w, h, r) => ({ left:l + 'px', top:tp + 'px', width:w + 'px', height:h + 'px', borderRadius:r + 'px' });
+  const at = (x, y, deg) => `translate(${x}px, ${y}px) rotate(${deg}deg)`;
+  // 1 · a small shake where it is, 2 · it grows to fill the screen
   fx.animate([
-    { ...rect(b.l, b.t, b.w, b.h, R, 'perspective(900px) rotateX(0deg) scale(1)'), easing:'cubic-bezier(.3,0,.4,1)' },
-    { ...rect(b.l + 4, b.t + 6, b.w - 8, b.h - 12, R, 'perspective(900px) rotateX(16deg) scale(.96)'), offset:.16, easing:'cubic-bezier(.55,0,.15,1)' },
-    { ...rect(0, 0, W, H, 0, 'perspective(900px) rotateX(0deg) scale(1)'), offset:.6 },
-    { ...rect(0, 0, W, H, 0, 'perspective(900px) rotateX(0deg) scale(1)') },
+    { ...rect(b.l, b.t, b.w, b.h, R), transform:at(0, 0, 0) },
+    { transform:at(-3, 1, -.6), offset:.05 }, { transform:at(3, -1, .6), offset:.1 }, { transform:at(-2.5, 1, -.5), offset:.15 },
+    { transform:at(2, -1, .35), offset:.2 }, { transform:at(-1, 0, -.15), offset:.25 },
+    { ...rect(b.l, b.t, b.w, b.h, R), transform:at(0, 0, 0), offset:.3, easing:'cubic-bezier(.55,0,.2,1)' },
+    { ...rect(0, 0, W, H, 0), transform:at(0, 0, 0), offset:.82 },
+    { ...rect(0, 0, W, H, 0), transform:at(0, 0, 0) },
   ], { duration:D, fill:'forwards' });
-  // 2 · inside the card: we fall in (zoom + motion blur), cross through, then land
+  // the picture itself leans in while it grows, then settles as the game starts
   scene.animate([
-    { transform:'scale(1)', filter:'blur(0px) brightness(1)', easing:'ease-out' },
-    { transform:'scale(1.03)', filter:'blur(0px) brightness(1)', offset:.16, easing:'cubic-bezier(.6,0,.9,.6)' },
-    { transform:'scale(1.75)', filter:'blur(9px) brightness(1.35)', offset:.62, easing:'linear' },
-    { transform:'scale(1.85)', filter:'blur(12px) brightness(2)', offset:.67, easing:'steps(1, end)' },
-    { transform:'scale(1.2)', filter:'blur(5px) brightness(1.5)', offset:.68, easing:'cubic-bezier(.2,.8,.3,1)' },
-    { transform:'scale(.985)', filter:'blur(0px) brightness(1)', offset:.88, easing:'ease-in-out' },
-    { transform:'scale(1)', filter:'blur(0px) brightness(1)' },
+    { transform:'scale(1)' }, { transform:'scale(1.03)', offset:.3, easing:'cubic-bezier(.55,0,.2,1)' },
+    { transform:'scale(1.16)', offset:.82, easing:'ease-out' }, { transform:'scale(1)' },
   ], { duration:D, fill:'forwards' });
-  $('.fx-vig', fx).animate([{ opacity:0 }, { opacity:0, offset:.18 }, { opacity:.95, offset:.62 }, { opacity:0, offset:.8 }, { opacity:0 }], { duration:D, fill:'forwards' });
-  $('.fx-flash', fx).animate([{ opacity:0 }, { opacity:0, offset:.6 }, { opacity:.75, offset:.67 }, { opacity:0, offset:.8 }, { opacity:0 }], { duration:D, fill:'forwards' });
-  // the game's name flies at us and passes the camera as we cross
-  $('.fx-label', fx).animate([
-    { opacity:0, transform:'scale(.55)', filter:'blur(0px)' }, { opacity:0, transform:'scale(.55)', offset:.24 },
-    { opacity:1, transform:'scale(1)', filter:'blur(0px)', offset:.42 }, { opacity:1, transform:'scale(1.3)', filter:'blur(0px)', offset:.56 },
-    { opacity:0, transform:'scale(3.2)', filter:'blur(6px)', offset:.67 }, { opacity:0, transform:'scale(3.2)' },
-  ], { duration:D, fill:'forwards', easing:'ease-in' });
-  // 3 · what we leave behind rushes past the edges
+  // the rest of the screen dims back, the tab bar slips away
   const behind = $$('#phone > .screen:not([hidden]):not(.play), #phone > .sub:not([hidden])').filter(el => getComputedStyle(el).transform === 'none');
   const bar = $('#tabbar');
-  const away = behind.map(el => el.animate([
-    { transform:'scale(1)', filter:'blur(0px) brightness(1)', easing:'cubic-bezier(.3,0,.4,1)' },
-    { transform:'scale(.985)', filter:'blur(0px) brightness(.8)', offset:.16, easing:'cubic-bezier(.6,0,.9,.5)' },
-    { transform:'scale(1.5)', filter:'blur(8px) brightness(.4)', offset:.6 },
-    { transform:'scale(1.5)', filter:'blur(8px) brightness(.4)' },
-  ], { duration:D, fill:'forwards' }));
-  if (bar && getComputedStyle(bar).visibility !== 'hidden') away.push(bar.animate([{ opacity:1, translate:'0 0' }, { opacity:1, translate:'0 0', offset:.16 }, { opacity:0, translate:'0 90px', offset:.5 }, { opacity:0, translate:'0 90px' }], { duration:D, fill:'forwards', easing:'cubic-bezier(.6,0,.9,.5)' }));
-  // pixels streak past while we fall
-  const warp = document.createElement('div'); warp.className = 'fx-warp'; phone.appendChild(warp);
-  for (let i = 0; i < 34; i++) {
-    const p = document.createElement('i'); if (i % 4 === 0) p.className = 'l'; warp.appendChild(p);
-    const a = Math.random() * 360, r0 = 20 + Math.random() * 90, r1 = 380 + Math.random() * 260, len = 3 + Math.random() * 6;
-    p.animate([
-      { transform:`rotate(${a}deg) translateX(${r0}px) scale(.5, .5)`, opacity:0 },
-      { opacity:1, offset:.3 },
-      { transform:`rotate(${a}deg) translateX(${r1}px) scale(${len}, 1.2)`, opacity:0 },
-    ], { duration:at(.26) + Math.random() * at(.12), delay:at(.2) + Math.random() * at(.34), easing:'cubic-bezier(.55,0,1,.6)', fill:'both' });
-  }
-  later('fx', () => buzz([8, 30, 22]), at(.67));
+  const away = behind.map(el => el.animate([{ filter:'brightness(1)' }, { filter:'brightness(1)', offset:.3 }, { filter:'brightness(.35)', offset:.82 }, { filter:'brightness(.35)' }], { duration:D, fill:'forwards' }));
+  if (bar && getComputedStyle(bar).visibility !== 'hidden') away.push(bar.animate([{ opacity:1, translate:'0 0' }, { opacity:1, translate:'0 0', offset:.3 }, { opacity:0, translate:'0 90px', offset:.65 }, { opacity:0, translate:'0 90px' }], { duration:D, fill:'forwards', easing:'cubic-bezier(.55,0,.2,1)' }));
   setTimeout(() => {
-    warp.remove();
     openPlay(g, clone ? clone.currentTime : t);
     away.forEach(a => a.cancel());
     fx.classList.add('out');
-    setTimeout(() => fx.animate([{ opacity:1 }, { opacity:0 }], { duration:280, fill:'forwards' }).onfinish = () => fx.remove(), 320);
+    setTimeout(() => fx.animate([{ opacity:1 }, { opacity:0 }], { duration:240, fill:'forwards' }).onfinish = () => fx.remove(), 260);
   }, D);
 }
 
@@ -2630,6 +2593,7 @@ const GAME_ASSETS = { // [name, type, centre x, centre y, crop size] in the cove
   paw:[['Cat runner', 'Character', 480, 170, 260], ['Rooftops', 'World', 500, 360, 120], ['Logo', 'World', 230, 175, 300]],
   dark:[['Torch hero', 'Character', 329, 347, 180], ['Statue', 'World', 480, 285, 160], ['Dungeon', 'World', 360, 500, 500]],
   escape:[['Runner', 'Character', 305, 235, 200], ['Office', 'World', 620, 130, 220], ['Coins', 'World', 500, 300, 140]],
+  clash:[['Cowboy', 'Character', 245, 210, 190], ['Skeleton', 'Character', 470, 210, 190], ['Arena', 'World', 360, 345, 170]],
 };
 const IMG_WH = { deep:[720, 405], paw:[720, 405], escape:[720, 405], clash:[720, 405], dark:[720, 720] };
 function gameAssets(w) { if (!w.assets) w.assets = (GAME_ASSETS[w.base] || [['Hero', 'Character', 270, 600, 300], ['Rival', 'Character', 380, 480, 300], ['World', 'World', 270, 300, 500]]).map(([name, type, cx, cy, r]) => ({ name, type, cx, cy, r })); return w.assets; }
