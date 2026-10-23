@@ -42,7 +42,11 @@ svg{display:block;flex:none}
 .guide li{display:grid;grid-template-columns:22px 1fr;gap:8px}
 .guide li b{color:var(--white);font-weight:500}
 .guide li span:first-child{font-family:var(--pixel);font-size:8px;color:var(--lime);padding-top:5px}
-.guide .note{margin-top:18px;font-size:12px;color:rgba(255,255,255,.4)}
+.guide .note{margin-top:12px;font-size:12px;color:rgba(255,255,255,.4)}
+.guide-acts{margin-top:20px;display:flex;gap:8px}
+.guide-acts button{flex:1;height:38px;border-radius:999px;border:1px solid rgba(255,255,255,.2);font-size:13px;font-weight:600;color:var(--white)}
+.guide-acts .pri{background:var(--white);color:var(--bg);border-color:var(--white)}
+.guide-acts button:hover{border-color:rgba(255,255,255,.5)}
 .device{width:393px;height:852px;flex:none;position:relative;transform-origin:center}
 .phone{position:absolute;inset:0;border-radius:54px;overflow:hidden;background:var(--bg);isolation:isolate;
   box-shadow:0 0 0 9px #1C1618,0 0 0 10px #2E2729,0 40px 120px rgba(0,0,0,.65)}
@@ -1245,7 +1249,8 @@ svg{display:block;flex:none}
       <li><span>04</span><span><b>Publish</b>：15 秒预览视频，Wana 自动录（↻ 再录一条）或自己录，可左右滑对比；生成好了顶部会弹通知</span></li>
       <li><span>05</span><span><b>Chats</b> 一个列表 + 筛选；<b>Me</b> 里点游戏进 Project（Game / Assets / Chat），Assets 可 Swap；Assets 里点 3D 打开大卡片；铃铛 = 通知，齿轮 = 设置</span></li>
     </ol>
-    <div class="note">视频为示意素材；生成过程为模拟。网址加 #intro 可重看引导。</div>
+    <div class="guide-acts"><button class="pri" data-act="demo-restart">重新演示</button><button data-act="demo-logout">退出登录</button></div>
+    <div class="note">重新演示：所有数据回到初始（3 次免费、示例游戏），从欢迎页开始。退出登录：保留刚做的内容，回到欢迎页，下次发送时重新登录。App 里 Me › 设置 › Log out 效果一样。视频为示意素材；生成过程为模拟。</div>
   </aside>
 
   <div class="device" id="device">
@@ -2753,6 +2758,7 @@ function coachStep(n) {
     c.innerHTML = `${dots}<span class="co-ring" style="left:${cx - 42}px;top:${cy - 42}px"></span><span class="co-ring r2" style="left:${cx - 60}px;top:${cy - 60}px"></span><div class="co-bub down" style="top:${cy - 116}px">Make your own game here</div>`; }
 }
 function readyBanner(w, onOpen) {
+  if (!$('#onb').hidden) return; // not over the welcome screen
   const b = $('#rbanner'), g3 = w.kind === '3d';
   b.innerHTML = `${g3 ? `<span class="rb-th model">${modelImg(w, latest(w), '')}</span>` : `<img class="rb-th" src="${poster(G[w.base])}" alt="">`}<span class="rb-t"><b>${escapeHTML(w.title)} is ready</b><small>${g3 ? 'Tap to see it or keep tweaking' : 'Tap to play or keep tweaking'}</small></span><span class="rb-open">Open</span>`;
   pixelAll(b); b.hidden = false; requestAnimationFrame(() => requestAnimationFrame(() => b.classList.add('in')));
@@ -2760,6 +2766,15 @@ function readyBanner(w, onOpen) {
   clearTimeout(b._t); b._t = setTimeout(hideBanner, 5600);
 }
 function hideBanner() { const b = $('#rbanner'); b.classList.remove('in'); setTimeout(() => { if (!b.classList.contains('in')) b.hidden = true; }, 320); }
+// Log out (Settings, or the button beside the demo): close everything and start again from the welcome screen
+function signOutToWelcome() {
+  state.signedIn = false; try { localStorage.removeItem('wk-onb'); } catch (e) {}
+  closeSheet(); hideBanner(); closeAllSubs();
+  if (!$('#create').hidden) closeCreate();
+  if (!$('#play').hidden) { $('#play').hidden = true; $('#play').innerHTML = ''; }
+  const c = $('#coach'); c.hidden = true; c.innerHTML = ''; state.coach = 0;
+  setTab('home'); setTimeout(startOnboarding, 380);
+}
 function coachEnd() { const c = $('#coach'); c.hidden = true; c.innerHTML = ''; state.coach = 0; onbDone(); }
 
 /* ---------- feed cards: Friends shows why, Remix has an idea box ---------- */
@@ -2980,7 +2995,9 @@ Object.assign(A, {
   'rec-again': () => { pubCtx.k--; pubCtx.pending = null; const s = $('#sub-rec'); s.innerHTML = recStartHTML(); fillIcons(s); },
   'rec-use': () => { const t = pubCtx.pending; if (t) { pubCtx.takes.push(t); pubCtx.sel = t.id; pubCtx.pending = null; } backToPub(); },
   'me-asset': (b) => openView(workById(b.dataset.w), { v:+b.dataset.v, ctx:'me', chips:true }),
-  'set-logout': () => { state.signedIn = false; closeSub('sub-settings'); toast('Logged out'); },
+  'set-logout': () => signOutToWelcome(),
+  'demo-logout': () => signOutToWelcome(),
+  'demo-restart': () => { try { localStorage.removeItem('wk-onb'); } catch (e) {} location.reload(); },
   'take-new': () => { newWanaTake(); refreshTakes(); },
   'tv-new': () => { newWanaTake(); backToPub(); },
   'onb-start': () => onbFinish(),
