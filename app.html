@@ -155,6 +155,7 @@ svg{display:block;flex:none}
 .fx-world{position:absolute;z-index:65;border-radius:40px;overflow:hidden;pointer-events:none;background:#000;will-change:transform,left,top,width,height}
 .fx-scene{position:absolute;inset:0;background-size:cover;background-position:center;will-change:transform,filter}
 .fx-scene .media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.fx-dark{position:absolute;inset:0;opacity:0;background:radial-gradient(ellipse at 50% 50%,rgba(0,0,0,0) 30%,rgba(0,0,0,.55) 62%,#000 100%)}
 
 /* ---------- play ---------- */
 .play{z-index:60;background:#000}
@@ -1611,49 +1612,64 @@ function localRect(el) {
   const r = el.getBoundingClientRect();
   return { l:(r.left - pr.left) / sc, t:(r.top - pr.top) / sc, w:r.width / sc, h:r.height / sc, sc, pr };
 }
-/* Play: the video shakes a little, then grows to fill the screen and we're in the game (~1.3s).
-   No card tricks, no flash or labels — just the video coming closer. */
-const WORLD_MS = matchMedia('(prefers-reduced-motion: reduce)').matches ? 500 : 1300;
+/* Play: falling into the game world (~1.5s)
+   1 · the video pulses toward you and back a few times (depth, not sideways), then pulls back a touch
+   2 · it rushes forward to fill the screen while everything around flies past and darkens at the edges
+   3 · a small landing bump and you're in the game */
+const WORLD_MS = matchMedia('(prefers-reduced-motion: reduce)').matches ? 500 : 1500;
 function enterWorld(g, fromEl, px, py, vid) {
   if (!g || $('.fx-world:not(.out)')) return;
-  buzz([6, 40, 6, 40, 6]);
   const D = WORLD_MS;
   const b = localRect(fromEl); const W = phone.clientWidth, H = phone.clientHeight;
   const R = parseFloat(getComputedStyle(fromEl).borderRadius) || 32;
   const t = vid ? vid.currentTime : 0;
   const fx = document.createElement('div'); fx.className = 'fx-world';
-  fx.innerHTML = `<div class="fx-scene" style="background-image:url('${poster(g)}')"></div>`;
+  fx.innerHTML = `<div class="fx-scene" style="background-image:url('${poster(g)}')"></div><div class="fx-dark"></div>`;
   const scene = $('.fx-scene', fx);
   let clone = null;
   if (vid) { clone = vid.cloneNode(); clone.className = 'media'; clone.removeAttribute('style'); clone.muted = true; clone.currentTime = t; scene.appendChild(clone); clone.play().catch(() => {}); }
   phone.appendChild(fx);
+  buzz([8, 70, 8, 70, 8, 70]);
   const rect = (l, tp, w, h, r) => ({ left:l + 'px', top:tp + 'px', width:w + 'px', height:h + 'px', borderRadius:r + 'px' });
-  const at = (x, y, deg) => `translate(${x}px, ${y}px) rotate(${deg}deg)`;
-  // 1 · a small shake where it is, 2 · it grows to fill the screen
-  fx.animate([
-    { ...rect(b.l, b.t, b.w, b.h, R), transform:at(0, 0, 0) },
-    { transform:at(-3, 1, -.6), offset:.05 }, { transform:at(3, -1, .6), offset:.1 }, { transform:at(-2.5, 1, -.5), offset:.15 },
-    { transform:at(2, -1, .35), offset:.2 }, { transform:at(-1, 0, -.15), offset:.25 },
-    { ...rect(b.l, b.t, b.w, b.h, R), transform:at(0, 0, 0), offset:.3, easing:'cubic-bezier(.55,0,.2,1)' },
-    { ...rect(0, 0, W, H, 0), transform:at(0, 0, 0), offset:.82 },
-    { ...rect(0, 0, W, H, 0), transform:at(0, 0, 0) },
+  const card = rect(b.l, b.t, b.w, b.h, R), full = rect(0, 0, W, H, 0);
+  // the frame: front-back pulses where it is, a small pull back, then it rushes out to the edges
+  const main = fx.animate([
+    { ...card, transform:'scale(1)' },
+    { transform:'scale(.978)', offset:.06 }, { transform:'scale(1.03)', offset:.12 },
+    { transform:'scale(.975)', offset:.18 }, { transform:'scale(1.032)', offset:.24 },
+    { transform:'scale(.972)', offset:.3 }, { transform:'scale(1.015)', offset:.35 },
+    { ...card, transform:'scale(.95)', offset:.4, easing:'cubic-bezier(.7,0,.25,1)' },
+    { ...full, transform:'scale(1)', offset:.8 },
+    { ...full, transform:'scale(1)' },
   ], { duration:D, fill:'forwards' });
-  // the picture itself leans in while it grows, then settles as the game starts
+  // the picture: drawn in a little while it pulses, then we fall into it, overshoot and land
   scene.animate([
-    { transform:'scale(1)' }, { transform:'scale(1.03)', offset:.3, easing:'cubic-bezier(.55,0,.2,1)' },
-    { transform:'scale(1.16)', offset:.82, easing:'ease-out' }, { transform:'scale(1)' },
+    { transform:'scale(1)', filter:'blur(0px)' },
+    { transform:'scale(1.04)', filter:'blur(0px)', offset:.4, easing:'cubic-bezier(.6,0,.4,1)' },
+    { transform:'scale(1.32)', filter:'blur(5px)', offset:.7, easing:'cubic-bezier(.2,.7,.3,1)' },
+    { transform:'scale(.975)', filter:'blur(0px)', offset:.88, easing:'ease-in-out' },
+    { transform:'scale(1)', filter:'blur(0px)' },
   ], { duration:D, fill:'forwards' });
-  // the rest of the screen dims back, the tab bar slips away
+  // dark edges close in while we fall (a tunnel, not a flash)
+  $('.fx-dark', fx).animate([{ opacity:0 }, { opacity:0, offset:.42 }, { opacity:.85, offset:.68 }, { opacity:0, offset:.86 }, { opacity:0 }], { duration:D, fill:'forwards' });
+  // what we leave behind rushes past and goes dark; the tab bar slips away
   const behind = $$('#phone > .screen:not([hidden]):not(.play), #phone > .sub:not([hidden])').filter(el => getComputedStyle(el).transform === 'none');
   const bar = $('#tabbar');
-  const away = behind.map(el => el.animate([{ filter:'brightness(1)' }, { filter:'brightness(1)', offset:.3 }, { filter:'brightness(.35)', offset:.82 }, { filter:'brightness(.35)' }], { duration:D, fill:'forwards' }));
-  if (bar && getComputedStyle(bar).visibility !== 'hidden') away.push(bar.animate([{ opacity:1, translate:'0 0' }, { opacity:1, translate:'0 0', offset:.3 }, { opacity:0, translate:'0 90px', offset:.65 }, { opacity:0, translate:'0 90px' }], { duration:D, fill:'forwards', easing:'cubic-bezier(.55,0,.2,1)' }));
-  setTimeout(() => {
+  const away = behind.map(el => el.animate([
+    { transform:'scale(1)', filter:'blur(0px) brightness(1)' },
+    { transform:'scale(.99)', filter:'blur(0px) brightness(.85)', offset:.4, easing:'cubic-bezier(.6,0,.9,.5)' },
+    { transform:'scale(1.3)', filter:'blur(8px) brightness(.25)', offset:.8 },
+    { transform:'scale(1.3)', filter:'blur(8px) brightness(.25)' },
+  ], { duration:D, fill:'forwards' }));
+  if (bar && getComputedStyle(bar).visibility !== 'hidden') away.push(bar.animate([{ opacity:1, translate:'0 0' }, { opacity:1, translate:'0 0', offset:.4 }, { opacity:0, translate:'0 90px', offset:.65 }, { opacity:0, translate:'0 90px' }], { duration:D, fill:'forwards', easing:'cubic-bezier(.6,0,.9,.5)' }));
+  later('fx', () => buzz(24), D * .86);
+  // open the game when the animation has really finished (stays in sync even if frames are slow)
+  main.finished.then(() => {
     openPlay(g, clone ? clone.currentTime : t);
     away.forEach(a => a.cancel());
     fx.classList.add('out');
-    setTimeout(() => fx.animate([{ opacity:1 }, { opacity:0 }], { duration:240, fill:'forwards' }).onfinish = () => fx.remove(), 260);
-  }, D);
+    setTimeout(() => fx.animate([{ opacity:1 }, { opacity:0 }], { duration:220, fill:'forwards' }).onfinish = () => fx.remove(), 240);
+  });
 }
 
 /* ---------------- play ---------------- */
