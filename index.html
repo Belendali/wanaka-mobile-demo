@@ -848,16 +848,15 @@ svg{display:block;flex:none}
 /* home: Remix tab */
 .rx-cats{position:absolute;top:calc(var(--sb) + 40px);left:0;right:0;z-index:6;padding:0 16px}
 #homeFeed.rx{top:calc(var(--sb) + 80px)}
-.why{position:absolute;top:16px;left:16px;z-index:2;display:flex;align-items:center;gap:6px;padding:4px 10px 4px 4px;border-radius:999px;font-size:12px;font-weight:500;pointer-events:none}
-.why img{width:22px;height:22px;border-radius:11px;object-fit:cover}
-.rx-n{position:absolute;top:16px;left:16px;z-index:2;display:flex;align-items:center;gap:5px;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:500;pointer-events:none}
-.rx-n svg{width:14px;height:14px}
-.rx-in{position:absolute;left:12px;right:12px;bottom:12px;z-index:2;height:52px;border-radius:26px;display:flex;align-items:center;gap:10px;padding:0 6px 0 8px;text-align:left;border:1px solid rgba(255,255,255,.16)}
-.rx-in .ri{width:36px;height:36px;border-radius:18px;background:rgba(255,255,255,.14);display:grid;place-items:center;flex:none}
-.rx-in .ri svg{width:18px;height:18px}
-.rx-in .rt{flex:1;min-width:0;font-size:14px;line-height:20px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:rgba(255,255,255,.88)}
-.rx-in .go{width:40px;height:40px;border-radius:20px;background:var(--white);color:var(--bg);display:grid;place-items:center;flex:none}
-.rx-in .go svg{width:18px;height:18px}
+.rx-in{position:absolute;left:12px;bottom:12px;z-index:2;max-width:72%;height:44px;border-radius:22px;display:flex;align-items:center;gap:10px;padding:0 18px 0 16px;text-align:left;border:1px solid rgba(255,255,255,.08);background:rgba(20,14,16,.55)}
+.rx-in svg{width:18px;height:18px;flex:none}
+.rx-in span{min-width:0;font-size:14px;line-height:20px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:rgba(255,255,255,.72)}
+.reacts{position:absolute;left:14px;bottom:16px;z-index:2;display:grid;gap:8px;justify-items:start;pointer-events:none}
+.re{display:flex;align-items:center;gap:8px;height:36px;padding:0 12px 0 4px;border-radius:999px;background:rgba(20,14,16,.5)}
+.re img{width:28px;height:28px;border-radius:14px;object-fit:cover}
+.re b{font-size:13px;font-weight:500}
+.re .hrt{color:#FF4B5C;display:grid}
+.re .hrt svg{width:16px;height:16px}
 .slide.rx .card{cursor:pointer}
 /* create: ✦ idea under the prompt, Plan mode switch + first-time tip */
 .gen-idea{position:absolute;left:0;top:74px;width:36px;height:36px;border-radius:18px;background:rgba(255,255,255,.1);display:grid;place-items:center;transition:top .2s,opacity .2s}
@@ -873,14 +872,24 @@ svg{display:block;flex:none}
 .si .cat{width:84px;height:84px;object-fit:contain}
 .si h3{margin:6px 0 4px;font-size:22px;font-weight:600}
 .si > p{margin:0 0 18px;font-size:14px;color:var(--muted)}
-.si-apple,.si-google{width:100%;height:52px;border-radius:999px;font-size:16px;font-weight:600}
+.si-apple,.si-email{width:100%;height:52px;border-radius:999px;font-size:16px;font-weight:600}
 .si-apple{background:var(--white);color:var(--bg)}
-.si-google{margin-top:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16)}
+.si-email{margin-top:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center;gap:8px}
+.si-email svg{width:18px;height:18px}
 .si-new{margin-top:16px;font-size:14px;color:var(--muted)}
 .si-new button{font-weight:600;color:var(--white);text-decoration:underline;text-underline-offset:3px}
 .si-note{margin-top:18px;display:flex;gap:10px;align-items:flex-start;text-align:left;padding:12px 14px;border-radius:16px;background:rgba(255,255,255,.05);font-size:12px;line-height:1.5;color:rgba(255,255,255,.7)}
 .si-note svg{width:20px;height:20px;margin-top:1px;color:var(--white)}
-.si-terms{margin-top:12px;font-size:12px;color:rgba(255,255,255,.4)}
+.acct{flex:1;min-height:0;padding:20px 20px 40px;display:flex;flex-direction:column}
+.acct .cat{width:72px;height:72px;object-fit:contain}
+.acct h2{margin:14px 0 8px;font-size:24px;font-weight:600}
+.acct p{margin:0 0 18px;font-size:14px;line-height:1.5;color:rgba(255,255,255,.7)}
+.acct label{font-size:14px;font-weight:500;margin-bottom:8px}
+.acct .field{height:52px;border-radius:16px;background:var(--surface);border:1px solid var(--line);color:var(--white);font:400 15px var(--ui);padding:0 16px;outline:none}
+.acct .field:focus{border-color:rgba(255,255,255,.4)}
+.acct .cta-white{height:54px;margin-top:14px;font-size:16px}
+.acct .lnk{align-self:flex-start;padding:14px 0;font-size:13px;font-weight:500;color:rgba(255,255,255,.75);text-decoration:underline;text-underline-offset:3px}
+.acct .si-note{margin-top:4px}
 /* plan card in chat */
 .plan-card{width:300px;max-width:100%;padding:14px;border-radius:22px;background:rgba(255,255,255,.06);border:1px solid var(--line);display:grid;gap:12px;box-sizing:border-box;cursor:pointer}
 .pc-row{display:flex;gap:12px;align-items:flex-start}
@@ -889,8 +898,8 @@ svg{display:block;flex:none}
 .pc-t{display:grid;gap:2px;min-width:0}
 .pc-t b{font-size:15px;font-weight:600}
 .pc-t small{font-size:12px;line-height:1.45;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.pc-btn{height:40px;border-radius:999px;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;gap:4px;font-size:14px;font-weight:600}
-.pc-btn svg{width:16px;height:16px}
+.pc-btn{height:32px;border-radius:10px;border:1px solid rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;gap:2px;font-size:12px;font-weight:500}
+.pc-btn svg{width:13px;height:13px}
 /* plan page */
 .pl-body{flex:1;min-height:0;padding:8px 20px 150px;display:flex;flex-direction:column;gap:18px}
 .pl-body > *{flex:none}
@@ -902,12 +911,12 @@ svg{display:block;flex:none}
 .pl-regen{position:absolute;right:10px;bottom:10px;display:flex;align-items:center;gap:6px;height:34px;padding:0 12px;border-radius:999px;background:rgba(20,14,16,.6);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);font-size:12px;font-weight:600}
 .pl-regen svg{width:14px;height:14px}
 .pl-cover.regen .pl-regen{opacity:0}
-.pl-name{width:100%;background:none;border:0;border-bottom:1px solid var(--faint);outline:none;color:var(--white);font:600 24px/1.3 var(--ui);padding:0 0 10px;box-sizing:border-box}
-.pl-name:focus{border-bottom-color:rgba(255,255,255,.35)}
+.pl-name{width:100%;background:rgba(255,255,255,.06);border:1px solid transparent;border-radius:16px;outline:none;color:var(--white);font:600 20px/1.3 var(--ui);padding:12px 14px;box-sizing:border-box}
+.pl-name:focus{border-color:rgba(255,255,255,.3)}
 .pl-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .pl-g{display:grid;gap:8px;min-width:0}
-.pl-chip{height:48px;border-radius:16px;background:rgba(255,255,255,.06);display:flex;align-items:center;gap:8px;padding:0 12px;font-size:14px;font-weight:500;min-width:0}
-.pl-chip span{flex:1;min-width:0;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pl-chip{justify-self:start;max-width:100%;height:40px;border-radius:999px;background:rgba(255,255,255,.08);display:flex;align-items:center;gap:6px;padding:0 12px;font-size:14px;font-weight:600;min-width:0}
+.pl-chip span{min-width:0;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pl-chip svg{width:18px;height:18px;opacity:.8}
 .pl-chip.look img{width:28px;height:28px;border-radius:8px;object-fit:cover;flex:none}
 .pl-field{width:100%;border-radius:16px;background:rgba(255,255,255,.06);border:1px solid transparent;color:var(--white);font:400 15px/1.5 var(--ui);padding:12px 14px;box-sizing:border-box;resize:none;outline:none}
@@ -915,7 +924,7 @@ svg{display:block;flex:none}
 .pl-field:disabled,.pl-name:disabled{color:rgba(255,255,255,.8);-webkit-text-fill-color:rgba(255,255,255,.8);opacity:1}
 .pl-seg{display:grid;grid-template-columns:repeat(3,1fr);height:44px;padding:4px;border-radius:999px;background:rgba(255,255,255,.06);box-sizing:border-box}
 .pl-seg button{border-radius:999px;font-size:14px;font-weight:500;color:rgba(255,255,255,.5)}
-.pl-seg .on{background:var(--raised);color:var(--white);font-weight:600}
+.pl-seg .on{background:var(--white);color:var(--bg);font-weight:600}
 .pl-seg.ro button:not(.on){opacity:.5}
 .pl-foot{position:absolute;left:0;right:0;bottom:0;padding:28px 16px 30px;background:linear-gradient(rgba(20,14,16,0),var(--bg) 36%);z-index:3}
 .pl-foot .cta-white{width:100%;height:54px;font-size:16px}
@@ -995,11 +1004,10 @@ svg{display:block;flex:none}
 .pop.chf button{justify-content:space-between}
 .pop.chf svg{width:16px;height:16px}
 /* me: project */
-.pj-tabs{flex:none;display:flex;gap:24px;padding:8px 20px 0;border-bottom:1px solid var(--faint)}
-.pj-tabs button{height:40px;font-size:15px;font-weight:500;color:rgba(255,255,255,.5);position:relative;display:flex;align-items:center;gap:6px}
-.pj-tabs button.on{color:var(--white);font-weight:600}
-.pj-tabs button.on::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;border-radius:2px;background:var(--white)}
-.pj-tabs i{font-style:normal;font-size:11px;padding:1px 6px;border-radius:999px;background:rgba(255,255,255,.12)}
+.pj-tabs{flex:none;display:grid;grid-template-columns:repeat(3,1fr);margin:10px 16px 0;padding:4px;border-radius:999px;background:rgba(255,255,255,.06)}
+.pj-tabs button{height:36px;border-radius:999px;font-size:14px;font-weight:500;color:rgba(255,255,255,.6);display:flex;align-items:center;justify-content:center;gap:6px}
+.pj-tabs button.on{background:var(--white);color:var(--bg);font-weight:600}
+.pj-tabs i{font-style:normal;font-size:12px;opacity:.55}
 .pj-body{flex:1;min-height:0;position:relative;display:flex;flex-direction:column;overflow-y:auto;scrollbar-width:none}
 .pj-hero{position:relative;flex:none;height:330px;margin:16px 16px 0;border-radius:28px;overflow:hidden;background:#000;cursor:pointer}
 .pj-hero .media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
@@ -1046,8 +1054,8 @@ svg{display:block;flex:none}
 .sw-c .th.on{background:radial-gradient(circle,#4D4240 0%,#2B2424 100%);box-shadow:inset 0 0 0 2px var(--white)}
 .sw-ar svg{width:22px;height:22px;opacity:.6}
 .sw-lb{margin:20px 0 10px;font-size:14px;font-weight:600}
-.sw-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px 8px}
-.sw-grid button{display:grid;gap:5px;font-size:11px;color:rgba(255,255,255,.7);min-width:0;text-align:center}
+.sw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px 10px}
+.sw-grid button{display:grid;gap:6px;font-size:12px;color:rgba(255,255,255,.7);min-width:0;text-align:center}
 .sw-grid .th{aspect-ratio:1;max-width:100%;border-radius:16px;overflow:hidden;display:grid;place-items:center;background:radial-gradient(circle,#4D4240 0%,#2B2424 100%)}
 .sw-grid .th img{width:84%;height:84%;object-fit:contain}
 .sw-grid .on{color:var(--white)}
@@ -1057,7 +1065,8 @@ svg{display:block;flex:none}
 .sw-snap .th b{font-weight:600;color:var(--white)}
 .swap .post{width:100%;height:54px;margin-top:20px;border-radius:999px;background:var(--white);color:var(--bg);font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px}
 .swap .post svg{width:18px;height:18px}
-.pub .post:disabled,.swap .post:disabled{opacity:.4}
+.pub .post:disabled{opacity:.4}
+.swap .post:disabled{background:rgba(255,255,255,.18);color:rgba(255,255,255,.55)}
 /* my 3D sheet */
 .my3d .stage{position:relative;height:280px;border-radius:24px;overflow:hidden;background:radial-gradient(circle at 50% 55%,#3B3332 0%,#1B1617 75%);touch-action:none;cursor:grab}
 .my3d .stage .tagpx{position:absolute;top:12px;left:12px}
@@ -1127,6 +1136,9 @@ svg{display:block;flex:none}
 .take.add .tk-plus{width:40px;height:40px;border-radius:20px;background:rgba(255,255,255,.1);display:grid;place-items:center}
 .take.add .tk-plus svg{width:20px;height:20px}
 .take.add .th b{font-size:13px;font-weight:600}
+.tk-rec{width:40px;height:40px;border-radius:20px;border:2px solid var(--white);display:grid;place-items:center;box-sizing:border-box}
+.tk-rec i{width:18px;height:18px;border-radius:9px;background:var(--danger)}
+.take.add .th small{font-size:12px;color:rgba(255,255,255,.7)}
 /* take viewer + record */
 .sub.tv{background:#000}
 .tv-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:kb 15s linear infinite alternate}
@@ -1136,10 +1148,10 @@ svg{display:block;flex:none}
 @keyframes tvp{from{width:0}to{width:100%}}
 .rec-bar u{display:block;height:100%;width:0;background:var(--danger);transition:width .26s linear}
 .sub.tv > .icon-btn{position:absolute;top:calc(var(--sb) + 14px);left:16px;z-index:4;background:rgba(20,14,16,.5)}
-.tv-pills{position:absolute;top:calc(var(--sb) + 14px);left:64px;right:16px;display:flex;justify-content:center;gap:6px;z-index:3}
-.tv-pills button{height:32px;padding:0 12px;border-radius:999px;background:rgba(20,14,16,.5);font-size:12px;font-weight:600;color:rgba(255,255,255,.7)}
+.tv-pills{position:absolute;top:calc(var(--sb) + 14px);left:50%;transform:translateX(-50%);display:flex;gap:2px;padding:4px;border-radius:999px;background:rgba(20,14,16,.55);z-index:3}
+.tv-pills button{height:30px;padding:0 12px;border-radius:999px;font-size:13px;font-weight:500;color:rgba(255,255,255,.75)}
 .tv-pills .on{background:var(--white);color:var(--bg)}
-.tv-tag{position:absolute;top:calc(var(--sb) + 22px);left:50%;transform:translateX(-50%);z-index:3}
+.tv-tag{position:absolute;top:calc(var(--sb) + 22px);right:16px;z-index:3}
 .tv-info{position:absolute;left:20px;right:20px;bottom:110px;display:grid;gap:4px;z-index:2}
 .tv-info h2{margin:0;font-size:24px;font-weight:600}
 .tv-info small{font-size:13px;color:rgba(255,255,255,.7)}
@@ -1153,7 +1165,7 @@ svg{display:block;flex:none}
 .rec-joy::after{content:"";position:absolute;left:30px;top:30px;width:40px;height:40px;border-radius:20px;background:rgba(255,255,255,.55);animation:joy 2.4s ease-in-out infinite}
 @keyframes joy{25%{transform:translate(14px,-8px)}50%{transform:translate(-10px,-12px)}75%{transform:translate(8px,10px)}}
 .rec-act{position:absolute;right:40px;bottom:16px;width:64px;height:64px;border-radius:32px;border:2px solid rgba(255,255,255,.35);background:rgba(255,255,255,.12)}
-.rec-start{position:absolute;left:20px;right:20px;top:50%;transform:translateY(-50%);padding:24px 20px 20px;border-radius:28px;background:rgba(20,14,16,.78);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);display:grid;justify-items:center;text-align:center;gap:6px;z-index:3}
+.rec-start{position:absolute;left:20px;right:20px;top:50%;transform:translateY(-58%);display:grid;justify-items:center;text-align:center;gap:6px;z-index:3;text-shadow:0 2px 12px rgba(0,0,0,.5)}
 .rec-ic{width:52px;height:52px;border-radius:26px;border:2px solid var(--white);display:grid;place-items:center;margin-bottom:6px}
 .rec-ic i{width:22px;height:22px;border-radius:11px;background:var(--danger)}
 .rec-start h2{margin:0;font-size:22px;font-weight:600}
@@ -1177,24 +1189,11 @@ svg{display:block;flex:none}
 @keyframes wall{to{transform:rotate(-8deg) translateY(-120px)}}
 .onb-fade{position:absolute;inset:0;background:linear-gradient(rgba(20,14,16,.1) 0%,rgba(20,14,16,.55) 38%,var(--bg) 62%)}
 .onb-w{position:absolute;left:0;right:0;bottom:0;padding:0 20px 40px;display:grid;justify-items:center;text-align:center}
-.onb-w .cat{width:96px;height:96px;object-fit:contain}
+.onb-w .logo{width:99px;height:99px;border-radius:28px;object-fit:cover;box-shadow:0 10px 30px rgba(0,0,0,.4)}
 .onb-w h1{margin:8px 0 6px;font-size:32px;line-height:1.2;font-weight:600;text-wrap:balance}
 .onb-w p{margin:0 0 26px;font-size:15px;color:var(--muted)}
 .onb-w .cta-white,.onb-l .go{width:100%;height:54px;font-size:16px}
 .onb .lnk{padding:14px;font-size:14px;font-weight:600;color:rgba(255,255,255,.75)}
-.onb-l{position:absolute;inset:0;padding:calc(var(--sb) + 40px) 20px 36px;display:flex;flex-direction:column}
-.onb-l .skip{position:absolute;top:calc(var(--sb) + 4px);right:8px}
-.onb-l h2{margin:0;font-size:26px;font-weight:600;line-height:1.25}
-.onb-l > p{margin:6px 0 20px;font-size:14px;color:var(--muted)}
-.onb-grid{flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;gap:10px;align-content:start}
-.onb-grid button{position:relative;height:150px;border-radius:22px;overflow:hidden;text-align:left}
-.onb-grid img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.onb-grid button::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(20,14,16,0) 40%,rgba(20,14,16,.8))}
-.onb-grid b{position:absolute;left:14px;bottom:12px;z-index:2;font-size:16px;font-weight:600}
-.onb-grid .on{box-shadow:inset 0 0 0 3px var(--white)}
-.onb-grid i{position:absolute;right:10px;top:10px;z-index:2;width:26px;height:26px;border-radius:13px;background:var(--white);color:var(--bg);display:grid;place-items:center}
-.onb-grid i svg{width:14px;height:14px}
-.onb-l .go{margin-top:16px;flex:none}
 /* coach marks on Home */
 .coach{position:absolute;inset:0;z-index:30;pointer-events:none}
 .coach.s3{pointer-events:auto}
@@ -1202,15 +1201,14 @@ svg{display:block;flex:none}
 .coach.s3 .co-dots{top:calc(var(--sb) + 10px)}
 .co-dots i{width:6px;height:6px;border-radius:3px;background:rgba(255,255,255,.3)}
 .co-dots i.on{width:16px;background:var(--white)}
-.co-skipb{position:absolute;top:calc(var(--sb) + 48px);right:16px;height:30px;padding:0 12px;border-radius:999px;background:rgba(20,14,16,.6);font-size:12px;font-weight:600;pointer-events:auto;z-index:2}
 .co-bub{position:absolute;left:50%;transform:translateX(-50%);width:max-content;max-width:280px;padding:10px 16px;border-radius:16px;background:var(--white);color:var(--bg);font-size:15px;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,.4);animation:tipin .4s cubic-bezier(.2,1.3,.4,1);z-index:2}
 .co-bub.down::after{content:"";position:absolute;left:50%;bottom:-6px;width:12px;height:12px;margin-left:-6px;background:var(--white);transform:rotate(45deg);border-radius:2px}
-.co-swipe{position:absolute;left:50%;top:330px;width:60px;height:240px;margin-left:-30px}
+.co-swipe{position:absolute;left:50%;top:276px;width:60px;height:240px;margin-left:-30px}
 .co-swipe .hand{position:absolute;left:8px;top:170px;width:52px;height:52px;animation:swp-h 1.8s cubic-bezier(.5,0,.3,1) infinite}
 .co-swipe .trail{position:absolute;left:24px;top:40px;width:12px;height:170px;border-radius:6px;background:linear-gradient(rgba(255,255,255,0),rgba(255,255,255,.55));transform-origin:bottom;animation:swp-t 1.8s cubic-bezier(.5,0,.3,1) infinite}
 @keyframes swp-h{0%{transform:translateY(0);opacity:0}12%{opacity:1}70%{transform:translateY(-150px);opacity:1}100%{transform:translateY(-150px);opacity:0}}
 @keyframes swp-t{0%,10%{transform:scaleY(0);opacity:0}70%{transform:scaleY(1);opacity:1}100%{opacity:0}}
-.co-tap{position:absolute;left:50%;top:400px;width:0;height:0}
+.co-tap{position:absolute;left:50%;top:316px;width:0;height:0}
 .co-tap i{position:absolute;left:-30px;top:-30px;width:60px;height:60px;border-radius:30px;border:2px solid var(--white);animation:rip 1.6s ease-out infinite}
 .co-tap i:nth-child(2){animation-delay:.5s}
 @keyframes rip{from{transform:scale(.4);opacity:1}to{transform:scale(1.8);opacity:0}}
@@ -1219,7 +1217,27 @@ svg{display:block;flex:none}
 .co-ring{position:absolute;width:84px;height:84px;border-radius:50%;box-shadow:0 0 0 2px var(--white),0 0 0 2000px rgba(20,14,16,.66);animation:glow 1.6s ease-in-out infinite}
 .co-ring.r2{width:120px;height:120px;box-shadow:0 0 0 1.5px rgba(255,255,255,.4);animation:rip 1.8s ease-out infinite}
 @keyframes glow{50%{box-shadow:0 0 0 2px var(--white),0 0 26px 6px rgba(255,255,255,.35),0 0 0 2000px rgba(20,14,16,.66)}}
-.co-skip{position:absolute;left:0;right:0;top:calc(var(--sb) + 38px);text-align:center;font-size:12px;color:rgba(255,255,255,.6)}
+/* 06-E: ready banner */
+.rbanner{position:absolute;left:12px;right:12px;top:calc(var(--sb) + 4px);z-index:95;display:flex;align-items:center;gap:10px;padding:10px 10px 10px 10px;border-radius:22px;border:1px solid rgba(255,255,255,.1);transform:translateY(-130%);transition:transform .34s cubic-bezier(.2,.8,.2,1);cursor:pointer;box-shadow:0 12px 30px rgba(0,0,0,.4)}
+.rbanner.in{transform:none}
+.rb-th{width:40px;height:40px;border-radius:12px;object-fit:cover;flex:none}
+.rb-th.model{display:grid;place-items:center;background:radial-gradient(circle,#4D4240 0%,#2B2424 100%)}
+.rb-th.model img{width:88%;height:88%;object-fit:contain}
+.rb-t{flex:1;min-width:0;display:grid}
+.rb-t b{font-size:14px;font-weight:600}
+.rb-t small{font-size:12px;color:rgba(255,255,255,.6)}
+.rb-open{height:32px;padding:0 14px;border-radius:999px;background:var(--white);color:var(--bg);font-size:13px;font-weight:600;display:grid;place-items:center}
+/* A6: My Assets in the picker */
+.picker .pgrid.assets{gap:14px 8px;padding:0 16px}
+.picker .pgrid.assets button{aspect-ratio:auto;background:none;overflow:visible;display:grid;gap:4px;text-align:left;min-width:0}
+.picker .pgrid.assets .ph{position:relative;aspect-ratio:1;max-width:100%;border-radius:18px;overflow:hidden;display:grid;place-items:center;background:radial-gradient(circle,#4D4240 0%,#2B2424 100%)}
+.picker .pgrid.assets .ph img{width:84%;height:84%;object-fit:contain}
+.picker .pgrid.assets b{font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.picker .pgrid.assets small{font-size:11px;color:var(--muted);margin-top:-2px}
+.picker .pgrid.assets .on::after{display:none}
+.picker .pgrid.assets .on .ph::after{content:"";position:absolute;inset:0;border-radius:18px;box-shadow:inset 0 0 0 2.5px var(--white)}
+.picker .pgrid.assets .snaptile .ph{background:rgba(255,255,255,.07);align-content:center;gap:6px;font-size:13px;font-weight:500}
+.picker .pgrid.assets .snaptile svg{width:22px;height:22px}
 /* selected rings sit above images */
 .onb-grid .on::before,.lk-grid .on .th::after,.take.on .th::after,.pj-ver.on .th::after,.sw-c .th.on::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 3px var(--white);z-index:3;pointer-events:none}
 .sw-c .th{position:relative}
@@ -1237,12 +1255,12 @@ svg{display:block;flex:none}
     <h2>刷、玩、造、存</h2>
     <div>按照 Figma 1022 区块做的可点击 Demo。</div>
     <ol>
-      <li><span>00</span><span><b>首次进入</b>：欢迎页 → 选喜欢的类型 → Home 上 3 步提示（上滑 / 点一下 / 黑猫）。第一次发送时才要求登录</span></li>
-      <li><span>01</span><span><b>Home</b>：Explore / Following / Friends / <b>Remix</b>。Remix 点视频直接玩，点底部输入框带着这个游戏去 Create</span></li>
+      <li><span>00</span><span><b>首次进入</b>：欢迎页（Start now）→ Home 上 3 步提示（上滑 / 点一下 / 黑猫）。第一次发送时才要求登录：Apple 或 email，没有账号就起个名字创建</span></li>
+      <li><span>01</span><span><b>Home</b>：Explore / Following / Friends / <b>Remix</b>。Friends 卡片上有好友的点赞和评论；Remix 点视频直接玩，点左下输入框带着这个游戏去 Create</span></li>
       <li><span>02</span><span><b>Create</b>：✦ 写一个点子，↻ 换一个；黑猫开关是 <b>Plan mode</b>，先出计划再 Build it</span></li>
       <li><span>03</span><span><b>Chat</b>：Thinking → Building（可以离开）→ 完成，“Thought for” 可展开；+ 可加照片 / 3D / 游戏里的素材。输入 online 可看失败状态</span></li>
-      <li><span>04</span><span><b>Publish</b>：15 秒预览视频，Wana 自动录或自己录，可左右滑对比</span></li>
-      <li><span>05</span><span><b>Chats</b> 一个列表 + 筛选；<b>Me</b> 里点游戏进 Project（Game / Assets / Chat），Assets 可 Swap；铃铛 = 通知，齿轮 = 设置</span></li>
+      <li><span>04</span><span><b>Publish</b>：15 秒预览视频，Wana 自动录（↻ 再录一条）或自己录，可左右滑对比；生成好了顶部会弹通知</span></li>
+      <li><span>05</span><span><b>Chats</b> 一个列表 + 筛选；<b>Me</b> 里点游戏进 Project（Game / Assets / Chat），Assets 可 Swap；Assets 里点 3D 打开大卡片；铃铛 = 通知，齿轮 = 设置</span></li>
     </ol>
     <div class="note">视频为示意素材；生成过程为模拟。网址加 #intro 可重看引导。</div>
   </aside>
@@ -1379,6 +1397,7 @@ svg{display:block;flex:none}
       <section class="sub" id="sub-settings" hidden></section>
       <section class="sub tv" id="sub-take" hidden></section>
       <section class="sub tv" id="sub-rec" hidden></section>
+      <section class="sub" id="sub-acct" hidden></section>
 
       <!-- first visit: welcome → likes → 3 hints on Home -->
       <div class="coach" id="coach" hidden></div>
@@ -1389,6 +1408,7 @@ svg{display:block;flex:none}
 
       <!-- SHEET + TOAST -->
       <div class="sheet-layer" id="sheet"><div class="scrim" data-act="sheet-close"></div><div class="panel"><div class="grab"></div><div class="pin" id="sheetBody"></div></div></div>
+      <div class="rbanner glass" id="rbanner" role="status" hidden></div>
       <div class="toast" id="toast" role="status"><span id="toastIc"></span><span id="toastTxt"></span><button class="ta" id="toastAct" hidden></button></div>
     </div>
   </div>
@@ -2086,11 +2106,14 @@ function openReview(img) {
 let pickerCfg = null;
 function openPicker(cfg) {
   pickerCfg = Object.assign({ multi:true, max:4, items:[], title:'Photos', sel:[] }, cfg); pickerCfg.sel = [];
+  let names = [];
+  if (pickerCfg.assets) { const ws = state.works.filter(w => w.kind === '3d' && w.working == null); pickerCfg.items = ws.map(w => w.model + '.webp'); names = ws.map(w => [w.title, '3D · ' + styleOf(latest(w).style).label]); }
   const it = pickerCfg.items;
   openSub('sub-picker', `${head(xBtn('sub-close'), `<b>${pickerCfg.title}</b>`)}
     <div class="s-body vscroll" style="padding-top:8px">
       <div class="seg"><button class="${pickerCfg.assets ? '' : 'on'}" data-act="picker-src" data-s="photos">Photos</button><button class="${pickerCfg.assets ? 'on' : ''}" data-act="picker-src" data-s="assets">My Assets</button></div>
-      <div class="pgrid">${pickerCfg.assets ? '' : `<button class="camtile" data-act="picker-cam">${I.camera}Camera</button>`}${it.map((x, i) => `<button data-act="pick" data-i="${i}" class="${pickerCfg.assets ? 'contain' : ''}"><img src="${M(x)}" alt=""><span class="sel"></span></button>`).join('')}</div>
+      ${pickerCfg.assets ? `<div class="pgrid assets"><button class="snaptile" data-act="picker-snap"><span class="ph">${I.cube}Snap 3D</span></button>${it.map((x, i) => `<button data-act="pick" data-i="${i}"><span class="ph"><img src="${M(x)}" alt=""><span class="sel"></span></span><b>${escapeHTML(names[i][0])}</b><small>${names[i][1]}</small></button>`).join('')}</div>`
+        : `<div class="pgrid"><button class="camtile" data-act="picker-cam">${I.camera}Camera</button>${it.map((x, i) => `<button data-act="pick" data-i="${i}"><img src="${M(x)}" alt=""><span class="sel"></span></button>`).join('')}</div>`}
     </div>
     <div class="pick-foot" style="padding-bottom:30px"><span class="muted" style="font-size:12px">${pickerCfg.multi ? 'Up to ' + pickerCfg.max : 'Pick one photo'}</span><button class="add cta-white" id="pickAdd" data-act="picker-done" disabled style="opacity:.4">${pickerCfg.multi ? 'Add' : 'Next'}</button></div>`, 'up');
 }
@@ -2191,9 +2214,9 @@ function openView(w, o) {
     const pubBtn = live ? btn('pri', 'vw-share', I.shareD, 'Share') : btn('pri', 'vw-publish', I.publishD, 'Publish');
     acts = o.ctx === 'chat' ? pubBtn : btn('sec', 'vw-edit', I.pencil, 'Keep editing') + pubBtn;
   } else {
-    tag = `3D · ${styleOf(v.style).label.toUpperCase()}${o.first ? '' : ' · V' + v.n}`;
-    line = meCtx ? `${I.check}In Assets · synced to Studio` : o.first ? 'Drag to spin it' : `Version ${v.n} · ${escapeHTML(v.note)}`;
-    if (o.first) {
+    tag = `3D · ${styleOf(v.style).label.toUpperCase()}${o.first || o.chips ? '' : ' · V' + v.n}`;
+    line = o.first || o.chips ? 'Drag to spin it' : meCtx ? `${I.check}In Assets · synced to Studio` : `Version ${v.n} · ${escapeHTML(v.note)}`;
+    if (o.first || o.chips) {
       extra = `<div class="vw-styles"><small>Change style</small><div class="stylechips">${[...STYLES, COMMUNITY[0]].map(s => `<button class="${s.k === v.style ? 'on' : ''}" data-act="vw-style" data-w="${w.id}" data-k="${s.k}" data-ctx="${o.ctx}"><span class="cth"><img src="${M(s.img)}" alt=""></span>${s.label}</button>`).join('')}</div></div>`;
       acts = btn('pri', 'vw-edit', I.pencilD, 'Keep editing');
     } else if (o.ctx === 'chat') acts = btn('pri', 'vw-game', I.gamesD, 'Make a game with it');
@@ -2314,6 +2337,7 @@ Object.assign(I, {
   chevR: sv(`<path ${S} d="m9 6 6 6-6 6"/>`),
   reload: sv(`<path ${S} d="M4 12a8 8 0 1 0 2.3-5.6M4 4v4h4"/>`),
   stop: sv(`<rect ${F} x="7" y="7" width="10" height="10" rx="2.5"/>`),
+  mail: sv(`<rect ${S} x="3.5" y="5.5" width="17" height="13" rx="2.5"/><path ${S} d="m4.5 7.5 7.5 5.5 7.5-5.5"/>`),
   hand: `<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" stroke="#140E10" stroke-width="1.1" stroke-linejoin="round" d="M10 9.5V4a2 2 0 0 0-4 0v10l-1.6-1.6a2 2 0 0 0-2.8 2.8l3.6 3.6C6.7 20.3 8.4 21 11 21h1a8 8 0 0 0 8-8v-3a2 2 0 0 0-4 0v1-1a2 2 0 0 0-4 0v1-2a2 2 0 0 0-2-2"/></svg>`,
 });
 Object.assign(state, { plan:false, signedIn:false, chatFilter:'all', chatAtts:[], planTipShown:false, notifSeen:false, coach:0, openThoughts:new Set(), settings:{ push:true, putMe:'Friends', who:'Everyone', remix:'Everyone' } });
@@ -2323,7 +2347,7 @@ const recOf = t => Date.now() - (nowRank[t] != null ? nowRank[t] : 9000) * 60000
 
 /* ---------- Home: Explore / Following / Friends / Remix ---------- */
 FEEDS.remix = ['clash', 'paw', 'neon', 'deep', 'ivy', 'cafe'];
-const WHY = { neon:['mochi', 'av-6', 'liked'], ivy:['nekoium', 'av-4', 'played'], cafe:['bowie', 'av-2', 'made'] };
+const REACTS = { neon:[['av-6', '❤'], ['av-2', 'Good Game!'], ['av-4', '❤']], ivy:[['av-3', '❤'], ['av-1', 'Good Game!']], cafe:[['av-4', 'Good Game!'], ['av-6', '❤']] };
 const REMIX_IDEAS = { clash:'Make it a snowball fight', paw:'Swap the cat for my Fluffy Pup', neon:'Turn the club into a roller rink', deep:'Make it a chase in space', ivy:'Put a dragon on the tower', cafe:'Run a ramen stand instead', garden:'Grow candy plants', dark:'Bring a friend with a lantern', escape:'Escape from school instead' };
 function rxCats() { return ['For you', 'Runner', 'Shooter', 'Dress-up', 'Pet', 'Puzzle', 'Party'].map((c, i) => `<button class="chip${i ? '' : ' on'}" data-act="rx-cat">${c}</button>`).join(''); }
 function setHomeTab(t) {
@@ -2378,14 +2402,24 @@ function addAttachment(img, role) {
 /* ---------- sign in: only when you first make something ---------- */
 function needSignIn(then) { if (state.signedIn) { then(); return; } signInSheet(then); }
 function signInSheet(then) {
-  const done = (msg) => { state.signedIn = true; closeSheet(); toast(msg); if (then) setTimeout(then, 320); };
-  openSheet(`<div class="si"><img class="cat" src="${M('mascot-idle.gif')}" alt=""><h3>Keep what you make</h3><p>Sign in so your games and 3D are saved.</p>
-    <button class="si-apple" data-act="si-apple">Sign in with Apple</button><button class="si-google" data-act="si-google">Sign in with Google</button>
+  openSheet(`<div class="si"><img class="cat" src="${M('mascot-idle.gif')}" alt=""><h3>Sign in to Wanaka</h3><p>So your games and 3D are saved.</p>
+    <button class="si-apple" data-act="si-apple">Continue with Apple</button><button class="si-email" data-act="si-email">${I.mail}Continue with email</button>
     <div class="si-new">New to Wanaka? <button data-act="si-create">Create an account</button></div>
-    <div class="si-note">${I.devices}<span>Same account as Wanaka Studio on PC. Use one account on both and your games and 3D stay in sync.</span></div>
-    <small class="si-terms">Terms · Privacy</small></div>`, {
-    'si-apple': () => done('Signed in with Apple'), 'si-google': () => done('Signed in with Google'), 'si-create': () => done('Account created · welcome to Wanaka'),
+    <div class="si-note">${I.devices}<span>Same account as Wanaka Studio on PC. Use one account on both and your games stay in sync.</span></div></div>`, {
+    'si-apple': () => { state.signedIn = true; closeSheet(); if (then) setTimeout(then, 320); },
+    'si-email': () => { closeSheet(); newAccount(then); },
+    'si-create': () => { closeSheet(); newAccount(then); },
   });
+}
+// no account for that email yet → pick a name (same account as Wanaka Studio)
+function newAccount(then) {
+  const s = openSub('sub-acct', `${head(xBtn('sub-close', 'back'), '')}
+    <div class="s-body acct"><img class="cat" src="${M('mascot-idle.gif')}" alt=""><h2>You’re new here!</h2><p>There’s no Wanaka account for hello@example.com yet. Create one in a second.</p>
+      <label for="acctName">Pick a name</label><input class="field" id="acctName" value="@yy.makes" autocomplete="off">
+      <button class="cta-white" data-act="acct-create">Create account</button><button class="lnk" data-act="acct-back">Use a different email</button>
+      <div class="si-note">${I.devices}<span>Same account as Wanaka Studio on PC. Use one account on both and your games stay in sync.</span></div></div>`);
+  if (!$('#onb').hidden) s.style.zIndex = 70;
+  s._then = then;
 }
 
 /* ---------- Plan mode: plan card → plan page → Build it ---------- */
@@ -2397,7 +2431,7 @@ function startPlan(text, atts, remix) {
   const base = remix ? remix.id : pickBase(text);
   const w = newWork({ kind:'game', title:'New game', base, prompt:text, atts:atts.slice(), remixOf: remix ? { id:remix.id, title:remix.title, creator:remix.creator } : null, time:'now', rec:Date.now(), last:'Wana: here’s the plan.' });
   w.plan = { name: remix ? `${remix.title} Remix` : (NAMES[base] || 'New game'), base, cover: poster(G[base]), genre: GENRE_OF[base] || 'Adventure', look:'Default', what: text, feels: FEELS[base] || 'Bright, quick and a little silly.', diff:'Normal', used:false, notes:[] };
-  w.title = w.plan.name; w.planning = true; renderChats();
+  w.title = 'New game'; w.planning = true; renderChats();
   openWorkChat(w, { ctx:'create' });
   setTimeout(() => { w.planning = false; rerenderThread(w); }, 1600);
 }
@@ -2419,7 +2453,7 @@ function openPlan(w) {
     <div class="pl-foot">${ro ? '<p>v1 was built from this plan. To change the game, tell Wana in chat.</p>' : `<button class="cta-white" data-act="plan-build" data-w="${w.id}">Build it</button>`}</div>`);
   s.dataset.w = w.id;
 }
-function savePlanFields(w) { const p = w.plan; const n = $('#plName'); if (!n || p.used) return; p.name = n.value.trim() || p.name; p.what = $('#plWhat').value.trim() || p.what; p.feels = $('#plFeels').value.trim() || p.feels; w.title = p.name; }
+function savePlanFields(w) { const p = w.plan; const n = $('#plName'); if (!n || p.used) return; p.name = n.value.trim() || p.name; p.what = $('#plWhat').value.trim() || p.what; p.feels = $('#plFeels').value.trim() || p.feels; }
 function planSheet(kind, w) {
   const p = w.plan;
   if (kind === 'genre') openSheet(`<div class="pick-list"><h3>Genre</h3>${GENRES.map(g => `<button data-act="pg-pick" data-k="${g}" class="${g === p.genre ? 'on' : ''}">${g}${g === p.genre ? I.check : ''}</button>`).join('')}</div>`, { 'pg-pick': b => { p.genre = b.dataset.k; $('#plGenre').textContent = p.genre; closeSheet(); } });
@@ -2430,14 +2464,14 @@ function buildFromPlan(w) {
   if (state.credits <= 0) { outOfCredits(); return; }
   state.credits--; updateCredits(); w._cost = 1; closeSub('sub-plan');
   const p = w.plan; const steps = [`Finding the ${GENRE_OF[p.base] === 'Racing' ? 'cars and track' : 'hero and the world'}`, 'Building the levels', 'Writing the rules', 'Playing it to check'];
-  w.working = 0; w.building = { steps, n:1, label:`Building ${p.name} from your plan.` }; w.rec = Date.now(); renderChats();
+  w.title = p.name; w.working = 0; w.building = { steps, n:1, label:`Building ${p.name} from your plan.`, note:'About 2 min · you can leave, I’ll let you know' }; w.rec = Date.now(); renderChats();
   const ch = $('#chatTitle'); if (ch && $('#sub-chat').dataset.w === w.id) ch.textContent = p.name;
   rerenderThread(w); setStop(true, w);
   runBuild(w, 4200, () => {
     w.versions.push({ n:1, fromPlan:true, note:'From your plan', reply:`Here’s ${p.name}! ${G[p.base].desc}`, thought:{ secs:52, steps:[`Read the plan: ${p.genre}, ${p.look}, ${p.diff}`, ...steps.slice(0, 3), 'Played it to check'] } });
     p.used = true; w.building = null; w._cost = 0; w.last = 'Wana: v1 is ready.'; w.time = 'now'; w.rec = Date.now();
     rerenderThread(w); setStop(false, w); renderChats(); renderMe();
-    if (!$('#sub-chat').classList.contains('in') || $('#sub-chat').dataset.w !== w.id) { w.unread = true; state.chatsDot = state.tab !== 'chats'; updateTabDot(); toast(`${p.name} is ready`, 'Open', () => openWorkChat(w, { ctx:'sub' })); }
+    if (!$('#sub-chat').classList.contains('in') || $('#sub-chat').dataset.w !== w.id) { w.unread = true; state.chatsDot = state.tab !== 'chats'; updateTabDot(); readyBanner(w, () => openWorkChat(w, { ctx:'sub' })); }
   });
 }
 // progress that keeps going if you leave the chat (Chats row shows %)
@@ -2468,7 +2502,7 @@ const stepsFor = t => { const s = t.toLowerCase();
 function thoughtHTML(t, key) { const open = state.openThoughts.has(key); return `<div class="thought${open ? ' open' : ''}" data-act="thought" data-k="${key}"><span class="th-h">Thought for ${t.secs}s ${I.chevR}</span><div class="th-list">${t.steps.map(s => `<span>${I.check}${escapeHTML(s)}</span>`).join('')}</div></div>`; }
 function userBubbleHTML(text, atts, via) { return `<div class="mu">${atts && atts.length ? `<div class="atts">${atts.map(a => a.asset ? `<span class="aa">${a.thumb}</span>` : `<img src="${M(a.img)}" alt="">`).join('')}</div>` : ''}<div class="bub">${escapeHTML(text)}</div>${via ? `<span class="via">Sent from ${via}</span>` : ''}</div>`; }
 function buildCardHTML(w, n, pct) { return `<div class="vcard bld"><img class="media" src="${w.plan ? w.plan.cover : poster(G[w.base])}" alt=""><span class="veil"></span><span class="tagpx">V${n} · BUILDING</span><span class="prog"><b>${pct}%</b><i><u style="width:${pct}%"></u></i></span></div>`; }
-function buildingHTML(w) { const b = w.building; return `<div class="ma" id="live" data-w="${w.id}"><p>${escapeHTML(b.label)}</p><div class="csteps">${b.steps.map(s => `<span>${I.check}${escapeHTML(s)}</span>`).join('')}</div>${buildCardHTML(w, b.n, w.working || 0)}<small class="note">About 1 min · you can leave, I’ll let you know</small></div>`; }
+function buildingHTML(w) { const b = w.building; return `<div class="ma" id="live" data-w="${w.id}"><p>${escapeHTML(b.label)}</p><div class="csteps">${b.steps.map(s => `<span>${I.check}${escapeHTML(s)}</span>`).join('')}</div>${buildCardHTML(w, b.n, w.working || 0)}<small class="note">${b.note || 'About 1 min · you can leave, I’ll let you know'}</small></div>`; }
 function thinkingHTML(w, line) { return `<div class="ma" id="live" data-w="${w.id}"><div class="think-row"><img src="${M('mascot-think.webp')}" alt=""><b>Thinking…</b></div><p class="live-line">${escapeHTML(line)}</p></div>`; }
 const defaultThought = (w, v) => w.kind !== 'game' ? null : v.n === 1 ? { secs:38, steps:['Read your idea', 'Built the world and characters', 'Played it to check'] } : { secs: 9 + (v.n * 5) % 12, steps:[`Read it: ${String(v.ask || v.note).toLowerCase()}`, 'Updated the levels', 'Played it to check'] };
 function threadHTML(w) {
@@ -2476,7 +2510,7 @@ function threadHTML(w) {
   if (w.plan) {
     h += userBubbleHTML(w.prompt, w.atts);
     if (w.planning) return h + thinkingHTML(w, 'Working out the world, the rules and how it should feel.');
-    h += `<div class="ma">${thoughtHTML({ secs:6, steps:['Read your idea', `Picked a ${w.plan.genre.toLowerCase()} game`, 'Wrote the plan'] }, w.id + '-plan')}<p>Here’s my plan. Change anything, or build it.</p>${planCardHTML(w)}</div>`;
+    h += `<div class="ma"><p>Here’s my plan. Change anything, or build it.</p>${planCardHTML(w)}</div>`;
     h += (w.plan.notes || []).map(n => userBubbleHTML(n) + `<div class="ma"><p>Got it, I added that to the plan. Open it to check.</p></div>`).join('');
   }
   h += w.versions.map(v => { const t = v.thought || defaultThought(w, v); return (v.fromPlan ? '' : userBubbleHTML(v.ask, v.atts, v.via)) + `<div class="ma">${t ? thoughtHTML(t, w.id + '-' + v.n) : ''}<p>${escapeHTML(v.reply)}</p>${versionCardHTML(w, v)}</div>`; }).join('');
@@ -2505,7 +2539,7 @@ function openWorkChat(w, o = {}) {
   w.unread = false; renderChats(); state.chatAtts = []; attachTarget = 'chat';
   const left = o.ctx === 'create' ? `<button class="icon-btn" data-act="vw-close" data-w="${w.id}" aria-label="Close">${I.close}</button>` : `<button class="icon-btn" data-act="sub-close" aria-label="Back">${I.back}</button>`;
   const planStage = w.plan && !w.plan.used && !w.versions.length;
-  const chips = w.kind === '3d' ? ['Try Flocked', 'Try Pixelated', 'Bigger eyes', 'Sitting pose'] : planStage ? ['Make it co-op', 'Add a pet', 'Night time', 'Shorter'] : ['Make it harder', 'Add a boss', 'Night mode', '2-player'];
+  const chips = w.kind === '3d' ? ['Try Flocked', 'Try Pixelated', 'Bigger eyes', 'Sitting pose'] : planStage ? ['Make it 2-player', 'Add a boss', 'Snowy city', 'Shorter'] : ['Make it harder', 'Add a boss', 'Night mode', '2-player'];
   const s = openSub('sub-chat', `${head(left, `<b id="chatTitle">${escapeHTML(w.title)}</b>`)}
     <div class="thread-wrap"><div class="thread" id="thread">${threadHTML(w)}</div></div>
     <div class="chat-foot"><div class="hscroll" id="chatChips">${chips.map(c => `<button class="chip" data-act="chat-sugg" data-w="${w.id}">${c}</button>`).join('')}</div><div class="chat-atts" id="chatAtts" hidden></div>${inbarHTML('chat', 'Message', 'Tell me what to change…', 'chat-add')}</div>`);
@@ -2564,7 +2598,7 @@ function tweak(w, text, opt = {}) {
       }
       w.versions.push({ n, ask:text, atts:p.atts, via:p.via, note:text, reply:`Done! I applied “${text}”. Same style, new version.`, thought:{ secs: 9 + Math.round(Math.random() * 10), steps:[`Read it: ${text.toLowerCase()}`, ...steps.slice(0, 2), 'Played it to check'] } });
       w.last = `Wana: v${n} is ready.`; w.time = 'now'; w.rec = Date.now(); rerenderThread(w); setStop(false, w); renderChats(); renderMe();
-      if (!$('#sub-chat').classList.contains('in') || $('#sub-chat').dataset.w !== w.id) { w.unread = true; state.chatsDot = state.tab !== 'chats'; updateTabDot(); renderChats(); toast(`${w.title} v${n} is ready`, 'Open', () => openWorkChat(w, { ctx:'sub' })); }
+      if (!$('#sub-chat').classList.contains('in') || $('#sub-chat').dataset.w !== w.id) { w.unread = true; state.chatsDot = state.tab !== 'chats'; updateTabDot(); renderChats(); readyBanner(w, () => openWorkChat(w, { ctx:'sub' })); }
     });
   }, 1500);
 }
@@ -2578,10 +2612,9 @@ function renderChats() {
   if (f !== 'wana') Object.keys(state.dms).forEach(n => items.push({ t:'f', n, pin:state.dms[n].pinned, rec:recNow(state.dms[n]) }));
   items.sort((a, b) => b.rec - a.rec);
   const row = it => it.t === 'w' ? rowHTML(it.w) : friendRowHTML(it.n);
-  const day = Date.now() - 1440 * 60000;
-  const pinned = items.filter(i => i.pin), today = items.filter(i => !i.pin && i.rec > day), older = items.filter(i => !i.pin && i.rec <= day);
+  const pinned = items.filter(i => i.pin), today = items.filter(i => !i.pin);
   const sec = (l, a) => a.length ? `<div class="ch-label">${l}</div>${a.map(row).join('')}` : '';
-  const list = items.length ? sec('Pinned', pinned) + sec('Today', today) + sec('Earlier', older) :`<div class="ch-empty"><img src="${M('mascot-plus.webp')}" alt=""><b>No chats yet</b><small>Everything you make with Wana shows up here.</small><button class="cta-white" data-act="open-create">Start creating</button></div>`;
+  const list = items.length ? sec('Pinned', pinned) + sec('Today', today) :`<div class="ch-empty"><img src="${M('mascot-plus.webp')}" alt=""><b>No chats yet</b><small>Everything you make with Wana shows up here.</small><button class="cta-white" data-act="open-create">Start creating</button></div>`;
   const label = { all:'', wana:'With Wana', friends:'Friends' }[f];
   wrap.innerHTML = `<div class="ch-head"><h1>Chats${label ? `<button class="ch-fchip" data-act="ch-filter-set" data-k="all">${label}${I.close}</button>` : ''}</h1><span class="ch-btns"><button class="icon-btn${f !== 'all' ? ' on' : ''}" data-act="ch-filter" aria-label="Filter">${I.filter}</button><button class="icon-btn" data-act="noop" aria-label="Search">${I.search}</button></span></div><div class="ch-list">${list}</div>`;
   pixelAll(wrap);
@@ -2593,10 +2626,10 @@ function chatFilterMenu(b) {
 
 /* ---------- Me: Project (Game / Assets / Chat), Swap, My 3D, Notifications, Settings ---------- */
 const GAME_ASSETS = { // [name, type, centre x, centre y, crop size] in the cover image's pixels
-  deep:[['Shark boss', 'Character', 195, 175, 250], ['Red fish', 'Character', 358, 262, 110], ['Yellow fish', 'Character', 288, 322, 80], ['Reef', 'World', 90, 330, 150]],
-  paw:[['Cat runner', 'Character', 480, 170, 260], ['Rooftops', 'World', 500, 360, 120], ['Logo', 'Prop', 230, 175, 300]],
-  dark:[['Torch hero', 'Character', 329, 347, 180], ['Statue', 'Prop', 480, 285, 160], ['Dungeon', 'World', 360, 500, 500]],
-  escape:[['Runner', 'Character', 305, 235, 200], ['Office', 'World', 620, 130, 220], ['Coins', 'Prop', 500, 300, 140]],
+  deep:[['Shark boss', 'Character', 195, 175, 250], ['Red fish', 'Character', 358, 262, 110], ['Yellow fish', 'Character', 288, 322, 80], ['Blue fish', 'Character', 350, 145, 80], ['Reef', 'World', 90, 330, 150]],
+  paw:[['Cat runner', 'Character', 480, 170, 260], ['Rooftops', 'World', 500, 360, 120], ['Logo', 'World', 230, 175, 300]],
+  dark:[['Torch hero', 'Character', 329, 347, 180], ['Statue', 'World', 480, 285, 160], ['Dungeon', 'World', 360, 500, 500]],
+  escape:[['Runner', 'Character', 305, 235, 200], ['Office', 'World', 620, 130, 220], ['Coins', 'World', 500, 300, 140]],
 };
 const IMG_WH = { deep:[720, 405], paw:[720, 405], escape:[720, 405], clash:[720, 405], dark:[720, 720] };
 function gameAssets(w) { if (!w.assets) w.assets = (GAME_ASSETS[w.base] || [['Hero', 'Character', 270, 600, 300], ['Rival', 'Character', 380, 480, 300], ['World', 'World', 270, 300, 500]]).map(([name, type, cx, cy, r]) => ({ name, type, cx, cy, r })); return w.assets; }
@@ -2611,10 +2644,10 @@ function renderProject(w, tab) {
   const v = latest(w), live = w.publishedV, draft = isDraft(w), g = G[w.base];
   let body = '';
   if (tab === 'game') body = `<div class="pj-hero" data-act="pj-play" data-w="${w.id}">${mediaHTML(g, 'media', true)}<span class="tagpx">V${v.n} · ${draft ? 'DRAFT' : 'LIVE'}</span><span class="vw-play">${I.play}</span><div class="vw-info"><h2>${escapeHTML(w.title)}</h2><small>${live ? `v${live} is live · ${g.plays} plays · ${g.likes} likes` : 'Not published yet · only you can see it'}</small></div></div>
-    <div class="pj-lb">Versions</div><div class="pj-vers hscroll">${[...w.versions].reverse().map(x => `<button class="pj-ver${x.n === v.n ? ' on' : ''}" data-act="pj-ver" data-w="${w.id}" data-v="${x.n}"><span class="th"><img src="${poster(g)}" alt=""><span class="tagpx${live === x.n ? ' lime' : ''}">${live === x.n ? 'LIVE' : (x.n === v.n && draft ? 'DRAFT' : 'V' + x.n)}</span></span><small>V${x.n} · ${escapeHTML(x.note)}</small></button>`).join('')}</div>
+    <div class="pj-lb">Versions</div><div class="pj-vers hscroll">${[...w.versions].reverse().map(x => `<button class="pj-ver${x.n === v.n ? ' on' : ''}" data-act="pj-ver" data-w="${w.id}" data-v="${x.n}"><span class="th"><img src="${poster(g)}" alt=""><span class="tagpx${live === x.n ? ' lime' : ''}">${live === x.n ? 'LIVE' : (x.n === v.n && draft ? 'DRAFT' : 'V' + x.n)}</span></span><small>V${x.n}${x.n === v.n ? ' · latest' : x.n === 1 ? ' · first' : ''}</small></button>`).join('')}</div>
     <div class="pj-foot"><button class="sec" data-act="pj-edit" data-w="${w.id}">${I.pencil}Keep editing</button>${draft ? `<button class="pri" data-act="vw-publish" data-w="${w.id}" data-v="${v.n}" data-ctx="me">${I.publish}Publish v${v.n}</button>` : `<button class="pri" data-act="vw-share" data-w="${w.id}">${I.shareL}Share</button>`}</div>`;
   const af = s.dataset.af || 'All';
-  if (tab === 'assets') body = `<div class="pj-af hscroll">${['All', 'Character', 'World', 'Prop'].map(k => `<button class="chip${k === af ? ' on' : ''}" data-act="pj-af" data-k="${k}">${k === 'All' ? 'All' : k + 's'}</button>`).join('')}</div><div class="pj-assets">${gameAssets(w).map((a, i) => af !== 'All' && a.type !== af ? '' : `<button class="pj-asset" data-act="${a.swapping ? 'noop' : 'pj-asset'}" data-w="${w.id}" data-i="${i}"><span class="th">${assetThumbHTML(w, a)}${a.swapping ? `<span class="sw"><b>Swapping…</b><i><u></u></i></span>` : ''}${a.isNew ? `<span class="tagpx lime">NEW · V${a.isNew}</span>` : ''}</span><b>${escapeHTML(a.name)}</b><small>${a.swapping ? 'Swapping in…' : a.model ? a.type + ' · your 3D' : a.type}</small></button>`).join('')}</div><p class="pj-tip">Tap an asset to swap it.</p>`;
+  if (tab === 'assets') body = `<div class="pj-af hscroll">${['All', 'Character', 'World', 'Sound'].map(k => `<button class="chip${k === af ? ' on' : ''}" data-act="pj-af" data-k="${k}">${k === 'Character' ? 'Characters' : k}</button>`).join('')}</div><div class="pj-assets">${gameAssets(w).map((a, i) => af !== 'All' && a.type !== af ? '' : `<button class="pj-asset" data-act="${a.swapping ? 'noop' : 'pj-asset'}" data-w="${w.id}" data-i="${i}"><span class="th">${assetThumbHTML(w, a)}${a.swapping ? `<span class="sw"><b>Swapping…</b><i><u></u></i></span>` : ''}${a.isNew ? `<span class="tagpx lime">NEW · V${a.isNew}</span>` : ''}</span><b>${escapeHTML(a.name)}</b><small>${a.swapping ? 'Swapping in…' : a.model ? a.type + ' · your 3D' : a.type}</small></button>`).join('')}</div><p class="pj-tip">Tap an asset to swap it, change it, or keep it in My Assets.</p>`;
   if (tab === 'chat') body = `<div class="pj-chat"><div class="thread" id="pjThread">${threadHTML(w)}</div></div><div class="pj-foot"><button class="pri wide" data-act="pj-edit" data-w="${w.id}">${I.pencil}Keep editing</button></div>`;
   s.innerHTML = `${head(xBtn('sub-close', 'back'), `<b>${escapeHTML(w.title)}</b>`, `<button class="icon-btn" data-act="vw-more" data-w="${w.id}" data-v="${v.n}" aria-label="More">${I.more}</button>`)}
     <div class="pj-tabs">${['game', 'assets', 'chat'].map(t => `<button class="${t === tab ? 'on' : ''}" data-act="pj-tab" data-k="${t}">${t[0].toUpperCase() + t.slice(1)}${t === 'assets' ? `<i>${gameAssets(w).length}</i>` : ''}</button>`).join('')}</div>
@@ -2625,13 +2658,13 @@ function renderProject(w, tab) {
 }
 let swapCtx = null;
 function swapSheet(w, i) {
-  const a = gameAssets(w)[i]; const mine = assetList(); swapCtx = { w, i, pick:null };
+  const a = gameAssets(w)[i]; const mine = state.works.filter(x => x.kind === '3d' && x.working == null); swapCtx = { w, i, pick:null };
   openSheet(`<div class="swap"><h3>Swap ${escapeHTML(a.name)}</h3>
     <div class="sw-cmp"><div class="sw-c"><span class="th">${assetThumbHTML(w, a)}</span><small>Now · ${escapeHTML(a.name)}</small></div><span class="sw-ar">${I.arrowR}</span><div class="sw-c" id="swNew"><span class="th ph">Pick one below</span><small>New</small></div></div>
-    <div class="sw-lb">Your 3D</div>
-    <div class="sw-grid"><button class="sw-snap" data-act="sw-snap"><span class="th">${I.cube}<b>Snap 3D</b></span></button>${mine.map((m, k) => `<button data-act="sw-pick" data-k="${k}"><span class="th">${modelImg(m.w, m.v, '')}</span>${escapeHTML(m.name)}</button>`).join('')}</div>
+    <div class="sw-lb">Pick model</div>
+    <div class="sw-grid"><button class="sw-snap" data-act="sw-snap"><span class="th">${I.cube}<b>Snap 3D</b></span></button>${mine.map((m, k) => `<button data-act="sw-pick" data-k="${k}"><span class="th">${modelImg(m, latest(m), '')}</span>${escapeHTML(m.title)}</button>`).join('')}</div>
     <button class="post" id="swGo" data-act="sw-go" disabled>${I.swap}Swap</button></div>`, {
-    'sw-pick': b => { swapCtx.pick = mine[+b.dataset.k]; $$('.sw-grid [data-act="sw-pick"]').forEach(x => x.classList.toggle('on', x === b)); $('#swNew').innerHTML = `<span class="th on">${modelImg(swapCtx.pick.w, swapCtx.pick.v, '')}</span><small>New · ${escapeHTML(swapCtx.pick.w.title)}</small>`; pixelAll($('#swNew')); const g = $('#swGo'); g.disabled = false; g.innerHTML = `${I.swap}Swap · makes v${latest(w).n + 1}`; },
+    'sw-pick': b => { const m = mine[+b.dataset.k]; swapCtx.pick = { w:m, v:latest(m) }; $$('.sw-grid [data-act="sw-pick"]').forEach(x => x.classList.toggle('on', x === b)); $('#swNew').innerHTML = `<span class="th on">${modelImg(m, latest(m), '')}</span><small>New · ${escapeHTML(m.title)}</small>`; pixelAll($('#swNew')); const g = $('#swGo'); g.disabled = false; g.innerHTML = `${I.swap}Swap · makes v${latest(w).n + 1}`; },
     'sw-go': () => doSwap(),
     'sw-snap': () => { closeSheet(); closeAllSubs(); openCreate('snap'); },
   });
@@ -2647,13 +2680,6 @@ function doSwap() {
     if (subStack.includes('sub-project') && $('#sub-project').dataset.w === w.id) renderProject(w, $('#sub-project').dataset.tab);
     toast(`v${n} is ready · ${pick.w.title} is in`); }, 2600);
 }
-function my3DSheet(w, n) {
-  const v = verOf(w, n);
-  openSheet(`<div class="my3d"><div class="stage" id="m3Stage"><span class="tagpx">3D · ${styleOf(v.style).label.toUpperCase()}</span><span class="plate"></span><div class="mw">${modelImg(w, v)}</div><span class="spin">${I.rotate}Drag to spin</span></div>
-    <div class="m3-t"><span><b>${escapeHTML(w.title)}</b><small>Your 3D · in Assets · synced to Studio</small></span><button class="icon-btn" data-act="m3-more" data-w="${w.id}" aria-label="More">${I.more}</button></div>
-    <div class="m3-acts"><button class="sec" data-act="m3-edit" data-w="${w.id}">${I.pencil}Keep editing</button><button class="pri" data-act="m3-game" data-w="${w.id}" data-v="${v.n}">${I.games}Put in a game</button></div></div>`);
-  pixelAll($('#sheetBody')); wireSpin($('#m3Stage'), $('#m3Stage .mw img'));
-}
 function openNotifs() {
   state.notifSeen = true; renderMe();
   const rows = [
@@ -2668,16 +2694,11 @@ function openNotifs() {
   openSub('sub-notif', `${head(xBtn('sub-close', 'back'), '<b>Notifications</b>')}<div class="s-body vscroll nt"><div class="nt-lb">New</div>${rows.filter(r => r[0] === 'new').map(row).join('')}<div class="nt-lb">Earlier</div>${rows.filter(r => r[0] === 'old').map(row).join('')}</div>`);
 }
 function openSettings() {
-  const st = state.settings;
   const r = (l, right, act, cls = '') => `<button class="set-row ${cls}" data-act="${act || 'noop'}"><span>${l}</span>${right}</button>`;
-  const v = (t) => `<small>${t}</small>${I.chevR}`;
-  const sw = (on, k) => `<span class="switch${on ? ' on' : ''}" data-k="${k}"><i></i></span>`;
   openSub('sub-settings', `${head(xBtn('sub-close', 'back'), '<b>Settings</b>')}<div class="s-body vscroll set">
-    <small class="pxl">ACCOUNT</small><div class="set-card">${r('Edit profile', I.chevR)}${r('Username', v('@yy.makes'))}${r(state.signedIn ? 'Signed in' : 'Sign in', state.signedIn ? '<small>Apple</small>' : I.chevR, state.signedIn ? 'noop' : 'set-signin')}</div>
-    <small class="pxl">PLAN</small><div class="set-card"><div class="set-row"><span>Free · ${state.credits} / 5 today</span><button class="mini-w" data-act="get-plus">Get Plus</button></div></div>
-    <small class="pxl">PRIVACY</small><div class="set-card">${r('Who can play my games', v(st.who), 'set-pick" data-k="who')}${r('Who can remix them', v(st.remix), 'set-pick" data-k="remix')}${r('Who can put me in games', v(st.putMe), 'set-pick" data-k="putMe')}</div>
-    <small class="pxl">NOTIFICATIONS</small><div class="set-card">${r('Push notifications', sw(st.push, 'push'), 'set-toggle')}</div>
-    <small class="pxl">MORE</small><div class="set-card">${r('Help & about', I.chevR)}${r('Replay intro', I.chevR, 'set-intro')}${state.signedIn ? r('Log out', '', 'set-logout', 'red') : ''}</div>
+    <small class="pxl">ACCOUNT</small><div class="set-card">${r('Edit profile', I.chevR)}${r('Username', `<small>@yy.makes</small>${I.chevR}`)}</div>
+    <small class="pxl">NOTIFICATIONS</small><div class="set-card">${r('Push notifications', `<span class="switch${state.settings.push ? ' on' : ''}"><i></i></span>`, 'set-toggle')}</div>
+    <small class="pxl">MORE</small><div class="set-card">${r('Help & about', I.chevR)}${r('Log out', '', 'set-logout', 'red')}</div>
   </div>`);
 }
 
@@ -2685,39 +2706,51 @@ function openSettings() {
 const TAKE_CROPS = ['45%', '25%', '75%', '60%', '35%']; // which part of the game each take frames
 let pubCtx = null;
 function publishSheet(w, n, ctx) {
-  pubCtx = { w, n, ctx, who:'Everyone', remix:true, takes:[{ id:'wana', by:'wana', ready:false, pct:0, crop:0 }], sel:'wana', k:0 };
-  openPubSheet(); runWanaTake();
+  pubCtx = { w, n, ctx, who:'Everyone', remix:true, takes:[], sel:null, k:0, wk:0 };
+  newWanaTake(); openPubSheet();
 }
+// ↻ makes another take by Wana (Wana’s take2…), it lands after the other Wana takes and gets selected
+function newWanaTake() {
+  const k = ++pubCtx.wk, t = { id:'wana' + k, by:'wana', k, ready:false, pct:0, crop:k - 1 };
+  pubCtx.takes.splice(pubCtx.takes.filter(x => x.by === 'wana').length, 0, t); pubCtx.sel = t.id; runWanaTake(t);
+}
+const takeName = t => t.by === 'wana' ? (t.k > 1 ? 'Wana’s take' + t.k : 'Wana’s take') : 'Take ' + t.k;
 function selTake() { return pubCtx.takes.find(t => t.id === pubCtx.sel); }
 function takeCard(t) {
-  const on = t.id === pubCtx.sel, g = G[pubCtx.w.base];
+  const on = t.id === pubCtx.sel, g = G[pubCtx.w.base], first = pubCtx.takes.length === 1;
   const x = TAKE_CROPS[t.crop % TAKE_CROPS.length], inner = t.ready ? `<img src="${poster(g)}" style="object-position:${x} 50%;transform:scale(1.5);transform-origin:${x} 85%" alt=""><span class="tk-play" data-act="take-view" data-id="${t.id}">${I.play}</span><span class="tk-dur">0:15</span>${t.by === 'wana' ? `<span class="tk-new" data-act="take-new">${I.reload}</span>` : ''}`
     : `<img src="${poster(g)}" alt=""><span class="tk-mk"><small>Wana is playing…</small><b>0:${String(Math.round(t.pct * .15)).padStart(2, '0')} / 0:15</b><i><u style="width:${t.pct}%"></u></i></span>`;
-  return `<div class="take${on ? ' on' : ''}"><button class="th" data-act="take-pick" data-id="${t.id}">${inner}<span class="tagpx lime">${t.by === 'wana' ? 'BY WANA' : 'TAKE ' + t.k}</span>${on ? `<span class="tk-ck">${I.check}</span>` : ''}</button><b>${t.by === 'wana' ? 'Wana’s take' : 'Take ' + t.k}</b><small>${t.by === 'wana' ? 'AI camera, first-person' : 'Your play · just now'}</small></div>`;
+  const label = t.by === 'wana' && first && !t.ready ? 'Wana plays it' : takeName(t);
+  const sub = t.by === 'wana' ? (first && !t.ready ? 'AI camera, first-person' : 'AI camera') : 'Your play · just now';
+  return `<div class="take${on ? ' on' : ''}"><button class="th" data-act="take-pick" data-id="${t.id}">${inner}<span class="tagpx lime">${t.by === 'wana' ? 'BY WANA' : 'TAKE ' + t.k}</span>${on ? `<span class="tk-ck">${I.check}</span>` : ''}</button><b>${label}</b><small>${sub}</small></div>`;
 }
-function takesHTML() { return pubCtx.takes.map(takeCard).join('') + `<div class="take add"><button class="th" data-act="take-add"><span class="tk-plus">${I.plus}</span><b>Record</b></button><b>Add</b><small>Record another take</small></div>`; }
+function takesHTML() {
+  const add = pubCtx.takes.length === 1
+    ? `<div class="take add"><button class="th" data-act="take-add"><span class="tk-rec"><i></i></span><small>Play 15s</small></button><b>Record my play</b><small>You play, we record</small></div>`
+    : `<div class="take add"><button class="th" data-act="take-add"><span class="tk-plus">${I.plus}</span><b>Record</b></button><b>Add</b><small>Record another</small></div>`;
+  return pubCtx.takes.map(takeCard).join('') + add;
+}
 function keepPubTitle() { const t = $('#pubTitle'); if (t) pubCtx.title = t.value; }
 function openPubSheet() {
   const { w, n } = pubCtx, ready = selTake().ready;
   openSheet(`<div class="pub"><h3>Publish${w.versions.length > 1 ? ' v' + n : ''}</h3>
-    <div class="lb">Preview video <span>15s · swipe to compare</span></div><div class="takes hscroll" id="takes">${takesHTML()}</div>
+    <div class="lb">Preview video <span id="takesSub">${pubCtx.takes.length > 1 ? '15s · swipe to compare' : '15s · plays in the feed'}</span></div><div class="takes hscroll" id="takes">${takesHTML()}</div>
     <div class="lb">Title</div><input class="field" id="pubTitle" value="${escapeHTML(pubCtx.title != null ? pubCtx.title : w.title)}" maxlength="40">
     <div class="lb">Who can play</div><div class="seg2">${['Everyone', 'Friends', 'Only me'].map(x => `<button class="${x === pubCtx.who ? 'on' : ''}" data-act="pub-who" data-k="${x}">${x}</button>`).join('')}</div>
     <div class="rowsw"><span class="t"><b>Allow remix</b><small>Others can make their own version</small></span><button class="switch${pubCtx.remix ? ' on' : ''}" data-act="pub-remix" aria-label="Allow remix"><i></i></button></div>
     <button class="post" id="pubPost" data-act="pub-post" ${ready ? '' : 'disabled'}>${ready ? 'Post' : 'Post · preview almost ready'}</button></div>`);
 }
-function refreshTakes() { const t = $('#takes'); if (!t) return; const sl = t.scrollLeft; t.innerHTML = takesHTML(); t.scrollLeft = sl; const p = $('#pubPost'), ready = selTake().ready; if (p) { p.disabled = !ready; p.textContent = ready ? 'Post' : 'Post · preview almost ready'; } }
-function runWanaTake() {
-  const t = pubCtx.takes.find(x => x.id === 'wana'); t.ready = false; t.pct = 0;
-  clearInterval(pubCtx.iv);
-  pubCtx.iv = setInterval(() => { t.pct = Math.min(100, t.pct + 4); if (t.pct >= 100) { t.ready = true; clearInterval(pubCtx.iv); } refreshTakes(); }, 110);
+function refreshTakes() { const t = $('#takes'); if (!t) return; const sl = t.scrollLeft; t.innerHTML = takesHTML(); t.scrollLeft = sl; $('#takesSub').textContent = pubCtx.takes.length > 1 ? '15s · swipe to compare' : '15s · plays in the feed'; const p = $('#pubPost'), ready = selTake().ready; if (p) { p.disabled = !ready; p.textContent = ready ? 'Post' : 'Post · preview almost ready'; } }
+function runWanaTake(t) {
+  clearInterval(t.iv);
+  t.iv = setInterval(() => { t.pct = Math.min(100, t.pct + 4); if (t.pct >= 100) { t.ready = true; clearInterval(t.iv); } refreshTakes(); }, 110);
 }
 function openViewer(id) {
   keepPubTitle(); closeSheet(); const ts = pubCtx.takes.filter(t => t.ready); let cur = Math.max(0, ts.findIndex(t => t.id === id));
-  const draw = () => { const t = ts[cur], s = $('#sub-take'); const g = G[pubCtx.w.base];
+  const draw = () => { const t = ts[cur], s = $('#sub-take'), g = G[pubCtx.w.base], multi = ts.length > 1;
     s.innerHTML = `<img class="tv-img" src="${poster(g)}" style="object-position:${TAKE_CROPS[t.crop % TAKE_CROPS.length]} 50%" alt=""><span class="tv-fade"></span>
-      <div class="tv-prog"><u></u></div>${xBtn('tv-back')}<div class="tv-pills">${ts.map((x, i) => `<button class="${i === cur ? 'on' : ''}" data-act="tv-go" data-i="${i}">${x.by === 'wana' ? 'Wana' : 'Take ' + x.k}</button>`).join('')}</div>
-      <div class="tv-info"><h2>${escapeHTML(pubCtx.w.title)}</h2><small>${t.by === 'wana' ? 'Wana’s take' : 'Take ' + t.k} · swipe to compare</small></div>
+      <div class="tv-prog"><u></u></div>${xBtn('tv-back')}${multi ? `<div class="tv-pills">${ts.map((x, i) => `<button class="${i === cur ? 'on' : ''}" data-act="tv-go" data-i="${i}">${x.by === 'wana' ? (x.k > 1 ? 'Wana ' + x.k : 'Wana') : 'Take ' + x.k}</button>`).join('')}</div>` : `<span class="tagpx lime tv-tag">${t.by === 'wana' ? 'BY WANA' : 'YOUR PLAY'} · 0:15</span>`}
+      <div class="tv-info"><h2>${escapeHTML(pubCtx.w.title)}</h2><small>${multi ? `${takeName(t)} · swipe to compare with the others` : 'This is how it plays in the feed'}</small></div>
       <div class="tv-acts">${t.by === 'wana' ? `<button class="sec" data-act="tv-new">${I.reload}New take</button>` : `<button class="sec" data-act="tv-del" data-id="${t.id}">${I.trash}Delete</button>`}<button class="pri" data-act="tv-use" data-id="${t.id}">Use this</button></div>`;
     fillIcons(s); };
   openSub('sub-take', '', 'up'); draw(); $('#sub-take')._draw = (i) => { cur = (i + ts.length) % ts.length; draw(); };
@@ -2752,37 +2785,36 @@ function onbDone() { try { localStorage.setItem('wk-onb', '1'); } catch (e) {} }
 function startOnboarding() {
   const o = $('#onb'); o.hidden = false; o.classList.remove('out');
   o.innerHTML = `<div class="onb-wall">${['cover-deep.webp', 'cover-paw.webp', 'cover-dungeon.webp', 'cover-clash.webp', 'g-cafe.jpg', 'cover-escape.webp', 'g-neon.jpg', 'g-ivy.jpg', 'g-garden.jpg'].map(c => `<img src="${M(c)}" alt="">`).join('')}</div><span class="onb-fade"></span>
-    <div class="onb-w"><img class="cat" src="${M('mascot-idle.gif')}" alt=""><h1>Play games.<br>Make your own.</h1><p>Tap to play. Type to make.</p><button class="cta-white" data-act="onb-start">Start playing</button><button class="lnk" data-act="onb-signin">I have an account</button></div>`;
-}
-function onbLikes() {
-  const o = $('#onb'); const picks = new Set(['Adventure', 'Pets']);
-  const tiles = [['Adventure', 'cover-dungeon.webp'], ['Racing', 'g-neon.jpg'], ['Pets', 'cover-paw.webp'], ['Battle', 'cover-clash.webp'], ['Ocean', 'cover-deep.webp'], ['Cozy', 'g-cafe.jpg']];
-  const draw = () => { o.innerHTML = `<div class="onb-l"><button class="lnk skip" data-act="onb-go">Skip</button><h2>What do you like to play?</h2><p>Pick a few. We’ll fill your feed.</p>
-    <div class="onb-grid">${tiles.map(([l, img]) => `<button class="${picks.has(l) ? 'on' : ''}" data-act="onb-like" data-k="${l}"><img src="${M(img)}" alt=""><b>${l}</b>${picks.has(l) ? `<i>${I.check}</i>` : ''}</button>`).join('')}</div>
-    <button class="cta-white go" data-act="onb-go">${picks.size ? `Continue · ${picks.size} picked` : 'Continue'}</button></div>`; };
-  o._toggle = k => { picks.has(k) ? picks.delete(k) : picks.add(k); draw(); };
-  draw();
+    <div class="onb-w"><img class="logo" src="${M('app-icon.webp')}" alt="Wanaka"><h1>Play games.<br>Make your own.</h1><p>Tap to play. Type to make.</p><button class="cta-white" data-act="onb-start">Start now</button><button class="lnk" data-act="onb-create">Create an account</button></div>`;
 }
 function onbFinish() { const o = $('#onb'); o.classList.add('out'); setTimeout(() => { o.hidden = true; o.innerHTML = ''; }, 380); setTab('home'); setTimeout(() => coachStep(1), 500); }
 function coachStep(n) {
   const c = $('#coach'); state.coach = n; c.hidden = false; c.className = 'coach s' + n;
-  const dots = `<div class="co-dots">${[1, 2, 3].map(i => `<i class="${i === n ? 'on' : ''}"></i>`).join('')}</div>${n < 3 ? '<button class="co-skipb" data-act="coach-skip">Skip</button>' : ''}`;
-  if (n === 3) $$('.card.tapped').forEach(x => x.classList.remove('tapped'));
-  if (n === 1) c.innerHTML = `${dots}<div class="co-bub" style="top:230px">Swipe up for more games</div><div class="co-swipe"><span class="trail"></span><span class="hand">${I.hand}</span></div>`;
-  if (n === 2) c.innerHTML = `${dots}<div class="co-bub" style="top:250px">Play it now, or Remix it your way</div><div class="co-tap"><i></i><i></i><span class="hand">${I.hand}</span></div>`;
-  if (n === 3) { const tb = $('#tabbar').getBoundingClientRect(), pr = phone.getBoundingClientRect(), sc = pr.width / phone.clientWidth; const cx = (tb.left - pr.left + tb.width / 2) / sc, cy = (tb.top - pr.top + tb.height / 2) / sc - 4;
-    c.innerHTML = `${dots}<span class="co-ring" style="left:${cx - 42}px;top:${cy - 42}px"></span><span class="co-ring r2" style="left:${cx - 60}px;top:${cy - 60}px"></span><div class="co-bub down" style="top:${cy - 116}px">Make your own game here</div><small class="co-skip">Tap anywhere to start</small>`; }
+  const dots = `<div class="co-dots">${[1, 2, 3].map(i => `<i class="${i === n ? 'on' : ''}"></i>`).join('')}</div>`;
+  if (n === 1) c.innerHTML = `${dots}<div class="co-bub down" style="top:222px">Swipe up for more games</div><div class="co-swipe"><span class="trail"></span><span class="hand">${I.hand}</span></div>`;
+  if (n === 2) c.innerHTML = `${dots}<div class="co-bub" style="top:178px">Play it now, or Remix it your way</div><div class="co-tap"><i></i><i></i><span class="hand">${I.hand}</span></div>`;
+  if (n === 3) { $$('.card.tapped').forEach(x => x.classList.remove('tapped'));
+    const tb = $('#tabbar').getBoundingClientRect(), pr = phone.getBoundingClientRect(), sc = pr.width / phone.clientWidth; const cx = (tb.left - pr.left + tb.width / 2) / sc, cy = (tb.top - pr.top + tb.height / 2) / sc - 4;
+    c.innerHTML = `${dots}<span class="co-ring" style="left:${cx - 42}px;top:${cy - 42}px"></span><span class="co-ring r2" style="left:${cx - 60}px;top:${cy - 60}px"></span><div class="co-bub down" style="top:${cy - 116}px">Make your own game here</div>`; }
 }
+function readyBanner(w, onOpen) {
+  const b = $('#rbanner'), g3 = w.kind === '3d';
+  b.innerHTML = `${g3 ? `<span class="rb-th model">${modelImg(w, latest(w), '')}</span>` : `<img class="rb-th" src="${poster(G[w.base])}" alt="">`}<span class="rb-t"><b>${escapeHTML(w.title)} is ready</b><small>${g3 ? 'Tap to see it or keep tweaking' : 'Tap to play or keep tweaking'}</small></span><span class="rb-open">Open</span>`;
+  pixelAll(b); b.hidden = false; requestAnimationFrame(() => requestAnimationFrame(() => b.classList.add('in')));
+  b.onclick = () => { hideBanner(); onOpen(); };
+  clearTimeout(b._t); b._t = setTimeout(hideBanner, 5600);
+}
+function hideBanner() { const b = $('#rbanner'); b.classList.remove('in'); setTimeout(() => { if (!b.classList.contains('in')) b.hidden = true; }, 320); }
 function coachEnd() { const c = $('#coach'); c.hidden = true; c.innerHTML = ''; state.coach = 0; onbDone(); }
 
 /* ---------- feed cards: Friends shows why, Remix has an idea box ---------- */
 function slideHTML(g, ctx = '') {
-  const why = ctx === 'friends' && WHY[g.id], rx = ctx === 'remix';
+  const reacts = ctx === 'friends' && REACTS[g.id], rx = ctx === 'remix';
   return `<article class="slide${rx ? ' rx' : ''}" data-g="${g.id}">
     <div class="card" data-card>
       ${mediaHTML(g)}
-      ${why ? `<span class="why glass"><img src="${M(why[1] + '.webp')}" alt="">${why[0]} ${why[2]}</span>` : ''}
-      ${rx ? `<button class="rx-in glass" data-act="rx-input"><span class="ri">${I.remix}</span><span class="rt">${REMIX_IDEAS[g.id] || 'Make it your own'}</span><span class="go">${I.arrowUp}</span></button><span class="rx-n glass">${I.remix}${(g.plays || '1k').replace(/\..*k/, 'k')} remixes</span>` : ''}
+      ${reacts ? `<span class="reacts">${reacts.map(([av, t]) => `<span class="re glass"><img src="${M(av + '.webp')}" alt="">${t === '❤' ? `<i class="hrt">${I.heart}</i>` : `<b>${t}</b>`}</span>`).join('')}</span>` : ''}
+      ${rx ? `<button class="rx-in glass" data-act="rx-input">${I.remix}<span>${REMIX_IDEAS[g.id] || 'Make it your own'}…</span></button>` : ''}
       <div class="ov">
         <button class="more" data-act="card-more" aria-label="More">${IC('more', 22)}</button>
         <div class="ctas">
@@ -2848,10 +2880,10 @@ const A = {
   'picker-done': () => { const items = pickerCfg.sel.map(i => pickerCfg.items[i]); const p = pickerCfg.purpose; closeSub('sub-picker');
     if (p === 'snap') { const ph = items[0].replace('.webp', ''); setTimeout(() => openStyle(SNAPS[ph] ? ph : 'photo-cafe'), 200); }
     else { items.forEach(x => addAttachment(x, 'Main character')); toast(`Added ${items.length} to your idea`); } },
-  'gen-notify': () => { const w = genWork; clearTimers('sub-gen'); closeCreate(); resetPrompt(); toast('Building in the background · it’s in Chats'); finishInBackground(w, () => { finishGame(w, false); w.unread = true; renderChats(); toast(`${w.title} is ready`, 'Open', () => openView(w, { v:1, ctx:'chats', first:true })); }); },
+  'gen-notify': () => { const w = genWork; clearTimers('sub-gen'); closeCreate(); resetPrompt(); toast('Building in the background · it’s in Chats'); finishInBackground(w, () => { finishGame(w, false); w.unread = true; renderChats(); readyBanner(w, () => openView(w, { v:1, ctx:'chats', first:true })); }); },
   'build-notify': () => { clearTimers('sub-build'); const c = Object.assign({}, snapCtx); closeSub('sub-build'); closeSub('sub-style'); setMode('snap'); toast('Building in the background · it’s in Chats');
     const ph = newWork({ kind:'3d', title:c.name, model:c.model, working:0 }); renderChats();
-    finishInBackground(ph, () => { state.works.splice(state.works.indexOf(ph), 1); const w = finish3D(c, false); w.unread = true; renderChats(); toast(`${w.title} is ready in 3D`, 'Open', () => openView(w, { v:1, ctx:'chats', first:true })); }); },
+    finishInBackground(ph, () => { state.works.splice(state.works.indexOf(ph), 1); const w = finish3D(c, false); w.unread = true; renderChats(); readyBanner(w, () => openView(w, { v:1, ctx:'chats', first:true })); }); },
   'sub-close': () => closeSub(),
   'good': (b) => { b.style.color = 'var(--white)'; toast('Thanks for the feedback'); },
   'shutter': () => { const f = $('#flash'); f.animate([{ opacity:.95 }, { opacity:0 }], { duration:320 }); buzz(12); setTimeout(() => openStyle('photo-shiba'), 260); },
@@ -2965,27 +2997,15 @@ Object.assign(A, {
   'me-settings': () => openSettings(),
   'me-draft': (b) => openProject(workById(b.dataset.w)),
   'me-game': (b) => openProject(workById(b.dataset.w)),
-  'me-asset': (b) => my3DSheet(workById(b.dataset.w), +b.dataset.v),
   'pj-tab': (b) => { const s = $('#sub-project'); renderProject(workById(s.dataset.w), b.dataset.k); },
   'pj-af': (b) => { const s = $('#sub-project'); s.dataset.af = b.dataset.k; renderProject(workById(s.dataset.w), 'assets'); },
   'pj-play': (b, e) => { if (e.target.closest('button')) return; const w = workById(b.dataset.w); enterWorld(gameOf(w), b, null, null, $('video', b)); },
   'pj-ver': (b) => openView(workById(b.dataset.w), { v:+b.dataset.v, ctx:'me' }),
   'pj-edit': (b) => openWorkChat(workById(b.dataset.w), { ctx:'sub' }),
   'pj-asset': (b) => swapSheet(workById(b.dataset.w), +b.dataset.i),
-  'm3-more': (b) => { const m = $('.m3-menu'); if (m) { m.remove(); return; } b.closest('.m3-t').insertAdjacentHTML('afterend', `<div class="m3-menu"><button data-act="m3-rename" data-w="${b.dataset.w}">${I.pencil}Rename</button><button class="red" data-act="m3-delete" data-w="${b.dataset.w}">${I.trash}Delete</button></div>`); },
-  'm3-rename': (b) => { const w = workById(b.dataset.w); renameSheet(w.title, v => { w.title = v; renderChats(); renderMe(); toast('Renamed'); }); },
-  'm3-delete': (b) => { const w = workById(b.dataset.w); openSheet(`<div class="confirm"><h3>Delete ${escapeHTML(w.title)}?</h3><p>It’s removed from Assets and its chat. Games already using it keep their copy.</p><button class="dbtn" data-act="vw-delete-yes" data-w="${w.id}">Delete</button><button class="cbtn" data-act="sheet-close">Cancel</button></div>`); },
-  'm3-edit': (b) => { closeSheet(); openWorkChat(workById(b.dataset.w), { ctx:'sub' }); },
-  'm3-game': (b) => putInGame(workById(b.dataset.w), +b.dataset.v),
   'nt-game': (b) => { const id = b.dataset.g, mine = state.works.find(w => w.base === id && w.kind === 'game'); if (mine) openProject(mine); else enterWorld(G[id], b, null, null, null); },
   'nt-follow': (b) => { b.classList.toggle('done'); b.textContent = b.classList.contains('done') ? 'Following' : 'Follow back'; },
-  'set-signin': () => signInSheet(() => { closeSub('sub-settings', true); openSettings(); }),
   'set-toggle': (b) => { state.settings.push = !state.settings.push; $('.switch', b).classList.toggle('on', state.settings.push); },
-  'set-pick': (b) => { const k = b.dataset.k, st = state.settings; const opts = k === 'putMe' ? ['Everyone', 'Friends', 'No one'] : ['Everyone', 'Friends', 'Only me'];
-    const title = { who:'Who can play my games', remix:'Who can remix them', putMe:'Who can put me in games' }[k];
-    openSheet(`<div class="pick-list"><h3>${title}</h3>${opts.map(o => `<button data-act="sp-pick" data-k="${o}" class="${o === st[k] ? 'on' : ''}">${o}${o === st[k] ? I.check : ''}</button>`).join('')}${k === 'putMe' ? '<p class="pk-note">Friends can use your avatar in their games. You can remove yourself anytime.</p>' : ''}</div>`, { 'sp-pick': x => { st[k] = x.dataset.k; closeSheet(); $('small', b).textContent = st[k]; } }); },
-  'set-intro': () => { closeAllSubs(); setTab('home'); setTimeout(startOnboarding, 380); },
-  'set-logout': () => { state.signedIn = false; closeSub('sub-settings', true); openSettings(); toast('Logged out'); },
   'pd-done': (b) => { const w = workById(b.dataset.w), ctx = b.dataset.ctx;
     if (ctx === 'create') { closeCreate(); resetPrompt(); setTimeout(() => toast('Published · it’s on your profile', 'View', () => { state.meTab = 'games'; setTab('me'); }), 420); return; }
     if (ctx === 'chat') { backToChat(w); return; }
@@ -2994,11 +3014,9 @@ Object.assign(A, {
   // publish: preview takes
   'take-pick': (b) => { pubCtx.sel = b.dataset.id; refreshTakes(); },
   'take-view': (b) => openViewer(b.dataset.id),
-  'take-new': () => { const t = pubCtx.takes.find(x => x.id === 'wana'); t.crop++; pubCtx.sel = 'wana'; runWanaTake(); },
   'take-add': () => openRecord(),
   'tv-back': () => backToPub(),
   'tv-go': (b) => $('#sub-take')._draw(+b.dataset.i),
-  'tv-new': () => { A['take-new'](); backToPub(); },
   'tv-del': (b) => { pubCtx.takes = pubCtx.takes.filter(t => t.id !== b.dataset.id); if (pubCtx.sel === b.dataset.id) pubCtx.sel = 'wana'; backToPub(); toast('Take deleted'); },
   'tv-use': (b) => { pubCtx.sel = b.dataset.id; backToPub(); },
   'rec-go': () => recGo(),
@@ -3006,13 +3024,17 @@ Object.assign(A, {
   'rec-x': () => { clearTimers('sub-rec'); if (pubCtx.pending) { pubCtx.pending = null; } backToPub(); },
   'rec-again': () => { pubCtx.k--; pubCtx.pending = null; const s = $('#sub-rec'); s.innerHTML = recStartHTML(); fillIcons(s); },
   'rec-use': () => { const t = pubCtx.pending; if (t) { pubCtx.takes.push(t); pubCtx.sel = t.id; pubCtx.pending = null; } backToPub(); },
-  'pub-post': () => { if (!selTake().ready) return; clearInterval(pubCtx.iv); const { w, n, ctx } = pubCtx; const t = $('#pubTitle').value.trim(); if (t) w.title = t; w.publishedV = n; w.last = `You published v${n}`; w.time = 'now'; w.rec = Date.now(); closeSheet(); renderChats(); renderMe(); setTimeout(() => openPublished(w, ctx), 260); },
+  'me-asset': (b) => openView(workById(b.dataset.w), { v:+b.dataset.v, ctx:'me', chips:true }),
+  'set-logout': () => { state.signedIn = false; closeSub('sub-settings'); toast('Logged out'); },
+  'take-new': () => { newWanaTake(); refreshTakes(); },
+  'tv-new': () => { newWanaTake(); backToPub(); },
+  'onb-start': () => onbFinish(),
+  'onb-create': () => newAccount(() => onbFinish()),
+  'acct-create': () => { const s = $('#sub-acct'), t = s._then; state.signedIn = true; closeSub('sub-acct'); if (t) setTimeout(t, 380); },
+  'acct-back': () => { const t = $('#sub-acct')._then; closeSub('sub-acct'); setTimeout(() => signInSheet(t), 300); },
+  'picker-snap': () => { closeSub('sub-picker'); closeSheet(); if ($('#create').hidden) openCreate('snap'); else setMode('snap'); },
+  'pub-post': () => { if (!selTake().ready) return; pubCtx.takes.forEach(t => clearInterval(t.iv)); const { w, n, ctx } = pubCtx; const t = $('#pubTitle').value.trim(); if (t) w.title = t; w.publishedV = n; w.last = `You published v${n}`; w.time = 'now'; w.rec = Date.now(); closeSheet(); renderChats(); renderMe(); setTimeout(() => openPublished(w, ctx), 260); },
   // onboarding
-  'onb-start': () => onbLikes(),
-  'onb-signin': () => signInSheet(() => onbFinish()),
-  'onb-like': (b) => $('#onb')._toggle(b.dataset.k),
-  'onb-go': () => onbFinish(),
-  'coach-skip': () => coachEnd(),
 });
 
 function renderRemix() {
@@ -3053,7 +3075,6 @@ function init() {
   $('#idea').addEventListener('click', e => {
     const b = e.currentTarget; state.plan = !state.plan; $('#planTip').hidden = true;
     b.classList.toggle('on', state.plan); b.setAttribute('aria-pressed', state.plan); buzz(8);
-    toast(state.plan ? 'Plan mode on · see a plan before I build' : 'Plan mode off');
   });
   $('#genIdea').innerHTML = I.sparkle;
   $('#coach').addEventListener('click', e => { if (state.coach !== 3) return; const r = $('.tabbar .tb-create').getBoundingClientRect(); const hit = e.clientX > r.left - 16 && e.clientX < r.right + 16 && e.clientY > r.top - 30 && e.clientY < r.bottom + 10; coachEnd(); if (hit) openCreate('ai'); });
