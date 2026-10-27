@@ -863,6 +863,9 @@ svg{display:block;flex:none}
 .gen-idea{position:absolute;left:0;top:74px;width:36px;height:36px;border-radius:18px;background:rgba(255,255,255,.1);display:grid;place-items:center;transition:top .2s,opacity .2s}
 .gen-idea svg{width:18px;height:18px}
 .gen-idea.busy{opacity:.35;pointer-events:none}
+.gen-idea.hint{background:var(--white);color:var(--bg);animation:pulse 1.4s infinite}
+.idea-tip{position:absolute;left:48px;top:74px;margin-top:3px;height:30px;padding:0 12px;border-radius:15px;background:var(--white);color:var(--bg);font-size:13px;font-weight:600;line-height:30px;white-space:nowrap;pointer-events:none;animation:tipin .35s cubic-bezier(.2,1.3,.4,1)}
+.idea-tip::before{content:"";position:absolute;left:-4px;top:11px;width:9px;height:9px;background:var(--white);transform:rotate(45deg);border-radius:2px}
 .plan-tip{position:absolute;left:-10px;bottom:106px;z-index:3;width:max-content;max-width:220px;padding:10px 14px;border-radius:16px;background:var(--white);color:var(--bg);display:grid;gap:2px;box-shadow:0 10px 24px rgba(0,0,0,.4);animation:tipin .35s cubic-bezier(.2,1.3,.4,1);pointer-events:none}
 .plan-tip::after{content:"";position:absolute;left:30px;bottom:-6px;width:12px;height:12px;background:var(--white);transform:rotate(45deg);border-radius:2px}
 .plan-tip b{font-size:14px;font-weight:600;line-height:20px}
@@ -1256,7 +1259,7 @@ svg{display:block;flex:none}
     <h2>刷、玩、造、存</h2>
     <div>按照 Figma 1022 区块做的可点击 Demo。</div>
     <ol>
-      <li><span>00</span><span><b>首次进入</b>：欢迎页（Start now）→ Home 上 3 步提示（上滑 / 点一下 / 黑猫）。第一次发送时才要求登录：Apple 或 email，没有账号就起个名字创建</span></li>
+      <li><span>00</span><span><b>首次进入</b>：欢迎页（Start now）→ Home 上 3 步提示（上滑 / 点一下 / 黑猫）。进 Create 先提示 ✦ 写点子；没登录时点输入框、或 ✦ 写完，立刻弹登录（Apple 或 email，没有账号就起个名字创建）；登录回来才出 Plan mode 提示</span></li>
       <li><span>01</span><span><b>Home</b>：Explore / Following / Friends / <b>Remix</b>。Friends 卡片上有好友的点赞和评论；Remix 点视频直接玩，点左下输入框带着这个游戏去 Create</span></li>
       <li><span>02</span><span><b>Create</b>：✦ 写一个点子，↻ 换一个；黑猫开关是 <b>Plan mode</b>，先出计划再 Build it</span></li>
       <li><span>03</span><span><b>Chat</b>：Thinking → Building（可以离开）→ 完成，“Thought for” 可展开；+ 可加照片 / 3D / 游戏里的素材。输入 online 可看失败状态</span></li>
@@ -1347,7 +1350,7 @@ svg{display:block;flex:none}
                 <div class="attach-row" id="attachRow" hidden></div>
                 <div class="pfield">
                   <textarea id="prompt" placeholder="Describe it. We’ll make it playable…" aria-label="Describe your idea"></textarea>
-                  <button class="gen-idea" id="genIdea" data-act="gen-idea" aria-label="Give me an idea"></button>
+                  <button class="gen-idea" id="genIdea" data-act="gen-idea" aria-label="Give me an idea"></button><span class="idea-tip" id="ideaTip" hidden>Tap for an idea</span>
                 </div>
                 <div class="ptools">
                   <span class="idea-wrap"><span class="plan-tip" id="planTip" hidden><b>Plan mode</b><small>See a plan before I build.</small></span><img class="cat" id="cat" src="media/mascot-idle.gif" alt=""><button class="idea" id="idea" aria-label="Plan mode" aria-pressed="false"><span class="knob" data-ic="bulb"></span></button></span>
@@ -2344,6 +2347,17 @@ function setHomeTab(t) {
 let ideaTyping = 0, lastIdea = '', typingIdea = false;
 function setGen(st) { const b = $('#genIdea'); if (!b) return; b.hidden = st === 'hide'; b.innerHTML = st === 'again' ? I.reload : I.sparkle; b.classList.toggle('busy', st === 'typing'); b.setAttribute('aria-label', st === 'again' ? 'Another idea' : 'Give me an idea'); placeGen(); }
 function textH(ta) { const st = ta.style, f = st.flex, h = st.height; st.flex = 'none'; st.height = '0px'; const sh = ta.scrollHeight; st.flex = f; st.height = h; return sh; }
+// Create's first hints: before you sign in we point at ✦ (get an idea); once you're signed in, Plan mode is introduced
+function createTips() {
+  if ($('#create').hidden || mode !== 'ai') return;
+  if (!state.signedIn) { if (!$('#prompt').value.trim() && !typingIdea) showIdeaTip(); return; }
+  hideIdeaTip();
+  if (!state.planTipShown) { state.planTipShown = true; const t = $('#planTip'); t.hidden = false; setTimeout(() => { t.hidden = true; }, 4200); }
+}
+function showIdeaTip() { const b = $('#genIdea'); if (!b || b.hidden) return; b.classList.add('hint'); const t = $('#ideaTip'); t.style.top = b.style.top || '74px'; t.hidden = false; }
+function hideIdeaTip() { const b = $('#genIdea'); b && b.classList.remove('hint'); const t = $('#ideaTip'); if (t) t.hidden = true; }
+// signed out: tapping the box, or an idea finishing, brings up sign in; back on Create you meet Plan mode
+const createSignIn = () => { hideIdeaTip(); if (!$('#sheet').classList.contains('in')) signInSheet(() => setTimeout(createTips, 300)); };
 function placeGen() { const b = $('#genIdea'), ta = $('#prompt'); if (!b || b.hidden) return; b.style.top = (ta.value.trim() ? Math.min(textH(ta) + 12, ta.clientHeight - 40) : 74) + 'px'; }
 function syncGen() { if (typingIdea) return; const v = $('#prompt').value; if (!v.trim()) setGen('new'); else if (v === lastIdea) setGen('again'); else setGen('hide'); }
 function showIdea(custom) {
@@ -2354,7 +2368,8 @@ function showIdea(custom) {
   let i = 0;
   const step = () => { i++; ta.value = text.slice(0, i); updateSend(); placeGen();
     if (i < text.length) ideaTyping = setTimeout(step, text[i - 1] === ' ' ? 45 : 14 + Math.random() * 22);
-    else { typingIdea = false; setCat(false); setGen('again'); const k = PROMPTS.findIndex(p => p.t === text); if (k > -1) ta.dataset.preset = k; } };
+    else { typingIdea = false; setCat(false); setGen('again'); const k = PROMPTS.findIndex(p => p.t === text); if (k > -1) ta.dataset.preset = k;
+      if (!state.signedIn) setTimeout(() => { if (!$('#create').hidden && !state.signedIn) createSignIn(); }, 450); } };
   ideaTyping = setTimeout(step, 200);
 }
 function clearGhost() { clearTimeout(ideaTyping); if (typingIdea) { typingIdea = false; setCat(false); } }
@@ -2367,7 +2382,7 @@ function openCreate(m = 'ai', preset) {
   const c = $('#create'); c.hidden = false; pauseAll(); pauseCarousel();
   setMode(m); renderSheet(); attachTarget = 'create';
   if (preset && preset.remix) { resetPrompt(); state.remix = preset.remix; renderRemix(); setTimeout(() => showIdea(preset.idea || REMIX_IDEAS[preset.remix.id] || 'Make it co-op: two players, one goal.'), 420); }
-  if (!state.planTipShown && m === 'ai') { state.planTipShown = true; setTimeout(() => { const t = $('#planTip'); t.hidden = false; setTimeout(() => { t.hidden = true; }, 4200); }, 650); }
+  if (m === 'ai') setTimeout(createTips, 650);
   syncGen();
   requestAnimationFrame(() => requestAnimationFrame(() => c.classList.add('in')));
 }
@@ -2792,7 +2807,7 @@ function readyBanner(w, onOpen) {
 function hideBanner() { const b = $('#rbanner'); b.classList.remove('in'); setTimeout(() => { if (!b.classList.contains('in')) b.hidden = true; }, 320); }
 // Log out (Settings, or the button beside the demo): close everything and start again from the welcome screen
 function signOutToWelcome() {
-  state.signedIn = false; try { localStorage.removeItem('wk-onb'); } catch (e) {}
+  state.signedIn = false; state.planTipShown = false; try { localStorage.removeItem('wk-onb'); } catch (e) {}
   closeSheet(); hideBanner(); closeAllSubs();
   if (!$('#create').hidden) closeCreate();
   if (!$('#play').hidden) { $('#play').hidden = true; $('#play').innerHTML = ''; }
@@ -2956,7 +2971,7 @@ Object.assign(A, {
   'follow': (b) => needSignIn(() => { b.classList.toggle('done'); b.innerHTML = b.classList.contains('done') ? I.check : I.plus; if (b.classList.contains('done')) { buzz(8); toast(`Following ${slideGame(b).creator}`); } }),
   // create
   'attach': () => { attachTarget = 'create'; attachSheet(); },
-  'gen-idea': () => { if (state.remix) { rxIdx++; const l = rxIdeas(state.remix); showIdea(l[rxIdx % l.length]); } else showIdea(); },
+  'gen-idea': () => { hideIdeaTip(); if (state.remix) { rxIdx++; const l = rxIdeas(state.remix); showIdea(l[rxIdx % l.length]); } else showIdea(); },
   'reroll': () => A['gen-idea'](),
   'use-prompt': (b) => { clearGhost(); const p = PROMPTS[+b.dataset.i]; $('#prompt').value = p.t; $('#prompt').dataset.preset = b.dataset.i; lastIdea = ''; updateSend(); $('#cSheet').classList.remove('open'); },
   'send': () => { const ta = $('#prompt'); const t = ta.value.trim() || (state.remix ? `Remix ${state.remix.title}` : ''); if (!t && !state.attachments.length) return; clearGhost();
@@ -3067,6 +3082,11 @@ function init() {
   renderDiscover(); renderChats(); wireChatsSwipe(); renderMe(); tickCountdown(); setInterval(tickCountdown, 1000); setInterval(tickReacts, 2600);
   // create
   $('#prompt').addEventListener('input', () => { clearGhost(); delete $('#prompt').dataset.preset; updateSend(); });
+  // signed out: a tap on the box asks you to sign in instead of opening the keyboard
+  const gateTap = e => { if (state.signedIn) return; e.preventDefault(); $('#prompt').blur(); createSignIn(); };
+  $('#prompt').addEventListener('mousedown', gateTap);
+  $('#prompt').addEventListener('touchstart', gateTap, { passive:false });
+  $('#prompt').addEventListener('focus', e => { if (!state.signedIn) { e.target.blur(); createSignIn(); } });
   // the cat's switch is Plan mode: Wana shows a plan before building
   $('#idea').addEventListener('click', e => {
     const b = e.currentTarget; state.plan = !state.plan; $('#planTip').hidden = true;
