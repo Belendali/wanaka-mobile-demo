@@ -1402,10 +1402,262 @@ svg{display:block;flex:none}
 .tx-cols{display:flex;gap:14px;padding:16px 20px 0}
 .tx-cols button{width:28px;height:28px;border-radius:14px;background:var(--c)}
 .tx-cols .on{box-shadow:0 0 0 2.5px var(--surface),0 0 0 4.5px var(--white)}
+
+.b-plan2{margin-top:10px;border-radius:20px;background:var(--surface);border:1px solid rgba(255,255,255,.06);padding:14px 14px 12px;display:grid;gap:2px}
+.bp2-h{display:grid;grid-template-columns:auto 1fr;column-gap:10px;align-items:center;margin-bottom:8px}
+.bp2-h .pc-ic{grid-row:span 2;width:36px;height:36px;border-radius:12px;background:rgba(255,255,255,.08);display:grid;place-items:center}
+.bp2-h .pc-ic svg{width:18px;height:18px}
+.bp2-h b{font-size:15px;font-weight:600}
+.bp2-h small{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bp2-r{display:flex;align-items:center;gap:8px;min-height:34px;font-size:14px;color:rgba(255,255,255,.75)}
+.bp2-r .bot-av{width:18px;height:18px;flex:none}
+.bp2-r b{color:var(--white);font-weight:500}
+.bp2-r > i{width:6px;height:6px;border-radius:3px;background:rgba(255,255,255,.35);margin:0 6px}
+.b-plan2 .cta-white{margin-top:10px;height:44px;font-size:15px;width:100%}
+.bp2-done{margin-top:8px;display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted)}
+.bp2-done svg{width:14px;height:14px}
+/* ===== Chat version (Figma section 1028): Create = a chat with a bot; bots and teams live in Chats ===== */
+@property --bc{syntax:'<color>';inherits:true;initial-value:#D7EA69}
+.verswitch{display:inline-flex;margin-bottom:22px;align-items:center;gap:2px;padding:4px;border-radius:999px;background:rgba(39,33,35,.92);border:1px solid var(--line);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.verswitch span{padding:0 8px 0 10px;color:rgba(255,255,255,.45);font-family:var(--pixel);font-size:7px;letter-spacing:.06em}
+.verswitch button{height:30px;padding:0 14px;border-radius:999px;font-size:13px;font-weight:500;color:rgba(255,255,255,.6)}
+.verswitch button.on{background:var(--white);color:var(--bg);font-weight:600}
+.verswitch.float{display:none;position:fixed;top:16px;left:16px;margin:0;z-index:200}
+@media (max-width:1000px) and (min-width:521px){.verswitch.float{display:inline-flex}}
+
+.cc{z-index:38;transform:translateY(100%);transition:transform .38s cubic-bezier(.2,.8,.2,1)}
+.cc.in{transform:none}
+.bscreen{position:absolute;inset:0;display:flex;flex-direction:column;overflow:hidden;background:var(--bg);transition:--bc .7s ease}
+
+/* glow: three soft blobs in the bot's colour that drift; they breathe while the bot works */
+.b-glow{position:absolute;left:0;right:0;bottom:0;height:320px;pointer-events:none;z-index:0;opacity:.95}
+.b-glow i{position:absolute;border-radius:50%;background:var(--bc);will-change:transform}
+.b-glow i:nth-child(1){left:-70px;top:108px;width:300px;height:220px;opacity:.4;filter:blur(50px);animation:gl1 11s ease-in-out infinite alternate}
+.b-glow i:nth-child(2){left:190px;top:158px;width:280px;height:200px;opacity:.3;filter:blur(50px);animation:gl2 13s ease-in-out infinite alternate}
+.b-glow i:nth-child(3){left:70px;top:238px;width:260px;height:130px;opacity:.6;filter:blur(35px);animation:gl3 8s ease-in-out infinite alternate}
+@keyframes gl1{0%{transform:translate(0,0) scale(1)}50%{transform:translate(46px,-16px) scale(1.12,.92)}100%{transform:translate(96px,8px) scale(.94,1.08)}}
+@keyframes gl2{0%{transform:translate(0,0) scale(1)}50%{transform:translate(-64px,12px) scale(.9,1.12)}100%{transform:translate(-118px,-14px) scale(1.1,.95)}}
+@keyframes gl3{0%{transform:translate(-36px,4px) scale(.95)}100%{transform:translate(54px,-12px) scale(1.18,1.02)}}
+.bscreen.busy .b-glow{animation:glbreath 1.8s ease-in-out infinite}
+@keyframes glbreath{0%,100%{transform:translateY(0);opacity:.8}50%{transform:translateY(-22px);opacity:1}}
+.bscreen.done .b-glow{animation:gldone 1s cubic-bezier(.2,.8,.2,1)}
+@keyframes gldone{0%{transform:translateY(-44px) scaleY(1.15);opacity:1}100%{transform:none;opacity:.95}}
+
+/* bot avatars (soft cats). Eyes blink; .big floats; thinking = bob + look around; done = happy hop */
+.bot-av{display:inline-block;flex:none;position:relative}
+.bot-av svg{width:100%;height:100%;display:block;overflow:visible}
+.bot-img{border-radius:50%;object-fit:cover;flex:none}
+.bot-svg .ey{transform-box:fill-box;transform-origin:center}
+.bot-av.big .ey,.b-pill .bot-av .ey{animation:bblink 5.2s infinite}
+@keyframes bblink{0%,93%,100%{transform:scaleY(1)}95.5%{transform:scaleY(.12)}}
+.bot-av.big{animation:bfloat 3.4s ease-in-out infinite}
+@keyframes bfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.bot-av.think{animation:bthink 1.15s ease-in-out infinite}
+.bot-av.think .ey{animation:blook 2.3s ease-in-out infinite}
+@keyframes bthink{0%,100%{transform:translateY(0) rotate(0)}25%{transform:translateY(-3px) rotate(-7deg)}50%{transform:translateY(0) rotate(0)}75%{transform:translateY(-3px) rotate(7deg)}}
+@keyframes blook{0%,100%{transform:translateX(0)}30%{transform:translateX(-4px)}62%{transform:translateX(4px)}}
+.bot-av.hop{animation:bdone .75s cubic-bezier(.3,1.4,.5,1)}
+.bot-av.hop .ey{animation:bsquint .75s ease}
+@keyframes bdone{0%{transform:none}28%{transform:translateY(-7px) scale(1.06,.94)}52%{transform:translateY(0) scale(1.12,.86)}74%{transform:scale(.95,1.06)}100%{transform:none}}
+@keyframes bsquint{0%,100%{transform:scaleY(1)}20%,70%{transform:scaleY(.35)}}
+.bscreen.busy .b-pill .bot-av{animation:bthink 1.15s ease-in-out infinite}
+.bscreen.busy .b-pill .bot-av .ey{animation:blook 2.3s ease-in-out infinite}
+
+/* header */
+.b-head{flex:none;position:relative;z-index:5;height:40px;margin-top:calc(var(--sb) + 4px);display:flex;align-items:center;justify-content:space-between;padding:0 16px}
+.cc .b-head{margin-top:calc(var(--sb) + 10px)}
+.b-head .icon-btn svg{width:20px;height:20px}
+.b-pill{position:absolute;left:50%;transform:translateX(-50%);height:40px;padding:0 16px;border-radius:999px;background:var(--faint);display:flex;align-items:center;gap:8px;font-size:16px;font-weight:600;white-space:nowrap;max-width:60%;box-sizing:border-box}
+.b-pill b{overflow:hidden;text-overflow:ellipsis}
+.b-pill .chev{width:12px;height:12px;flex:none}
+.b-stack{display:flex;align-items:center}
+.b-stack .bot-av + .bot-av{margin-left:-7px}
+
+/* body */
+.b-body{flex:1;min-height:0;position:relative;z-index:1}
+.b-empty{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding-bottom:96px}
+.b-empty h2{margin:18px 0 18px;font-size:22px;font-weight:600}
+.b-gbtn{height:38px;padding:0 16px 0 14px;border-radius:999px;background:rgba(28,29,25,.8);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:8px;font-size:14px;font-weight:500;margin-bottom:8px}
+.b-gbtn svg{width:16px;height:16px}
+.bthread{position:absolute;inset:0;overflow-y:auto;scrollbar-width:none;padding:12px 16px 16px;display:flex;flex-direction:column;gap:16px;box-sizing:border-box}
+.bthread::-webkit-scrollbar{display:none}
+.b-time{text-align:center;font-size:12px;color:rgba(255,255,255,.4)}
+.b-ai{display:grid;gap:10px;max-width:100%;justify-items:start;animation:bin .35s ease}
+@keyframes bin{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.b-ai p{margin:0;font-size:14px;line-height:21px;color:rgba(255,255,255,.9)}
+.b-ai .note{font-size:12px;color:var(--muted)}
+.b-who{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:rgba(255,255,255,.75)}
+.b-card{width:100%;border-radius:24px;background:var(--surface);border:1px solid rgba(255,255,255,.08);padding:16px 19px 12px;display:grid;gap:4px;box-sizing:border-box}
+.bc-h{display:flex;align-items:center;justify-content:space-between;min-height:30px}
+.bc-h b{font-size:15px;font-weight:600}
+.bc-h button{width:28px;height:28px;display:grid;place-items:center;opacity:.5;margin-right:-6px}
+.bc-h button svg{width:16px;height:16px}
+.bc-o{height:42px;display:flex;align-items:center;gap:12px;border-radius:12px;font-size:14px;text-align:left;width:100%}
+.bc-l{width:22px;height:22px;border-radius:7px;border:1px solid rgba(255,255,255,.2);display:grid;place-items:center;font-size:10px;font-weight:600;color:rgba(255,255,255,.7);flex:none;transition:background .15s,color .15s}
+.bc-o:hover .bc-l,.bc-o.on .bc-l{background:var(--white);color:var(--bg);border-color:var(--white)}
+.b-card.done .bc-o{cursor:default}
+.b-card.done .bc-o:not(.on){opacity:.35}
+.b-card.done .bc-o:not(.on):hover .bc-l{background:none;color:rgba(255,255,255,.7);border-color:rgba(255,255,255,.2)}
+.b-hint{font-size:12px;color:rgba(255,255,255,.45);margin-top:-6px}
+.b-note{align-self:center;font-size:12px;color:rgba(255,255,255,.45);text-align:center}
+.b-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:-4px}
+.b-chips button{height:32px;padding:0 12px;border-radius:999px;background:rgba(255,255,255,.08);font-size:12px;font-weight:500;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.b-think{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.55)}
+.b-think .dots i{display:inline-block;width:3px;height:3px;border-radius:2px;background:currentColor;margin-left:2px;animation:bdot 1.2s infinite}
+.b-think .dots i:nth-child(2){animation-delay:.15s}.b-think .dots i:nth-child(3){animation-delay:.3s}
+@keyframes bdot{0%,60%,100%{opacity:.25}30%{opacity:1}}
+.b-typing{font-size:12px;color:rgba(255,255,255,.4)}
+.b-tasks{display:grid;gap:8px;width:100%}
+.b-tasks span{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.45)}
+.b-tasks span b{font-weight:600;color:rgba(255,255,255,.7)}
+.b-tasks span .tk{margin-left:auto;width:16px;height:16px;border-radius:8px;border:1.5px solid rgba(255,255,255,.25);display:grid;place-items:center;box-sizing:border-box}
+.b-tasks span .tk svg{width:10px;height:10px;opacity:0}
+.b-tasks span.doing{color:var(--white)}
+.b-tasks span.doing .bot-av{animation:bthink 1.15s ease-in-out infinite}
+.b-tasks span.doing .tk{border-color:var(--white);border-top-color:transparent;animation:spin .8s linear infinite}
+.b-tasks span.done{color:rgba(255,255,255,.75)}
+.b-tasks span.done .tk{background:var(--white);border-color:var(--white)}
+.b-tasks span.done .tk svg{opacity:1;color:var(--bg)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.b-owners{width:300px;max-width:100%;display:grid;gap:6px;margin-top:-2px}
+.b-owners span{display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.6)}
+.b-owners b{font-weight:600;color:rgba(255,255,255,.85)}
+.mu .atts img{object-fit:cover}
+
+/* input + resource tray */
+.b-foot{flex:none;position:relative;z-index:3;padding:0 16px 30px;display:grid;gap:12px}
+.b-tray{display:flex;gap:8px}
+.b-tray button{height:44px;min-width:44px;border-radius:22px;background:rgba(28,29,25,.8);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;gap:8px;font-size:15px;box-sizing:border-box;animation:bin .25s ease}
+.b-tray .snap{padding:0 14px 0 12px}
+.b-tray svg{width:22px;height:22px}
+.b-atts{display:flex;gap:8px}
+.b-atts span{position:relative;width:56px;height:56px;border-radius:14px;overflow:hidden;flex:none}
+.b-atts img{width:100%;height:100%;object-fit:cover}
+.b-atts button{position:absolute;top:4px;right:4px;width:18px;height:18px;border-radius:9px;background:rgba(20,14,16,.7);display:grid;place-items:center}
+.b-atts button svg{width:10px;height:10px}
+.b-in{border-radius:28px;background:rgba(20,14,16,.8);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--line);display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;padding:7px 7px 7px 8px;min-height:56px;box-sizing:border-box}
+.b-in .l{width:40px;height:40px;border-radius:20px;background:rgba(255,255,255,.12);display:grid;place-items:center;flex:none}
+.b-in .l svg{width:20px;height:20px}
+.b-in textarea{flex:1;min-width:0;background:none;border:0;outline:none;resize:none;color:var(--white);font:400 15px/22px var(--ui);padding:9px 0;height:40px;max-height:112px;box-sizing:border-box;scrollbar-width:none}
+.b-in textarea::placeholder{color:rgba(255,255,255,.45)}
+.b-in .plan{display:none;height:36px;padding:0 14px 0 10px;border-radius:18px;background:rgba(255,255,255,.08);align-items:center;gap:5px;font-size:13px;font-weight:500;transition:background .2s,color .2s}
+.b-in .plan svg{width:18px;height:18px}
+.b-in .plan.on{background:var(--white);color:var(--bg)}
+.b-in .sp{display:none;flex:1}
+.b-in .mic{width:36px;height:44px;display:grid;place-items:center;flex:none}
+.b-in .mic svg{width:20px;height:20px}
+.b-in .go{width:44px;height:44px;border-radius:22px;background:rgba(255,255,255,.12);display:grid;place-items:center;flex:none;color:rgba(255,255,255,.4);transition:background .2s,color .2s}
+.b-in .go.ready{background:var(--white);color:var(--bg)}
+.b-in .go svg{width:20px;height:20px}
+.b-in.open,.b-in.planon{border-radius:24px;padding:12px 8px 8px}
+.b-in.open textarea,.b-in.planon textarea{order:-1;flex:1 1 100%;padding:0 6px;height:auto;min-height:44px}
+.b-in.open .sp,.b-in.planon .sp{display:block}
+.b-in.focus .plan,.b-in.open .plan,.b-in.planon .plan{display:flex}
+.b-in.open .l,.b-in.planon .l{width:36px;height:36px;border-radius:18px}
+
+/* sheets: new bot, make a team, bot picker */
+.nb{display:grid;justify-items:center;padding-bottom:6px}
+.nb h3{margin:0 0 16px;text-align:center}
+.nb > .bot-av{width:96px;height:96px;margin-bottom:20px}
+.nb-name,.mt-name{width:100%;height:50px;border-radius:16px;background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--white);font:500 16px var(--ui);text-align:center;outline:none;box-sizing:border-box;margin-bottom:18px}
+.nb-shapes{display:grid;grid-template-columns:repeat(6,1fr);gap:6px 4px;width:100%;margin-bottom:18px}
+.nb-shapes button{height:50px;border-radius:14px;display:grid;place-items:center;border:1.5px solid transparent;box-sizing:border-box}
+.nb-shapes button .bot-av{width:34px;height:34px}
+.nb-shapes button.on{border-color:var(--white);background:rgba(255,255,255,.06)}
+.nb-cols{display:grid;grid-template-columns:repeat(6,1fr);gap:14px 0;width:100%;justify-items:center;margin-bottom:24px}
+.nb-cols button{width:28px;height:28px;border-radius:14px;background:var(--c)}
+.nb-cols button.on{box-shadow:0 0 0 2.5px var(--surface),0 0 0 4.5px var(--white)}
+.nb .cta-white,.mt .cta-white{width:100%;height:52px;font-size:16px}
+.cta-white:disabled{opacity:.35}
+.mt-h{display:grid;grid-template-columns:40px 1fr 40px;align-items:center;margin-bottom:14px}
+.mt-h h3{margin:0;text-align:center}
+.mt-h button{width:40px;height:40px;display:grid;place-items:center}
+.mt-h button svg{width:20px;height:20px}
+.mt .team-tile{margin:0 auto 18px}
+.mt-lab{font-size:12px;color:rgba(255,255,255,.45);margin-bottom:4px}
+.mt-row{display:flex;align-items:center;gap:12px;height:48px;width:100%;font-size:15px}
+.mt-row .bot-av{width:30px;height:30px}
+.mt-row .ck{margin-left:auto;width:22px;height:22px;border-radius:11px;border:1.5px solid rgba(255,255,255,.4);display:grid;place-items:center;box-sizing:border-box}
+.mt-row .ck svg{width:12px;height:12px;opacity:0}
+.mt-row.on .ck{background:var(--white);border-color:var(--white);color:var(--bg)}
+.mt-row.on .ck svg{opacity:1}
+.mt-list{margin-bottom:18px}
+.team-tile{display:grid;place-items:center;border-radius:16px;background:color-mix(in srgb,var(--tc) 20%,#140E10);flex:none}
+.team-tile .tt{display:grid;grid-template-columns:auto auto;justify-content:center;gap:1px 3px}
+.team-tile .tt > :nth-child(3){grid-column:1 / 3;justify-self:center}
+.pop.bpick{left:50%;right:auto;transform:translateX(-50%);top:calc(var(--sb) + 60px);width:210px;max-height:420px;overflow-y:auto}
+.pop.bpick button{justify-content:flex-start}
+.pop.bpick .bot-av{width:22px;height:22px}
+.pop.bpick .ck2{margin-left:auto;width:16px;height:16px}
+.pop.bpick .ck2 svg{width:16px;height:16px}
+.pop.flt{top:calc(var(--sb) + 56px);right:64px;width:170px}
+.pop.flt button{justify-content:space-between}
+.pop.flt svg{width:16px;height:16px}
+
+/* Chats (C1 / C2) */
+.c2-head{display:flex;align-items:center;justify-content:space-between;padding:0 16px 0 20px;height:44px}
+.c2-head h1{margin:0;font-size:24px;font-weight:600;display:flex;align-items:center;gap:8px}
+.c2-chip{height:26px;padding:0 8px 0 10px;border-radius:999px;background:rgba(255,255,255,.12);font-size:12px;font-weight:500;display:flex;align-items:center;gap:4px}
+.c2-chip svg{width:10px;height:10px}
+.c2-btns{display:flex;gap:8px}
+.c2-btns .icon-btn{background:rgba(255,255,255,.1)}
+.c2-btns .icon-btn.on{background:var(--white);color:var(--bg)}
+.c2-btns .icon-btn svg{width:20px;height:20px}
+.c2-list{padding:0 20px}
+.c2-row{width:100%;display:flex;align-items:center;gap:12px;padding:8px 0;text-align:left}
+.c2-th{width:56px;height:56px;flex:none;display:grid;place-items:center}
+.c2-th .bot-av{width:40px;height:40px}
+.c2-th img{width:56px;height:56px;border-radius:28px;object-fit:cover}
+
+/* bot page, edit bot, avatar, team page */
+.bp{display:flex;flex-direction:column;align-items:center;padding:0 16px 40px}
+.bp > .bot-av,.bp > .bot-img{width:112px;height:112px;margin-top:24px}
+.bp > .team-tile{margin-top:24px}
+.bp h2{margin:16px 0 2px;font-size:22px;font-weight:600}
+.bp .sub2{font-size:13px;color:var(--muted)}
+.bp .edit{margin:14px 0 22px;height:36px;padding:0 18px;border-radius:999px;background:rgba(255,255,255,.14);font-size:13px;font-weight:600}
+.bp-card{width:100%;border-radius:20px;background:var(--surface);border:1px solid rgba(255,255,255,.06);margin-bottom:12px;overflow:hidden}
+.bp-row{width:100%;min-height:56px;display:flex;align-items:center;gap:12px;padding:0 16px;font-size:15px;box-sizing:border-box;text-align:left}
+.bp-row + .bp-row{border-top:1px solid rgba(255,255,255,.06)}
+.bp-row .v{margin-left:auto;font-size:13px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.bp-row > svg{width:20px;height:20px;flex:none}
+.bp-row .v svg{width:16px;height:16px}
+.bp-row .bot-av{width:28px;height:28px}
+.bp-row .gth{width:44px;height:44px;border-radius:12px;object-fit:cover;margin:8px 0}
+.bp-row.add{color:rgba(255,255,255,.7)}
+.bp-row.add .pl{width:28px;height:28px;border-radius:14px;border:1.5px dashed rgba(255,255,255,.3);display:grid;place-items:center;box-sizing:border-box}
+.bp-row.add .pl svg{width:14px;height:14px}
+.bp-cap{font-size:12px;color:rgba(255,255,255,.4);align-self:stretch;padding:0 12px;margin:0}
+.bp-sec{align-self:stretch;font-size:12px;color:rgba(255,255,255,.45);margin:6px 4px 8px}
+.tgl{width:46px;height:28px;border-radius:14px;background:rgba(255,255,255,.2);position:relative;margin-left:auto;flex:none;transition:background .2s}
+.tgl::after{content:'';position:absolute;left:3px;top:3px;width:22px;height:22px;border-radius:11px;background:#fff;transition:transform .2s}
+.tgl.on{background:var(--lime)}
+.tgl.on::after{transform:translateX(18px)}
+.be{padding:4px 16px 40px;display:flex;flex-direction:column}
+.be .lab{font-family:var(--pixel);font-size:7px;color:rgba(255,255,255,.45);letter-spacing:.06em;margin:18px 4px 8px}
+.be .field2{height:52px;border-radius:16px;background:var(--surface);border:1px solid rgba(255,255,255,.06);color:#fff;font:400 15px var(--ui);padding:0 16px;outline:none}
+.be .bp-card{margin:0}
+.be .bp-cap{margin-top:8px}
+.done-btn{height:32px;padding:0 14px;border-radius:999px;background:#fff;color:var(--bg);font-size:13px;font-weight:600}
+.ba-tabs{margin:12px 16px 0;height:36px;border-radius:999px;background:rgba(255,255,255,.06);padding:3px;display:grid;grid-template-columns:repeat(3,1fr);box-sizing:border-box;flex:none}
+.ba-tabs button{border-radius:999px;font-size:13px;color:rgba(255,255,255,.55);font-weight:500}
+.ba-tabs .on{background:var(--raised);color:#fff;font-weight:600}
+.ba-body{padding:24px 16px;display:flex;flex-direction:column;align-items:center;gap:24px}
+.ba-body > .bot-av,.ba-body > .bot-img{width:112px;height:112px}
+.ba-body .nb-shapes,.ba-body .nb-cols{margin:0}
+.ba-body textarea{width:100%;height:120px;border-radius:16px;background:var(--surface);border:1px solid var(--line);color:#fff;font:400 15px/22px var(--ui);padding:14px 16px;box-sizing:border-box;outline:none;resize:none}
+.ba-body .cta-white{width:100%;height:52px;font-size:16px}
+.ba-body .lnk{font-size:13px;color:rgba(255,255,255,.55)}
+.ba-body .bp-card{margin:0}
+@media (prefers-reduced-motion:reduce){.b-glow i,.bot-av,.bot-av .ey,.bscreen .b-glow{animation:none!important}}
+
 </style>
 
 <div id="stage">
+  <div class="verswitch float" role="group" aria-label="Create version"><span>CREATE</span><button data-act="ver" data-ver="classic">原版</button><button data-act="ver" data-ver="chat">Chat 版</button></div>
   <aside class="guide" aria-label="How to use this demo">
+    <div class="verswitch" role="group" aria-label="Create version"><span>CREATE</span><button data-act="ver" data-ver="classic">原版</button><button data-act="ver" data-ver="chat">Chat 版</button></div>
+    <div data-ver="classic">
     <span class="tag">WANAKA · MOBILE DEMO</span>
     <h2>刷、玩、造、存</h2>
     <div>按照 Figma 1022/1027 区块做的可点击 Demo。</div>
@@ -1417,6 +1669,20 @@ svg{display:block;flex:none}
       <li><span>04</span><span><b>Publish</b> 是一整页：顶部 Record / AI shoot / Upload，每条都排进同一行，选一条再 Post。Record 最长 2 分钟，可暂停、继续录、⌫ 删最后一段；Upload 从相册选；每条都能 Edit（Trim / Music / Text）</span></li>
       <li><span>05</span><span><b>Chats</b> 一个列表 + 筛选；<b>Me</b> 里点游戏进 Project（Game / Assets / Chat），Assets 可 Swap；Assets 里点 3D 打开大卡片；铃铛 = 通知，齿轮 = 设置</span></li>
     </ol>
+    </div>
+    <div data-ver="chat" hidden>
+    <span class="tag">WANAKA · MOBILE DEMO · CHAT</span>
+    <h2>和 Bot 一起做游戏</h2>
+    <div>按照 Figma 1028 区块做的 Chat 版 Create。上面的开关可以切回原版。</div>
+    <ol>
+      <li><span>00</span><span><b>Create</b>：点底部 + 打开一页新对话，不显示历史。点顶部名字换 Bot，小头像会变形过去；✦ Write one for me / Get inspired；+ 打开 Camera / Photos / 3D Snap；灯泡 = <b>Plan</b></span></li>
+      <li><span>01</span><span><b>聊天</b>：Bot 先陪你聊，说 “Make it a game” 或 “Build it” 才开始做。思考时头像会晃、底部光晕会呼吸；做完头像跳一下，光晕亮一下。做好后直接说要改什么，出 v2、v3</span></li>
+      <li><span>02</span><span><b>新 Bot</b>：右上 + → 选形状和颜色（实时变形）→ Create。Bot 给一张 A–D 选项卡，或者直接一句话告诉它是谁，它会记住</span></li>
+      <li><span>03</span><span><b>Team</b>：Bot 对话里 ··· → Make a team。每个 Bot 按名字回答；Build it 时每个 Bot 领一块任务；v1 做好后用 <b>@名字</b> 只让一个 Bot 改；开 Plan 先出计划和分工。点顶部名字看 Team 页</span></li>
+      <li><span>04</span><span><b>Bot 页</b>：点对话顶部的名字 → Memory / Games / Team / 通知；Edit → 名字、Avatar（Shape / Generate / Upload）、Voice</span></li>
+      <li><span>05</span><span><b>Chats</b>：Bot、Team、好友在一个列表；筛选 All / AI bot / Friends</span></li>
+    </ol>
+    </div>
     <div class="guide-acts"><button class="pri" data-act="demo-restart">重新演示</button><button data-act="demo-logout">退出登录</button></div>
     <div class="note">重新演示：所有数据回到初始（3 次免费、示例游戏），从欢迎页开始。退出登录：保留刚做的内容，回到欢迎页，下次发送时重新登录。App 里 Me › 设置 › Log out 效果一样。视频为示意素材；生成过程为模拟。</div>
   </aside>
@@ -1534,6 +1800,7 @@ svg{display:block;flex:none}
           <div class="sbody vscroll" id="cSheetBody"></div>
         </div>
       </section>
+      <section class="screen cc" id="cc" hidden></section>
 
       <!-- create sub screens -->
       <section class="sub" id="sub-photo" hidden></section>
@@ -1559,6 +1826,12 @@ svg{display:block;flex:none}
       <section class="sub" id="sub-insp" hidden></section>
       <section class="sub" id="sub-sdet" hidden></section>
       <section class="sub" id="sub-acct" hidden></section>
+      <section class="sub" id="sub-bot" hidden></section>
+      <section class="sub" id="sub-team" hidden></section>
+      <section class="sub" id="sub-botp" hidden></section>
+      <section class="sub" id="sub-bote" hidden></section>
+      <section class="sub" id="sub-bota" hidden></section>
+      <section class="sub" id="sub-teamp" hidden></section>
 
       <!-- first visit: welcome → likes → 3 hints on Home -->
       <div class="coach" id="coach" hidden></div>
@@ -2308,7 +2581,7 @@ function pickBase(text) {
   if (/castle|ivy|island|pancake|build|world|kingdom|ruin/.test(t)) return 'ivy';
   return ['garden','cafe','neon','ivy'][t.length % 4];
 }
-const NAMES = { cafe:'Pier Panic', garden:'Window Garden', neon:'Neon Rush', ivy:'Ivy Keep II', deep:'Deep Feast', dark:'Dark Room' };
+const NAMES = { float:'Float & Catch', cafe:'Pier Panic', garden:'Window Garden', neon:'Neon Rush', ivy:'Ivy Keep II', deep:'Deep Feast', dark:'Dark Room' };
 function updateCredits() { $$('.credits').forEach(c => c.textContent = `${state.credits} / 5 free`); }
 function outOfCredits() {
   openSheet(`<div class="oc"><img src="${M('mascot-plus.webp')}" alt=""><h3>That’s today’s 5 free creations</h3><p>Free creations come back at midnight.<br>Plus gives you 50 a day.</p><button class="pri" data-act="get-plus">Get Plus</button><button class="lnk" data-act="sheet-close">Maybe later</button></div>`);
@@ -2585,6 +2858,7 @@ function updateSend() {
   $('#sendBtn').classList.toggle('ready', ok); $('#sendBtn').disabled = !ok; syncGen();
 }
 function openCreate(m = 'ai', preset) {
+  if (VER === 'chat' && m === 'ai') { openCC(preset); return; }
   const c = $('#create'); c.hidden = false; pauseAll(); pauseCarousel();
   setMode(m); renderSheet(); attachTarget = 'create';
   if (preset && preset.remix) { resetPrompt(); state.remix = preset.remix; renderRemix(); setTimeout(() => showIdea(preset.idea || REMIX_IDEAS[preset.remix.id] || 'Make it co-op: two players, one goal.'), 420); }
@@ -2593,12 +2867,14 @@ function openCreate(m = 'ai', preset) {
   requestAnimationFrame(() => requestAnimationFrame(() => c.classList.add('in')));
 }
 function putInGame(w, n) {
+  if (VER === 'chat') { closeSheet(); closeAllSubs(); setTimeout(() => { openCC(); V2.cc.atts = [{ img:w.model + '.webp', src:M(w.model + '.webp') }]; V2.cc.text = `${w.title} guards a pillow fort from sock monsters. Cozy low-poly style.`; renderCC(); }, 380); return; }
   const v = verOf(w, n);
   const go = () => { resetPrompt(); setMode('ai'); attachTarget = 'create'; state.attachments.push({ img: w.model + '.webp', role:'Hero', filter: styleOf(v.style).filter }); renderAttachments(); showIdea(`${w.title} guards a pillow fort from sock monsters. Cozy low-poly style.`); };
   const fromTabs = $('#create').hidden; closeSheet(); closeAllSubs();
   if (fromTabs) { openCreate('ai'); setTimeout(go, 60); } else setTimeout(go, 380);
 }
 function addAttachment(img, role) {
+  if (/^(cc|bot:)/.test(attachTarget)) { v2AddAtt(img); return; }
   if (attachTarget === 'chat') { if (state.chatAtts.length < 4) state.chatAtts.push({ img }); renderChatAtts(); return; }
   if (state.attachments.length >= 4) return; state.attachments.push({ img, role }); renderAttachments();
 }
@@ -2813,6 +3089,7 @@ function tweak(w, text, opt = {}) {
 
 /* ---------- Chats: one list + a small filter ---------- */
 function renderChats() {
+  if (VER === 'chat') { renderChats2(); return; }
   const wrap = $('#chatsWrap'); if (!wrap) return;
   const f = state.chatFilter, items = [];
   const recNow = x => x.time === 'now' ? Math.max(x.rec || 0, Date.now() - 1) : (x.rec || recOf(x.time));
@@ -2907,6 +3184,7 @@ function openSettings() {
   openSub('sub-settings', `${head(xBtn('sub-close', 'back'), '<b>Settings</b>')}<div class="s-body vscroll set">
     <small class="pxl">ACCOUNT</small><div class="set-card">${r('Edit profile', I.chevR)}${r('Username', `<small>@yy.makes</small>${I.chevR}`)}</div>
     <small class="pxl">NOTIFICATIONS</small><div class="set-card">${r('Push notifications', `<span class="switch${state.settings.push ? ' on' : ''}"><i></i></span>`, 'set-toggle')}</div>
+    <small class="pxl">DEMO</small><div class="set-card">${r('Create version', `<small>${VER === 'chat' ? 'Chat' : 'Original'}</small>${I.chevR}`, 'set-ver')}</div>
     <small class="pxl">MORE</small><div class="set-card">${r('Help & about', I.chevR)}${r('Log out', '', 'set-logout', 'red')}</div>
   </div>`);
 }
@@ -3398,11 +3676,683 @@ function renderRemix() {
 function resetPrompt() { clearGhost(); state.remix = null; renderRemix(); const ta = $('#prompt'); ta.value = ''; delete ta.dataset.preset; state.attachments = []; renderAttachments(); }
 
 document.addEventListener('click', e => {
-  if (!e.target.closest('.pop, [data-act="vw-more"], [data-act="ch-filter"], [data-act="tv-more"], [data-act="insp-more"], [data-act="sd-more"]')) $$('.pop').forEach(p => p.remove());
+  if (!e.target.closest('.pop, [data-act="vw-more"], [data-act="ch-filter"], [data-act="tv-more"], [data-act="insp-more"], [data-act="sd-more"], [data-act="bot-more"], [data-act="cc-pick"]')) $$('.pop').forEach(p => p.remove());
   if (!e.target.closest('.crow')) $$('.crow.open').forEach(r => r.classList.remove('open'));
   const b = e.target.closest('[data-act]'); if (!b) return;
   const fn = A[b.dataset.act]; if (fn) { e.preventDefault(); fn(b, e); }
 });
+
+
+/* ===== v4 · Chat version (Figma section 1028) =====
+   Create = a chat with a bot (no history there; every chat lives in Chats). + makes a new bot.
+   Bots can team up for a project; in a team each bot answers by name, @ asks one. */
+let VER = window.WK_VER === 'chat' ? 'chat' : 'classic';
+const BOT_PATHS = {
+  Bun:['M32 55.0804C23.54 55.1904 16.46 55.8404 9.2 51.4804C4.14 48.4404 2 42.9804 2 37.0804C2 30.7804 6.36 27.1004 9.2 21.4804C11.43 17.0804 12.77 13.6504 15.82 9.77041C16.55 8.84041 17.88 8.58041 18.97 9.05041C22.22 10.4604 23.66 13.1304 26.9 14.5804C28.61 15.3504 30.13 14.8804 32 14.8804C33.76 14.8804 35.14 15.1604 36.8 14.5804C40.38 13.3304 42.4 10.9904 46.05 9.95041C47.23 9.62041 48.51 10.0504 49.19 11.0704C51.67 14.7504 52.24 18.1004 54.2 22.0804C56.94 27.6404 61.87 30.8804 62 37.0804C62.12 42.7904 59.69 47.9404 54.8 50.8804C47.51 55.2504 40.5 54.9704 32 55.0804Z','M31.7017 30.841C32.6117 30.781 33.4017 31.471 33.4617 32.371C33.6217 34.591 31.4417 36.551 28.6017 36.751C25.7617 36.951 23.3217 35.311 23.1717 33.091C23.1117 32.191 23.7917 31.401 24.7017 31.331C27.0417 31.171 29.3717 31.011 31.7017 30.841Z','M50.2504 29.5901C51.1604 29.5101 51.9604 30.1801 52.0404 31.0901C52.2304 33.3001 50.0804 35.3001 47.2504 35.5501C44.4104 35.7901 41.9504 34.2001 41.7604 31.9901C41.6804 31.0801 42.3504 30.2801 43.2604 30.2001C45.5904 29.9901 47.9204 29.7901 50.2504 29.5901Z'],
+  Egg:['M32.0008 61.9514C25.5008 61.9514 18.8308 62.7614 14.8108 57.6614C9.51081 50.9414 10.6508 43.2814 10.5108 34.7314C10.3808 26.7414 12.2408 21.0114 14.0908 13.2414C15.0208 9.33135 15.8708 6.39135 18.0708 3.02135C18.7108 2.02135 20.1708 1.72135 21.2208 2.28135C24.0508 3.82135 24.8308 6.75135 27.7008 8.23135C29.5708 9.19135 31.3308 8.65135 33.4308 8.58135C35.5508 8.52135 37.3408 8.94135 39.1608 7.87135C41.3908 6.56135 41.5808 3.93135 43.7508 2.52135C44.6308 1.95135 46.0108 2.15135 46.5608 3.05135C48.5008 6.18135 49.1208 8.92135 49.9108 12.5214C51.6708 20.5814 53.6208 26.4814 53.4908 34.7314C53.3608 43.2814 54.4908 50.9414 49.1908 57.6614C45.1708 62.7614 38.5008 61.9514 32.0008 61.9514Z','M27.9241 26.8799C28.7641 27.0599 29.3041 27.8899 29.1241 28.7299C28.6841 30.7799 26.1941 31.9899 23.5641 31.4399C20.9341 30.8799 19.1541 28.7599 19.5941 26.7099C19.7741 25.8599 20.5941 25.3299 21.4441 25.4999C23.6041 25.9599 25.7641 26.4199 27.9241 26.8799Z','M42.605 29.7501C43.445 29.9301 43.985 30.7601 43.805 31.6001C43.375 33.6501 40.885 34.8601 38.255 34.3001C35.625 33.7401 33.845 31.6201 34.275 29.5701C34.455 28.7301 35.285 28.1901 36.125 28.3701C38.285 28.8301 40.445 29.2901 42.605 29.7501Z'],
+  Tilt:['M31.2682 59.4102C23.1282 59.3002 15.9682 59.6502 9.58816 54.5902C3.98816 50.1602 0.938158 43.5102 2.35816 36.5202C4.20816 27.3802 11.0082 22.8002 17.4182 16.0402C22.1282 11.0602 26.4482 8.29018 32.3582 4.83018C33.4282 4.20018 34.7782 4.50018 35.7082 5.33018C38.1182 7.47018 37.9682 11.0902 40.9082 12.4202C43.5582 13.6202 45.8882 11.7402 48.7382 11.2202C50.7482 10.8502 52.2082 10.5702 54.1682 10.0102C55.7982 9.54018 56.8282 8.43018 58.5282 8.42018C59.6082 8.42018 60.7082 8.96018 61.0282 10.0002C62.0782 13.4002 62.0282 16.0902 61.9982 19.6502C61.9382 26.7302 62.2082 31.9902 60.7882 38.9302C59.5282 45.1602 59.9882 51.5702 54.7682 55.1902C47.5782 60.1802 40.0282 59.5302 31.2682 59.4102Z','M30.0842 30.6501C30.8342 30.8901 31.2442 31.7001 31.0042 32.4401C30.4142 34.2701 28.0342 35.1301 25.6942 34.3701C23.3542 33.6101 21.9342 31.5201 22.5242 29.6901C22.7642 28.9401 23.5742 28.5301 24.3242 28.7701C26.2442 29.4001 28.1642 30.0201 30.0842 30.6501Z','M46.1741 36.3702C46.9241 36.6102 47.3341 37.4202 47.0941 38.1702C46.4941 39.9902 44.1141 40.8602 41.7741 40.1002C39.4341 39.3402 38.0141 37.2402 38.6141 35.4102C38.8541 34.6602 39.6641 34.2502 40.4041 34.5002C42.3341 35.1202 44.2541 35.7502 46.1741 36.3702Z'],
+  Pear:['M32.024 57.2803C22.744 57.2803 15.194 57.9803 6.95395 53.7003C2.77395 51.5303 1.48395 46.4303 2.18395 41.7603C3.59395 32.3603 7.88395 26.3003 12.334 17.8903C14.624 13.5603 16.904 10.6603 20.434 7.26034C21.214 6.50034 22.514 6.56034 23.404 7.19034C25.484 8.66034 25.674 11.2003 27.844 12.5203C29.344 13.4303 30.874 12.8003 32.624 12.7603C34.494 12.7103 36.044 13.1603 37.694 12.2803C40.214 10.9303 40.914 8.38034 43.404 6.98034C44.344 6.46034 45.654 6.60034 46.294 7.46034C49.344 11.5403 50.804 15.0403 52.914 19.6803C56.524 27.6403 60.804 33.0903 61.864 41.7603C62.444 46.4403 61.274 51.5303 57.094 53.7003C48.854 57.9803 41.314 57.2803 32.024 57.2803Z','M27.282 33.051C27.992 32.951 28.652 33.441 28.752 34.151C28.992 35.881 27.392 37.541 25.172 37.851C22.952 38.161 20.952 37.011 20.712 35.281C20.612 34.571 21.112 33.911 21.822 33.811C23.642 33.561 25.462 33.301 27.282 33.051Z','M43.1288 31.8904C43.8288 31.7604 44.5088 32.2404 44.6288 32.9404C44.9288 34.6604 43.3888 36.3804 41.1788 36.7604C38.9788 37.1504 36.9388 36.0704 36.6388 34.3504C36.5088 33.6504 36.9788 32.9704 37.6888 32.8504C39.4988 32.5304 41.3088 32.2104 43.1288 31.8904Z'],
+  Mochi:['M32.0012 47.431C22.7612 47.431 15.5012 48.921 6.86117 45.631C3.19117 44.241 1.62117 39.961 2.07117 36.061C2.63117 31.161 6.70117 28.911 9.25117 24.681C10.8812 21.991 11.3612 19.541 13.4712 17.191C14.2312 16.351 15.4712 16.141 16.5212 16.591C18.8012 17.571 19.4312 20.141 21.8212 20.791C25.4212 21.771 28.2712 20.861 32.0012 20.791C34.8512 20.751 37.0612 21.361 39.7812 20.491C42.2512 19.711 43.1712 17.381 45.5912 16.471C46.7612 16.031 48.0412 16.201 48.9412 17.061C51.6012 19.621 52.6612 22.241 54.7412 25.281C57.4212 29.201 61.3712 31.341 61.9312 36.061C62.3912 39.961 60.8112 44.241 57.1412 45.631C48.5012 48.921 41.2412 47.431 32.0012 47.431Z','M32.6095 34.26C33.3295 34.26 33.9095 34.84 33.9095 35.56C33.9095 37.32 32.0895 38.74 29.8395 38.74C27.5995 38.74 25.7695 37.32 25.7695 35.56C25.7695 34.84 26.3595 34.26 27.0795 34.26C28.9195 34.26 30.7695 34.26 32.6095 34.26Z','M46.6719 32.9203C47.3719 32.7903 48.0519 33.2703 48.1819 33.9703C48.4819 35.7003 46.9319 37.4203 44.7219 37.8103C42.5119 38.2003 40.4619 37.1103 40.1619 35.3903C40.0319 34.6803 40.5119 34.0003 41.2119 33.8803C43.0319 33.5603 44.8519 33.2403 46.6719 32.9203Z'],
+  Loaf:['M32.0038 57.3215C22.2838 57.3215 13.7038 60.6915 5.56379 55.3815C0.133787 51.8415 2.57379 44.4615 2.34379 37.9715C2.10379 31.3215 3.08379 26.4715 4.27379 19.9215C5.20379 14.8115 6.07379 11.0715 8.09379 6.28148C8.39379 5.57148 9.66379 5.40148 10.1638 5.98148C13.0238 9.29148 12.6038 14.1315 16.5238 16.0515C21.6238 18.5515 26.3238 16.6915 32.0038 16.6915C37.6838 16.6915 42.3838 18.5515 47.4838 16.0515C51.4038 14.1315 50.9838 9.29148 53.8438 5.98148C54.3438 5.40148 55.6138 5.57148 55.9138 6.28148C57.9338 11.0715 58.8038 14.8115 59.7338 19.9215C60.9238 26.4715 61.9038 31.3215 61.6638 37.9715C61.4338 44.4615 63.8738 51.8415 58.4438 55.3815C50.3038 60.6915 41.7238 57.3215 32.0038 57.3215Z','M26.6506 33.3012C27.5006 33.4312 28.1006 34.2212 27.9806 35.0812C27.6906 37.1712 25.2806 38.5612 22.6006 38.1812C19.9206 37.8012 17.9806 35.8012 18.2806 33.7112C18.4006 32.8512 19.1906 32.2612 20.0506 32.3812C22.2506 32.6912 24.4506 33.0012 26.6506 33.3012Z','M43.9492 32.3812C44.8092 32.2612 45.5992 32.8512 45.7192 33.7112C46.0192 35.8012 44.0792 37.8012 41.3992 38.1812C38.7192 38.5612 36.3092 37.1712 36.0192 35.0812C35.8992 34.2212 36.4992 33.4312 37.3492 33.3012C39.5492 33.0012 41.7492 32.6912 43.9492 32.3812Z'],
+  Round:['M32.0051 62C24.0451 62 16.9951 61.9201 10.9551 56.7401C5.50514 52.0701 5.03514 45.4601 4.37514 38.3101C3.78514 31.9501 6.37514 27.4601 7.66514 21.2101C9.06514 14.4101 9.57514 9.33005 11.7051 2.73005C11.9451 1.99005 13.2651 1.73005 13.7651 2.32005C18.0951 7.39005 19.1351 12.8301 24.1051 17.2601C26.3051 19.2101 29.0751 18.5801 32.0051 18.5801C34.9351 18.5801 37.7051 19.2101 39.9051 17.2601C44.8751 12.8301 45.9151 7.39005 50.2451 2.32005C50.7451 1.73005 52.0651 1.99005 52.3051 2.73005C54.4351 9.33005 54.9451 14.4101 56.3451 21.2101C57.6351 27.4601 60.2251 31.9501 59.6351 38.3101C58.9751 45.4601 58.5051 52.0701 53.0551 56.7401C47.0151 61.9201 39.9651 62 32.0051 62Z','M25.0639 37.2409C25.9439 37.3009 26.6039 38.0709 26.5439 38.9509C26.3939 41.1009 24.0339 42.6809 21.2839 42.4909C18.5339 42.3009 16.4239 40.4009 16.5739 38.2509C16.6339 37.3709 17.3939 36.7109 18.2739 36.7709C20.5339 36.9309 22.8039 37.0809 25.0639 37.2409Z','M43.5597 37.37C44.4397 37.46 45.0797 38.25 44.9897 39.13C44.7597 41.27 42.3497 42.77 39.6097 42.48C36.8597 42.2 34.8197 40.22 35.0397 38.08C35.1297 37.2 35.9197 36.57 36.7997 36.66C39.0597 36.9 41.3097 37.13 43.5597 37.37Z'],
+  Pillar:['M32.0072 61.4206C26.3072 61.4206 19.8472 63.7606 16.6372 59.0506C11.7272 51.8506 14.6072 44.1106 14.2772 35.4106C13.9572 27.1706 13.8672 21.1206 14.8672 12.9406C15.3372 9.04055 16.3972 6.23055 18.2572 2.77055C18.6672 1.99055 19.8772 1.76055 20.6072 2.26055C23.0472 3.96055 23.5172 6.74055 26.0972 8.21055C27.9872 9.30055 29.8272 8.80055 32.0072 8.80055C34.1872 8.80055 36.0272 9.30055 37.9172 8.21055C40.4972 6.74055 40.9672 3.96055 43.4072 2.26055C44.1372 1.76055 45.3472 1.99055 45.7572 2.77055C47.6172 6.23055 48.6772 9.04055 49.1472 12.9406C50.1472 21.1206 50.0572 27.1706 49.7372 35.4106C49.4072 44.1106 52.2872 51.8506 47.3772 59.0506C44.1672 63.7606 37.7072 61.4206 32.0072 61.4206Z','M28.0597 22.12C28.7797 22.04 29.4397 22.57 29.5097 23.3C29.6997 25.07 28.0097 26.7 25.7397 26.94C23.4597 27.18 21.4697 25.93 21.2797 24.16C21.2097 23.43 21.7297 22.78 22.4597 22.71C24.3297 22.51 26.1897 22.31 28.0597 22.12Z','M41.0592 22.12C41.7892 22.04 42.4392 22.57 42.5192 23.3C42.6992 25.07 41.0092 26.7 38.7392 26.94C36.4692 27.18 34.4692 25.93 34.2892 24.16C34.2092 23.43 34.7392 22.78 35.4692 22.71C37.3292 22.51 39.1992 22.31 41.0592 22.12Z'],
+  Fennec:['M32.0005 61.9902C24.2705 61.9902 17.5605 62.4402 11.3405 57.8502C6.58049 54.3502 6.65049 48.5602 5.83049 42.7002C4.84049 35.6902 6.50049 30.4902 6.51049 23.4102C6.53049 15.8302 5.56049 10.3202 5.91049 2.75023C5.93049 2.14023 7.08049 1.73023 7.48049 2.20023C13.3805 9.12023 15.4805 16.0902 22.3605 22.0402C25.0605 24.3702 28.4305 23.4102 32.0005 23.4102C35.5705 23.4102 38.9405 24.3702 41.6405 22.0402C48.5205 16.0902 50.6205 9.12023 56.5205 2.20023C56.9205 1.73023 58.0705 2.14023 58.0905 2.75023C58.4405 10.3202 57.4705 15.8302 57.4905 23.4102C57.5005 30.4902 59.1605 35.6902 58.1705 42.7002C57.3505 48.5602 57.4205 54.3502 52.6605 57.8502C46.4405 62.4402 39.7305 61.9902 32.0005 61.9902Z','M25.8096 42.1706C26.6496 42.0206 27.4496 42.5906 27.5996 43.4206C27.9596 45.4706 26.1296 47.5006 23.5096 47.9606C20.8796 48.4306 18.4696 47.1406 18.0996 45.1006C17.9596 44.2606 18.5196 43.4606 19.3596 43.3106C21.5096 42.9306 23.6596 42.5506 25.8096 42.1706Z','M44.6446 43.3106C45.4846 43.4606 46.0446 44.2606 45.9046 45.1006C45.5346 47.1406 43.1246 48.4306 40.4946 47.9606C37.8746 47.5006 36.0446 45.4706 36.4046 43.4206C36.5546 42.5906 37.3546 42.0206 38.1946 42.1706C40.3446 42.5506 42.4946 42.9306 44.6446 43.3106Z'],
+  Puddle:['M32.0095 45.9806C23.2395 45.9806 16.6895 47.1106 8.08955 45.3906C5.19955 44.8106 1.32955 42.8506 2.10955 40.0006C3.67955 34.3206 9.64955 32.9806 12.8795 28.0506C14.9395 24.8906 14.4195 21.6306 16.2695 18.3406C16.6795 17.6106 17.8895 17.4306 18.5395 17.9706C20.8695 19.9006 20.8695 23.2506 23.6395 24.4606C26.4595 25.6906 28.9295 23.8606 32.0095 23.8606C35.0895 23.8606 37.5595 25.6906 40.3795 24.4606C43.1495 23.2506 43.1495 19.9006 45.4795 17.9706C46.1295 17.4306 47.3395 17.6106 47.7495 18.3406C49.5995 21.6306 49.0795 24.8906 51.1395 28.0506C54.3695 32.9806 60.3395 34.3206 61.9095 40.0006C62.6895 42.8506 58.8195 44.8106 55.9295 45.3906C47.3295 47.1106 40.7795 45.9806 32.0095 45.9806Z','M28.129 34.73C28.789 34.59 29.439 35.01 29.579 35.67C29.919 37.28 28.519 38.95 26.459 39.38C24.389 39.82 22.439 38.87 22.089 37.26C21.949 36.6 22.379 35.95 23.039 35.81C24.729 35.45 26.429 35.09 28.129 34.73Z','M40.962 35.81C41.622 35.95 42.052 36.6 41.912 37.26C41.562 38.87 39.612 39.82 37.542 39.38C35.482 38.95 34.082 37.28 34.422 35.67C34.562 35.01 35.212 34.59 35.872 34.73C37.572 35.09 39.272 35.45 40.962 35.81Z'],
+  Nub:['M31.9986 56.5901C23.2586 56.5901 15.5686 58.9401 8.29861 54.1001C2.63861 50.3201 1.68861 43.4201 2.05861 36.6301C2.43861 29.7901 6.60861 25.6501 10.1686 19.7901C13.1686 14.8701 15.7186 11.4201 19.8586 7.41013C20.6886 6.61013 22.0586 6.70013 22.9886 7.36013C25.1586 8.90013 25.4086 11.4801 27.6286 12.9301C28.9786 13.8101 30.3986 13.2401 31.9986 13.2401C33.5986 13.2401 35.0186 13.8101 36.3686 12.9301C38.5886 11.4801 38.8386 8.90013 41.0086 7.36013C41.9386 6.70013 43.3086 6.61013 44.1386 7.41013C48.2786 11.4201 50.8286 14.8701 53.8286 19.7901C57.3886 25.6501 61.5586 29.7901 61.9386 36.6301C62.3086 43.4201 61.3586 50.3201 55.6986 54.1001C48.4286 58.9401 40.7386 56.5901 31.9986 56.5901Z','M25.2413 34.14C26.0813 34.14 26.7612 34.82 26.7612 35.65C26.7612 37.7 24.6412 39.35 22.0212 39.35C19.4012 39.35 17.2812 37.7 17.2812 35.65C17.2812 34.82 17.9613 34.14 18.8012 34.14C20.9513 34.14 23.1012 34.14 25.2413 34.14Z','M45.1983 34.14C46.0383 34.14 46.7183 34.82 46.7183 35.65C46.7183 37.7 44.5983 39.35 41.9783 39.35C39.3583 39.35 37.2383 37.7 37.2383 35.65C37.2383 34.82 37.9183 34.14 38.7583 34.14C40.8983 34.14 43.0483 34.14 45.1983 34.14Z'],
+  Lop:['M31.9534 61.9017C23.3034 61.9017 15.7034 63.0017 8.71343 57.9217C3.29343 53.9817 2.86343 47.3517 2.73343 40.6617C2.61343 34.0417 6.17343 29.7517 8.05343 23.4017C10.2834 15.8317 11.1234 10.0717 13.9534 2.71175C14.2534 1.95175 15.6434 1.74175 16.1634 2.37175C20.5634 7.71175 21.5534 13.3917 26.6334 18.0917C28.8134 20.1017 31.6434 19.4117 34.6034 19.4117C37.5634 19.4117 39.7734 19.0517 42.5734 18.0917C45.1834 17.1817 46.4034 14.7617 49.1434 14.3917C51.3934 14.0817 53.4734 14.7117 54.9934 16.3917C57.2234 18.8517 57.6934 21.5117 58.5034 24.7217C59.9634 30.4717 61.7534 34.7617 61.1634 40.6617C60.4934 47.3217 60.6034 53.9817 55.1834 57.9217C48.1934 63.0017 40.5934 61.9017 31.9534 61.9017Z','M29.7584 37.66C30.6384 37.57 31.4384 38.21 31.5284 39.1C31.7584 41.26 29.6884 43.25 26.9184 43.54C24.1484 43.83 21.7184 42.31 21.4984 40.15C21.3984 39.26 22.0484 38.47 22.9284 38.38C25.2084 38.14 27.4784 37.9 29.7584 37.66Z','M49.082 37.3108C49.962 37.4708 50.552 38.3108 50.392 39.1808C50.022 41.3208 47.482 42.6708 44.742 42.1808C42.002 41.7008 40.082 39.5708 40.462 37.4308C40.612 36.5508 41.452 35.9708 42.332 36.1208C44.582 36.5208 46.832 36.9208 49.082 37.3108Z'],
+};
+const BOT_SHAPES = Object.keys(BOT_PATHS);
+const BOT_COLS = ['#F3EEE4', '#FFD84D', '#D4FA00', '#6AF0B2', '#2FD6C3', '#66D4FF', '#4F8BFF', '#A87BFF', '#FF8FC8', '#FF5A5A', '#FF7F66', '#FFB36B'];
+const b2 = (d, v = '0 0 24 24') => `<svg viewBox="${v}" fill="none" aria-hidden="true">${d}</svg>`;
+const IC2 = {
+  camera: b2('<path d="M2.2 8.8a2.75 2.75 0 0 1 2.75-2.75h2.31l1.27-1.92a1.1 1.1 0 0 1 .93-.5h3.08a1.1 1.1 0 0 1 .93.5l1.27 1.92h2.31a2.75 2.75 0 0 1 2.75 2.75v7.15a2.75 2.75 0 0 1-2.75 2.75H4.95a2.75 2.75 0 0 1-2.75-2.75V8.8Z"/><circle cx="11" cy="12.38" r="3.58"/>', '0 0 22 22').replace('<path', '<path stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"').replace('<circle', '<circle stroke="currentColor" stroke-width="1.4"'),
+  photos: b2('<g stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2.48" y="3.57" width="17.05" height="14.85" rx="3.3"/><circle cx="7.7" cy="8.52" r="1.65"/><path d="M2.75 15.67l4.68-4.4L11 14.57l3.03-3.02 5.22 4.95"/></g>', '0 0 22 22'),
+  snap: b2('<g stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.2 7.15v-2.2A2.75 2.75 0 0 1 4.95 2.2h2.2M14.85 2.2h2.2a2.75 2.75 0 0 1 2.75 2.75v2.2M19.8 14.85v2.2a2.75 2.75 0 0 1-2.75 2.75h-2.2M7.15 19.8h-2.2A2.75 2.75 0 0 1 2.2 17.05v-2.2"/><path d="M9.73 6.2l5.02 1.44 1.27 5.07-3.76 3.63-5.02-1.44-1.26-5.07L9.73 6.2Z"/><path d="M5.98 9.83 11 11.28m0 0 3.76-3.63M11 11.28l1.26 5.07"/></g>', '0 0 22 22'),
+  sparkle: b2('<g stroke="currentColor" stroke-linejoin="round"><path stroke-width="1.4" d="M22.33 13.67a10.3 10.3 0 0 0 6 6 10.3 10.3 0 0 0-6 6 10.3 10.3 0 0 0-6-6 10.3 10.3 0 0 0 6-6Z"/><path stroke-width=".9" d="M28.6 12.33c.27.74.86 1.33 1.6 1.6-.74.28-1.33.86-1.6 1.6-.27-.74-.86-1.32-1.6-1.6.74-.27 1.33-.86 1.6-1.6Z"/></g>', '15 11 16 16'),
+  bulb: b2('<g stroke="currentColor" stroke-width="1.575" stroke-linecap="round" stroke-linejoin="round"><path d="M25.2 16.37c0 2.2-1.38 4.08-3.33 4.83h-3.74c-1.95-.75-3.33-2.63-3.33-4.83 0-2.85 2.33-5.17 5.2-5.17s5.2 2.32 5.2 5.17Z"/><path d="m22.8 20.8-.33 3.6a.5.5 0 0 1-.49.4h-3.97a.5.5 0 0 1-.48-.4l-.33-3.6"/></g>', '12 10 16 16'),
+  chev: b2('<path d="M9 4.5 6 7.5 3 4.5" stroke="currentColor" stroke-opacity=".6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>', '0 0 12 12').replace('<svg', '<svg class="chev"'),
+  mic: b2('<g stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12.92 4.58a2.92 2.92 0 1 0-5.84 0V10a2.92 2.92 0 1 0 5.84 0V4.58Z"/><path d="M3.75 9.58a6.25 6.25 0 0 0 12.5 0M10 15.83v2.5"/></g>', '0 0 20 20'),
+  plus: b2('<path d="M12 4v16M4 12h16" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>'),
+  x: b2('<path d="M18 6 6 18M6 6l12 12" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>'),
+  filter: b2('<path d="M13.34 15h13.33M15.84 20h8.33M18.34 25h3.33" stroke="currentColor" stroke-width="1.83" stroke-linecap="round"/>', '10 10 20 20'),
+  search: b2('<circle cx="19.17" cy="19.17" r="5.42" stroke="currentColor" stroke-width="1.67"/><path d="m23.34 23.33 3.33 3.34" stroke="currentColor" stroke-width="1.67" stroke-linecap="round"/>', '10 10 20 20'),
+  list: b2('<path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>'),
+  team: b2('<g stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.6 3.2-5.5 6.5-5.5s5.9 1.9 6.5 5.5M16 4.8a3.4 3.4 0 0 1 0 6.4M18.2 14.8c1.8.7 3 2.4 3.3 5.2"/></g>'),
+  updown: b2('<path d="m8 10 4-4 4 4M8 14l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>'),
+};
+const GLOW = '<div class="b-glow" aria-hidden="true"><i></i><i></i><i></i></div>';
+const esc = escapeHTML;
+const botSVG = (shape, col) => { const p = BOT_PATHS[shape] || BOT_PATHS.Bun; return `<svg class="bot-svg" viewBox="0 0 64 64" aria-hidden="true"><path d="${p[0]}" fill="${col}"/><g class="ey"><path d="${p[1]}" fill="#140F0F"/><path d="${p[2]}" fill="#140F0F"/></g></svg>`; };
+function botAv(b, size, cls = '') {
+  if (b.img) return `<img class="bot-img ${cls}" src="${M(b.img)}" style="width:${size}px;height:${size}px" alt="">`;
+  return `<span class="bot-av ${cls}" data-shape="${b.shape}" data-col="${b.col}" style="width:${size}px;height:${size}px">${botSVG(b.shape, b.col)}</span>`;
+}
+function teamTile(t, size) {
+  const s = Math.round(size * .34);
+  return `<span class="team-tile" style="--tc:${t.col};width:${size}px;height:${size}px;border-radius:${Math.round(size * .29)}px"><span class="tt">${t.members.slice(0, 3).map(id => { const b = chatById(id); return b ? botAv({ shape:b.shape, col:t.col }, s) : ''; }).join('')}</span></span>`;
+}
+const stackHTML = (t, s = 20) => `<span class="b-stack">${t.members.slice(0, 3).map(id => { const b = chatById(id); return b ? botAv(b, s) : ''; }).join('')}</span>`;
+
+/* Switching avatars: every Body (and eye) path has the same anchors, so one shape morphs into another */
+const NUM = /-?\d*\.?\d+(?:e[-+]?\d+)?/gi;
+const parseD = d => ({ n:d.match(NUM).map(Number), t:d.replace(NUM, '#') });
+const hexRGB = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
+function morphAv(av, shape, col, dur = 480) {
+  if (!av || !av.classList.contains('bot-av')) return;
+  const from = av.dataset.shape, fc = av.dataset.col; if (from === shape && fc === col) return;
+  av.dataset.shape = shape; av.dataset.col = col;
+  const paths = $$('path', av), A = BOT_PATHS[from].map(parseD), B = BOT_PATHS[shape].map(parseD);
+  const same = A.every((p, i) => p.t === B[i].t && p.n.length === B[i].n.length);
+  av.animate([{ transform:'scale(1)' }, { transform:'scale(1.14,.86)', offset:.3 }, { transform:'scale(.94,1.07)', offset:.65 }, { transform:'scale(1)' }], { duration:dur + 160, easing:'ease-out' });
+  if (!same) { av.innerHTML = botSVG(shape, col); return; }
+  const c0 = hexRGB(fc), c1 = hexRGB(col), t0 = performance.now();
+  const step = now => {
+    const k = Math.min(1, (now - t0) / dur), e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+    paths.forEach((p, i) => { let j = 0; p.setAttribute('d', A[i].t.replace(/#/g, () => { const v = A[i].n[j] + (B[i].n[j] - A[i].n[j]) * e; j++; return v.toFixed(2); })); });
+    paths[0].setAttribute('fill', `rgb(${c0.map((c, i) => Math.round(c + (c1[i] - c) * e)).join(',')})`);
+    if (k < 1) requestAnimationFrame(step); else { paths.forEach((p, i) => p.setAttribute('d', BOT_PATHS[shape][i])); paths[0].setAttribute('fill', col); }
+  };
+  requestAnimationFrame(step);
+}
+const popAv = av => { if (!av) return; av.classList.remove('hop'); void av.offsetWidth; av.classList.add('hop'); setTimeout(() => av.classList.remove('hop'), 800); };
+
+/* ---------- data: bots, teams (friends come from state.dms) ---------- */
+const V2 = { bots:[], teams:[], filter:'all', cc:null, seq:0 };
+const chatById = id => V2.bots.find(b => b.id === id) || V2.teams.find(t => t.id === id);
+const inp0 = () => ({ tray:false, plan:false, atts:[], text:'' });
+const T941 = 'Today 9:41';
+function seedV2() {
+  const bot = o => Object.assign({ kind:'bot', mem:[], msgs:[], chips:null, time:'now', pinned:false, unread:false, mode:'talk', inp:inp0(), notif:true }, o);
+  V2.bots = [
+    bot({ id:'wana', name:'Wana', shape:'Bun', col:'#D7EA69', sys:true, about:'Makes games with you', mode:'build', time:'5m', last:'Pup fishing at night, saved for later', idea:'A cozy fishing game with my pup, at night',
+      msgs:[{ k:'time', t:'Today 9:12' }, { k:'me', t:'A cozy fishing game with my pup, at night' }, { k:'ai', t:'Love it: you and your pup fishing under the stars. I saved it here for later. Say “Build it” whenever you’re ready.' }], chips:['Build it', 'Add a rival boat'] }),
+    bot({ id:'doodle', name:'Doodle', shape:'Tilt', col:'#A87BFF', about:'Draws characters and outfits', time:'Yesterday', last:'Three outfit ideas for your pup',
+      msgs:[{ k:'time', t:'Yesterday' }, { k:'me', t:'Outfit ideas for my pup in the game?' }, { k:'ai', t:'Three outfit ideas for your pup: a yellow raincoat, a tiny captain’s hat, and a glow-in-the-dark collar for night levels.' }] }),
+    bot({ id:'fizz', name:'Fizz', shape:'Pillar', col:'#66D4FF', about:'Sounds and music', time:'Mon', last:'Here’s a sound list for the arcade',
+      msgs:[{ k:'time', t:'Mon' }, { k:'me', t:'Sounds for my arcade game' }, { k:'ai', t:'Here’s a sound list for the arcade: a coin chime, a combo whoosh and a squishy game-over boing.' }] }),
+    bot({ id:'pip', name:'Pip', shape:'Puddle', col:'#FFD84D', about:'Your new bot', mode:'intro', time:'Mon', last:'Hi, I’m Pip! What should I help with?',
+      msgs:[{ k:'time', t:'Mon' }, { k:'ai', t:'Hi, I’m Pip! What should I help with? Tell me in one line and I’ll remember it.' }] }),
+    bot({ id:'loop', name:'Loop', shape:'Round', col:'#FF8FC8', about:'Plans calm walking games', time:'1h', last:'Cherry blossoms along the path?',
+      msgs:[{ k:'time', t:'Today 8:30' }, { k:'ai', t:'Cherry blossoms along the path?' }] }),
+  ];
+  V2.teams = [{ id:'stroll', kind:'team', name:'Stroll', col:'#FF8FC8', members:['loop', 'doodle', 'pip'], time:'1h', pinned:false, unread:false, inp:inp0(), chips:null, mode:'talk', last:'Loop: Cherry blossoms along the path?',
+    msgs:[{ k:'time', t:'Today 8:30' }, { k:'me', t:'A calm walking game in the park' }, { k:'ai', who:'loop', t:'Cherry blossoms along the path?' }, { k:'ai', who:'doodle', t:'I can draw petals that drift when you walk.' }] }];
+  [...V2.bots, ...V2.teams].forEach(c => { c.rec = recOf(c.time); });
+}
+seedV2();
+
+/* ---------- version switch ---------- */
+function syncVerUI() {
+  $$('.verswitch button').forEach(b => b.classList.toggle('on', b.dataset.ver === VER));
+  $$('.guide [data-ver]').forEach(el => { el.hidden = el.dataset.ver !== VER; });
+  document.title = VER === 'chat' ? 'Wanaka Mobile · Chat' : 'Wanaka Mobile';
+}
+function setVer(v) {
+  if (v === VER) return; VER = v;
+  closeSheet(); closeAllSubs(); $$('.pop').forEach(p => p.remove()); hideBanner();
+  if (!$('#create').hidden) closeCreate();
+  if (!$('#cc').hidden) closeCC(true);
+  syncVerUI(); renderChats();
+  try { if (/github\.io|localhost|127\.0\.0\.1/.test(location.host)) history.replaceState(null, '', v === 'chat' ? 'chat.html' : './'); } catch (e) {}
+  toast(v === 'chat' ? 'Chat version · Create is a chat with a bot' : 'Original version · Create with AI');
+}
+
+/* ---------- Create (A1 → IN1/IN2): a fresh page with a bot, no history ---------- */
+const WRITE_IDEAS = ['A sleepy cat fishing for stars on the moon. You have 30 seconds to catch as many as you can and sell them to the fish store.', 'Race shopping carts through a midnight supermarket and grab snacks before closing time.', 'My pup digs for bones in a garden full of sneaky moles.', 'Dodge falling pizza slices as a hungry pigeon on a busy pier.'];
+function openCC(preset) {
+  const c = $('#cc'); c.hidden = false; pauseAll(); pauseCarousel(); attachTarget = 'cc';
+  V2.cc = Object.assign(inp0(), { bot:'wana', start:null, tray:true, wi:0 });
+  if (preset && preset.remix) { V2.cc.atts = [{ src:poster(preset.remix) }]; V2.cc.text = `Remix ${preset.remix.title}: ${preset.idea || REMIX_IDEAS[preset.remix.id] || 'make it co-op'}`; }
+  renderCC();
+  requestAnimationFrame(() => requestAnimationFrame(() => c.classList.add('in')));
+}
+function closeCC(instant) {
+  const c = $('#cc'), talked = V2.cc && V2.cc.start != null; c.classList.remove('in'); $$('.pop').forEach(p => p.remove());
+  setTimeout(() => { if (!c.classList.contains('in')) { c.hidden = true; c.innerHTML = ''; resumeVisible(); } }, instant ? 0 : 380);
+  if (talked && !instant) setTimeout(() => toast('Saved in Chats', 'View', () => setTab('chats')), 420);
+}
+function renderCC() {
+  const st = V2.cc, b = chatById(st.bot), started = st.start != null;
+  $('#cc').innerHTML = `<div class="bscreen" data-chat="${b.id}" data-from="${started ? st.start : 0}" style="--bc:${b.col}">${GLOW}
+    <div class="b-head"><button class="icon-btn" data-act="cc-close" aria-label="Close">${I.close}</button>
+      <button class="b-pill" data-act="cc-pick" aria-label="Switch bot">${botAv(b, 24)}<b>${esc(b.name)}</b>${IC2.chev}</button>
+      <button class="icon-btn" data-act="v2-newbot" aria-label="New bot">${IC2.plus}</button></div>
+    <div class="b-body">${started ? `<div class="bthread">${msgsHTML(b, st.start)}</div>` : `<div class="b-empty">${botAv(b, 64, 'big')}<h2>What’s on your mind?</h2><button class="b-gbtn" data-act="cc-write">${IC2.sparkle}Write one for me</button><button class="b-gbtn" data-act="cc-insp">${IC2.bulb}Get inspired</button></div>`}</div>
+    ${footHTML(b, st)}</div>`;
+  const host = $('#cc .bscreen'); wireFoot(host, b, st); afterRender(host, b);
+}
+function emptyAvatar() { return $('#cc .b-empty .bot-av'); }
+function ccPick(id) {
+  const st = V2.cc, nb = chatById(id), host = $('#cc .bscreen'); $$('.pop').forEach(p => p.remove()); if (!nb || st.bot === id) return;
+  st.bot = id; st.start = null; buzz(8);
+  host.dataset.chat = id; host.dataset.from = 0; host.style.setProperty('--bc', nb.col);
+  const pill = $('.b-pill', host); morphAv($('.bot-av', pill), nb.shape, nb.col); $('b', pill).textContent = nb.name;
+  const body = $('.b-body', host);
+  if (!$('.b-empty', body)) body.innerHTML = `<div class="b-empty">${botAv(nb, 64, 'big')}<h2>What’s on your mind?</h2><button class="b-gbtn" data-act="cc-write">${IC2.sparkle}Write one for me</button><button class="b-gbtn" data-act="cc-insp">${IC2.bulb}Get inspired</button></div>`;
+  else morphAv(emptyAvatar(), nb.shape, nb.col, 560);
+  $('textarea', host).placeholder = `Ask ${nb.name} anything…`;
+}
+function ccPickMenu() {
+  const host = $('#cc'), old = $('.pop.bpick', host); if (old) { old.remove(); return; }
+  host.insertAdjacentHTML('beforeend', `<div class="pop bpick">${V2.bots.map(b => `<button data-act="cc-pick-set" data-id="${b.id}">${botAv(b, 22)}${esc(b.name)}<span class="ck2">${V2.cc.bot === b.id ? I.check : ''}</span></button>`).join('')}<i></i><button data-act="v2-newbot">${IC2.plus}New bot</button></div>`);
+}
+function ccWrite() {
+  const ta = $('#cc textarea'); if (!ta) return; const st = V2.cc;
+  const idea = WRITE_IDEAS[st.wi++ % WRITE_IDEAS.length]; let i = 0; ta.value = ''; clearInterval(st.wt);
+  st.wt = setInterval(() => { i += 2; ta.value = idea.slice(0, i); ta.dispatchEvent(new Event('input')); if (i >= idea.length) clearInterval(st.wt); }, 18);
+}
+function ccInspire() {
+  openSheet(`<h3>Get inspired</h3><p class="insp-sub">Tap a game to see the full prompt</p><div class="insp-grid">${INSP.map(id => `<button class="gcard insp" data-act="v2-insp" data-g="${id}"><span class="cov"><img src="${poster(G[id])}" alt=""></span><b>${G[id].title}</b><span class="ip">“${esc(G[id].prompt)}”</span></button>`).join('')}</div>`, { 'v2-insp': b => { closeSheet(); setTimeout(() => openInsp(b.dataset.g), 200); } });
+}
+
+/* ---------- shared chat surface: thread + tray + input ---------- */
+function footHTML(ch, st) {
+  return `<div class="b-foot">
+    <div class="b-tray"${st.tray ? '' : ' hidden'}><button data-act="b-cam" aria-label="Camera">${IC2.camera}</button><button data-act="b-photos" aria-label="Photos">${IC2.photos}</button><button class="snap" data-act="b-snap">${IC2.snap}3D Snap</button></div>
+    <div class="b-atts"${st.atts.length ? '' : ' hidden'}>${attsHTML(st)}</div>
+    <form class="b-in${st.plan ? ' planon' : ''}"><button type="button" class="l" data-act="b-tray" aria-label="Add">${st.tray ? IC2.x : IC2.plus}</button><textarea rows="1" placeholder="${ch.kind === 'team' ? `Message ${esc(ch.name)}…` : `Ask ${esc(ch.name)} anything…`}" aria-label="Message">${esc(st.text)}</textarea><button type="button" class="plan${st.plan ? ' on' : ''}" data-act="b-plan" aria-pressed="${st.plan}">${IC2.bulb}Plan</button><span class="sp"></span><button type="button" class="mic" data-act="noop" aria-label="Speak">${IC2.mic}</button><button class="go" aria-label="Send">${I.arrowUp}</button></form></div>`;
+}
+const attsHTML = st => st.atts.map((a, i) => `<span><img src="${a.src}" alt=""><button type="button" data-act="b-att-x" data-i="${i}" aria-label="Remove">${I.close}</button></span>`).join('');
+const stOf = host => host.closest('#cc') ? V2.cc : (chatById(host.dataset.chat) || {}).inp;
+function wireFoot(host, ch, st) {
+  const f = $('.b-in', host), ta = $('textarea', f), go = $('.go', f), tray = $('.b-tray', host), lb = $('.l', f);
+  const sync = () => {
+    st.text = ta.value; const focus = document.activeElement === ta;
+    f.classList.toggle('focus', focus); f.classList.toggle('open', focus || ta.value.length > 64);
+    tray.hidden = !st.tray || focus; lb.innerHTML = st.tray && !focus ? IC2.x : IC2.plus;
+    ta.style.height = 'auto'; ta.style.height = Math.min(112, Math.max(40, ta.scrollHeight)) + 'px';
+    go.classList.toggle('ready', !!ta.value.trim() || st.atts.length > 0);
+  };
+  host._sync = sync;
+  ta.addEventListener('input', sync); ta.addEventListener('focus', sync); ta.addEventListener('blur', () => setTimeout(sync, 0));
+  f.addEventListener('mousedown', e => { if (e.target.closest('button')) e.preventDefault(); });
+  ta.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); f.requestSubmit(); } });
+  f.addEventListener('submit', e => { e.preventDefault(); const text = ta.value.trim(); if (!text && !st.atts.length) return;
+    needSignIn(() => { const c = chatById(host.dataset.chat) || ch, atts = st.atts.slice(); st.atts = []; st.text = ''; ta.value = ''; ta.blur(); $('.b-atts', host).hidden = true; sync();
+      if (host.closest('#cc') && V2.cc.start == null) { V2.cc.start = c.msgs.length; host.dataset.from = c.msgs.length; c.msgs.push({ k:'time', t:T941 }); }
+      sendUser(c, text || 'Here’s a photo', { atts, plan:st.plan }); }); });
+  sync();
+}
+function afterRender(host, ch) {
+  const th = $('.bthread', host); if (th) { pixelAll(th); $$('video', th).forEach(v => v.play().catch(() => {})); th.scrollTop = th.scrollHeight; }
+  host.classList.toggle('busy', isBusy(ch));
+}
+const hostsOf = ch => $$('.bscreen[data-chat]').filter(h => h.dataset.chat === ch.id && !h.closest('[hidden]'));
+const isBusy = ch => ch.msgs.some(m => m.k === 'think' || m.k === 'typing') || ch.msgs.some(m => m.k === 'build' && (() => { const w = workById(m.wid); return w && w.building && w.building.n === m.n; })());
+function refreshChat(ch) {
+  hostsOf(ch).forEach(h => {
+    if (h.closest('#cc') && !$('.bthread', h)) { renderCC(); return; }
+    const th = $('.bthread', h); if (!th) return;
+    th.innerHTML = msgsHTML(ch, +h.dataset.from || 0); pixelAll(th); $$('video', th).forEach(v => v.play().catch(() => {}));
+    th.scrollTo({ top:th.scrollHeight, behavior:'smooth' });
+    h.classList.toggle('busy', isBusy(ch));
+  });
+  if (state.tab === 'chats') renderChats();
+}
+// a finished reply: the bot hops, the glow flares
+function celebrate(ch) {
+  hostsOf(ch).forEach(h => { popAv($('.b-pill .bot-av', h)); h.classList.remove('done'); void h.offsetWidth; h.classList.add('done'); setTimeout(() => h.classList.remove('done'), 1000); });
+}
+
+/* ---------- messages ---------- */
+function msgsHTML(ch, from = 0) {
+  const busy = isBusy(ch);
+  return ch.msgs.slice(from).map((m, k) => msgHTML(ch, m, from + k)).join('') + (ch.chips && ch.chips.length && !busy ? `<div class="b-chips">${ch.chips.map(c => `<button data-act="v2-chip">${esc(c)}</button>`).join('')}</div>` : '');
+}
+const whoHTML = (ch, id) => { if (ch.kind !== 'team' || !id) return ''; const b = chatById(id); return b ? `<span class="b-who">${botAv(b, 16)}${esc(b.name)}</span>` : ''; };
+function msgHTML(ch, m, i) {
+  if (m.k === 'time') return `<div class="b-time">${m.t}</div>`;
+  if (m.k === 'me') return `<div class="mu">${m.atts && m.atts.length ? `<div class="atts">${m.atts.map(a => `<img src="${a.src}" alt="">`).join('')}</div>` : ''}<div class="bub">${esc(m.t)}</div></div>`;
+  if (m.k === 'ai') return `<div class="b-ai">${whoHTML(ch, m.who)}<p>${esc(m.t)}</p></div>`;
+  if (m.k === 'note') return `<div class="b-note">${esc(m.t)}</div>`;
+  if (m.k === 'hint') { const card = ch.msgs[i - 1]; return card && card.picked == null ? `<div class="b-hint">${esc(m.t)}</div>` : ''; }
+  if (m.k === 'card') { if (m.closed) return ''; const done = m.picked != null;
+    return `<div class="b-card${done ? ' done' : ''}"><div class="bc-h"><b>${esc(m.title)}</b>${done ? '' : `<button data-act="v2-card-x" data-i="${i}" aria-label="Close">${I.close}</button>`}</div>${m.opts.map((o, j) => `<button class="bc-o${m.picked === j ? ' on' : ''}" data-act="v2-card" data-i="${i}" data-j="${j}"><span class="bc-l">${'ABCD'[j]}</span>${esc(o)}</button>`).join('')}</div>`; }
+  if (m.k === 'think') { const b = chatById(m.who) || ch; return `<div class="b-think">${botAv(b, 22, 'think')}<span>${ch.kind === 'team' ? esc(b.name) + ' is thinking' : 'Thinking'}</span><span class="dots"><i></i><i></i><i></i></span></div>`; }
+  if (m.k === 'typing') { const b = chatById(m.who); return `<div class="b-typing">${esc(b.name)} is typing…</div>`; }
+  if (m.k === 'plan') { const w = workById(m.wid); if (!w) return '';
+    return `<div class="b-ai">${whoHTML(ch, m.who)}<p>${ch.kind === 'team' ? 'Here’s our plan. Each of us takes a part.' : 'Here’s my plan. Change anything, or build it.'}</p>${planCardHTML(w)}${ch.kind === 'team' && w.owners ? `<div class="b-owners">${w.owners.map(o => { const b = chatById(o.who); return `<span>${botAv(b, 16)}<b>${esc(b.name)}</b>${esc(o.t)}</span>`; }).join('')}</div>` : ''}</div>`; }
+  if (m.k === 'nplan') { const w = workById(m.wid); if (!w) return '';
+    return `<div class="b-ai">${whoHTML(ch, m.who)}<p>${ch.kind === 'team' ? `Here’s the plan for v${m.n}. Each of us takes a part.` : `Here’s the plan for v${m.n}. Check it, then build.`}</p><div class="b-plan2"><div class="bp2-h"><span class="pc-ic">${I.plan}</span><b>Plan · v${m.n}</b><small>${esc(clip(m.ask, 44))}</small></div>${m.items.map(t => { const b = t.who && chatById(t.who); return `<span class="bp2-r">${b ? botAv(b, 18) + `<b>${esc(b.name)}</b>` : '<i></i>'}${esc(t.t)}</span>`; }).join('')}${m.done ? `<span class="bp2-done">${I.check}Built as v${m.n}</span>` : `<button class="cta-white" data-act="v2-nplan-go" data-i="${i}">Build v${m.n}</button>`}</div></div>`; }
+  if (m.k === 'build') { const w = workById(m.wid); if (!w) return ''; const v = w.versions.find(x => x.n === m.n);
+    if (v) return `<div class="b-ai">${whoHTML(ch, v.who || m.who)}<p>${esc(v.reply)}</p>${versionCardHTML(w, v)}</div>`;
+    const bd = w.building; if (!bd || bd.n !== m.n) return '';
+    return `<div class="b-ai" data-live="${w.id}">${whoHTML(ch, m.who)}<p>${esc(bd.label)}</p><div class="b-tasks">${bd.tasks.map(t => { const b = t.who && chatById(t.who); return `<span>${b ? botAv(b, 18) + `<b>${esc(b.name)}</b>` : ''}${esc(t.t)}<span class="tk">${I.check}</span></span>`; }).join('')}</div>${buildCardHTML(w, m.n, w.working || 0)}<small class="note">${bd.note}</small></div>`; }
+  return '';
+}
+
+/* ---------- send + replies ---------- */
+const isIdea = t => t.length >= 16 && /\b(game|play|player|level|race|racing|run|runner|jump|dodge|catch|fish|fishing|escape|shoot|puzzle|collect|where you|you have|seconds|cart|pigeon|pup|cat)\b/i.test(t);
+const wantsBuild = t => /^(build it|make it a game|make me a game|let[’']?s build|build)\b/i.test(t.trim());
+const clip = (t, n = 48) => t.length > n ? t.slice(0, n - 1).trim() + '…' : t;
+const leadOf = ch => ch.kind === 'team' ? ch.members[0] : ch.id;
+function sendUser(ch, text, opt = {}) {
+  ch.msgs.push({ k:'me', t:text, atts:opt.atts }); ch.chips = null; ch.last = null; ch.time = 'now'; ch.rec = Date.now();
+  const card = ch.msgs.find(m => m.k === 'card' && m.picked == null && !m.closed);
+  if (card && opt.card == null) { card.picked = -1; }
+  refreshChat(ch); respond(ch, text, opt);
+}
+function addAI(ch, t, o = {}) { ch.msgs.push(Object.assign({ k:'ai', t }, o)); ch.last = null; ch.time = 'now'; ch.rec = Date.now(); }
+// shows the bot thinking (avatar bobs, glow breathes), then runs fn
+function think(ch, who, ms, fn) {
+  const m = { k:'think', who }; ch.msgs.push(m); refreshChat(ch);
+  setTimeout(() => { const k = ch.msgs.indexOf(m); if (k > -1) ch.msgs.splice(k, 1); fn(); refreshChat(ch); celebrate(ch); notifyAway(ch); }, ms);
+}
+function notifyAway(ch, w) {
+  if (hostsOf(ch).length) return;
+  ch.unread = true; state.chatsDot = state.tab !== 'chats'; updateTabDot(); renderChats();
+  if (w) readyBanner(w, () => openBotChat(ch));
+}
+function respond(ch, text, opt) {
+  if (ch.kind === 'team') return teamRespond(ch, text, opt);
+  if (opt.card != null) return cardReply(ch, opt.card);
+  const lower = text.toLowerCase();
+  if (/^(3d snap|snap a lure|snap a photo|snap it)$/.test(lower)) { snap3D(ch); return; }
+  if (ch.mode === 'intro' && isIdea(text) && !/^(you[’']?re|you are|be (my|a|an|the)|act as)\b/i.test(text)) ch.mode = 'talk'; // an idea: talk it through, nothing is built yet
+  if (ch.mode === 'intro') {
+    const role = roleOf(text); ch.mem.push(role); ch.about = 'Your ' + role; ch.mode = 'talk';
+    think(ch, ch.id, 1300, () => {
+      ch.msgs.push({ k:'note', t:`${ch.name} will remember: ${role}` });
+      addAI(ch, `Got it, I’m your ${role}. I’ll keep everything about it here. Where do we start?`);
+      ch.chips = /fish/.test(role) ? ['New fish', 'The boss fight', 'Snap a lure'] : ['Give me 3 ideas', 'Make it a game', 'Snap a photo'];
+    });
+    return;
+  }
+  if (ch.mode === 'assets') return make3D(ch, text);
+  if (ch.mode === 'build') return buildOrPlan(ch, text, opt);
+  // talk / chat: nothing gets built until you ask
+  if (wantsBuild(text)) return buildOrPlan(ch, ch.idea || text, opt);
+  if (lower === 'surprise me' || lower === 'another one') { const p = WRITE_IDEAS[(V2.seq++) % WRITE_IDEAS.length]; ch.idea = p;
+    return think(ch, ch.id, 1200, () => { addAI(ch, `How about this: “${p}” Want me to make it?`); ch.chips = ['Make it a game', 'Another one']; }); }
+  if (isIdea(text) && !ch.idea) ch.idea = text; else if (ch.idea && ch.mode === 'talk') ch.idea = `${ch.idea} ${text}`;
+  const canned = [
+    [/new fish/, 'Three new fish: a lantern fish that lights the way, a pufferfish that bounces you up, and a sneaky sock-fish.', ['The boss fight', 'Make it a game']],
+    [/boss/, 'Boss idea: a giant catfish that pulls the boat. Hit its glowing tail 3 times to win.', ['Make it scarier', 'Make it a game']],
+    [/3 ideas|ideas/, 'Three quick ones: a pup who fishes for stars, a rooftop cat race, a garden full of sneaky moles. Pick one, or mix them.', ['Make it a game', 'Surprise me']],
+  ].find(([re]) => re.test(lower));
+  const n = ch.talkN = (ch.talkN || 0) + 1;
+  const [t, chips] = canned ? [canned[1], canned[2]] : ch.mode === 'chat'
+    ? [['Ha, love that. What else is on your mind?', 'Tell me more, I’m all ears.', 'If you ever want to turn this into a game, just say so.'][(n - 1) % 3], n % 3 === 0 ? ['Make it a game'] : null]
+    : n === 1 && text.length > 70 ? ['Love it, that’s already a full game. Want me to make a first version, or add a twist first?', ['Make it a game', 'Add a twist']]
+    : [['Fun! Who do you play as, and how do you win? Or I can make a first version now.', 'Nice, I’ll keep that in. Anything else, or shall I make it?', 'Love it. That’s enough for a first version whenever you want.'][(n - 1) % 3], ['Make it a game', n === 1 ? 'You pick' : 'One more idea']];
+  think(ch, ch.id, 1200, () => { addAI(ch, t); ch.chips = chips; });
+}
+function roleOf(text) {
+  const m = text.match(/(?:you[’']?re|you are|be)\s+(?:my\s+|a\s+|an\s+|the\s+)?([^.,!?]+)/i);
+  return (m ? m[1] : text.split(/[.,!?]/)[0]).trim().split(/\s+/).slice(0, 4).join(' ').toLowerCase();
+}
+const CARD_OPTS = ['Talk through a game idea', 'Build a game for me', 'Make game assets', 'Just chat'];
+function cardReply(ch, j) {
+  ch.mode = ['talk', 'build', 'assets', 'chat'][j];
+  const r = [
+    ['Love it. What’s the idea? One line is enough, I’ll ask a few questions.', ['A cozy fishing game', 'A race with my cat', 'Surprise me']],
+    ['Let’s make one! Describe it in a line, or pick one to start.', [PROMPTS[0].t, PROMPTS[2].t]],
+    ['I can turn anything into 3D for your games. Snap something, or tell me what to make.', ['3D Snap', 'A tiny fishing boat', 'A glowing lure']],
+    ['Hey! I’m all ears. What’s on your mind?', null],
+  ][j];
+  think(ch, ch.id, 1100, () => { addAI(ch, r[0]); ch.chips = r[1]; });
+}
+function buildOrPlan(ch, text, opt) {
+  const w = ch.wid && workById(ch.wid);
+  if (w && w.plan && !w.plan.used && !w.versions.length) { // still planning: it goes into the plan
+    w.plan.notes.push(text); w.plan.what = `${w.plan.what} ${text}.`.replace(/\.\./g, '.');
+    return think(ch, leadOf(ch), 1100, () => { addAI(ch, 'Got it, I added that to the plan. Open it to check.', { who:leadOf(ch) }); }); }
+  if (w && w.versions.length && opt.plan) return planNextV2(ch, w, text);
+  if (w && w.versions.length && !wantsBuild(text) && !(text.length > 70 && isIdea(text))) return tweakV2(ch, w, text);
+  if (wantsBuild(text) && w && w.versions.length) return tweakV2(ch, w, text);
+  if (opt.plan) return planV2(ch, text);
+  buildV2(ch, text, opt.atts);
+}
+// a fishing chat makes Float & Catch, like the board
+const fishy = (ch, text = '') => /fish|catfish|boat|lake/i.test([text, ch.idea, ch.name, ...ch.msgs.filter(m => m.k === 'me').map(m => m.t)].join(' '));
+const baseV2 = (ch, text) => /underwater|shark|deep sea/i.test(text) ? 'deep' : fishy(ch, text) && G.float ? 'float' : pickBase(text);
+// each bot takes the part it's good at
+const TASK_OF = { wana:'Drawing the characters', doodle:'The levels', fizz:'Sounds and music', loop:'The levels', pip:'Testing it' };
+const TEAM_TASKS = (ch, what) => { const fish = fishy(ch);
+  return ch.members.slice(0, 4).map((id, i) => ({ who:id, t: fish && id === 'wana' ? 'Drawing the catfish' : fish && id === 'doodle' ? 'The lake levels' : TASK_OF[id] || (i ? 'Helping out' : fish ? 'The rules and the boss' : `The rules of ${what}`) })); };
+function buildV2(ch, text, atts = []) {
+  if (state.credits <= 0) { outOfCredits(); return; }
+  state.credits--; updateCredits(); ch.mode = 'build';
+  const pre = PROMPTS.find(p => p.t === text && p.k !== '3D'), base = pre ? pre.base : baseV2(ch, text);
+  const w = newWork({ kind:'game', title: pre ? pre.name : (NAMES[base] || 'New game'), base, prompt:text, atts:(atts || []).filter(a => a.img).map(a => ({ img:a.img })), desc: pre && pre.desc, time:'now', bot:ch.id });
+  ch.wid = w.id; const who = ch.kind === 'team' ? (ch.members.includes('wana') ? 'wana' : ch.members[0]) : ch.id;
+  think(ch, who, 1300, () => {
+    w.building = { n:1, label: ch.kind === 'team' ? `On it! We’re making ${w.title} together.` : `On it. Making ${w.title}.`, note:'About 1 min · you can leave, I’ll let you know',
+      tasks: ch.kind === 'team' ? TEAM_TASKS(ch, w.title) : [{ t:'Reading your idea' }, { t:'Building the world' }, { t:'Making the characters' }, { t:'Playing it to check' }] };
+    ch.msgs.push({ k:'build', wid:w.id, n:1, who });
+    runV2(w, ch, 4600, () => {
+      const desc = w.desc || (G[w.base] && G[w.base].desc) || 'Built from your idea.';
+      w.versions.push({ n:1, ask:text, atts:w.atts, who, reply: ch.kind === 'team' ? `${w.title} v1 is ready! Everyone did their part.` : `Here’s ${w.title}! ${desc}`, note:'First version' });
+      w.last = `${chatById(who).name}: ${w.title} is ready.`; ch.chips = ch.kind === 'team' ? teamChips(ch) : ['Make it harder', 'Add power-ups', 'Night mode', '2-player mode'];
+    });
+  });
+}
+// after a version: @ one bot for a small change, or publish
+const teamChips = ch => { const fish = fishy(ch);
+  const tip = { wana: fish ? 'a scarier catfish' : 'new outfits', doodle: fish ? 'more lake levels' : 'add a level', fizz:'add night music', loop:'add a level', pip:'test it on hard' };
+  return ch.members.slice(0, 2).map(id => `@${chatById(id).name} ${tip[id] || (fish ? 'make the boss harder' : 'make it harder')}`).concat('Publish'); };
+const DONE_OF = [[/scar/i, 'The catfish looks a lot scarier now.'], [/hard/i, 'The boss fights back harder now.'], [/night/i, 'It’s night now, with glowing water.'], [/cute/i, 'Everything looks cuter now.']];
+function tweakV2(ch, w, text, plan) {
+  if (w.building) { toast(`${ch.name} is still on the last change`); return; }
+  const team = ch.kind === 'team', at = text.match(/^@(\w+)\s*(.*)$/), one = at && team ? ch.members.find(id => chatById(id).name.toLowerCase() === at[1].toLowerCase()) : null;
+  const ask = one ? (at[2] || text) : text, who = one || (team ? (ch.members.includes('wana') ? 'wana' : ch.members[0]) : ch.id), n = latest(w).n + 1;
+  const done = (DONE_OF.find(([re]) => re.test(ask)) || [0, one ? 'I only changed my part.' : ''])[1];
+  think(ch, who, plan ? 600 : 1300, () => {
+    w.building = { n, label: plan ? (team ? `Building v${n} from our plan.` : `Building v${n} from the plan.`) : one ? `On it. Only ${chatById(one).name} works on this, the rest stays the same.` : 'On it:', note:'You can leave, I’ll let you know',
+      tasks: plan || (one ? [{ who:one, t:clip(ask, 32) }] : stepsFor(ask).map(t => ({ t }))) };
+    ch.msgs.push({ k:'build', wid:w.id, n, who });
+    runV2(w, ch, plan ? 3600 : 2800, () => {
+      w.versions.push({ n, ask:text, who, note:clip(ask, 30), reply: plan ? (team ? `v${n} is ready, built from our plan! Everyone did their part.` : `Done! v${n} follows the plan.`) : one ? `Done! ${done} v${n} is ready.` : `Done! I applied “${ask}”. ${done ? done + ' ' : ''}Same style, new version.` });
+      w.last = `${chatById(who).name}: v${n} is ready.`; ch.chips = ch.kind === 'team' ? teamChips(ch) : ['Make it harder', 'Add power-ups', 'Night mode', '2-player mode'];
+    });
+  });
+}
+// progress that keeps going if you leave the chat; only the live card updates
+function runV2(w, ch, dur, done) {
+  w.working = 0; refreshChat(ch); const t0 = performance.now();
+  const iv = setInterval(() => {
+    const e = Math.min(1, (performance.now() - t0) / dur); w.working = Math.round(e * 100);
+    $$(`[data-live="${w.id}"]`).forEach(el => { const b = $('.prog b', el), u = $('.prog u', el); if (b) b.textContent = w.working + '%'; if (u) u.style.width = w.working + '%';
+      $$('.b-tasks > span', el).forEach((s, i, all) => { const a = i / all.length, z = (i + 1) / all.length; s.className = e >= z ? 'done' : e >= a ? 'doing' : ''; }); });
+    if (state.tab === 'chats' && w.working % 10 === 0) renderChats();
+    if (e >= 1) { clearInterval(iv); w.building = null; w.working = null; w.time = 'now'; w.rec = Date.now(); done(); ch.time = 'now'; ch.rec = Date.now(); refreshChat(ch); renderMe(); celebrate(ch); notifyAway(ch, w); }
+  }, 120);
+}
+// Plan on after v1: the next version is planned first; in a team every bot takes a part
+function planNextV2(ch, w, text) {
+  if (w.building) { toast(`${ch.name} is still on the last change`); return; }
+  const n = latest(w).n + 1, team = ch.kind === 'team', lead = leadOf(ch);
+  const part = { wana:'The new look', doodle:'The new levels', fizz:'New sounds', loop:'New levels', pip:'Plays it to check' };
+  const items = team ? ch.members.slice(0, 4).map((id, i) => ({ who:id, t: part[id] || (i ? 'Checks it' : `Rules: ${clip(text.toLowerCase(), 26)}`) })) : stepsFor(text).map(t => ({ t }));
+  think(ch, lead, 1400, () => { ch.msgs.push({ k:'nplan', wid:w.id, n, ask:text, items, who:lead }); ch.chips = null; });
+}
+function planV2(ch, text) {
+  const base = baseV2(ch, text), team = ch.kind === 'team';
+  const w = newWork({ kind:'game', title:'New game', base, prompt:text, atts:[], time:'now', bot:ch.id });
+  w.plan = { name:NAMES[base] || 'New game', base, cover:poster(G[base]), genre:GENRE_OF[base] || 'Adventure', look:'Default', what:text, feels:FEELS[base] || 'Bright, quick and a little silly.', diff:'Normal', used:false, notes:[] };
+  if (team) w.owners = ch.members.slice(0, 4).map((id, i) => ({ who:id, t:' · ' + ({ wana:'Builds it', doodle:'Look and characters', fizz:'Sounds', loop:'Levels', pip:'Tests it' }[id] || (i ? 'Helps out' : 'Goal and rules')) }));
+  ch.wid = w.id; ch.mode = 'build'; const who = leadOf(ch);
+  think(ch, who, 1600, () => { ch.msgs.push({ k:'plan', wid:w.id, who }); ch.chips = ['Make it 2-player', 'Add a boss', 'Snowy night', 'Shorter']; });
+}
+function buildFromPlanV2(w) {
+  savePlanFields(w); if (state.credits <= 0) { outOfCredits(); return; }
+  state.credits--; updateCredits(); closeSub('sub-plan');
+  const ch = chatById(w.bot), p = w.plan, team = ch.kind === 'team', who = team ? (ch.members.includes('wana') ? 'wana' : ch.members[0]) : ch.id;
+  w.title = p.name; ch.chips = null;
+  w.building = { n:1, label: team ? `Building ${p.name} from our plan.` : `Building ${p.name} from your plan.`, note:'About 2 min · you can leave, I’ll let you know',
+    tasks: team ? w.owners.map(o => ({ who:o.who, t:o.t.replace(' · ', '') })) : [{ t:`Finding the hero and the world` }, { t:'Building the levels' }, { t:'Writing the rules' }, { t:'Playing it to check' }] };
+  ch.msgs.push({ k:'build', wid:w.id, n:1, who }); ch.time = 'now'; ch.rec = Date.now();
+  runV2(w, ch, 4400, () => {
+    w.versions.push({ n:1, fromPlan:true, who, note:'From your plan', reply: team ? `${p.name} v1 is ready, built from our plan!` : `Here’s ${p.name}! ${G[p.base].desc}` });
+    p.used = true; w.last = `${chatById(who).name}: v1 is ready.`; ch.chips = team ? teamChips(ch) : ['Make it harder', 'Add power-ups', 'Night mode', '2-player mode'];
+  });
+}
+function make3D(ch, text) {
+  const t = text.toLowerCase(), model = /plant|sprout|flower|tree/.test(t) ? 'plant-flocked' : /girl|boy|person|me\b|friend/.test(t) ? 'model-girl' : /cafe|coffee/.test(t) ? 'model-cafe' : 'model-plush';
+  const name = text.replace(/^(a|an|the)\s+/i, '').replace(/^./, c => c.toUpperCase()).slice(0, 24);
+  const w = newWork({ kind:'3d', title:name, model, prompt:text, time:'now', bot:ch.id });
+  think(ch, ch.id, 2200, () => {
+    w.versions.push({ n:1, ask:text, atts:[], style:'plush', note:'Soft plush', isNew:true, reply:`Here’s your 3D ${name}! Drag to spin it. It’s saved to My Assets.` });
+    ch.msgs.push({ k:'build', wid:w.id, n:1 }); w.last = `${ch.name}: Here’s your 3D ${name}!`; renderMe();
+    ch.chips = ['Put it in a game', 'Make another', '3D Snap'];
+  });
+}
+// 3D Snap from a chat: camera → style → build → result; closing the result drops the model into this chat
+function snap3D(ch) {
+  V2.snapFrom = ch ? ch.id : (V2.cc && V2.cc.bot); V2.snapN = state.works.length; attachTarget = 'snap';
+  openSub('sub-photo', `${head(xBtn('sub-close'), '<b>3D Snap</b>')}
+    <div class="s-body"><div class="photo-box" style="bottom:120px"><img class="feedimg" src="${M('photo-shiba.webp')}" alt="Camera view" style="position:absolute;inset:-6%;width:112%;height:112%;max-width:none;object-fit:cover;animation:live 7s ease-in-out infinite alternate">
+      <div class="cam-hint glass"><em>3D SNAP</em>Point at anything</div><div class="flash" id="flash2"></div></div>
+      <div class="cam-ctrl" style="bottom:22px"><button class="cam-thumb" data-act="snap-upload" aria-label="Choose a photo"><img src="${M('upload-thumb.webp')}" alt=""></button>
+      <button class="shutter" data-act="v2-shutter" aria-label="Take photo"><span></span></button><button class="cam-flip glass" data-act="flip" aria-label="Flip">${I.flip}</button></div></div>`);
+}
+function dropSnapIntoChat() {
+  const id = V2.snapFrom; V2.snapFrom = null; if (!id) return;
+  const ch = chatById(id), w = state.works[0];
+  if (!ch || !w || w.kind !== '3d' || w.bot || state.works.length <= V2.snapN) return; w.bot = ch.id; ch.wid3d = w.id;
+  if (hostsOf(ch).some(h => h.closest('#cc')) && V2.cc.start == null) { V2.cc.start = ch.msgs.length; ch.msgs.push({ k:'time', t:T941 }); }
+  ch.msgs.push({ k:'me', t:'3D Snap', atts:[{ src:M(latest(w).atts[0] ? latest(w).atts[0].img : 'photo-shiba.webp') }] });
+  ch.msgs.push({ k:'build', wid:w.id, n:1 }); ch.chips = ['Put it in a game', 'Try another style']; ch.time = 'now'; ch.rec = Date.now();
+  refreshChat(ch); celebrate(ch);
+}
+
+/* ---------- teams: each bot answers by name, @ asks one ---------- */
+function teamRespond(t, text, opt) {
+  const at = text.match(/^@(\w+)/), one = at ? t.members.find(id => chatById(id).name.toLowerCase() === at[1].toLowerCase()) : null;
+  const w = t.wid && workById(t.wid), lower = text.toLowerCase();
+  if (lower === 'publish' && w && w.versions.length) { openView(w, { v:latest(w).n, ctx:'chat' }); return; }
+  if (w && w.plan && !w.plan.used && !w.versions.length) return buildOrPlan(t, text, opt);
+  if (w && w.versions.length && opt.plan && !one) return planNextV2(t, w, text);
+  if (w && w.versions.length && (one || wantsBuild(text) || text.length < 70)) return tweakV2(t, w, text);
+  if (wantsBuild(text)) return opt.plan ? planV2(t, t.idea || text) : buildV2(t, t.idea || text);
+  if (opt.plan) { t.idea = text; return planV2(t, text); }
+  if (!t.idea && !one) t.idea = text;
+  const m = t.members, lines = one ? [[one, `Sure! ${clip(text.replace(/^@\w+\s*/, ''), 60) || 'What do you need?'} I’ll take that one.`]]
+    : /cute|scary/.test(lower) ? [[m[1] || m[0], `${/scary/.test(lower) ? 'A little scary' : 'Cute'} it is. Drawing it now.`], [m[0], 'Perfect. Say “Build it” and we’ll put it all in the game.', ['Build it']]]
+    : /boss|catfish/.test(lower) ? [[m[0], 'Love it. Give it a glowing weak spot on the tail, hit it 3 times to win.'], [m[1] || m[0], 'I can draw the catfish. Cute or a little scary?', ['Cute', 'A little scary']], [m[2], null]]
+    : [[m[0], `Ooh, ${clip(text, 40).toLowerCase()} What if it gets a bit harder every round?`], [m[1] || m[0], 'I can make a first version for the team. Say “Build it” when you’re ready.', ['Build it', 'Keep talking']], [m[2], null]];
+  let d = 0;
+  lines.forEach(([who, line, chips], k) => {
+    if (!who) return;
+    if (k === 0) { d += 1300; setTimeout(() => think(t, who, 1, () => { addAI(t, line, { who }); }), 0); return; }
+    const ty = { k:'typing', who };
+    setTimeout(() => { t.msgs.push(ty); refreshChat(t); }, d + 200);
+    d += 1600;
+    setTimeout(() => { const i = t.msgs.indexOf(ty); if (i > -1) t.msgs.splice(i, 1); if (line) { addAI(t, line, { who }); t.chips = chips || null; } else if (k === lines.length - 1) { /* still drawing */ t.msgs.push({ k:'typing', who }); setTimeout(() => { const j = t.msgs.findIndex(x => x.k === 'typing' && x.who === who); if (j > -1) t.msgs.splice(j, 1); refreshChat(t); }, 2600); } refreshChat(t); celebrate(t); }, d);
+  });
+  t.last = null;
+}
+function makeTeamSheet(b) {
+  const sel = new Set([b.id, 'wana', b.id === 'wana' ? 'doodle' : 'doodle']);
+  const fish = (b.mem || []).join(' ').includes('fish');
+  const draw = () => {
+    const tile = $('#mtTile'); if (tile) tile.outerHTML = teamTile({ col:b.col, members:[...sel] }, 58).replace('class="team-tile"', 'class="team-tile" id="mtTile"');
+    $$('#sheetBody .mt-row').forEach(r => r.classList.toggle('on', sel.has(r.dataset.id)));
+    $('#mtGo').disabled = sel.size < 2;
+  };
+  openSheet(`<div class="mt"><div class="mt-h"><button data-act="sheet-close" aria-label="Close">${I.close}</button><h3>Make a team</h3><span></span></div>
+    <span id="mtTile"></span><input class="mt-name" id="mtName" value="${fish ? 'Fishing trip' : esc(b.name) + '’s team'}" maxlength="24" aria-label="Team name">
+    <div class="mt-lab">Pick 2 or more bots</div><div class="mt-list">${V2.bots.map(x => `<button class="mt-row" data-act="mt-pick" data-id="${x.id}">${botAv(x, 30)}${esc(x.name)}<span class="ck">${I.check}</span></button>`).join('')}</div>
+    <button class="cta-white" id="mtGo" data-act="mt-make">Make team</button></div>`, {
+    'mt-pick': r => { const id = r.dataset.id; if (sel.has(id)) sel.delete(id); else sel.add(id); draw(); },
+    'mt-make': () => { if (sel.size < 2) return; const members = [b.id, ...[...sel].filter(x => x !== b.id)];
+      const name = $('#mtName').value.trim() || 'New team', names = members.map(id => chatById(id).name);
+      const t = { id:'t' + (++V2.seq), kind:'team', name, col:b.col, members, time:'now', rec:Date.now(), pinned:false, unread:false, inp:inp0(), chips:null, mode:'talk',
+        msgs:[{ k:'time', t:T941 }, { k:'note', t:`You made ${name} with ${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}` }, { k:'ai', who:b.id, t:'We’re all here! Tell us the game, or @ one of us.' }] };
+      V2.teams.unshift(t); closeSheet(); renderChats(); setTimeout(() => { closeSub('sub-bot', true); openBotChat(t); }, 320); },
+  });
+  draw();
+}
+
+/* ---------- a bot's chat (C6), its ··· menu, its page (BP1–BP5) ---------- */
+function openBotChat(ch) {
+  ch.unread = false; if (!ch.inp) ch.inp = inp0(); attachTarget = 'bot:' + ch.id;
+  const id = ch.kind === 'team' ? 'sub-team' : 'sub-bot';
+  if (subStack.includes(id)) closeSub(id, true);
+  const pill = ch.kind === 'team' ? `<button class="b-pill" data-act="team-page">${stackHTML(ch)}<b>${esc(ch.name)}</b></button>` : `<button class="b-pill" data-act="bot-page">${botAv(ch, 24)}<b>${esc(ch.name)}</b></button>`;
+  const s = openSub(id, `<div class="bscreen" data-chat="${ch.id}" data-from="0" style="--bc:${ch.col}">${GLOW}<div class="b-head"><button class="icon-btn" data-act="sub-close" aria-label="Back">${I.back}</button>${pill}<button class="icon-btn" data-act="bot-more" aria-label="More">${I.more}</button></div><div class="b-body"><div class="bthread">${msgsHTML(ch, 0)}</div></div>${footHTML(ch, ch.inp)}</div>`);
+  const host = $('.bscreen', s); wireFoot(host, ch, ch.inp); afterRender(host, ch); renderChats(); updateTabDot();
+}
+function newBotSheet() {
+  const nb = { shape:'Egg', col:'#66D4FF' };
+  openSheet(`<div class="nb"><h3>Create new bot</h3>${botAv(nb, 96, 'big')}<input class="nb-name" id="nbName" value="Reel" maxlength="16" aria-label="Bot name">
+    <div class="nb-shapes">${BOT_SHAPES.map(s => `<button class="${s === nb.shape ? 'on' : ''}" data-act="nb-shape" data-s="${s}" aria-label="${s}">${botAv({ shape:s, col:nb.col }, 34)}</button>`).join('')}</div>
+    <div class="nb-cols">${BOT_COLS.map(c => `<button class="${c === nb.col ? 'on' : ''}" style="--c:${c}" data-act="nb-col" data-c="${c}" aria-label="Colour ${c}"></button>`).join('')}</div>
+    <button class="cta-white" data-act="nb-create">Create</button></div>`, {
+    'nb-shape': b => { nb.shape = b.dataset.s; $$('#sheetBody .nb-shapes button').forEach(x => x.classList.toggle('on', x === b)); morphAv($('#sheetBody .nb > .bot-av'), nb.shape, nb.col); buzz(6); },
+    'nb-col': b => { nb.col = b.dataset.c; $$('#sheetBody .nb-cols button').forEach(x => x.classList.toggle('on', x === b)); morphAv($('#sheetBody .nb > .bot-av'), nb.shape, nb.col, 360); $$('#sheetBody .nb-shapes .bot-av path:first-child').forEach(p => p.setAttribute('fill', nb.col)); $$('#sheetBody .nb-shapes .bot-av').forEach(a => { a.dataset.col = nb.col; }); buzz(6); },
+    'nb-create': () => { const name = ($('#nbName').value.trim() || 'New bot').slice(0, 16);
+      const b = { id:'b' + (++V2.seq), kind:'bot', name, shape:nb.shape, col:nb.col, about:'Your new bot', mem:[], mode:'intro', time:'now', rec:Date.now(), pinned:false, unread:false, inp:inp0(), notif:true, chips:null,
+        msgs:[{ k:'time', t:T941 }, { k:'ai', t:`Hi, I’m ${name}, your new bot! I can help you dream up games and make them right here.` }, { k:'card', title:'What can I do for you?', opts:CARD_OPTS, picked:null }, { k:'hint', t:'Or answer in the chat below' }] };
+      V2.bots.splice(1, 0, b); closeSheet(); renderChats(); setTimeout(() => openBotChat(b), 300); },
+  });
+  setTimeout(() => { const n = $('#nbName'); n && n.select(); }, 350);
+}
+function botMore(btn) {
+  const s = btn.closest('.sub'), ch = chatById($('.bscreen', s).dataset.chat), old = $('.pop', s); if (old) { old.remove(); return; }
+  s.insertAdjacentHTML('beforeend', `<div class="pop">${ch.kind === 'bot' ? '<button data-act="bm-team">Make a team</button><i></i>' : ''}<button data-act="bm-pin">${ch.pinned ? 'Unpin chat' : 'Pin chat'}</button><i></i><button class="red" data-act="bm-del">Delete chat</button></div>`);
+}
+const curChat = el => chatById(($('.bscreen', el.closest('.sub')) || {}).dataset.chat);
+function botPageHTML(b) {
+  const teams = V2.teams.filter(t => t.members.includes(b.id)), games = state.works.filter(w => w.bot === b.id && w.versions.length);
+  return `${head(xBtn('sub-close', 'back'), '', `<button class="icon-btn" data-act="noop" aria-label="More">${I.more}</button>`)}<div class="s-body vscroll bp">${botAv(b, 112, 'big')}<h2>${esc(b.name)}</h2><span class="sub2">${esc(b.about || 'Your new bot')}</span><button class="edit" data-act="bp-edit">Edit</button>
+    <div class="bp-card"><button class="bp-row" data-act="bp-mem">${IC2.list}Memory<span class="v">${b.mem.length ? b.mem.length + (b.mem.length > 1 ? ' notes' : ' note') : 'Empty'}${I.chevR}</span></button><button class="bp-row" data-act="bp-games">${I.games}Games<span class="v">${games.length}${I.chevR}</span></button><button class="bp-row" data-act="bp-team">${IC2.team}Team<span class="v">${teams[0] ? esc(teams[0].name) : 'None'}${I.chevR}</span></button></div>
+    <div class="bp-card"><div class="bp-row">Notifications<button class="tgl${b.notif ? ' on' : ''}" data-act="bp-notif" aria-label="Notifications"></button></div></div>
+    <p class="bp-cap">Get a ping when ${esc(b.name)} finishes or needs you</p></div>`;
+}
+function openBotPage(b) { const s = openSub('sub-botp', botPageHTML(b)); s.dataset.id = b.id; }
+function teamPageHTML(t) {
+  const w = t.wid && workById(t.wid), v = w && w.versions.length ? latest(w) : null;
+  return `${head(xBtn('sub-close', 'back'), '', `<button class="icon-btn" data-act="noop" aria-label="More">${I.more}</button>`)}<div class="s-body vscroll bp">${teamTile(t, 96)}<h2>${esc(t.name)}</h2><span class="sub2">A team of ${t.members.length} bots</span><span style="height:22px"></span>
+    <div class="bp-sec">Game</div><div class="bp-card">${v ? `<button class="bp-row" data-act="tp-game"><img class="gth" src="${poster(G[w.base])}" alt="">${esc(w.title)}<span class="v">V${v.n} · ${w.publishedV === v.n ? 'Live' : w.publishedV ? `v${w.publishedV} is live` : 'Draft'}${I.chevR}</span></button>` : `<div class="bp-row" style="color:var(--muted);font-size:13px">No game yet. Say “Build it” in the chat.</div>`}</div>
+    <div class="bp-sec">Members</div><div class="bp-card">${(() => { const job = v ? Object.fromEntries(TEAM_TASKS(t, w.title).map(x => [x.who, x.t])) : {}; // once there's a game, show who does what
+      return t.members.map(id => { const b = chatById(id); return b ? `<button class="bp-row" data-act="tp-bot" data-id="${b.id}">${botAv(b, 28)}${esc(b.name)}<span class="v">${esc(job[id] || b.about || '')}</span></button>` : ''; }).join(''); })()}<button class="bp-row add" data-act="tp-add"><span class="pl">${IC2.plus}</span>Add a bot</button></div>
+    <div class="bp-card"><div class="bp-row">Notifications<button class="tgl on" data-act="bp-notif" aria-label="Notifications"></button></div></div></div>`;
+}
+function openTeamPage(t) { const s = openSub('sub-teamp', teamPageHTML(t)); s.dataset.id = t.id; }
+function openBotEdit(b) {
+  const s = openSub('sub-bote', `${head(xBtn('sub-close', 'back'), '<b>Edit bot</b>', '<button class="done-btn" data-act="be-done">Done</button>')}<div class="s-body vscroll be"><span class="lab">NAME</span><input class="field2" id="beName" value="${esc(b.name)}" maxlength="16" aria-label="Name">
+    <span class="lab">LOOK</span><div class="bp-card"><button class="bp-row" data-act="be-avatar">Avatar<span class="v" id="beAv">${botAv(b, 28)}${I.chevR}</span></button></div>
+    <span class="lab">VOICE</span><div class="bp-card"><button class="bp-row" data-act="noop">Voice<span class="v">Not set${I.chevR}</span></button><button class="bp-row" data-act="be-speed">Speed<span class="v"><span id="beSpeed">${b.speed || '1x'}</span>${IC2.updown}</span></button><button class="bp-row" data-act="be-lang">Language<span class="v"><span id="beLang">${b.lang || 'Auto'}</span>${IC2.updown}</span></button></div>
+    <p class="bp-cap">Used when you talk to ${esc(b.name)} by voice</p></div>`);
+  s.dataset.id = b.id;
+}
+function openAvatar(b, tab = 'shape') {
+  const d = V2.avDraft = V2.avDraft && V2.avDraft.id === b.id ? V2.avDraft : { id:b.id, shape:b.shape, col:b.col, img:b.img || null };
+  const av = d.img ? botAv({ img:d.img }, 112) : botAv(d, 112, 'big');
+  const body = tab === 'shape' ? `${av}<div class="nb-shapes">${BOT_SHAPES.map(s => `<button class="${s === d.shape ? 'on' : ''}" data-act="av-shape" data-s="${s}" aria-label="${s}">${botAv({ shape:s, col:d.col }, 34)}</button>`).join('')}</div>
+      <div class="nb-cols">${BOT_COLS.map(c => `<button class="${c === d.col ? 'on' : ''}" style="--c:${c}" data-act="av-col" data-c="${c}" aria-label="Colour ${c}"></button>`).join('')}</div><button class="lnk" data-act="av-reset">Reset to default</button>`
+    : tab === 'gen' ? `${av}<textarea id="avPrompt" aria-label="Describe it">A sleepy ${b.col === '#66D4FF' ? 'blue' : 'little'} cat in a tiny fishing hat</textarea><button class="cta-white" data-act="av-gen">Generate</button>`
+    : `${av}<div class="bp-card" style="width:100%"><button class="bp-row" data-act="av-up" data-img="photo-shiba.webp">${IC2.photos}Choose from Photos<span class="v">${I.chevR}</span></button><button class="bp-row" data-act="av-up" data-img="photo-cafe.webp">${IC2.camera}Take a photo<span class="v">${I.chevR}</span></button></div><p class="bp-cap">Images up to 25 MB. You can crop it next.</p>`;
+  const html = `${head(xBtn('av-back', 'back'), '<b>Avatar</b>', '<button class="done-btn" data-act="av-done">Done</button>')}<div class="ba-tabs">${[['shape', 'Shape'], ['gen', 'Generate'], ['up', 'Upload']].map(([k, l]) => `<button class="${k === tab ? 'on' : ''}" data-act="av-tab" data-k="${k}">${l}</button>`).join('')}</div><div class="s-body vscroll ba-body">${body}</div>`;
+  const s = $('#sub-bota'); if (subStack.includes('sub-bota')) { s.innerHTML = html; fillIcons(s); } else openSub('sub-bota', html);
+  $('#sub-bota').dataset.id = b.id; $('#sub-bota').dataset.tab = tab;
+}
+// after a name / look change, refresh every place that shows this bot
+function refreshBot(b) {
+  $$('.bscreen[data-chat]').forEach(h => { if (h.dataset.chat !== b.id) return; h.style.setProperty('--bc', b.col); const pill = $('.b-pill', h); if (pill) { const av = $('.bot-av, .bot-img', pill); if (av) av.outerHTML = botAv(b, 24); $('b', pill).textContent = b.name; } const ta = $('textarea', h); if (ta) ta.placeholder = `Ask ${b.name} anything…`; const big = $('.b-empty .bot-av, .b-empty .bot-img', h); if (big) big.outerHTML = botAv(b, 64, 'big'); });
+  const p = $('#sub-botp'); if (subStack.includes('sub-botp') && p.dataset.id === b.id) { p.innerHTML = botPageHTML(b); fillIcons(p); }
+  const e = $('#beAv'); if (e) e.innerHTML = botAv(b, 28) + I.chevR;
+  renderChats();
+}
+
+/* ---------- Chats (C1 / C2): bots, teams and friends in one list ---------- */
+function renderChats2() {
+  const wrap = $('#chatsWrap'); if (!wrap) return; const f = V2.filter;
+  const recNow = x => x.time === 'now' ? Math.max(x.rec || 0, Date.now() - 1) : (x.rec || recOf(x.time));
+  const lastOf = c => { if (c.last) return c.last; const w = c.wid && workById(c.wid); if (w && w.working != null) return `Building ${w.title}… ${w.working}%`;
+    const m = [...c.msgs].reverse().find(x => x.k === 'ai' || x.k === 'me' || x.k === 'build');
+    if (!m) return ''; if (m.k === 'me') return `You: ${m.t}`; if (m.k === 'build') { const ww = workById(m.wid); return ww ? (ww.kind === '3d' ? `Your 3D ${ww.title} is ready` : `${ww.title} v${m.n} is ready`) : ''; }
+    return c.kind === 'team' && m.who ? `${chatById(m.who).name}: ${m.t}` : m.t; };
+  const row = it => {
+    if (it.f) { const d = state.dms[it.f], last = d.msgs[d.msgs.length - 1];
+      const prev = last.game ? `${last.me ? 'You' : it.f}: sent a game · ${G[last.game] ? G[last.game].title : (workById(last.game) || {}).title || ''}` : `${last.me ? 'You: ' : ''}${last.text}`;
+      return `<button class="c2-row" data-act="dm-open" data-f="${it.f}"><span class="c2-th"><img src="${M(FRIENDS[it.f] + '.webp')}" alt=""></span><span class="ctext"><b>${it.f}</b><small>${esc(prev)}</small></span><span class="cmeta"><span>${d.time}</span>${d.unread ? '<i></i>' : ''}</span></button>`; }
+    const c = it.c;
+    return `<button class="c2-row" data-act="v2-open" data-id="${c.id}"><span class="c2-th">${c.kind === 'team' ? teamTile(c, 56) : botAv(c, 40)}</span><span class="ctext"><b>${esc(c.name)}</b><small>${esc(lastOf(c))}</small></span><span class="cmeta"><span>${c.time}</span>${c.unread ? '<i></i>' : ''}</span></button>`;
+  };
+  const items = [];
+  if (f !== 'friends') [...V2.teams, ...V2.bots].forEach(c => items.push({ c, pin:c.pinned, rec:recNow(c) }));
+  if (f !== 'bots') Object.keys(state.dms).forEach(n => items.push({ f:n, pin:state.dms[n].pinned, rec:recNow(state.dms[n]) }));
+  items.sort((a, b) => b.rec - a.rec);
+  const sec = (l, a) => a.length ? `<div class="ch-label">${l}</div>${a.map(row).join('')}` : '';
+  const list = f === 'bots' ? sec('Teams', items.filter(i => i.c.kind === 'team')) + sec('Bots', items.filter(i => i.c.kind === 'bot')) : sec('Pinned', items.filter(i => i.pin)) + sec('Today', items.filter(i => !i.pin));
+  const label = { all:'', bots:'Bots', friends:'Friends' }[f];
+  wrap.innerHTML = `<div class="c2-head"><h1>Chats${label ? `<button class="c2-chip" data-act="c2-filter-set" data-k="all">${label}${I.close}</button>` : ''}</h1><span class="c2-btns"><button class="icon-btn${f !== 'all' ? ' on' : ''}" data-act="ch-filter" aria-label="Filter">${IC2.filter}</button><button class="icon-btn" data-act="noop" aria-label="Search">${IC2.search}</button><button class="icon-btn" data-act="v2-newbot" aria-label="New bot">${IC2.plus}</button></span></div><div class="c2-list">${list}</div>`;
+}
+function c2FilterMenu() {
+  const host = $('#s-chats'), old = $('.pop.flt', host); if (old) { old.remove(); return; }
+  host.insertAdjacentHTML('beforeend', `<div class="pop flt">${[['all', 'All'], ['bots', 'AI bot'], ['friends', 'Friends']].map(([k, l]) => `<button data-act="c2-filter-set" data-k="${k}">${l}${V2.filter === k ? I.check : ''}</button>`).join('')}</div>`);
+}
+
+/* ---------- actions ---------- */
+const A1 = Object.assign({}, A);
+Object.assign(A, {
+  'ver': b => setVer(b.dataset.ver),
+  'set-ver': () => setVer(VER === 'chat' ? 'classic' : 'chat'),
+  'cc-close': () => closeCC(),
+  'cc-pick': () => ccPickMenu(),
+  'cc-pick-set': b => ccPick(b.dataset.id),
+  'cc-write': () => ccWrite(),
+  'cc-insp': () => ccInspire(),
+  'v2-newbot': () => { $$('.pop').forEach(p => p.remove()); newBotSheet(); },
+  'v2-open': b => openBotChat(chatById(b.dataset.id)),
+  'v2-chip': b => { const host = b.closest('.bscreen'), ch = chatById(host.dataset.chat), t = b.textContent;
+    if (/^(3d snap|snap a lure|snap a photo)$/i.test(t)) { snap3D(ch); return; }
+    if (t === 'Put it in a game') { const w = ch.wid3d && workById(ch.wid3d) || state.works.find(x => x.bot === ch.id && x.kind === '3d'); if (w) { needSignIn(() => { const atts = [{ img:w.model + '.webp', src:M(w.model + '.webp') }], ask = `${w.title} guards a pillow fort from sock monsters`; ch.msgs.push({ k:'me', t:ask, atts }); ch.chips = null; ch.wid = null; refreshChat(ch); buildV2(ch, ask, atts); }); return; } }
+    if (t === 'Publish' || t === 'Share') { const w = ch.wid && workById(ch.wid); if (w && w.versions.length) { openView(w, { v: t === 'Share' && w.publishedV ? w.publishedV : latest(w).n, ctx:'chat' }); return; } }
+    if (/^Plan v\d+$/.test(t)) { const w = ch.wid && workById(ch.wid); if (w && w.versions.length) { const st = stOf(host), pb = $('[data-act="b-plan"]', host); st.plan = true; if (pb) { pb.classList.add('on'); pb.setAttribute('aria-pressed', true); pb.closest('.b-in').classList.add('planon'); }
+      needSignIn(() => sendUser(ch, 'Add a night level with a bigger boss', { plan:true })); return; } }
+    needSignIn(() => { if (host.closest('#cc') && V2.cc.start == null) { V2.cc.start = ch.msgs.length; host.dataset.from = ch.msgs.length; ch.msgs.push({ k:'time', t:T941 }); } sendUser(ch, t, { plan:stOf(host).plan }); }); },
+  'v2-card': b => { const ch = chatById(b.closest('.bscreen').dataset.chat), m = ch.msgs[+b.dataset.i]; if (!m || m.picked != null) return; const j = +b.dataset.j; m.picked = j; sendUser(ch, m.opts[j], { card:j }); },
+  'v2-nplan-go': b => { const ch = chatById(b.closest('.bscreen').dataset.chat), m = ch.msgs[+b.dataset.i], w = m && workById(m.wid); if (!w || m.done || w.building) return;
+    if (state.credits <= 0) { outOfCredits(); return; } state.credits--; updateCredits(); m.done = true; tweakV2(ch, w, m.ask, m.items); },
+  'pub-post': () => { const w = pubCtx && pubCtx.w, n = pubCtx && pubCtx.n; A1['pub-post']();
+    const ch = w && w.bot && chatById(w.bot); if (!ch || w.publishedV !== n) return;
+    ch.msgs.push({ k:'note', t:`You published ${w.title} v${n}` });
+    addAI(ch, ch.kind === 'team' ? `It’s live! Anyone can play it now. Share it, or plan v${latest(w).n + 1} together?` : 'It’s live! Anyone can play it now. Share it, or plan the next version?', { who: ch.kind === 'team' && ch.members.includes('wana') ? 'wana' : leadOf(ch) });
+    ch.chips = ['Share', `Plan v${latest(w).n + 1}`]; ch.time = 'now'; ch.rec = Date.now(); refreshChat(ch); },
+  'pd-done': b => { const w = workById(b.dataset.w); if (w && w.bot && chatById(w.bot)) { backToBot(w); return; } A1['pd-done'](b); },
+  'pd-edit': b => { const w = workById(b.dataset.w); if (w && w.bot && chatById(w.bot)) { backToBot(w); return; } A1['pd-edit'](b); },
+  'v2-card-x': b => { const ch = chatById(b.closest('.bscreen').dataset.chat), m = ch.msgs[+b.dataset.i]; m.closed = true; m.picked = -1; refreshChat(ch); },
+  'b-tray': b => { const host = b.closest('.bscreen'), st = stOf(host), ta = $('textarea', host); if (document.activeElement === ta) { ta.blur(); st.tray = true; } else st.tray = !st.tray; host._sync(); },
+  'b-plan': b => { const host = b.closest('.bscreen'), st = stOf(host); st.plan = !st.plan; b.classList.toggle('on', st.plan); b.setAttribute('aria-pressed', st.plan); b.closest('.b-in').classList.toggle('planon', st.plan); buzz(8); if (st.plan) toast(`Plan on · ${chatById(host.dataset.chat).kind === 'team' ? 'the team plans it' : 'you’ll see a plan'} before building`); },
+  'b-cam': b => { attachTarget = b.closest('#cc') ? 'cc' : 'bot:' + b.closest('.bscreen').dataset.chat; openPhotoCam(); },
+  'b-photos': b => { const host = b.closest('.bscreen'); attachTarget = host.closest('#cc') ? 'cc' : 'bot:' + host.dataset.chat; openPicker({ items:PHOTOS, multi:true, max:4 - stOf(host).atts.length, title:'Photos', purpose:'attach' }); },
+  'b-snap': b => snap3D(chatById(b.closest('.bscreen').dataset.chat)),
+  'b-att-x': b => { const host = b.closest('.bscreen'), st = stOf(host); st.atts.splice(+b.dataset.i, 1); const r = $('.b-atts', host); r.innerHTML = attsHTML(st); r.hidden = !st.atts.length; host._sync(); },
+  'v2-shutter': () => { const f = $('#flash2'); f && f.animate([{ opacity:.95 }, { opacity:0 }], { duration:320 }); buzz(12); setTimeout(() => openStyle('photo-shiba'), 260); },
+  'bot-more': b => botMore(b),
+  'bm-team': b => { const ch = curChat(b); $$('.pop').forEach(p => p.remove()); makeTeamSheet(ch); },
+  'bm-pin': b => { const ch = curChat(b); $$('.pop').forEach(p => p.remove()); ch.pinned = !ch.pinned; renderChats(); toast(ch.pinned ? 'Pinned' : 'Unpinned'); },
+  'bm-del': b => { const ch = curChat(b); $$('.pop').forEach(p => p.remove());
+    openSheet(`<div class="confirm"><h3>Delete ${esc(ch.name)}?</h3><p>${ch.sys ? 'The chat is cleared. Wana stays.' : ch.kind === 'team' ? 'The team chat is removed. The bots stay.' : 'This bot and its chat are removed. Its games stay in Me.'}</p><button class="dbtn" data-act="bm-del-yes">Delete</button><button class="cbtn" data-act="sheet-close">Cancel</button></div>`, {
+      'bm-del-yes': () => { closeSheet(); closeAllSubs(); if (ch.sys) { ch.msgs = []; ch.chips = null; ch.last = 'No messages yet'; } else { const arr = ch.kind === 'team' ? V2.teams : V2.bots; arr.splice(arr.indexOf(ch), 1); V2.teams.forEach(t => { t.members = t.members.filter(id => id !== ch.id); }); } renderChats(); toast('Deleted'); } }); },
+  'bot-page': b => openBotPage(curChat(b)),
+  'team-page': b => openTeamPage(curChat(b)),
+  'tp-game': b => { const t = chatById($('#sub-teamp').dataset.id), w = workById(t.wid); openView(w, { v:latest(w).n, ctx:'chat' }); },
+  'tp-bot': b => openBotPage(chatById(b.dataset.id)),
+  'tp-add': () => toast('Pick a bot to add · coming next'),
+  'bp-edit': () => openBotEdit(chatById($('#sub-botp').dataset.id)),
+  'bp-notif': b => { b.classList.toggle('on'); const s = b.closest('.sub'); const x = chatById(s.dataset.id); if (x) x.notif = b.classList.contains('on'); },
+  'bp-mem': () => { const x = chatById($('#sub-botp').dataset.id); openSheet(`<h3>What ${esc(x.name)} remembers</h3>${x.mem.length ? `<div class="bp-card">${x.mem.map(m => `<div class="bp-row">${IC2.list}${esc(m)}</div>`).join('')}</div>` : '<p class="muted" style="font-size:14px;margin:0 0 12px">Nothing yet.</p>'}<p class="bp-cap" style="padding:0 4px 8px">Tell ${esc(x.name)} in the chat to change it.</p>`); },
+  'bp-games': () => { const x = chatById($('#sub-botp').dataset.id), w = state.works.find(g => g.bot === x.id && g.versions.length); if (w) openView(w, { v:latest(w).n, ctx:'chat' }); else toast(`No games with ${x.name} yet`); },
+  'bp-team': () => { const x = chatById($('#sub-botp').dataset.id), t = V2.teams.find(tt => tt.members.includes(x.id)); if (t) openBotChat(t); else toast('No team yet · ··· in the chat → Make a team'); },
+  'be-avatar': () => { V2.avDraft = null; openAvatar(chatById($('#sub-bote').dataset.id)); },
+  'be-speed': () => { const el = $('#beSpeed'), o = ['0.8x', '1x', '1.2x', '1.5x']; el.textContent = o[(o.indexOf(el.textContent) + 1) % o.length]; },
+  'be-lang': () => { const el = $('#beLang'), o = ['Auto', 'English', '中文', '日本語']; el.textContent = o[(o.indexOf(el.textContent) + 1) % o.length]; },
+  'be-done': () => { const x = chatById($('#sub-bote').dataset.id), n = $('#beName').value.trim(); if (n) x.name = n.slice(0, 16); x.speed = $('#beSpeed').textContent; x.lang = $('#beLang').textContent; closeSub('sub-bote'); refreshBot(x); },
+  'av-tab': b => openAvatar(chatById($('#sub-bota').dataset.id), b.dataset.k),
+  'av-shape': b => { const d = V2.avDraft; d.shape = b.dataset.s; d.img = null; $$('#sub-bota .nb-shapes button').forEach(x => x.classList.toggle('on', x === b)); const av = $('#sub-bota .ba-body > .bot-av'); if (av) morphAv(av, d.shape, d.col); else openAvatar(chatById(d.id), 'shape'); buzz(6); },
+  'av-col': b => { const d = V2.avDraft; d.col = b.dataset.c; d.img = null; $$('#sub-bota .nb-cols button').forEach(x => x.classList.toggle('on', x === b)); const av = $('#sub-bota .ba-body > .bot-av'); if (av) morphAv(av, d.shape, d.col, 360); $$('#sub-bota .nb-shapes .bot-av path:first-child').forEach(p => p.setAttribute('fill', d.col)); buzz(6); },
+  'av-reset': () => { const d = V2.avDraft, x = chatById(d.id), def = x.id === 'wana' ? ['Bun', '#D7EA69'] : ['Egg', '#66D4FF']; d.shape = def[0]; d.col = def[1]; d.img = null; openAvatar(x, 'shape'); },
+  'av-gen': b => { const d = V2.avDraft, av = $('#sub-bota .ba-body > .bot-av'); b.disabled = true; b.textContent = 'Drawing…'; if (av) av.classList.add('think');
+    setTimeout(() => { d.shape = BOT_SHAPES[(BOT_SHAPES.indexOf(d.shape) + 5) % 12]; if (av) { av.classList.remove('think'); morphAv(av, d.shape, d.col, 600); } b.disabled = false; b.textContent = 'Generate again'; }, 1600); },
+  'av-up': b => { V2.avDraft.img = b.dataset.img; openAvatar(chatById(V2.avDraft.id), 'up'); toast('Photo set as avatar'); },
+  'av-back': () => { V2.avDraft = null; closeSub('sub-bota'); },
+  'av-done': () => { const d = V2.avDraft, x = chatById(d.id); x.shape = d.shape; x.col = d.col; x.img = d.img || undefined; V2.avDraft = null; closeSub('sub-bota'); refreshBot(x); setTimeout(() => popAv($('#sub-botp .bp > .bot-av')), 380); },
+  'ch-filter': b => VER === 'chat' ? c2FilterMenu() : A1['ch-filter'](b),
+  'c2-filter-set': b => { V2.filter = b.dataset.k; $$('.pop').forEach(p => p.remove()); renderChats(); },
+  'insp-use': b => { if (VER !== 'chat' || $('#cc').hidden) { A1['insp-use'](b); return; } const g = G[b.dataset.g]; closeSub('sub-insp');
+    V2.cc.atts = (g.photos || []).map(img => ({ img, src:M(img) })); V2.cc.text = g.prompt; const host = $('#cc .bscreen'); $('textarea', host).value = g.prompt; const r = $('.b-atts', host); r.innerHTML = attsHTML(V2.cc); r.hidden = !V2.cc.atts.length; host._sync(); },
+  'plan-build': b => { const w = workById(b.dataset.w); if (w && w.bot) buildFromPlanV2(w); else A1['plan-build'](b); },
+  'plan-back': b => { const w = workById($('#sub-plan').dataset.w); if (w && w.bot) { savePlanFields(w); closeSub('sub-plan'); refreshChat(chatById(w.bot)); return; } A1['plan-back'](b); },
+  'vw-edit': b => { if (VER === 'chat' && V2.snapFrom) { A['vw-close'](b); return; } const w = workById(b.dataset.w); if (w && w.bot && chatById(w.bot)) { closeAllSubs(); setTimeout(() => openBotChat(chatById(w.bot)), 200); return; } A1['vw-edit'](b); },
+  'pj-edit': b => { const w = workById(b.dataset.w); if (w && w.bot && chatById(w.bot)) { closeAllSubs(); setTimeout(() => openBotChat(chatById(w.bot)), 200); return; } A1['pj-edit'](b); },
+  'vw-close': b => { if (VER === 'chat' && V2.snapFrom) { const keep = ['sub-bot', 'sub-team']; [...subStack].reverse().forEach(id => { if (!keep.includes(id)) closeSub(id); }); setTimeout(dropSnapIntoChat, 380); return; } A1['vw-close'](b); },
+});
+// after publishing from a bot chat, land back in that chat
+function backToBot(w) {
+  const ch = chatById(w.bot), keep = ['sub-bot', 'sub-team'];
+  [...subStack].reverse().forEach(id => { if (!keep.includes(id)) closeSub(id); });
+  const shown = $$('.bscreen[data-chat]').some(h => h.dataset.chat === ch.id && (h.closest('#cc') ? !$('#cc').hidden : subStack.includes(h.closest('.sub').id)));
+  if (!shown) setTimeout(() => openBotChat(ch), 380);
+}
+function v2AddAtt(img) {
+  const host = attachTarget === 'cc' ? $('#cc .bscreen') : $$('.bscreen[data-chat]').find(h => 'bot:' + h.dataset.chat === attachTarget && !h.closest('#cc'));
+  if (!host) return; const st = stOf(host); if (st.atts.length >= 4) return; st.atts.push({ img, src:M(img) });
+  const r = $('.b-atts', host); r.innerHTML = attsHTML(st); r.hidden = false; host._sync();
+}
 
 /* ---------------- wire up ---------------- */
 function init() {
@@ -3451,6 +4401,7 @@ function init() {
   let seen = false; try { seen = localStorage.getItem('wk-onb') === '1'; } catch (e) {}
   if (!seen || location.hash === '#intro') startOnboarding();
   document.addEventListener('visibilitychange', () => { if (document.hidden) pauseAll(); else resumeVisible(); });
+  syncVerUI();
 }
 init();
 })();

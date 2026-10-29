@@ -1,8 +1,10 @@
 #!/bin/sh
 # app.html is the page fragment (also published as a Claude Artifact).
-# This wraps it into a standalone index.html for GitHub Pages / opening locally.
+# This wraps it into standalone pages for GitHub Pages / opening locally:
+#   index.html — original Create
+#   chat.html  — Chat version of Create (Figma section 1028); the switch in the demo moves between them
 cd "$(dirname "$0")" || exit 1
-{
+page() {
   cat <<'HEAD'
 <!doctype html>
 <html lang="en">
@@ -14,7 +16,10 @@ cd "$(dirname "$0")" || exit 1
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <style>:root{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}img{max-width:100%}[hidden]{display:none!important}</style>
 HEAD
+  [ "$1" = chat ] && printf "<script>window.WK_VER='chat'</script>\n"
   cat app.html
   printf '\n</html>\n'
-} > index.html
-echo "built index.html"
+}
+page > index.html
+page chat > chat.html
+echo "built index.html + chat.html"
