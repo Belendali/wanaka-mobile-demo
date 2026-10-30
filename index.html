@@ -1442,11 +1442,19 @@ svg{display:block;flex:none}
 .bp2-done svg{width:14px;height:14px}
 /* ===== Chat version (Figma section 1028): Create = a chat with a bot; bots and teams live in Chats ===== */
 @property --bc{syntax:'<color>';inherits:true;initial-value:#D7EA69}
-.verswitch{display:inline-flex;margin-bottom:22px;align-items:center;gap:2px;padding:4px;border-radius:999px;background:rgba(39,33,35,.92);border:1px solid var(--line);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.demoswitch{display:grid;justify-items:start;gap:10px;margin-bottom:22px}
+.onbtog{display:inline-flex;align-items:center;gap:8px;height:24px;padding:0 4px;font-size:13px;color:rgba(255,255,255,.6)}
+.onbtog i{position:relative;width:30px;height:18px;border-radius:9px;background:rgba(255,255,255,.18);transition:background .2s}
+.onbtog i::after{content:"";position:absolute;left:2px;top:2px;width:14px;height:14px;border-radius:50%;background:var(--white);transition:transform .2s}
+.onbtog[aria-checked="true"]{color:var(--white)}
+.onbtog[aria-checked="true"] i{background:var(--lime)}
+.onbtog[aria-checked="true"] i::after{transform:translateX(12px);background:var(--bg)}
+.verswitch{display:inline-flex;align-items:center;gap:2px;padding:4px;border-radius:999px;background:rgba(39,33,35,.92);border:1px solid var(--line);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 .verswitch button{flex:none;white-space:nowrap;height:30px;padding:0 12px;border-radius:999px;font-size:13px;font-weight:500;color:rgba(255,255,255,.6)}
 .verswitch button.on{background:var(--white);color:var(--bg);font-weight:600}
-.verswitch.float{display:none;position:fixed;top:16px;left:16px;margin:0;z-index:200}
-@media (max-width:1000px) and (min-width:521px){.verswitch.float{display:inline-flex}}
+.demoswitch.float{display:none;position:fixed;top:16px;left:16px;margin:0;z-index:200}
+.demoswitch.float .onbtog{height:30px;padding:0 12px 0 8px;border-radius:999px;background:rgba(39,33,35,.92);border:1px solid var(--line)}
+@media (max-width:1000px) and (min-width:521px){.demoswitch.float{display:grid}}
 
 .cc{z-index:38;transform:translateY(100%);transition:transform .38s cubic-bezier(.2,.8,.2,1)}
 .cc.in{transform:none}
@@ -1687,17 +1695,27 @@ svg{display:block;flex:none}
 </style>
 
 <div id="stage">
-  <div class="verswitch float" role="group" aria-label="Demo"><button data-act="ver" data-ver="onb">Onboarding</button><button data-act="ver" data-ver="classic">原版</button><button data-act="ver" data-ver="chat">Chat 版</button></div>
+  <div class="demoswitch float"><div class="verswitch" role="group" aria-label="Version"><button data-act="ver" data-ver="classic">原版</button><button data-act="ver" data-ver="chat">Chat 版</button></div><button class="onbtog" data-act="onb-toggle" role="switch" aria-checked="false"><i></i>从 Onboarding 开始</button></div>
   <aside class="guide" aria-label="How to use this demo">
-    <div class="verswitch" role="group" aria-label="Demo"><button data-act="ver" data-ver="onb">Onboarding</button><button data-act="ver" data-ver="classic">原版</button><button data-act="ver" data-ver="chat">Chat 版</button></div>
-    <div data-ver="onb" hidden>
-    <span class="tag">WANAKA · ONBOARDING</span>
+    <div class="demoswitch"><div class="verswitch" role="group" aria-label="Version"><button data-act="ver" data-ver="classic">原版</button><button data-act="ver" data-ver="chat">Chat 版</button></div><button class="onbtog" data-act="onb-toggle" role="switch" aria-checked="false"><i></i>从 Onboarding 开始</button></div>
+    <div data-ver="classic-onb" hidden>
+    <span class="tag">ORIGINAL · ONBOARDING</span>
     <h2>第一次打开</h2>
     <p class="lead">欢迎页 → 3 步提示 → 第一次发送时登录。</p>
     <ol>
       <li><span>01</span><span><b>Start now</b> 进 Home，或 Create an account</span></li>
       <li><span>02</span><span>上滑 / 点一下 / 黑猫，3 步提示</span></li>
       <li><span>03</span><span>进 Create 写点子，发送时弹登录</span></li>
+    </ol>
+    </div>
+    <div data-ver="chat-onb" hidden>
+    <span class="tag">CHAT · ONBOARDING</span>
+    <h2>第一次打开</h2>
+    <p class="lead">同一套欢迎页，底部换成 Chat 版 Tab。</p>
+    <ol>
+      <li><span>01</span><span><b>Start now</b> 进 Home，或 Create an account</span></li>
+      <li><span>02</span><span>上滑 / 点一下 / 小猫，3 步提示</span></li>
+      <li><span>03</span><span>小猫进 Create 和 Wana 聊，发送时弹登录</span></li>
     </ol>
     </div>
     <div data-ver="classic" hidden>
@@ -3232,7 +3250,7 @@ function openSettings() {
   openSub('sub-settings', `${head(xBtn('sub-close', 'back'), '<b>Settings</b>')}<div class="s-body vscroll set">
     <small class="pxl">ACCOUNT</small><div class="set-card">${r('Edit profile', I.chevR)}${r('Username', `<small>@yy.makes</small>${I.chevR}`)}</div>
     <small class="pxl">NOTIFICATIONS</small><div class="set-card">${r('Push notifications', `<span class="switch${state.settings.push ? ' on' : ''}"><i></i></span>`, 'set-toggle')}</div>
-    <small class="pxl">DEMO</small><div class="set-card">${r('Create version', `<small>${MODE === 'chat' ? 'Chat' : 'Original'}</small>${I.chevR}`, 'set-ver')}</div>
+    <small class="pxl">DEMO</small><div class="set-card">${r('Create version', `<small>${VER === 'chat' ? 'Chat' : 'Original'}</small>${I.chevR}`, 'set-ver')}</div>
     <small class="pxl">MORE</small><div class="set-card">${r('Help & about', I.chevR)}${r('Log out', '', 'set-logout', 'red')}</div>
   </div>`);
 }
@@ -3704,7 +3722,7 @@ Object.assign(A, {
   'ed-tcol': (b) => { const tt = $('#edText .tt'); if (tt) edCtx.text = tt.textContent; edCtx.tc = +b.dataset.i; drawEditor(); },
   'ed-text-x': () => { edCtx.text = ''; drawEditor(); },
   'me-asset': (b) => openView(workById(b.dataset.w), { v:+b.dataset.v, ctx:'me', chips:true }),
-  'set-logout': () => MODE === 'onb' ? signOutToWelcome() : setVer('onb'),
+  'set-logout': () => ONB ? signOutToWelcome() : setVer(VER, true),
   'demo-restart': () => location.reload(),
   'onb-start': () => onbFinish(),
   'onb-create': () => newAccount(() => onbFinish()),
@@ -3734,8 +3752,10 @@ document.addEventListener('click', e => {
    Create = a chat with a bot (no history there; every chat lives in Chats). + makes a new bot.
    Bots can team up for a project; in a team each bot answers by name, @ asks one. */
 let VER = window.WK_VER === 'chat' ? 'chat' : 'classic';
-// demo tab: 'onb' = welcome + sign-in flow (original Create); 'classic' / 'chat' start signed in, no onboarding
-let MODE = window.WK_ONB ? 'onb' : VER;
+// ONB: start from the welcome screen + sign-in flow; off = already signed in. Works with either version
+let ONB = !!window.WK_ONB;
+const DEMO_PAGE = { classic:'./', chat:'chat.html', 'classic-onb':'onboarding.html', 'chat-onb':'chat-onboarding.html' };
+const demoKey = () => VER + (ONB ? '-onb' : '');
 const BOT_PATHS = {
   Bun:['M32 55.0804C23.54 55.1904 16.46 55.8404 9.2 51.4804C4.14 48.4404 2 42.9804 2 37.0804C2 30.7804 6.36 27.1004 9.2 21.4804C11.43 17.0804 12.77 13.6504 15.82 9.77041C16.55 8.84041 17.88 8.58041 18.97 9.05041C22.22 10.4604 23.66 13.1304 26.9 14.5804C28.61 15.3504 30.13 14.8804 32 14.8804C33.76 14.8804 35.14 15.1604 36.8 14.5804C40.38 13.3304 42.4 10.9904 46.05 9.95041C47.23 9.62041 48.51 10.0504 49.19 11.0704C51.67 14.7504 52.24 18.1004 54.2 22.0804C56.94 27.6404 61.87 30.8804 62 37.0804C62.12 42.7904 59.69 47.9404 54.8 50.8804C47.51 55.2504 40.5 54.9704 32 55.0804Z','M31.7017 30.841C32.6117 30.781 33.4017 31.471 33.4617 32.371C33.6217 34.591 31.4417 36.551 28.6017 36.751C25.7617 36.951 23.3217 35.311 23.1717 33.091C23.1117 32.191 23.7917 31.401 24.7017 31.331C27.0417 31.171 29.3717 31.011 31.7017 30.841Z','M50.2504 29.5901C51.1604 29.5101 51.9604 30.1801 52.0404 31.0901C52.2304 33.3001 50.0804 35.3001 47.2504 35.5501C44.4104 35.7901 41.9504 34.2001 41.7604 31.9901C41.6804 31.0801 42.3504 30.2801 43.2604 30.2001C45.5904 29.9901 47.9204 29.7901 50.2504 29.5901Z'],
   Egg:['M32.0008 61.9514C25.5008 61.9514 18.8308 62.7614 14.8108 57.6614C9.51081 50.9414 10.6508 43.2814 10.5108 34.7314C10.3808 26.7414 12.2408 21.0114 14.0908 13.2414C15.0208 9.33135 15.8708 6.39135 18.0708 3.02135C18.7108 2.02135 20.1708 1.72135 21.2208 2.28135C24.0508 3.82135 24.8308 6.75135 27.7008 8.23135C29.5708 9.19135 31.3308 8.65135 33.4308 8.58135C35.5508 8.52135 37.3408 8.94135 39.1608 7.87135C41.3908 6.56135 41.5808 3.93135 43.7508 2.52135C44.6308 1.95135 46.0108 2.15135 46.5608 3.05135C48.5008 6.18135 49.1208 8.92135 49.9108 12.5214C51.6708 20.5814 53.6208 26.4814 53.4908 34.7314C53.3608 43.2814 54.4908 50.9414 49.1908 57.6614C45.1708 62.7614 38.5008 61.9514 32.0008 61.9514Z','M27.9241 26.8799C28.7641 27.0599 29.3041 27.8899 29.1241 28.7299C28.6841 30.7799 26.1941 31.9899 23.5641 31.4399C20.9341 30.8799 19.1541 28.7599 19.5941 26.7099C19.7741 25.8599 20.5941 25.3299 21.4441 25.4999C23.6041 25.9599 25.7641 26.4199 27.9241 26.8799Z','M42.605 29.7501C43.445 29.9301 43.985 30.7601 43.805 31.6001C43.375 33.6501 40.885 34.8601 38.255 34.3001C35.625 33.7401 33.845 31.6201 34.275 29.5701C34.455 28.7301 35.285 28.1901 36.125 28.3701C38.285 28.8301 40.445 29.2901 42.605 29.7501Z'],
@@ -3832,11 +3852,12 @@ seedV2();
 
 /* ---------- version switch ---------- */
 function syncVerUI() {
-  $$('.verswitch button').forEach(b => b.classList.toggle('on', b.dataset.ver === MODE));
-  $$('.guide > [data-ver]').forEach(el => { el.hidden = el.dataset.ver !== MODE; });
+  $$('.verswitch button').forEach(b => b.classList.toggle('on', b.dataset.ver === VER));
+  $$('.onbtog').forEach(b => b.setAttribute('aria-checked', ONB));
+  $$('.guide > [data-ver]').forEach(el => { el.hidden = el.dataset.ver !== demoKey(); });
   $('#tabbar').classList.toggle('v2', VER === 'chat');
   earTwitch();
-  document.title = { onb:'Wanaka Mobile · Onboarding', chat:'Wanaka Mobile · Chat', classic:'Wanaka Mobile' }[MODE];
+  document.title = 'Wanaka Mobile' + (VER === 'chat' ? ' · Chat' : '') + (ONB ? ' · Onboarding' : '');
 }
 // the Create cat's ears: left flicks twice, a beat later the right one, every ~5s (chat version only)
 let earT = 0;
@@ -3847,16 +3868,17 @@ function earTwitch() {
     earT = setTimeout(run, 5000); };
   earT = setTimeout(run, 1500);
 }
-function setVer(v) {
-  if (v === MODE) return; const was = MODE; MODE = v; VER = v === 'chat' ? 'chat' : 'classic';
+// switch version and/or onboarding in place. With onboarding on, every switch starts again from the welcome screen
+function setVer(v, onb = ONB) {
+  if (v === VER && onb === ONB) return; const wasOnb = ONB; VER = v; ONB = onb;
   closeSheet(); closeAllSubs(); $$('.pop').forEach(p => p.remove()); hideBanner();
   if (!$('#create').hidden) closeCreate();
   if (!$('#cc').hidden) closeCC(true);
-  if (v === 'onb') signOutToWelcome();
-  else if (was === 'onb') { const o = $('#onb'); o.hidden = true; o.innerHTML = ''; const c = $('#coach'); c.hidden = true; c.innerHTML = ''; state.coach = 0; state.signedIn = true; }
+  if (onb) signOutToWelcome();
+  else if (wasOnb) { const o = $('#onb'); o.hidden = true; o.innerHTML = ''; const c = $('#coach'); c.hidden = true; c.innerHTML = ''; state.coach = 0; state.signedIn = true; }
   syncVerUI(); renderChats();
-  try { if (/github\.io|localhost|127\.0\.0\.1/.test(location.host)) history.replaceState(null, '', { onb:'onboarding.html', chat:'chat.html', classic:'./' }[v]); } catch (e) {}
-  if (v !== 'onb') toast(v === 'chat' ? 'Chat version' : 'Original version');
+  try { if (/github\.io|localhost|127\.0\.0\.1/.test(location.host)) history.replaceState(null, '', DEMO_PAGE[demoKey()]); } catch (e) {}
+  if (!onb) toast(v === 'chat' ? 'Chat version' : 'Original version');
 }
 
 /* ---------- Create (A1 → IN1/IN2): a fresh page with a bot, no history ---------- */
@@ -4337,7 +4359,8 @@ function c2FilterMenu() {
 const A1 = Object.assign({}, A);
 Object.assign(A, {
   'ver': b => setVer(b.dataset.ver),
-  'set-ver': () => setVer(MODE === 'chat' ? 'classic' : 'chat'),
+  'set-ver': () => setVer(VER === 'chat' ? 'classic' : 'chat'),
+  'onb-toggle': () => setVer(VER, !ONB),
   'cc-close': () => closeCC(),
   'cc-write': () => ccWrite(),
   'cc-insp': () => ccInspire(),
@@ -4482,7 +4505,7 @@ function init() {
   const fit = () => { if (innerWidth <= 520) { device.style.transform = ''; return; } const s = Math.min(1, (innerHeight - 40) / 852, (innerWidth - 40) / 393); device.style.transform = `scale(${s})`; };
   fit(); addEventListener('resize', fit);
   try { document.fonts.ready.then(placeModes); } catch (e) {}
-  if (MODE === 'onb') startOnboarding(); else state.signedIn = true;
+  if (ONB) startOnboarding(); else state.signedIn = true;
   document.addEventListener('visibilitychange', () => { if (document.hidden) pauseAll(); else resumeVisible(); });
   syncVerUI();
 }

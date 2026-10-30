@@ -3,7 +3,8 @@
 # This wraps it into standalone pages for GitHub Pages / opening locally:
 #   index.html — original Create
 #   chat.html  — Chat version of Create (Figma section 1028)
-#   onboarding.html — welcome + sign-in flow; the other two start signed in. The switch in the demo moves between all three
+#   onboarding.html / chat-onboarding.html — the same two, starting from the welcome + sign-in flow
+#   (the others start signed in). The switch in the demo moves between all four
 cd "$(dirname "$0")" || exit 1
 page() {
   cat <<'HEAD'
@@ -17,12 +18,13 @@ page() {
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <style>:root{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}img{max-width:100%}[hidden]{display:none!important}</style>
 HEAD
-  [ "$1" = chat ] && printf "<script>window.WK_VER='chat'</script>\n"
-  [ "$1" = onb ] && printf "<script>window.WK_ONB=1</script>\n"
+  case "$1" in chat*) printf "<script>window.WK_VER='chat'</script>\n" ;; esac
+  case "$1" in *onb) printf "<script>window.WK_ONB=1</script>\n" ;; esac
   cat app.html
   printf '\n</html>\n'
 }
 page > index.html
 page chat > chat.html
 page onb > onboarding.html
-echo "built index.html + chat.html + onboarding.html"
+page chat-onb > chat-onboarding.html
+echo "built index.html + chat.html + onboarding.html + chat-onboarding.html"
