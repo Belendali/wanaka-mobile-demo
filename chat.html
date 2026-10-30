@@ -111,6 +111,15 @@ svg{display:block;flex:none}
 .tabbar .tb-create{width:var(--cw);height:var(--h);position:relative;transition:width .3s cubic-bezier(.2,.8,.2,1),height .3s}
 .tabbar .tb-create img{position:absolute;left:4px;top:var(--mt);width:var(--m);height:var(--m);max-width:none;transition:transform .2s,width .3s,height .3s,top .3s}
 .tabbar .tb-create:active img{transform:scale(.92)}
+/* Chat version (Figma 1028 tab/Create): gradient pill + the thinking cat peeking over it */
+.tabbar .tb-create .m2{display:none;position:absolute;left:50%;top:50%;width:40px;height:25px;transform:translate(-50%,-50%) translateY(1.5px);transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.tabbar.v2 .tb-create > img{display:none}
+.tabbar.v2 .tb-create .m2{display:block}
+.tabbar.v2.compact .tb-create .m2{transform:translate(-50%,-50%) translateY(1px) scale(.88)}
+.tabbar .tb-create .m2 i{position:absolute;inset:0;border-radius:10.5px;background:linear-gradient(90deg,#FEDE66,#ECE290 50.5%,#9FDCCE);display:grid;place-items:center;transition:transform .2s}
+.tabbar .tb-create .m2 i svg{width:17px;height:17px}
+.tabbar .tb-create .m2 img{position:absolute;left:4px;top:-29px;width:32px;height:32px;max-width:none;filter:drop-shadow(0 -3px 2px rgba(131,113,60,.25));transition:transform .2s}
+.tabbar .tb-create:active .m2 i,.tabbar .tb-create:active .m2 img{transform:scale(.92)}
 
 /* ---------- home ---------- */
 .topbar{position:absolute;top:var(--sb);left:0;right:0;height:32px;z-index:6;display:flex;align-items:center;padding:0 20px;transition:opacity .25s}
@@ -1480,6 +1489,9 @@ svg{display:block;flex:none}
 .b-pill{position:absolute;left:50%;transform:translateX(-50%);height:40px;padding:0 16px;border-radius:999px;background:var(--faint);display:flex;align-items:center;gap:8px;font-size:16px;font-weight:600;white-space:nowrap;max-width:60%;box-sizing:border-box}
 .b-pill b{overflow:hidden;text-overflow:ellipsis}
 .b-pill .chev{width:12px;height:12px;flex:none}
+/* Create page after the first send: + turns into ··· (it's a chat now) */
+.b-head .icon-btn.swap svg{animation:bswap .42s cubic-bezier(.2,.8,.2,1)}
+@keyframes bswap{from{transform:rotate(-90deg) scale(.4);opacity:0}}
 .b-stack{display:flex;align-items:center}
 .b-stack .bot-av + .bot-av{margin-left:-7px}
 
@@ -1756,7 +1768,7 @@ svg{display:block;flex:none}
         <div class="bar">
           <button class="tb on" data-tab="home" aria-label="Home"></button>
           <button class="tb" data-tab="discover" aria-label="Discover"></button>
-          <button class="tb-create" data-act="open-create" aria-label="Create"><img src="media/mascot-plus.webp" alt=""></button>
+          <button class="tb-create" data-act="open-create" aria-label="Create"><img src="media/mascot-plus.webp" alt=""><span class="m2"><i><svg viewBox="0 0 17 17" fill="none" stroke="#222" stroke-width="2.28" stroke-linecap="round"><path d="M8.5 3v11M3 8.5h11"/></svg></i><img src="media/mascot-think.webp" alt=""></span></button>
           <button class="tb" data-tab="chats" aria-label="Chats"></button>
           <button class="tb" data-tab="me" aria-label="Me"></button>
         </div>
@@ -3795,6 +3807,7 @@ seedV2();
 function syncVerUI() {
   $$('.verswitch button').forEach(b => b.classList.toggle('on', b.dataset.ver === VER));
   $$('.guide [data-ver]').forEach(el => { el.hidden = el.dataset.ver !== VER; });
+  $('#tabbar').classList.toggle('v2', VER === 'chat');
   document.title = VER === 'chat' ? 'Wanaka Mobile · Chat' : 'Wanaka Mobile';
 }
 function setVer(v) {
@@ -3822,11 +3835,12 @@ function closeCC(instant) {
   if (talked && !instant) setTimeout(() => toast('Saved in Chats', 'View', () => setTab('chats')), 420);
 }
 function renderCC() {
-  const st = V2.cc, b = chatById(st.bot), started = st.start != null;
+  const st = V2.cc, b = chatById(st.bot), started = st.start != null, swap = started && !st.chatHead; st.chatHead = started;
+  // empty page: pick a bot, + makes a new one. Once sent it's that bot's chat: pill opens the bot page, ··· is the chat menu
   $('#cc').innerHTML = `<div class="bscreen" data-chat="${b.id}" data-from="${started ? st.start : 0}" style="--bc:${b.col}">${GLOW}
     <div class="b-head"><button class="icon-btn" data-act="cc-close" aria-label="Close">${I.close}</button>
-      <button class="b-pill" data-act="cc-pick" aria-label="Switch bot">${botAv(b, 24)}<b>${esc(b.name)}</b>${IC2.chev}</button>
-      <button class="icon-btn" data-act="v2-newbot" aria-label="New bot">${IC2.plus}</button></div>
+      ${started ? `<button class="b-pill" data-act="bot-page">${botAv(b, 24)}<b>${esc(b.name)}</b></button>` : `<button class="b-pill" data-act="cc-pick" aria-label="Switch bot">${botAv(b, 24)}<b>${esc(b.name)}</b>${IC2.chev}</button>`}
+      ${started ? `<button class="icon-btn${swap ? ' swap' : ''}" data-act="bot-more" aria-label="More">${I.more}</button>` : `<button class="icon-btn" data-act="v2-newbot" aria-label="New bot">${IC2.plus}</button>`}</div>
     <div class="b-body">${started ? `<div class="bthread">${msgsHTML(b, st.start)}</div>` : `<div class="b-empty">${botAv(b, 64, 'big')}<h2>What’s on your mind?</h2><button class="b-gbtn" data-act="cc-write">${IC2.sparkle}Write one for me</button><button class="b-gbtn" data-act="cc-insp">${IC2.bulb}Get inspired</button></div>`}</div>
     ${footHTML(b, st)}</div>`;
   const host = $('#cc .bscreen'); wireFoot(host, b, st); afterRender(host, b);
@@ -4199,10 +4213,10 @@ function newBotSheet() {
   setTimeout(() => { const n = $('#nbName'); n && n.select(); }, 350);
 }
 function botMore(btn) {
-  const s = btn.closest('.sub'), ch = chatById($('.bscreen', s).dataset.chat), old = $('.pop', s); if (old) { old.remove(); return; }
+  const s = btn.closest('.sub, #cc'), ch = chatById($('.bscreen', s).dataset.chat), old = $('.pop', s); if (old) { old.remove(); return; }
   s.insertAdjacentHTML('beforeend', `<div class="pop">${ch.kind === 'bot' ? '<button data-act="bm-team">Make a team</button><i></i>' : ''}<button data-act="bm-pin">${ch.pinned ? 'Unpin chat' : 'Pin chat'}</button><i></i><button class="red" data-act="bm-del">Delete chat</button></div>`);
 }
-const curChat = el => chatById(($('.bscreen', el.closest('.sub')) || {}).dataset.chat);
+const curChat = el => chatById(($('.bscreen', el.closest('.sub, #cc')) || {}).dataset.chat);
 function botPageHTML(b) {
   const teams = V2.teams.filter(t => t.members.includes(b.id)), games = state.works.filter(w => w.bot === b.id && w.versions.length);
   return `${head(xBtn('sub-close', 'back'), '', `<button class="icon-btn" data-act="noop" aria-label="More">${I.more}</button>`)}<div class="s-body vscroll bp">${botAv(b, 112, 'big')}<h2>${esc(b.name)}</h2><span class="sub2">${esc(b.about || 'Your new bot')}</span><button class="edit" data-act="bp-edit">Edit</button>
@@ -4317,7 +4331,7 @@ Object.assign(A, {
   'bm-pin': b => { const ch = curChat(b); $$('.pop').forEach(p => p.remove()); ch.pinned = !ch.pinned; renderChats(); toast(ch.pinned ? 'Pinned' : 'Unpinned'); },
   'bm-del': b => { const ch = curChat(b); $$('.pop').forEach(p => p.remove());
     openSheet(`<div class="confirm"><h3>Delete ${esc(ch.name)}?</h3><p>${ch.sys ? 'The chat is cleared. Wana stays.' : ch.kind === 'team' ? 'The team chat is removed. The bots stay.' : 'This bot and its chat are removed. Its games stay in Me.'}</p><button class="dbtn" data-act="bm-del-yes">Delete</button><button class="cbtn" data-act="sheet-close">Cancel</button></div>`, {
-      'bm-del-yes': () => { closeSheet(); closeAllSubs(); if (ch.sys) { ch.msgs = []; ch.chips = null; ch.last = 'No messages yet'; } else { const arr = ch.kind === 'team' ? V2.teams : V2.bots; arr.splice(arr.indexOf(ch), 1); V2.teams.forEach(t => { t.members = t.members.filter(id => id !== ch.id); }); } renderChats(); toast('Deleted'); } }); },
+      'bm-del-yes': () => { closeSheet(); closeAllSubs(); if (!$('#cc').hidden) { V2.cc.start = null; closeCC(); } if (ch.sys) { ch.msgs = []; ch.chips = null; ch.last = 'No messages yet'; } else { const arr = ch.kind === 'team' ? V2.teams : V2.bots; arr.splice(arr.indexOf(ch), 1); V2.teams.forEach(t => { t.members = t.members.filter(id => id !== ch.id); }); } renderChats(); toast('Deleted'); } }); },
   'bot-page': b => openBotPage(curChat(b)),
   'team-page': b => openTeamPage(curChat(b)),
   'tp-game': b => { const t = chatById($('#sub-teamp').dataset.id), w = workById(t.wid); openView(w, { v:latest(w).n, ctx:'chat' }); },
