@@ -2729,7 +2729,7 @@ function openView(w, o) {
     line = o.first || o.chips ? 'Drag to spin it' : meCtx ? `${I.check}In Assets · synced to Studio` : `Version ${v.n} · ${escapeHTML(v.note)}`;
     if (o.first || o.chips) {
       extra = `<div class="vw-styles"><small>Change style</small><div class="stylechips">${[...STYLES, COMMUNITY[0]].map(s => `<button class="${s.k === v.style ? 'on' : ''}" data-act="vw-style" data-w="${w.id}" data-k="${s.k}" data-ctx="${o.ctx}"><span class="cth"><img src="${M(s.img)}" alt=""></span>${s.label}</button>`).join('')}</div></div>`;
-      acts = VER !== 'chat' ? btn('pri', 'vw-edit', I.pencilD, 'Keep editing') : V2.snapFrom ? btn('pri', 'vw-add', I.plusD, 'Add to chat') : btn('pri', 'sub-close', I.checkD, 'Done');
+      acts = VER !== 'chat' ? btn('pri', 'vw-edit', I.pencilD, 'Keep editing') : V2.snapFrom ? btn('pri', 'vw-add', I.arrowR, 'Continue') : btn('pri', 'sub-close', I.checkD, 'Done');
     } else if (o.ctx === 'chat') acts = btn('pri', 'vw-game', I.gamesD, 'Make a game with it');
     else acts = btn('sec', 'vw-edit', I.pencil, 'Keep editing') + btn('pri', 'vw-game', I.gamesD, 'Put in a game');
   }
@@ -4173,7 +4173,7 @@ function make3D(ch, text) {
     ch.chips = ['Put it in a game', 'Make another', '3D Snap'];
   });
 }
-// 3D Snap from a chat: camera → pick a style below → the 3D result. Add to chat puts it in this chat; closing just saves it
+// 3D Snap from a chat: camera → pick a style below → the 3D result. Continue puts it in this chat; closing just saves it
 // (every snap also gets its own chat in Chats)
 function snap3D(ch) {
   V2.snapFrom = ch ? ch.id : (V2.cc && V2.cc.bot); attachTarget = 'snap';
