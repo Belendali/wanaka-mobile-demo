@@ -1456,14 +1456,18 @@ svg{display:block;flex:none}
 .bscreen{position:absolute;inset:0;display:flex;flex-direction:column;overflow:hidden;background:var(--bg);transition:--bc .7s ease}
 
 /* glow: three soft blobs in the bot's colour that drift; they breathe while the bot works */
-.b-glow{position:absolute;left:0;right:0;bottom:0;height:320px;pointer-events:none;z-index:0;opacity:.95}
-.b-glow i{position:absolute;border-radius:50%;background:var(--bc);will-change:transform}
-.b-glow i:nth-child(1){left:-70px;top:108px;width:300px;height:220px;opacity:.4;filter:blur(50px);animation:gl1 11s ease-in-out infinite alternate}
-.b-glow i:nth-child(2){left:190px;top:158px;width:280px;height:200px;opacity:.3;filter:blur(50px);animation:gl2 13s ease-in-out infinite alternate}
-.b-glow i:nth-child(3){left:70px;top:238px;width:260px;height:130px;opacity:.6;filter:blur(35px);animation:gl3 8s ease-in-out infinite alternate}
-@keyframes gl1{0%{transform:translate(0,0) scale(1)}50%{transform:translate(46px,-16px) scale(1.12,.92)}100%{transform:translate(96px,8px) scale(.94,1.08)}}
-@keyframes gl2{0%{transform:translate(0,0) scale(1)}50%{transform:translate(-64px,12px) scale(.9,1.12)}100%{transform:translate(-118px,-14px) scale(1.1,.95)}}
-@keyframes gl3{0%{transform:translate(-36px,4px) scale(.95)}100%{transform:translate(54px,-12px) scale(1.18,1.02)}}
+.b-glow{position:absolute;left:0;right:0;bottom:0;height:340px;pointer-events:none;z-index:0;opacity:.95;animation:glidle 6s ease-in-out infinite}
+.b-glow i{position:absolute;border-radius:50%;background:var(--bc);will-change:transform,opacity}
+.b-glow i:nth-child(1){left:-80px;top:110px;width:300px;height:230px;opacity:.42;filter:blur(48px);animation:gl1 7s ease-in-out infinite alternate}
+.b-glow i:nth-child(2){left:180px;top:150px;width:290px;height:210px;opacity:.34;filter:blur(48px);background:color-mix(in oklab,var(--bc) 72%,#fff);animation:gl2 9s ease-in-out infinite alternate}
+.b-glow i:nth-child(3){left:60px;top:240px;width:270px;height:140px;opacity:.6;filter:blur(34px);animation:gl3 5.5s ease-in-out infinite alternate}
+/* a soft sheen that sweeps across, so the light reads as moving, not just glowing */
+.b-glow i:nth-child(4){left:-40%;top:210px;width:90%;height:150px;opacity:0;filter:blur(30px);background:color-mix(in oklab,var(--bc) 45%,#fff);mix-blend-mode:screen;animation:glsheen 8s ease-in-out infinite}
+@keyframes glidle{0%,100%{transform:translateY(0);opacity:.88}50%{transform:translateY(-10px);opacity:1}}
+@keyframes gl1{0%{transform:translate(0,0) scale(1);opacity:.36}50%{transform:translate(90px,-34px) scale(1.18,.9);opacity:.5}100%{transform:translate(170px,10px) scale(.92,1.1);opacity:.4}}
+@keyframes gl2{0%{transform:translate(0,0) scale(1);opacity:.28}50%{transform:translate(-110px,22px) scale(.9,1.16);opacity:.42}100%{transform:translate(-190px,-26px) scale(1.12,.94);opacity:.3}}
+@keyframes gl3{0%{transform:translate(-60px,6px) scale(.92);opacity:.5}100%{transform:translate(90px,-20px) scale(1.22,1.04);opacity:.7}}
+@keyframes glsheen{0%{transform:translateX(0) scaleX(.8);opacity:0}35%{opacity:.32}70%{opacity:.18}100%{transform:translateX(170%) scaleX(1.1);opacity:0}}
 .bscreen.busy .b-glow{animation:glbreath 1.8s ease-in-out infinite}
 @keyframes glbreath{0%,100%{transform:translateY(0);opacity:.8}50%{transform:translateY(-22px);opacity:1}}
 .bscreen.done .b-glow{animation:gldone 1s cubic-bezier(.2,.8,.2,1)}
@@ -1665,6 +1669,11 @@ svg{display:block;flex:none}
 .be .field2{height:52px;border-radius:16px;background:var(--surface);border:1px solid rgba(255,255,255,.06);color:#fff;font:400 15px var(--ui);padding:0 16px;outline:none}
 .be .bp-card{margin:0}
 .be .bp-cap{margin-top:8px}
+.be .be-av{position:relative;align-self:center;width:112px;height:112px;margin:8px 0 4px;display:grid;place-items:center}
+.be .be-av .bot-av,.be .be-av .bot-img{width:112px;height:112px}
+.be .be-av .pen{position:absolute;right:-10px;bottom:0;width:40px;height:40px;border-radius:20px;background:#2b2527;border:1px solid var(--line);display:grid;place-items:center;color:var(--white)}
+.be .be-av .pen svg{width:20px;height:20px}
+.bp-row .v .bot-av,.bp-row .v .bot-img{width:26px;height:26px}
 .done-btn{height:32px;padding:0 14px;border-radius:999px;background:#fff;color:var(--bg);font-size:13px;font-weight:600}
 .ba-tabs{margin:12px 16px 0;height:36px;border-radius:999px;background:rgba(255,255,255,.06);padding:3px;display:grid;grid-template-columns:repeat(3,1fr);box-sizing:border-box;flex:none}
 .ba-tabs button{border-radius:999px;font-size:13px;color:rgba(255,255,255,.55);font-weight:500}
@@ -1676,7 +1685,8 @@ svg{display:block;flex:none}
 .ba-body .cta-white{width:100%;height:52px;font-size:16px}
 .ba-body .lnk{font-size:13px;color:rgba(255,255,255,.55)}
 .ba-body .bp-card{margin:0}
-@media (prefers-reduced-motion:reduce){.b-glow i,.bot-av,.bot-av .ey,.bscreen .b-glow{animation:none!important}}
+@media (prefers-reduced-motion:reduce){.b-glow i,.bot-av,.bot-av .ey{animation:none!important}.bscreen .b-glow{animation:glfade 6s ease-in-out infinite!important}}
+@keyframes glfade{0%,100%{opacity:.8}50%{opacity:1}}
 
 </style>
 
@@ -3763,7 +3773,7 @@ const IC2 = {
   team: b2('<g stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.6 3.2-5.5 6.5-5.5s5.9 1.9 6.5 5.5M16 4.8a3.4 3.4 0 0 1 0 6.4M18.2 14.8c1.8.7 3 2.4 3.3 5.2"/></g>'),
   updown: b2('<path d="m8 10 4-4 4 4M8 14l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>'),
 };
-const GLOW = '<div class="b-glow" aria-hidden="true"><i></i><i></i><i></i></div>';
+const GLOW = '<div class="b-glow" aria-hidden="true"><i></i><i></i><i></i><i></i></div>';
 const esc = escapeHTML;
 const botSVG = (shape, col) => { const p = BOT_PATHS[shape] || BOT_PATHS.Bun; return `<svg class="bot-svg" viewBox="0 0 64 64" aria-hidden="true"><path d="${p[0]}" fill="${col}"/><g class="ey"><path d="${p[1]}" fill="#140F0F"/><path d="${p[2]}" fill="#140F0F"/></g></svg>`; };
 function botAv(b, size, cls = '') {
@@ -4261,9 +4271,9 @@ function teamPageHTML(t) {
 }
 function openTeamPage(t) { const s = openSub('sub-teamp', teamPageHTML(t)); s.dataset.id = t.id; }
 function openBotEdit(b) {
-  const s = openSub('sub-bote', `${head(xBtn('sub-close', 'back'), '<b>Edit bot</b>', '<button class="done-btn" data-act="be-done">Done</button>')}<div class="s-body vscroll be"><span class="lab">NAME</span><input class="field2" id="beName" value="${esc(b.name)}" maxlength="16" aria-label="Name">
+  const s = openSub('sub-bote', `${head(xBtn('sub-close', 'back'), '<b>Edit bot</b>', '<button class="done-btn" data-act="be-done">Done</button>')}<div class="s-body vscroll be"><button class="be-av" data-act="be-avatar" aria-label="Edit avatar">${botAv(b, 112, 'big')}<span class="pen">${I.pencil}</span></button><span class="lab">NAME</span><input class="field2" id="beName" value="${esc(b.name)}" maxlength="16" aria-label="Name">
     <span class="lab">LOOK</span><div class="bp-card"><button class="bp-row" data-act="be-avatar">Avatar<span class="v" id="beAv">${botAv(b, 28)}${I.chevR}</span></button></div>
-    <span class="lab">VOICE</span><div class="bp-card"><button class="bp-row" data-act="noop">Voice<span class="v">Not set${I.chevR}</span></button><button class="bp-row" data-act="be-speed">Speed<span class="v"><span id="beSpeed">${b.speed || '1x'}</span>${IC2.updown}</span></button><button class="bp-row" data-act="be-lang">Language<span class="v"><span id="beLang">${b.lang || 'Auto'}</span>${IC2.updown}</span></button></div>
+    <span class="lab">VOICE</span><div class="bp-card"><button class="bp-row" data-act="be-voice">Voice<span class="v"><span id="beVoice">${b.voice || 'Not set'}</span>${IC2.updown}</span></button><button class="bp-row" data-act="be-speed">Speed<span class="v"><span id="beSpeed">${b.speed || '1x'}</span>${IC2.updown}</span></button><button class="bp-row" data-act="be-lang">Language<span class="v"><span id="beLang">${b.lang || 'Auto'}</span>${IC2.updown}</span></button></div>
     <p class="bp-cap">Used when you talk to ${esc(b.name)} by voice</p></div>`);
   s.dataset.id = b.id;
 }
@@ -4283,6 +4293,7 @@ function refreshBot(b) {
   $$('.bscreen[data-chat]').forEach(h => { if (h.dataset.chat !== b.id) return; h.style.setProperty('--bc', b.col); const pill = $('.b-pill', h); if (pill) { const av = $('.bot-av, .bot-img', pill); if (av) av.outerHTML = botAv(b, 24); $('b', pill).textContent = b.name; } const ta = $('textarea', h); if (ta) ta.placeholder = `Ask ${b.name} anything…`; const big = $('.b-empty .bot-av, .b-empty .bot-img', h); if (big) big.outerHTML = botAv(b, 64, 'big'); });
   const p = $('#sub-botp'); if (subStack.includes('sub-botp') && p.dataset.id === b.id) { p.innerHTML = botPageHTML(b); fillIcons(p); }
   const e = $('#beAv'); if (e) e.innerHTML = botAv(b, 28) + I.chevR;
+  const big = $('#sub-bote .be-av'); if (big && $('#sub-bote').dataset.id === b.id) big.innerHTML = botAv(b, 112, 'big') + `<span class="pen">${I.pencil}</span>`;
   renderChats();
 }
 
@@ -4370,8 +4381,9 @@ Object.assign(A, {
   'bp-team': () => { const x = chatById($('#sub-botp').dataset.id), t = V2.teams.find(tt => tt.members.includes(x.id)); if (t) openBotChat(t); else toast('No team yet · ··· in the chat → Make a team'); },
   'be-avatar': () => { V2.avDraft = null; openAvatar(chatById($('#sub-bote').dataset.id)); },
   'be-speed': () => { const el = $('#beSpeed'), o = ['0.8x', '1x', '1.2x', '1.5x']; el.textContent = o[(o.indexOf(el.textContent) + 1) % o.length]; },
+  'be-voice': () => { const el = $('#beVoice'), o = ['Not set', 'Soft', 'Bright', 'Deep']; el.textContent = o[(o.indexOf(el.textContent) + 1) % o.length]; },
   'be-lang': () => { const el = $('#beLang'), o = ['Auto', 'English', '中文', '日本語']; el.textContent = o[(o.indexOf(el.textContent) + 1) % o.length]; },
-  'be-done': () => { const x = chatById($('#sub-bote').dataset.id), n = $('#beName').value.trim(); if (n) x.name = n.slice(0, 16); x.speed = $('#beSpeed').textContent; x.lang = $('#beLang').textContent; closeSub('sub-bote'); refreshBot(x); },
+  'be-done': () => { const x = chatById($('#sub-bote').dataset.id), n = $('#beName').value.trim(); if (n) x.name = n.slice(0, 16); x.speed = $('#beSpeed').textContent; x.lang = $('#beLang').textContent; x.voice = $('#beVoice').textContent; closeSub('sub-bote'); refreshBot(x); },
   'av-tab': b => openAvatar(chatById($('#sub-bota').dataset.id), b.dataset.k),
   'av-shape': b => { const d = V2.avDraft; d.shape = b.dataset.s; d.img = null; $$('#sub-bota .nb-shapes button').forEach(x => x.classList.toggle('on', x === b)); const av = $('#sub-bota .ba-body > .bot-av'); if (av) morphAv(av, d.shape, d.col); else openAvatar(chatById(d.id), 'shape'); buzz(6); },
   'av-col': b => { const d = V2.avDraft; d.col = b.dataset.c; d.img = null; $$('#sub-bota .nb-cols button').forEach(x => x.classList.toggle('on', x === b)); const av = $('#sub-bota .ba-body > .bot-av'); if (av) morphAv(av, d.shape, d.col, 360); $$('#sub-bota .nb-shapes .bot-av path:first-child').forEach(p => p.setAttribute('fill', d.col)); buzz(6); },
