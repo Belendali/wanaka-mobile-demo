@@ -1203,11 +1203,17 @@ svg{display:block;flex:none}
 /* onboarding */
 .onb{position:absolute;inset:0;z-index:60;background:var(--bg);overflow:hidden;transition:opacity .38s}
 .onb.out{opacity:0;pointer-events:none}
-.onb-wall{position:absolute;left:-40px;right:-40px;top:20px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;transform:rotate(-8deg);animation:wall 24s linear infinite alternate}
-.onb-wall img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:20px}
-.onb-wall img:nth-child(3n+2){transform:translateY(40px)}
-@keyframes wall{to{transform:rotate(-8deg) translateY(-120px)}}
-.onb-fade{position:absolute;inset:0;background:linear-gradient(rgba(20,14,16,.1) 0%,rgba(20,14,16,.55) 38%,var(--bg) 62%)}
+/* O1: three strips of covers, tilted; left + right drift up, middle drifts down */
+.onb-wall{position:absolute;left:-23.4%;top:-13%;width:136%;height:100%;display:flex;gap:3%;transform:rotate(10deg);transform-origin:50% 38%;pointer-events:none}
+.onb-col{flex:1;min-width:0}
+.onb-col .trk{display:flex;flex-direction:column;will-change:transform;animation:onbUp 50s linear infinite;animation-delay:-47.2s}
+.onb-col.down .trk{animation-name:onbDown;animation-delay:-13.35s}
+.onb-col:last-child .trk{animation-delay:-48.85s}
+.onb-col img{display:block;width:100%;aspect-ratio:400/452;object-fit:cover;border-radius:24px;margin-bottom:7.5%;background:var(--raised)}
+@keyframes onbUp{from{transform:translateY(0)}to{transform:translateY(-33.3333%)}}
+@keyframes onbDown{from{transform:translateY(-33.3333%)}to{transform:translateY(0)}}
+@media (prefers-reduced-motion: reduce){.onb-col .trk{animation:none}}
+.onb-fade{position:absolute;inset:0;background:linear-gradient(rgba(20,14,16,0) 0%,rgba(20,14,16,0) 38%,rgba(20,14,16,.55) 52%,var(--bg) 64%)}
 .onb-w{position:absolute;left:0;right:0;bottom:0;padding:0 20px 40px;display:grid;justify-items:center;text-align:center}
 .onb-w .logo{width:99px;height:99px;border-radius:28px;object-fit:cover;box-shadow:0 10px 30px rgba(0,0,0,.4)}
 .onb-w h1{margin:8px 0 6px;font-size:32px;line-height:1.2;font-weight:600;text-wrap:balance}
@@ -3757,7 +3763,8 @@ function edDone() {
 function onbDone() { try { localStorage.setItem('wk-onb', '1'); } catch (e) {} }
 function startOnboarding() {
   const o = $('#onb'); o.hidden = false; o.classList.remove('out');
-  o.innerHTML = `<div class="onb-wall">${['cover-deep.webp', 'cover-paw.webp', 'cover-dungeon.webp', 'cover-clash.webp', 'g-cafe.jpg', 'cover-escape.webp', 'g-neon.jpg', 'g-ivy.jpg', 'g-garden.jpg'].map(c => `<img src="${M(c)}" alt="">`).join('')}</div><span class="onb-fade"></span>
+  const strip = (d, names) => `<div class="onb-col ${d}"><div class="trk">${[0, 1, 2].map(() => names.map(n => `<img src="${M('onb-' + n + '.webp')}" alt="" draggable="false">`).join('')).join('')}</div></div>`;
+  o.innerHTML = `<div class="onb-wall">${strip('up', ['race', 'neon', 'candy'])}${strip('down', ['cave', 'cake', 'space'])}${strip('up', ['desert', 'hiker', 'street'])}</div><span class="onb-fade"></span>
     <div class="onb-w"><img class="logo" src="${M('app-icon.webp')}" alt="Wanaka"><h1>Play games.<br>Make your own.</h1><p>Tap to play. Type to make.</p><button class="cta-white" data-act="onb-start">Start now</button><button class="lnk" data-act="onb-create">Create an account</button></div>`;
 }
 function onbFinish() { const o = $('#onb'); o.classList.add('out'); setTimeout(() => { o.hidden = true; o.innerHTML = ''; }, 380); setTab('home'); setTimeout(() => coachStep(1), 500); }
