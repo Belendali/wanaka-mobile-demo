@@ -1482,7 +1482,7 @@ svg{display:block;flex:none}
 .bscreen{position:absolute;inset:0;display:flex;flex-direction:column;overflow:hidden;background:var(--bg);transition:--bc .7s ease}
 
 /* glow: three soft blobs in the bot's colour that drift; they breathe while the bot works */
-.b-glow{position:absolute;left:0;right:0;bottom:0;height:340px;pointer-events:none;z-index:0;opacity:.95;contain:layout paint;transform:translateZ(0);animation:glidle 7s ease-in-out infinite}
+.b-glow{position:absolute;left:0;right:0;bottom:0;height:340px;pointer-events:none;z-index:0;opacity:var(--gd,1);transition:opacity .9s ease;contain:layout paint;transform:translateZ(0);animation:glidle 7s ease-in-out infinite}
 .b-glow i{position:absolute;border-radius:50%;background:var(--bc);will-change:transform;backface-visibility:hidden}
 .b-glow i:nth-child(1){left:-80px;top:110px;width:300px;height:230px;opacity:.42;filter:blur(48px);animation:gl1 8s ease-in-out infinite alternate}
 .b-glow i:nth-child(2){left:180px;top:150px;width:290px;height:210px;opacity:.32;filter:blur(48px);background:color-mix(in oklab,var(--bc) 72%,#fff);animation:gl2 10s ease-in-out infinite alternate}
@@ -1495,7 +1495,8 @@ svg{display:block;flex:none}
 @keyframes gl3{0%{transform:translate(-60px,6px) scale(.94)}100%{transform:translate(90px,-18px) scale(1.16,1.03)}}
 @keyframes glsheen{0%{transform:translateX(0)}100%{transform:translateX(110%)}}
 .bscreen.busy .b-glow{animation:glbreath 2s ease-in-out infinite}
-@keyframes glbreath{0%,100%{transform:translateZ(0) translateY(0);opacity:.9}50%{transform:translateZ(0) translateY(-20px);opacity:1}}
+@keyframes glbreath{0%,100%{transform:translateZ(0) translateY(0);opacity:calc(var(--gd,1)*.9)}50%{transform:translateZ(0) translateY(-20px);opacity:var(--gd,1)}}
+.bscreen.talking{--gd:.4}
 .bscreen.done .b-glow{animation:gldone 1s cubic-bezier(.2,.8,.2,1)}
 @keyframes gldone{0%{transform:translateZ(0) translateY(-36px) scaleY(1.12)}100%{transform:translateZ(0)}}
 
@@ -1567,14 +1568,14 @@ svg{display:block;flex:none}
 @keyframes bdot{0%,60%,100%{opacity:.25}30%{opacity:1}}
 .b-typing{font-size:12px;color:rgba(255,255,255,.4)}
 .b-tasks{display:grid;gap:8px;width:100%}
-.b-tasks span{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.45)}
+.b-tasks span{display:flex;align-items:center;gap:8px;font-size:14px;color:rgba(255,255,255,.45)}
 .b-tasks span b{font-weight:600;color:rgba(255,255,255,.7)}
-.b-tasks span .tk{margin-left:auto;width:16px;height:16px;border-radius:8px;border:1.5px solid rgba(255,255,255,.25);display:grid;place-items:center;box-sizing:border-box}
+.b-tasks span .tk{order:-1;flex:none;width:18px;height:18px;border-radius:9px;border:1.5px solid rgba(255,255,255,.25);display:grid;place-items:center;box-sizing:border-box}
 .b-tasks span .tk svg{width:10px;height:10px;opacity:0}
 .b-tasks span.doing{color:var(--white)}
 .b-tasks span.doing .bot-av{animation:bthink 1.15s ease-in-out infinite}
-.b-tasks span.doing .tk{border-color:var(--white);border-top-color:transparent;animation:spin .8s linear infinite}
-.b-tasks span.done{color:rgba(255,255,255,.75)}
+.b-tasks span.doing .tk{border:1.5px dashed var(--white);animation:spin 2.4s linear infinite}
+.b-tasks span.done{color:var(--white)}
 .b-tasks span.done .tk{background:var(--white);border-color:var(--white)}
 .b-tasks span.done .tk svg{opacity:1;color:var(--bg)}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -1745,7 +1746,14 @@ img.mp{object-fit:cover;object-position:50% 26%}
 .avi-card{position:relative;width:236px;height:298px;border-radius:28px;overflow:hidden;background:linear-gradient(#2B2526,#161213);border:1px solid rgba(255,255,255,.08)}
 .avi-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .avi-card .tagpx{position:absolute;left:14px;bottom:14px}
-.avi h2{margin:40px 0 8px;font-size:26px;font-weight:600;line-height:1.2}
+.avi-fan{position:relative;flex:none;width:393px;height:331px;margin-top:-13px}
+.avi-fan img{position:absolute;display:block;height:auto;animation:fanin .6s cubic-bezier(.2,1.2,.4,1) both}
+.avi-fan .c{left:85px;top:0;width:228.7px;animation-name:fanc}
+.avi-fan .l{left:0;top:44.7px;width:222px;--fx:70px;--fr:12deg}
+.avi-fan .r{left:188.7px;top:32.7px;width:203.7px;--fx:-70px;--fr:-12deg}
+@keyframes fanin{0%{transform:translateX(var(--fx)) rotate(var(--fr));opacity:0}100%{transform:none;opacity:1}}
+@keyframes fanc{0%{transform:translateY(16px) scale(.94);opacity:0}100%{transform:none;opacity:1}}
+.avi h2{margin:10px 0 8px;font-size:26px;font-weight:600;line-height:1.2}
 .avi p{margin:0;font-size:14px;line-height:1.5;color:var(--muted);max-width:270px}
 .avi-steps{margin-top:34px;display:grid;grid-template-columns:repeat(3,1fr);width:100%;gap:8px}
 .avi-steps span{display:grid;justify-items:center;gap:8px;font-size:11px;color:rgba(255,255,255,.75)}
@@ -1979,6 +1987,10 @@ img.mp{object-fit:cover;object-position:50% 26%}
 .b-in .go.voice{background:var(--bc, var(--lime));color:#15110F}
 .b-in .go.voice .up{display:none}
 .b-in .go.voice .wv{display:grid}
+.b-in .go .sq{display:none;width:14px;height:14px;border-radius:4px;background:var(--bg)}
+.b-in .go.stop{background:var(--white)}
+.b-in .go.stop .up,.b-in .go.stop .wv{display:none}
+.b-in .go.stop .sq{display:block}
 .b-in .mic.rec{color:var(--bc, var(--lime))}
 .b-in .mic.rec svg{animation:micp .8s ease-in-out infinite}
 @keyframes micp{50%{transform:scale(1.2)}}
@@ -2029,7 +2041,13 @@ img.mp{object-fit:cover;object-position:50% 26%}
 img.rig{animation:righop 1.6s cubic-bezier(.3,0,.3,1) infinite}
 @keyframes righop{0%,100%{translate:0 0}18%{translate:0 2px}38%{translate:0 -16px}56%{translate:0 0}64%{translate:0 1px}}
 /* AS2: the new asset gets a lime frame for a moment */
-.atile.hl .th{box-shadow:0 0 0 2px var(--lime);animation:hlpop .5s cubic-bezier(.2,1.4,.4,1)}
+.atile.hl .th{box-shadow:0 0 0 2px var(--lime);animation:ringin .35s .25s ease-out both}
+.atile.hl .th img{animation:newpop 1s .25s ease-out both}
+.atile.hl .new{animation:newtag .45s .75s cubic-bezier(.3,1.7,.5,1) both}
+@keyframes ringin{0%{box-shadow:0 0 0 0 var(--lime)}100%{box-shadow:0 0 0 2px var(--lime)}}
+@keyframes newpop{0%{transform:scale(.12) translateY(-30%);opacity:0}34%{transform:scale(1.16) rotate(-7deg);opacity:1}50%{transform:scale(.93) rotate(6deg)}64%{transform:scale(1.05) rotate(-4deg)}78%{transform:scale(.99) rotate(2deg)}90%{transform:rotate(-1deg)}100%{transform:none}}
+@keyframes newtag{0%{transform:scale(0)}100%{transform:none}}
+.atile .new{color:#15110F;background:var(--lime);font-size:7px;padding:5px 6px;border-radius:8px}
 @keyframes hlpop{0%{transform:scale(.9)}100%{transform:scale(1)}}
 
 </style>
@@ -2755,7 +2773,7 @@ function mePanel() {
   if (state.meTab === 'assets') {
     const list = assetList();
     return `<div class="me-meta"><span><b style="font-weight:500">${list.length} assets</b><span class="muted"> · synced to Studio</span></span>${I.filter}</div>
-      <div class="agrid">${list.map(a => `<button class="atile${state.hlW === a.w.id && a.v.n === latest(a.w).n ? ' hl' : ''}" data-act="me-asset" data-w="${a.w.id}" data-v="${a.v.n}"><span class="th">${a.v.isNew ? '<span class="new">NEW</span>' : ''}${modelImg(a.w, a.v, '')}</span><b>${escapeHTML(a.name)}</b><small>${a.w.sub || '3D · ' + styleOf(a.v.style).label}</small></button>`).join('')}</div>`;
+      <div class="agrid">${list.map(a => `<button class="atile${(state.hlW === a.w.id && a.v.n === latest(a.w).n) || (a.v.isNew && !a.v.popped && state.tab === 'me' && (a.v.popped = true) && !state.hlW) ? ' hl' : ''}" data-act="me-asset" data-w="${a.w.id}" data-v="${a.v.n}"><span class="th">${a.v.isNew ? '<span class="new">NEW</span>' : ''}${modelImg(a.w, a.v, '')}</span><b>${escapeHTML(a.name)}</b><small>${a.w.sub || '3D · ' + styleOf(a.v.style).label}</small></button>`).join('')}</div>`;
   }
   if (state.meTab === 'saved') return `<div class="grid" style="padding:0">${state.saved.map(id => gcardHTML(G[id])).join('')}</div>`;
   return `<div class="me-meta"><span class="muted">${state.downloads.length} games · play offline</span></div>${state.downloads.map(id => `<div class="dl-row"><img src="${poster(G[id])}" alt=""><span class="t"><b>${G[id].title}</b><small>${G[id].creator} · ready offline</small></span><button class="p cta-white" data-act="dl-play" data-g="${id}">Play</button></div>`).join('')}`;
@@ -4254,7 +4272,7 @@ function footHTML(ch, st) {
   return `<div class="b-foot">
     <div class="b-tray"${st.tray ? '' : ' hidden'}><button data-act="b-cam" aria-label="Camera">${IC2.camera}</button><button data-act="b-photos" aria-label="Photos">${IC2.photos}</button><button class="snap" data-act="b-snap">${IC2.snap}3D Snap</button></div>
     <div class="b-atts"${st.atts.length ? '' : ' hidden'}>${attsHTML(st)}</div>
-    <form class="b-in${st.plan ? ' planon' : ''}"><button type="button" class="l" data-act="b-tray" aria-label="Add">${st.tray ? IC2.x : IC2.plus}</button><textarea rows="1" placeholder="${ch.kind === 'team' ? `Message ${esc(ch.name)}…` : `Ask ${esc(ch.kind === 'snap' || ch.kind === 'asset' ? 'Wana' : ch.name)} anything…`}" aria-label="Message">${esc(st.text)}</textarea><button type="button" class="plan${st.plan ? ' on' : ''}" data-act="b-plan" aria-pressed="${st.plan}">${IC2.bulb}Plan</button><span class="sp"></span><button type="button" class="mic" data-act="b-mic" aria-label="Dictate">${IC2.mic}</button><button class="go" aria-label="Send"><span class="up">${I.arrowUp}</span><span class="wv">${I.wave}</span></button></form></div>`;
+    <form class="b-in${st.plan ? ' planon' : ''}"><button type="button" class="l" data-act="b-tray" aria-label="Add">${st.tray ? IC2.x : IC2.plus}</button><textarea rows="1" placeholder="${ch.kind === 'team' ? `Message ${esc(ch.name)}…` : `Ask ${esc(ch.kind === 'snap' || ch.kind === 'asset' ? 'Wana' : ch.name)} anything…`}" aria-label="Message">${esc(st.text)}</textarea><button type="button" class="plan${st.plan ? ' on' : ''}" data-act="b-plan" aria-pressed="${st.plan}">${IC2.bulb}Plan</button><span class="sp"></span><button type="button" class="mic" data-act="b-mic" aria-label="Dictate">${IC2.mic}</button><button class="go" aria-label="Send"><span class="up">${I.arrowUp}</span><span class="wv">${I.wave}</span><span class="sq"></span></button></form></div>`;
 }
 const attsHTML = st => st.atts.map((a, i) => `<span><img src="${a.src}" alt=""><button type="button" data-act="b-att-x" data-i="${i}" aria-label="Remove">${I.close}</button></span>`).join('');
 const stOf = host => host.closest('#cc') ? V2.cc : (chatById(host.dataset.chat) || {}).inp;
@@ -4265,10 +4283,10 @@ function wireFoot(host, ch, st) {
     f.classList.toggle('focus', focus); f.classList.toggle('open', focus || ta.value.length > 64);
     tray.hidden = !st.tray || focus; lb.innerHTML = st.tray && !focus ? IC2.x : IC2.plus;
     ta.style.height = 'auto'; ta.style.height = Math.min(112, Math.max(40, ta.scrollHeight)) + 'px';
-    const rd = !!ta.value.trim() || st.atts.length > 0; go.classList.toggle('ready', rd); go.classList.toggle('voice', !rd); go.setAttribute('aria-label', rd ? 'Send' : 'Voice chat');
+    const rd = !!ta.value.trim() || st.atts.length > 0, stp = !rd && host.classList.contains('busy'); go.classList.toggle('ready', rd); go.classList.toggle('voice', !rd && !stp); go.classList.toggle('stop', stp); go.setAttribute('aria-label', rd ? 'Send' : stp ? 'Stop' : 'Voice chat');
   };
   host._sync = sync;
-  go.addEventListener('click', e => { if (!go.classList.contains('voice')) return; e.preventDefault(); needSignIn(() => openVoice(host)); });
+  go.addEventListener('click', e => { if (go.classList.contains('stop')) { e.preventDefault(); stopChat(chatById(host.dataset.chat) || ch); return; } if (!go.classList.contains('voice')) return; e.preventDefault(); needSignIn(() => openVoice(host)); });
   ta.addEventListener('input', sync); ta.addEventListener('focus', sync); ta.addEventListener('blur', () => setTimeout(sync, 0));
   f.addEventListener('mousedown', e => { if (e.target.closest('button')) e.preventDefault(); });
   ta.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); f.requestSubmit(); } });
@@ -4278,9 +4296,15 @@ function wireFoot(host, ch, st) {
       sendUser(c, text || 'Here’s a photo', { atts, plan:st.plan }); }); });
   sync();
 }
+function chatLook(h, ch) {
+  h.classList.toggle('talking', h.closest('#cc') ? V2.cc.start != null : ch.msgs.some(m => m.k !== 'time'));
+  const w = ch.wid && workById(ch.wid), ta = $('.b-in textarea', h);
+  if (ta && ch.kind !== 'team' && w && w.versions.length) ta.placeholder = 'Tell me what to change…';
+  if (h._sync) h._sync();
+}
 function afterRender(host, ch) {
   const th = $('.bthread', host); if (th) { pixelAll(th); $$('video', th).forEach(v => v.play().catch(() => {})); th.scrollTop = th.scrollHeight; }
-  host.classList.toggle('busy', isBusy(ch));
+  host.classList.toggle('busy', isBusy(ch)); chatLook(host, ch);
 }
 const hostsOf = ch => $$('.bscreen[data-chat]').filter(h => h.dataset.chat === ch.id && !h.closest('[hidden]'));
 const isBusy = ch => ch.msgs.some(m => m.k === 'think' || m.k === 'typing') || ch.msgs.some(m => m.k === 'build' && (() => { const w = workById(m.wid); return w && w.building && w.building.n === m.n; })());
@@ -4290,7 +4314,7 @@ function refreshChat(ch) {
     const th = $('.bthread', h); if (!th) return;
     th.innerHTML = msgsHTML(ch, +h.dataset.from || 0); pixelAll(th); $$('video', th).forEach(v => v.play().catch(() => {}));
     th.scrollTo({ top:th.scrollHeight, behavior:'smooth' });
-    h.classList.toggle('busy', isBusy(ch));
+    h.classList.toggle('busy', isBusy(ch)); chatLook(h, ch);
   });
   if (state.tab === 'chats') renderChats();
 }
@@ -4331,7 +4355,24 @@ const isIdea = t => t.length >= 16 && /\b(game|play|player|level|race|racing|run
 const wantsBuild = t => /^(build it|make it a game|make me a game|let[’']?s build|build)\b/i.test(t.trim());
 const clip = (t, n = 48) => t.length > n ? t.slice(0, n - 1).trim() + '…' : t;
 const leadOf = ch => ch.kind === 'team' ? ch.members[0] : ch.id;
+// timers that die when the chat is stopped
+const chatLater = (ch, fn, ms) => { const e = ch.ep || 0; return setTimeout(() => { if ((ch.ep || 0) === e) fn(); }, ms); };
+// Stop: drop what Wana is thinking / building; what was made before stays
+function stopChat(ch) {
+  if (!ch) return; ch.ep = (ch.ep || 0) + 1; let first = false;
+  for (let i = ch.msgs.length - 1; i >= 0; i--) { const m = ch.msgs[i];
+    if (m.k === 'think' || m.k === 'typing') { ch.msgs.splice(i, 1); continue; }
+    if (m.k === 'build') { const w = workById(m.wid); if (w && w.building && w.building.n === m.n) { w.building = null; w.working = null; ch.msgs.splice(i, 1); if (m.n === 1) first = true; } } }
+  const orphan = state.works.filter(w => w.bot === ch.id && !w.versions.length && !w.plan);
+  if (first || orphan.some(w => w.kind === 'game')) { state.credits++; updateCredits(); }
+  orphan.forEach(w => { state.works.splice(state.works.indexOf(w), 1); if (ch.wid === w.id) ch.wid = null; });
+  if (!ch.wid && ch.mode === 'build') ch.mode = 'talk';
+  const w = ch.wid && workById(ch.wid);
+  addAI(ch, w && w.versions.length ? `Stopped. v${latest(w).n} is safe.` : 'Stopped. Nothing changed.');
+  refreshChat(ch); renderMe(); buzz(8);
+}
 function sendUser(ch, text, opt = {}) {
+  hostsOf(ch).forEach(h => { const st = stOf(h); if (st) st.tray = false; }); // the add tray folds into + once you're talking
   ch.msgs.push({ k:'me', t:text, atts:opt.atts }); ch.chips = null; ch.last = null; ch.time = 'now'; ch.rec = Date.now();
   const card = ch.msgs.find(m => m.k === 'card' && m.picked == null && !m.closed);
   if (card && opt.card == null) { card.picked = -1; }
@@ -4340,8 +4381,8 @@ function sendUser(ch, text, opt = {}) {
 function addAI(ch, t, o = {}) { ch.msgs.push(Object.assign({ k:'ai', t }, o)); ch.last = null; ch.time = 'now'; ch.rec = Date.now(); }
 // shows the bot thinking (avatar bobs, glow breathes), then runs fn
 function think(ch, who, ms, fn) {
-  const m = { k:'think', who }; ch.msgs.push(m); refreshChat(ch);
-  setTimeout(() => { const k = ch.msgs.indexOf(m); if (k > -1) ch.msgs.splice(k, 1); fn(); refreshChat(ch); celebrate(ch); notifyAway(ch); }, ms);
+  const m = { k:'think', who }, ep = ch.ep || 0; ch.msgs.push(m); refreshChat(ch);
+  setTimeout(() => { if ((ch.ep || 0) !== ep) return; const k = ch.msgs.indexOf(m); if (k > -1) ch.msgs.splice(k, 1); fn(); refreshChat(ch); celebrate(ch); notifyAway(ch); }, ms);
 }
 function notifyAway(ch, w) {
   if (hostsOf(ch).length) return;
@@ -4466,8 +4507,9 @@ function tweakV2(ch, w, text, plan) {
 }
 // progress that keeps going if you leave the chat; only the live card updates
 function runV2(w, ch, dur, done) {
-  w.working = 0; refreshChat(ch); const t0 = performance.now();
+  w.working = 0; refreshChat(ch); const t0 = performance.now(), ep = ch.ep || 0;
   const iv = setInterval(() => {
+    if ((ch.ep || 0) !== ep) { clearInterval(iv); return; }
     const e = Math.min(1, (performance.now() - t0) / dur); w.working = Math.round(e * 100);
     $$(`[data-live="${w.id}"]`).forEach(el => { const b = $('.prog b', el), u = $('.prog u', el); if (b) b.textContent = w.working + '%'; if (u) u.style.width = w.working + '%';
       $$('.b-tasks > span', el).forEach((s, i, all) => { const a = i / all.length, z = (i + 1) / all.length; s.className = e >= z ? 'done' : e >= a ? 'doing' : ''; }); });
@@ -4562,11 +4604,11 @@ function teamRespond(t, text, opt) {
   let d = 0;
   lines.forEach(([who, line, chips], k) => {
     if (!who) return;
-    if (k === 0) { d += 1300; setTimeout(() => think(t, who, 1, () => { addAI(t, line, { who }); }), 0); return; }
+    if (k === 0) { d += 1300; chatLater(t, () => think(t, who, 1, () => { addAI(t, line, { who }); }), 0); return; }
     const ty = { k:'typing', who };
-    setTimeout(() => { t.msgs.push(ty); refreshChat(t); }, d + 200);
+    chatLater(t, () => { t.msgs.push(ty); refreshChat(t); }, d + 200);
     d += 1600;
-    setTimeout(() => { const i = t.msgs.indexOf(ty); if (i > -1) t.msgs.splice(i, 1); if (line) { addAI(t, line, { who }); t.chips = chips || null; } else if (k === lines.length - 1) { /* still drawing */ t.msgs.push({ k:'typing', who }); setTimeout(() => { const j = t.msgs.findIndex(x => x.k === 'typing' && x.who === who); if (j > -1) t.msgs.splice(j, 1); refreshChat(t); }, 2600); } refreshChat(t); celebrate(t); }, d);
+    chatLater(t, () => { const i = t.msgs.indexOf(ty); if (i > -1) t.msgs.splice(i, 1); if (line) { addAI(t, line, { who }); t.chips = chips || null; } else if (k === lines.length - 1) { /* still drawing */ t.msgs.push({ k:'typing', who }); chatLater(t, () => { const j = t.msgs.findIndex(x => x.k === 'typing' && x.who === who); if (j > -1) t.msgs.splice(j, 1); refreshChat(t); }, 2600); } refreshChat(t); celebrate(t); }, d);
   });
   t.last = null;
 }
@@ -4654,7 +4696,7 @@ function openAvatar(b, tab = 'shape') {
       <div class="nb-cols">${BOT_COLS.map(c => `<button class="${c === d.col ? 'on' : ''}" style="--c:${c}" data-act="av-col" data-c="${c}" aria-label="Colour ${c}"></button>`).join('')}</div><button class="lnk" data-act="av-reset">Reset to default</button>`
     : tab === 'gen' ? `${av}<textarea id="avPrompt" aria-label="Describe it">A sleepy ${b.col === '#66D4FF' ? 'blue' : 'little'} cat in a tiny fishing hat</textarea><button class="cta-white" data-act="av-gen">Generate</button>`
     : `${av}<div class="bp-card" style="width:100%"><button class="bp-row" data-act="av-up" data-img="photo-shiba.webp">${IC2.photos}Choose from Photos<span class="v">${I.chevR}</span></button><button class="bp-row" data-act="av-up" data-img="photo-cafe.webp">${IC2.camera}Take a photo<span class="v">${I.chevR}</span></button></div><p class="bp-cap">Images up to 25 MB. You can crop it next.</p>`;
-  const html = `${head(xBtn('av-back', 'back'), '<b>Avatar</b>', '<button class="done-btn" data-act="av-done">Done</button>')}<div class="ba-tabs">${[['shape', 'Shape'], ['gen', 'Generate'], ['up', 'Upload']].map(([k, l]) => `<button class="${k === tab ? 'on' : ''}" data-act="av-tab" data-k="${k}">${l}</button>`).join('')}</div><div class="s-body vscroll ba-body">${body}</div>`;
+  const html = `${head(xBtn('av-back', 'back'), '<b>Avatar</b>', '<button class="done-btn" data-act="ba-done">Done</button>')}<div class="ba-tabs">${[['shape', 'Shape'], ['gen', 'Generate'], ['up', 'Upload']].map(([k, l]) => `<button class="${k === tab ? 'on' : ''}" data-act="av-tab" data-k="${k}">${l}</button>`).join('')}</div><div class="s-body vscroll ba-body">${body}</div>`;
   const s = $('#sub-bota'); if (subStack.includes('sub-bota')) { s.innerHTML = html; fillIcons(s); } else openSub('sub-bota', html);
   $('#sub-bota').dataset.id = b.id; $('#sub-bota').dataset.tab = tab;
 }
@@ -4766,7 +4808,7 @@ Object.assign(A, {
     setTimeout(() => { d.shape = BOT_SHAPES[(BOT_SHAPES.indexOf(d.shape) + 5) % 12]; if (av) { av.classList.remove('think'); morphAv(av, d.shape, d.col, 600); } b.disabled = false; b.textContent = 'Generate again'; }, 1600); },
   'av-up': b => { V2.avDraft.img = b.dataset.img; openAvatar(chatById(V2.avDraft.id), 'up'); toast('Photo set as avatar'); },
   'av-back': () => { V2.avDraft = null; closeSub('sub-bota'); },
-  'av-done': () => { const d = V2.avDraft, x = chatById(d.id); x.shape = d.shape; x.col = d.col; x.img = d.img || undefined; V2.avDraft = null; closeSub('sub-bota'); refreshBot(x); setTimeout(() => popAv($('#sub-botp .bp > .bot-av')), 380); },
+  'ba-done': () => { const d = V2.avDraft; if (!d) return; const x = chatById(d.id); x.shape = d.shape; x.col = d.col; x.img = d.img || undefined; V2.avDraft = null; closeSub('sub-bota'); refreshBot(x); setTimeout(() => popAv($('#sub-botp .bp > .bot-av')), 380); },
   'ch-filter': b => VER === 'chat' ? c2FilterMenu() : A1['ch-filter'](b),
   'c2-filter-set': b => { V2.filter = b.dataset.k; $$('.pop').forEach(p => p.remove()); renderChats(); },
   'insp-use': b => { if (VER !== 'chat' || $('#cc').hidden) { A1['insp-use'](b); return; } const g = G[b.dataset.g]; closeSub('sub-insp');
@@ -4865,7 +4907,7 @@ function openAvIntro(from) {
   ME.from = from;
   if (ME.mk) { openAvMaking(); return; }
   openSubOnce('sub-avi', `<button class="icon-btn av-x" data-act="av-x" aria-label="Close">${I.close}</button>
-    <div class="avi"><div class="avi-card"><img src="${M('avatar-card.webp')}" alt="A 3D figure made from a selfie"><span class="tagpx">3D · YOU</span></div>
+    <div class="avi"><div class="avi-fan" aria-hidden="true"><img class="r" src="${M('avi-card-r.webp')}" alt=""><img class="l" src="${M('avi-card-l.webp')}" alt=""><img class="c" src="${M('avi-card-c.webp')}" alt=""></div>
       <h2>Meet the 3D you</h2><p>One selfie. Wana makes a 3D figure that looks just like you.</p>
       <div class="avi-steps"><span><i>${I.camera}</i>Snap a selfie</span><span><i>${I.sparkle}</i>Wana makes you</span><span><i>${I.gamepad}</i>Play as you</span></div></div>
     <div class="av-foot"><button class="cta-white" data-act="av-cam">Take a selfie</button><button class="lnk" data-act="av-pick">Pick a photo instead</button></div>`, 'up');
