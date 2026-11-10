@@ -192,9 +192,18 @@ a{color:inherit;text-decoration:none}
 .empty p{margin:0;font-size:14px;line-height:1.55;color:var(--w60)}
 
 /* detail */
-.dpad{padding:calc(var(--sb) + 68px) 16px 140px;display:flex;flex-direction:column;gap:20px}
-.dcover{position:relative;border-radius:24px;overflow:hidden;aspect-ratio:370/208;background:var(--gray)}
+.dpad{padding:0 16px 140px;display:flex;flex-direction:column;gap:20px}
+/* full-bleed cover: runs under the status bar, fades into the page, title sits on its bottom */
+.dcover{position:relative;margin:0 -16px;aspect-ratio:402/440;max-height:440px;background:var(--gray);overflow:hidden}
 .dcover img,.dcover video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.dcover img{object-position:30% center}
+.dcover::before,.dcover::after{content:"";position:absolute;left:0;right:0;z-index:1;pointer-events:none}
+.dcover::before{top:0;height:120px;background:linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,0))}
+.dcover::after{bottom:0;height:220px;background:linear-gradient(rgba(20,14,16,0),rgba(20,14,16,.75) 55%,var(--ink))}
+.dhead{position:absolute;left:16px;right:16px;bottom:8px;z-index:2}
+.capsule{position:absolute;right:16px;top:calc(var(--sb) + 8px);z-index:10;height:36px;border-radius:18px;background:#141719;display:flex;align-items:center;padding:0 10px;gap:9px;box-shadow:inset 0 0 0 .5px rgba(255,255,255,.1)}
+.capsule button{width:24px;height:24px;display:grid;place-items:center}
+.capsule .cdiv{width:1px;height:20px;background:rgba(255,255,255,.2)}
 .dtitle{font-size:24px;font-weight:600;margin:0;line-height:1.35}
 .dby{display:flex;align-items:center;gap:8px;margin-top:8px;font-size:14px;color:var(--w60)}
 .dby img{width:20px;height:20px;border-radius:50%}
@@ -394,9 +403,11 @@ a{color:inherit;text-decoration:none}
 
         <!-- Game detail -->
         <section class="screen push" id="s-detail" aria-label="Game detail">
-          <div class="navbar">
-            <button type="button" class="glass" data-act="back" aria-label="Back"><span class="i" style="width:22px;height:22px" data-ic="ChevronLeft"></span></button>
-            <button type="button" class="glass" data-act="options" aria-label="More"><span class="i" style="width:22px;height:22px" data-ic="More"></span></button>
+          <!-- 1.0 capsule: ··· opens options, ⊙ closes the game page -->
+          <div class="capsule" role="group" aria-label="Game page">
+            <button type="button" data-act="options" aria-label="More"><span class="i" style="width:24px;height:24px" data-ic="More"></span></button>
+            <span class="cdiv"></span>
+            <button type="button" data-act="back" aria-label="Close"><span class="i" style="width:24px;height:24px" data-ic="Target"></span></button>
           </div>
           <div class="scrim" id="dScrim" style="height:calc(var(--sb) + 70px)"></div>
           <div class="scroll" id="detailScroll"><div class="dpad" id="detail"></div></div>
@@ -506,6 +517,7 @@ ChevronRight:'<svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" str
 Close:'<svg viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>',
 SoundOn:'<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4.7a.7.7 0 0 0-1.2-.5L6.4 7.6A1.4 1.4 0 0 1 5.4 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.4a1.4 1.4 0 0 1 1 .4l3.4 3.4a.7.7 0 0 0 1.2-.5Z"/><path d="M16 9a5 5 0 0 1 0 6M19.4 18.4a9 9 0 0 0 0-12.8"/></svg>',
 SoundOff:'<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4.7a.7.7 0 0 0-1.2-.5L6.4 7.6A1.4 1.4 0 0 1 5.4 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.4a1.4 1.4 0 0 1 1 .4l3.4 3.4a.7.7 0 0 0 1.2-.5Z"/><path d="M22 9l-6 6M16 9l6 6"/></svg>',
+Target:'<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.25" stroke="white" stroke-width="1.8"/><circle cx="12" cy="12" r="3" fill="white"/></svg>',
 More:'<svg viewBox="0 0 24 24" fill="none"><circle cx="5" cy="12" r="1.7" fill="white"/><circle cx="12" cy="12" r="1.7" fill="white"/><circle cx="19" cy="12" r="1.7" fill="white"/></svg>',
 User:'<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="5" stroke="white" stroke-width="2"/><path d="M20 21a8 8 0 0 0-16 0" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>',
 Like:'<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"/></svg>',
@@ -586,8 +598,8 @@ function renderSearch(){
 function renderDetail(id){
   const g=GAMES[id]; S.detail=id;
   const shots=(g.shots||[g.cover]).map(s=>`<img src="${M+s}" alt="" loading="lazy">`).join('');
-  $('#detail').innerHTML=`<div class="dcover">${media(g,false)}</div>
-   <div><h2 class="dtitle">${esc(g.t)}</h2><div class="dby"><img src="${AV[g.c]}" alt="">${esc(g.c)}<span class="gtag">${esc(g.g)}</span></div></div>
+  $('#detail').innerHTML=`<div class="dcover">${media(g,false)}
+     <div class="dhead"><h2 class="dtitle">${esc(g.t)}</h2><div class="dby"><img src="${AV[g.c]}" alt="">${esc(g.c)}<span class="gtag">${esc(g.g)}</span></div></div></div>
    <div class="dstats"><div><b id="dLikes">${g.l}</b><small>Likes</small></div><div><b>${g.plays||g.p}</b><small>Plays</small></div><div><b>4+</b><small>Age rating</small></div></div>
    <div><p class="ddesc" id="ddesc">${esc(g.desc)}</p><button type="button" class="more" data-act="readmore">Read more</button></div>
    <div><h3 class="dh">Screenshots</h3><div class="shots">${shots}</div></div>
