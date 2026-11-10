@@ -45,6 +45,11 @@ a{color:inherit;text-decoration:none}
 .devwrap{flex:none;position:relative}
 .device{width:422px;height:894px;border-radius:64px;padding:10px;box-sizing:border-box;background:#1D1719;
   box-shadow:0 0 0 1px #352B2E,0 40px 80px rgba(0,0,0,.55);transform-origin:top left;position:absolute;left:0;top:0}
+/* Playing on desktop: the phone is shown already turned to landscape (games open in landscape) */
+.devwrap,.device,.device .app{transition:width .45s cubic-bezier(.3,.9,.3,1),height .45s cubic-bezier(.3,.9,.3,1)}
+.device.land{width:894px;height:422px}
+.device.land .app{width:874px;height:402px}
+.device.land .pctrl{top:20px;left:62px;right:62px}
 
 /* ---------- app shell ---------- */
 .app{width:402px;height:874px;border-radius:54px;overflow:hidden;overflow:clip;position:relative;background:var(--ink);isolation:isolate}
@@ -270,14 +275,14 @@ a{color:inherit;text-decoration:none}
         <button type="button" data-go="account"><span>点头像</span><span>账户面板</span></button>
         <button type="button" data-go="detail"><span>打开一个游戏</span><span>详情页</span></button>
         <button type="button" data-go="options"><span>详情页 ···</span><span>选项面板</span></button>
-        <button type="button" data-go="play"><span>点 Play</span><span>全屏玩</span></button>
+        <button type="button" data-go="play"><span>点 Play</span><span>横屏全屏玩</span></button>
         <button type="button" data-go="rank"><span>排行榜</span><span>按类型筛选</span></button>
         <button type="button" data-go="search"><span>搜索</span><span>按类型浏览</span></button>
         <button type="button" data-go="library"><span>游戏库</span><span>已下载</span></button>
         <button type="button" data-go="notif"><span>通知</span><span>从头像进入</span></button>
       </div>
     </div>
-    <p class="note">视频封面用的是之前 demo 的 4 段占位视频（Slingshot、Wanaka Neon、Wanaka Land 2、Stillwater Garden），游戏名和数据按画板。点 Play 进入全屏视频（代替真实游戏，右上角可开关声音）。登录、设置不在画板上，点了只出提示。What's new 和 Why Wanaka 打开真实网页。<br><br>
+    <p class="note">视频封面用的是之前 demo 的 4 段占位视频（Slingshot、Wanaka Neon、Wanaka Land 2、Stillwater Garden），游戏名和数据按画板。点 Play 手机默认已转成横屏，全屏播放视频（代替真实游戏，右上角可开关声音）。登录、设置不在画板上，点了只出提示。What's new 和 Why Wanaka 打开真实网页。<br><br>
     <a href="https://www.figma.com/design/PWtgAaGdl6znpuQykrnIbb/Wanaka-Studio?node-id=49831-20874" target="_blank" rel="noopener">在 Figma 里看画板 ↗</a></p>
   </aside>
 
@@ -634,8 +639,8 @@ function play(id){const g=GAMES[id]; if(!g)return;
   $('#pmedia').innerHTML=g.video?`<video playsinline loop src="${M+g.video}" poster="${M+(g.hero||g.cover)}"></video>`:`<img src="${M+(g.hero||g.cover)}" alt="">`;
   const v=$('#pmedia video');
   if(v){v.muted=false; const p=v.play(); if(p)p.catch(()=>{v.muted=true; syncMute(); v.play().catch(()=>{});});}
-  syncMute(); $('#app').classList.add('playing'); $('#player').classList.add('on');}
-function stopPlay(){const v=$('#pmedia video'); if(v)v.pause(); $('#player').classList.remove('on'); $('#app').classList.remove('playing');
+  syncMute(); $('#app').classList.add('playing'); $('#player').classList.add('on'); setLand(true);}
+function stopPlay(){const v=$('#pmedia video'); if(v)v.pause(); $('#player').classList.remove('on'); $('#app').classList.remove('playing'); setLand(false);
   setTimeout(()=>{if(!$('#player').classList.contains('on'))$('#pmedia').innerHTML='';},350);
   paused.forEach(v=>{const p=v.play(); if(p)p.catch(()=>{});}); paused=[];}
 function syncMute(){const v=$('#pmedia video'), b=$('#muteBtn'); b.hidden=!v; if(!v)return;
@@ -661,7 +666,11 @@ function guide(k){
 
 /* fit the phone to the window */
 function fit(){const w=$('#devwrap'), d=$('#device'); if(innerWidth<=560){w.style.width=w.style.height='';return;}
-  const s=Math.min(1,(innerHeight-48)/894); d.style.transform=`scale(${s})`; w.style.width=422*s+'px'; w.style.height=894*s+'px';}
+  const land=d.classList.contains('land'), W=land?894:422, H=land?422:894;
+  const guideW=getComputedStyle($('.guide')).display==='none'?0:356, availW=innerWidth-guideW-32;
+  const s=Math.min(1,(innerHeight-48)/894,availW/W); d.style.transform=`scale(${s})`; w.style.width=W*s+'px'; w.style.height=H*s+'px';}
+/* desktop only: on a real phone the demo already fills the screen, so it stays upright */
+function setLand(on){if(innerWidth<=560)return; $('#device').classList.toggle('land',on); fit();}
 addEventListener('resize',fit);
 
 $('#app').addEventListener('scroll',e=>{e.target.scrollTop=0;e.target.scrollLeft=0;});
