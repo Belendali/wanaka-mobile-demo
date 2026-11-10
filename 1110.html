@@ -56,7 +56,7 @@ a{color:inherit;text-decoration:none}
   box-shadow:0 0 0 1px #352B2E,0 40px 80px rgba(0,0,0,.55);transform-origin:top left;position:absolute;left:0;top:0}
 
 /* ---------- app shell ---------- */
-.app{width:402px;height:874px;border-radius:54px;overflow:hidden;position:relative;background:var(--ink);isolation:isolate}
+.app{width:402px;height:874px;border-radius:54px;overflow:hidden;overflow:clip;position:relative;background:var(--ink);isolation:isolate}
 .statusbar{position:absolute;inset:0 0 auto;height:62px;z-index:90;display:flex;align-items:center;justify-content:space-between;padding:0 34px 0 46px;pointer-events:none;font-family:var(--sf);font-weight:600;font-size:17px}
 .statusbar .r{display:flex;gap:6px;align-items:center}
 .screen{position:absolute;inset:0;background:var(--ink);overflow:hidden}
@@ -243,6 +243,16 @@ a{color:inherit;text-decoration:none}
   border-radius:20px;padding:10px 16px;font-size:13px;white-space:nowrap;opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;box-shadow:0 8px 24px rgba(0,0,0,.4)}
 .toast.on{opacity:1;transform:translate(-50%,0)}
 
+/* Play: the game opens as a full-screen video (stands in for the real game) */
+.player{position:absolute;inset:0;z-index:92;background:#000;visibility:hidden;opacity:0;transform:scale(1.04);transition:opacity .28s,transform .34s cubic-bezier(.2,.9,.25,1),visibility 0s .34s}
+.player.on{visibility:visible;opacity:1;transform:none;transition:opacity .28s,transform .34s cubic-bezier(.2,.9,.25,1)}
+.player video,.player img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.player img{animation:kb 14s ease-in-out infinite alternate}
+@keyframes kb{from{transform:scale(1)}to{transform:scale(1.14) translate(-3%,-2%)}}
+.pctrl{position:absolute;left:16px;right:16px;top:calc(var(--sb) + 12px);display:flex;justify-content:space-between;z-index:1}
+.player .glass{background:rgba(0,0,0,.35)}
+.statusbar{transition:opacity .2s}
+.app.playing .statusbar{opacity:0}
 /* narrow window: drop the guide, keep the phone */
 @media (max-width:820px){.guide{display:none}}
 /* real phone: the demo is the whole screen */
@@ -269,13 +279,14 @@ a{color:inherit;text-decoration:none}
         <button type="button" data-go="account"><span>点头像</span><span>账户面板</span></button>
         <button type="button" data-go="detail"><span>打开一个游戏</span><span>详情页</span></button>
         <button type="button" data-go="options"><span>详情页 ···</span><span>选项面板</span></button>
+        <button type="button" data-go="play"><span>点 Play</span><span>全屏玩</span></button>
         <button type="button" data-go="rank"><span>排行榜</span><span>按类型筛选</span></button>
         <button type="button" data-go="search"><span>搜索</span><span>按类型浏览</span></button>
         <button type="button" data-go="library"><span>游戏库</span><span>已下载</span></button>
         <button type="button" data-go="notif"><span>通知</span><span>从头像进入</span></button>
       </div>
     </div>
-    <p class="note">视频封面用的是之前 demo 的 4 段占位视频（Slingshot、Wanaka Neon、Wanaka Land 2、Stillwater Garden），游戏名和数据按画板。Play、登录、设置不在画板上，点了只出提示。What's new 和 Why Wanaka 打开真实网页。<br><br>
+    <p class="note">视频封面用的是之前 demo 的 4 段占位视频（Slingshot、Wanaka Neon、Wanaka Land 2、Stillwater Garden），游戏名和数据按画板。点 Play 进入全屏视频（代替真实游戏，右上角可开关声音）。登录、设置不在画板上，点了只出提示。What's new 和 Why Wanaka 打开真实网页。<br><br>
     <a href="https://www.figma.com/design/PWtgAaGdl6znpuQykrnIbb/Wanaka-Studio?node-id=49831-20874" target="_blank" rel="noopener">在 Figma 里看画板 ↗</a></p>
   </aside>
 
@@ -427,6 +438,14 @@ a{color:inherit;text-decoration:none}
           </div>
         </div>
 
+        <div class="player" id="player" role="dialog" aria-label="Playing">
+          <div class="pctrl">
+            <button type="button" class="glass" data-act="exitplay" aria-label="Close game"><span class="i" style="width:22px;height:22px" data-ic="Close"></span></button>
+            <button type="button" class="glass" data-act="mute" id="muteBtn" aria-label="Sound"></button>
+          </div>
+          <div id="pmedia"></div>
+        </div>
+
         <div class="toast" id="toast" role="status" aria-live="polite"></div>
       </div>
     </div>
@@ -450,6 +469,9 @@ Heart:'<svg viewBox="0 0 24 24" fill="none"><path d="M19 14c1.49-1.46 3-3.21 3-5
 HeartFill:'<svg viewBox="0 0 24 24" fill="none"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" fill="white"/></svg>',
 ChevronLeft:'<svg viewBox="0 0 24 24" fill="none"><path d="M15 18L9 12L15 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
 ChevronRight:'<svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+Close:'<svg viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>',
+SoundOn:'<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4.7a.7.7 0 0 0-1.2-.5L6.4 7.6A1.4 1.4 0 0 1 5.4 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.4a1.4 1.4 0 0 1 1 .4l3.4 3.4a.7.7 0 0 0 1.2-.5Z"/><path d="M16 9a5 5 0 0 1 0 6M19.4 18.4a9 9 0 0 0 0-12.8"/></svg>',
+SoundOff:'<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4.7a.7.7 0 0 0-1.2-.5L6.4 7.6A1.4 1.4 0 0 1 5.4 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.4a1.4 1.4 0 0 1 1 .4l3.4 3.4a.7.7 0 0 0 1.2-.5Z"/><path d="M22 9l-6 6M16 9l6 6"/></svg>',
 More:'<svg viewBox="0 0 24 24" fill="none"><circle cx="5" cy="12" r="1.7" fill="white"/><circle cx="12" cy="12" r="1.7" fill="white"/><circle cx="19" cy="12" r="1.7" fill="white"/></svg>',
 User:'<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="5" stroke="white" stroke-width="2"/><path d="M20 21a8 8 0 0 0-16 0" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>',
 Like:'<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"/></svg>',
@@ -599,7 +621,9 @@ document.addEventListener('click',e=>{
     else if(act==='settings'){closeAll(); toast('Settings isn’t on the board yet');}
     else if(act==='email'){closeAll(); toast('Link sent to your email');}
     else if(act==='copy'){const done=()=>{closeAll(); toast('Link copied');}; try{navigator.clipboard.writeText('https://studio.wanaka.app').then(done,done);}catch(_){done();}}
-    else if(act==='play'){toast('The game opens in landscape');}
+    else if(act==='play'){play(a.dataset.id||S.detail);}
+    else if(act==='exitplay'){stopPlay();}
+    else if(act==='mute'){const v=$('#pmedia video'); if(v){v.muted=!v.muted; syncMute();}}
     else if(act==='get'){const id=a.dataset.id; a.textContent='…'; setTimeout(()=>{S.installed[id]=true; if(S.tab==='rank')renderRank(); toast(GAMES[id].t+' is ready to play');},700);}
     else if(act==='readmore'){const d=$('#ddesc'); d.classList.toggle('open'); a.textContent=d.classList.contains('open')?'Show less':'Read more';}
     else if(act==='like-opt'){toggleLike(); closeAll();}
@@ -612,6 +636,20 @@ document.addEventListener('click',e=>{
   const sb=e.target.closest('.sbtn'); if(sb){showTab('search'); return;}
   const go=e.target.closest('[data-go]'); if(go){guide(go.dataset.go);}
 });
+/* player: Play opens the game's clip full screen, with sound (it starts from a tap) */
+let paused=[];
+function play(id){const g=GAMES[id]; if(!g)return;
+  paused=$$('video').filter(v=>!v.paused); paused.forEach(v=>v.pause());
+  $('#pmedia').innerHTML=g.video?`<video playsinline loop src="${M+g.video}" poster="${M+(g.hero||g.cover)}"></video>`:`<img src="${M+(g.hero||g.cover)}" alt="">`;
+  const v=$('#pmedia video');
+  if(v){v.muted=false; const p=v.play(); if(p)p.catch(()=>{v.muted=true; syncMute(); v.play().catch(()=>{});});}
+  syncMute(); $('#app').classList.add('playing'); $('#player').classList.add('on');}
+function stopPlay(){const v=$('#pmedia video'); if(v)v.pause(); $('#player').classList.remove('on'); $('#app').classList.remove('playing');
+  setTimeout(()=>{if(!$('#player').classList.contains('on'))$('#pmedia').innerHTML='';},350);
+  paused.forEach(v=>{const p=v.play(); if(p)p.catch(()=>{});}); paused=[];}
+function syncMute(){const v=$('#pmedia video'), b=$('#muteBtn'); b.hidden=!v; if(!v)return;
+  b.innerHTML=`<span class="i" style="width:22px;height:22px">${ic(v.muted?'SoundOff':'SoundOn')}</span>`; b.setAttribute('aria-label',v.muted?'Sound on':'Mute');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('#player').classList.contains('on')){stopPlay();e.stopImmediatePropagation();}},true);
 document.addEventListener('keydown',e=>{if(e.key==='Enter'){const r=e.target.closest&&e.target.closest('.row[data-open]'); if(r&&e.target===r)openGame(r.dataset.open);} if(e.key==='Escape'){if($('.layer.on'))closeAll(); else pop();}});
 function toggleLike(){const id=S.detail; S.liked[id]=!S.liked[id]; syncLike(); const g=GAMES[id]; const n=parseInt(String(g.l).replace(/,/g,''),10);
   if(!isNaN(n)){$('#dLikes').textContent=(n+(S.liked[id]?1:0)).toLocaleString('en-US');}}
@@ -624,6 +662,7 @@ function guide(k){
   else if(k==='create'){showTab('home'); $('#s-home .scroll').scrollTo({top:0}); openSheet('create');}
   else if(k==='account'){showTab('home'); $('#s-home .scroll').scrollTo({top:0}); openSheet('account');}
   else if(k==='detail'){showTab('home'); openGame('sling');}
+  else if(k==='play'){showTab('home'); openGame('sling'); setTimeout(()=>play('sling'),340);}
   else if(k==='options'){showTab('home'); openGame('sling'); setTimeout(()=>openSheet('options'),320);}
   else if(k==='notif'){showTab('home'); push('notif');}
   else showTab(k);
@@ -634,6 +673,7 @@ function fit(){const w=$('#devwrap'), d=$('#device'); if(innerWidth<=560){w.styl
   const s=Math.min(1,(innerHeight-48)/894); d.style.transform=`scale(${s})`; w.style.width=422*s+'px'; w.style.height=894*s+'px';}
 addEventListener('resize',fit);
 
+$('#app').addEventListener('scroll',e=>{e.target.scrollTop=0;e.target.scrollLeft=0;});
 $('#logo').innerHTML=LOGO; paintIcons(document);
 renderFeed(); renderRank(); renderLib(); renderSearch(); paintTabs(); fit();
 })();
