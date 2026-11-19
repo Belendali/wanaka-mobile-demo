@@ -71,7 +71,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 
 /* ---------- device ---------- */
 .devwrap{flex:none;position:relative}
-.device{position:relative;border-radius:62px;padding:10px;box-sizing:content-box;background:#1D1719;transform-origin:top left;
+.device{position:relative;width:max-content;border-radius:62px;padding:10px;box-sizing:content-box;background:#1D1719;transform-origin:top left;
   box-shadow:0 0 0 1px #2c2427,0 40px 80px -30px rgba(0,0,0,.8)}
 .app{width:393px;height:852px;border-radius:52px;overflow:hidden;overflow:clip;position:relative;background:#000;isolation:isolate;
   user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
@@ -80,7 +80,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .scr.in{animation:inFade .3s ease both}
 .scr.lockin{animation:lockIn .45s ease both}
 .scr.unlock{animation:unlock .42s cubic-bezier(.2,.85,.25,1) both}
-.scr.slow{transition:opacity 1.1s ease}
+.slow{transition:opacity 1.1s ease}
 @keyframes inFade{from{opacity:0}}
 @keyframes lockIn{0%{opacity:0;filter:brightness(0)}100%{opacity:1;filter:none}}
 @keyframes unlock{from{opacity:0;transform:scale(1.06)}}
@@ -92,6 +92,32 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .hot.main::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:0 0 0 0 rgba(192,240,0,.55);animation:ping 1.8s ease-out 1.2s infinite}
 .hot.big.main::after{display:none}
 @keyframes ping{0%{box-shadow:0 0 0 0 rgba(192,240,0,.5)}70%{box-shadow:0 0 0 10px rgba(192,240,0,0)}100%{box-shadow:0 0 0 0 rgba(192,240,0,0)}}
+/* ---------- motion on top of the board screens ---------- */
+.scr>.bg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.fxl{position:absolute;pointer-events:none}
+.fxl>img{display:block;width:100%;height:100%}
+.glass{overflow:hidden;-webkit-backdrop-filter:blur(var(--blur));backdrop-filter:blur(var(--blur))}
+.drop{animation:drop .55s cubic-bezier(.3,1.45,.5,1) .1s both}
+.pop{animation:pop .42s cubic-bezier(.2,1.25,.4,1) .32s both;transform-origin:100% 0}
+.slide{animation:slide .55s cubic-bezier(.2,1.15,.3,1) .18s both}
+@keyframes drop{from{transform:translateY(-30px) scale(.55);opacity:0}}
+@keyframes pop{from{transform:scale(.88);opacity:0}}
+@keyframes slide{from{transform:translateY(-24px);opacity:0}}
+/* Wana is listening: a ring keeps pulsing out of the pin */
+.ring{width:30px;height:30px;margin:-15px 0 0 -15px;border-radius:50%;border:2px solid rgba(212,250,0,.85);opacity:0;animation:ring 1.5s ease-out .6s infinite}
+@keyframes ring{0%{transform:scale(.7);opacity:.9}100%{transform:scale(2);opacity:0}}
+/* voice level bars, driven from script */
+.wv i{position:absolute;background:#D4FA00;border-radius:2px;transform-origin:50% 50%;transition:transform .1s linear}
+/* progress fills and the "working" spinner */
+.fill{background:#D4FA00}
+.spin{box-sizing:border-box;border-radius:50%;border:2px solid rgba(255,255,255,.28);border-top-color:#fff;animation:spin .9s linear infinite}
+@keyframes spin{to{transform:rotate(1turn)}}
+/* the torch keeps flickering while the game runs (it stops when the game is paused) */
+.flick{width:150px;height:150px;margin:-75px 0 0 -75px;border-radius:50%;mix-blend-mode:screen;
+  background:radial-gradient(circle,rgba(255,176,80,.5),rgba(255,140,40,.16) 42%,rgba(255,120,30,0) 70%);animation:flick 2.6s ease-in-out infinite}
+@keyframes flick{0%{opacity:.55;transform:scale(1)}14%{opacity:.85;transform:scale(1.06)}27%{opacity:.6;transform:scale(.98)}41%{opacity:.95;transform:scale(1.08)}
+  55%{opacity:.5;transform:scale(.97)}68%{opacity:.8;transform:scale(1.04)}83%{opacity:.62;transform:scale(1)}100%{opacity:.55;transform:scale(1)}}
+
 /* tap ripple where the finger lands on the paused game */
 .tap{position:absolute;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;border:2px solid rgba(255,255,255,.9);pointer-events:none;animation:tap .45s ease-out forwards}
 @keyframes tap{from{transform:scale(.4);opacity:1}to{transform:scale(1.4);opacity:0}}
@@ -175,19 +201,69 @@ const STEPS=[
   {k:'p10', t:'玩 V2', d:'先列出这一版改了什么，几秒后自动淡出，回到游戏本身。', act:'走完了，<em>→</em> 从头再来',
     hot:[]},
 ];
-const S={i:0, timers:[]};
+const S={i:0, timers:[], waves:[]};
 const app=$('#app'), hots=$('#hots');
-const img=k=>{const i=new Image(); i.src=M+k+'.webp'; i.alt=''; i.draggable=false; i.className='scr'; return i;};
+const calm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const img=k=>{const i=new Image(); i.src=M+k+'.webp'; i.alt=''; i.draggable=false; return i;};
+
+/* ---------- motion ----------
+   Screens with motion use a "-base" export (the moving layers hidden in Figma) and the layers on top:
+   the pin, the note and the banners are exported on their own; bars, rings and the spinner are drawn here.
+   Positions are the Figma frame points. */
+function layer(p,x,y,w,h,cls,o={}){
+  const d=document.createElement('div'); d.className='fxl'+(cls?' '+cls:'')+(o.blur?' glass':'');
+  Object.assign(d.style,{left:x+'px',top:y+'px',width:w+'px',height:h+'px'});
+  if(o.blur){ d.style.setProperty('--blur',o.blur+'px'); d.style.borderRadius=o.r+'px'; }
+  if(o.img) d.append(img(o.img)); p.append(d); return d;
+}
+/* level bars: xs = left edge of each bar, cy = centre line, mx = tallest bar */
+function wave(p,xs,w,cy,mx,dim){
+  const box=layer(p,0,0,0,0,'wv'), bars=xs.map((x,j)=>{ const b=document.createElement('i');
+    Object.assign(b.style,{left:x+'px',top:cy-mx/2+'px',width:w+'px',height:mx+'px',opacity:j>=dim?.35:1}); b.style.transform='scaleY(.25)'; box.append(b); return b; });
+  S.waves.push({bars,mx});
+}
+/* a progress fill that first catches up, then keeps creeping */
+function fill(p,x,y,h,r,from,to,later){
+  const f=layer(p,x,y,from,h,'fill'); f.style.borderRadius=r+'px';
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{ f.style.transition='width 1.3s cubic-bezier(.2,.8,.2,1) .45s'; f.style.width=to+'px'; }));
+  S.timers.push(setTimeout(()=>{ f.style.transition='width 40s linear'; f.style.width=later+'px'; },1900));
+}
+const FLAME={p1:[226,329],p5:[114,65],p7:[114,65],p9:[114,65],p10:[225,328]};
+const MOTION={
+  p3:{base:'p3-base', build:s=>{
+    layer(s,314,159,52,52,'drop',{img:'o-pin'});
+    layer(s,340,185,0,0,'',{}).append(Object.assign(document.createElement('div'),{className:'fxl ring'}));
+    const note=layer(s,128,170,186,76.5,'pop',{img:'o-note',blur:12,r:14});
+    wave(note,[13,17,21,25],2,58.5,10,9);
+    wave(s,Array.from({length:14},(_,j)=>156+6*j),3,799,24,9);
+  }},
+  p7:{base:'p7-base', build:s=>{ const b=layer(s,47,106,299.5,72.5,'slide',{img:'o-making',blur:14,r:20}); fill(b,10,57,4,2,0,70,150); }},
+  p8:{base:'p8-base', build:s=>{ fill(s,28,629,5,3,170,225,262); layer(s,30,706,12,12,'spin'); }},
+  p9:{base:'p9-base', build:s=>{ layer(s,16,106,361,60.5,'slide',{img:'o-ready',blur:14,r:22}); }},
+};
+function screen(k){
+  const s=document.createElement('div'), m=MOTION[k]; s.className='scr';
+  const bg=img(m?m.base:k); bg.className='bg'; s.append(bg);
+  if(FLAME[k]) layer(s,FLAME[k][0],FLAME[k][1],0,0,'').append(Object.assign(document.createElement('div'),{className:'fxl flick'}));
+  if(m) m.build(s);
+  return s;
+}
+/* voice: loud words with short gaps, every bar a little different */
+let tick=0;
+setInterval(()=>{ if(calm||!S.waves.length) return; tick++;
+  const t=tick*.11, word=Math.sin(t*2.3)+Math.sin(t*.9+1)>-.7, env=word?.45+.55*Math.abs(Math.sin(t*3.7)*Math.cos(t*1.3)):.12;
+  S.waves.forEach(wv=>wv.bars.forEach(b=>{ const v=Math.max(.16,Math.min(1,env*(.35+.75*Math.random()))); b.style.transform=`scaleY(${v.toFixed(2)})`; }));
+},100);
 
 function clearTimers(){ S.timers.forEach(clearTimeout); S.timers=[]; }
 function show(n, how){
-  clearTimers();
+  clearTimers(); S.waves=[];
   n=(n+STEPS.length)%STEPS.length; const st=STEPS[n], prev=S.i; S.i=n;
-  const old=[...app.querySelectorAll('.scr')], i=img(st.k);
+  const old=[...app.querySelectorAll(':scope>.scr')], i=screen(st.k);
   i.classList.add(how||'in'); app.insertBefore(i,hots);
   S.timers.push(setTimeout(()=>old.forEach(o=>o.remove()),500));
   /* P10: the "New in V2" list fades away by itself */
-  if(st.k==='p10'){ S.timers.push(setTimeout(()=>{ const f=img('p10-faded'); f.style.opacity=0; f.classList.add('slow'); app.insertBefore(f,hots);
+  if(st.k==='p10'){ S.timers.push(setTimeout(()=>{ const f=img('p10-faded'); f.className='bg slow'; f.style.opacity=0; i.insertBefore(f,i.children[1]||null);
     requestAnimationFrame(()=>requestAnimationFrame(()=>f.style.opacity=1)); },3200)); }
   hots.innerHTML='';
   st.hot.forEach((h,j)=>{ const b=document.createElement('button'); b.type='button'; b.className='hot'+(j===0?' main':'')+(h[5]?' '+h[5]:'');
@@ -239,7 +315,7 @@ addEventListener('resize',()=>{ fit(); render(); });
 if(document.fonts) document.fonts.ready.then(fit);
 addEventListener('load',fit);
 
-STEPS.map(s=>s.k).concat('p10-faded').forEach(k=>{ const i=new Image(); i.src=M+k+'.webp'; });
+STEPS.map(s=>s.k).concat('p10-faded','p3-base','p7-base','p8-base','p9-base','o-pin','o-note','o-making','o-ready').forEach(k=>{ const i=new Image(); i.src=M+k+'.webp'; });
 const start=parseInt(location.hash.slice(1),10);
 show(start>=1&&start<=STEPS.length?start-1:0); fit();
 </script>
