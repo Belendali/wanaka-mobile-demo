@@ -7,6 +7,7 @@
 #   (the others start signed in). The switch in the demo moves between all four
 #   1105.html — board "mobile1105 v.0", from app-1105.html (old pages stay as they were)
 #   1110.html — board "1109 V1.1", from app-1110.html (self-contained, no WK_VER switch)
+#   me.html   — the 4 Me versions (boards "1118" final + exploration), from app-me.html; screens in media/me/
 cd "$(dirname "$0")" || exit 1
 page() {
   cat <<'HEAD'
@@ -22,7 +23,7 @@ page() {
 HEAD
   case "$1" in chat*|1105) printf "<script>window.WK_VER='chat'</script>\n" ;; esac
   case "$1" in *onb) printf "<script>window.WK_ONB=1</script>\n" ;; esac
-  case "$1" in 1105) cat app-1105.html ;; 1110) cat app-1110.html ;; *) cat app.html ;; esac
+  case "$1" in 1105) cat app-1105.html ;; 1110) cat app-1110.html ;; me) cat app-me.html ;; *) cat app.html ;; esac
   printf '\n</html>\n'
 }
 page > index.html
@@ -34,4 +35,6 @@ page chat-onb > chat-onboarding.html
 page 1105 > 1105.html
 # 1110.html — Figma section "1109 V1.1": new card, Home with temp links, minimizing tab bar
 page 1110 > 1110.html
-echo "built index.html + chat.html + onboarding.html + chat-onboarding.html + 1105.html + 1110.html"
+# me.html — Me page, 4 versions (final 1118 + ME-B / ME-C / ME-D), #f #b #c #d picks one
+page me > me.html
+echo "built index.html + chat.html + onboarding.html + chat-onboarding.html + 1105.html + 1110.html + me.html"

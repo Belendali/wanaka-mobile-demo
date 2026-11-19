@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#140E10">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<style>:root{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Wanaka Me · 4 versions</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap">
+<style>
+/* Me page, 4 versions side by side in one demo.
+   Screens are exported straight from the Figma boards (2x webp in media/me/).
+   Stickers, bars, sheets, toasts and overlays are separate layers so they can really be dragged and tapped.
+   Single dark look on purpose: the app itself is dark (Wanaka Foundations). */
+:root{
+  --ink:#140E10; --lime:#C0F000; --sheet:#1C1718;
+  --stage:#0C0809; --stage-line:#2A2225; --guide-fg:#E9E2E4; --guide-dim:#9D9295;
+  --font:"Poppins",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:dark;
+}
+html,body{height:100%}
+body{margin:0;background:var(--stage);color:#fff;font-family:var(--font);-webkit-font-smoothing:antialiased;overflow:hidden}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--lime);outline-offset:2px}
+
+/* ---------- stage ---------- */
+.stage{height:100%;display:flex;align-items:center;justify-content:center;gap:56px;box-sizing:border-box;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:24px}
+.guide{width:320px;flex:none;color:var(--guide-fg);display:flex;flex-direction:column;gap:22px;max-height:100%;overflow:auto;scrollbar-width:none}
+.guide h1{font-size:22px;font-weight:600;margin:0;letter-spacing:-.01em;text-wrap:balance}
+.guide .sub{margin:6px 0 0;font-size:13px;color:var(--guide-dim);line-height:1.55}
+.guide h2{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--guide-dim);font-weight:500;margin:0 0 8px}
+.vers{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ver{display:flex;flex-direction:column;align-items:flex-start;gap:3px;text-align:left;padding:11px 12px;border-radius:14px;border:1px solid var(--stage-line);transition:border-color .2s,background .2s}
+.ver:hover{background:rgba(255,255,255,.04)}
+.ver b{font-size:13px;font-weight:600;line-height:1.3}
+.ver span{font-size:11.5px;color:var(--guide-dim);line-height:1.4}
+.ver.on{border-color:var(--lime);background:rgba(192,240,0,.07)}
+.ver.on b{color:var(--lime)}
+.try{display:flex;flex-direction:column;gap:2px}
+.try button{display:flex;align-items:center;justify-content:space-between;gap:12px;text-align:left;font-size:14px;padding:9px 12px;border-radius:12px;color:var(--guide-fg)}
+.try button:hover{background:rgba(255,255,255,.06)}
+.try button span:last-child{color:var(--guide-dim);font-size:12px;text-align:right}
+.guide .note{font-size:12px;line-height:1.65;color:var(--guide-dim);border-top:1px solid var(--stage-line);padding-top:16px;margin:0}
+.guide .note a{color:var(--guide-fg);text-decoration:underline;text-underline-offset:3px}
+
+/* compact version switch when the guide is hidden */
+.mini{display:none;gap:6px;justify-content:center;flex-wrap:wrap}
+.mini button{font-size:12px;font-weight:500;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.08);color:var(--guide-fg)}
+.mini button.on{background:var(--lime);color:var(--ink)}
+
+/* ---------- device ---------- */
+.devwrap{flex:none;position:relative}
+.device{border-radius:64px;padding:10px;box-sizing:content-box;background:#1D1719;transform-origin:top left;
+  box-shadow:0 0 0 1px #2c2427,0 40px 80px -30px rgba(0,0,0,.8)}
+.app{width:402px;height:874px;border-radius:54px;overflow:hidden;overflow:clip;position:relative;background:var(--ink);isolation:isolate;
+  user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+.app img{-webkit-user-drag:none;user-select:none}
+.lay{position:absolute;inset:0}
+#base{z-index:1}#wall{z-index:2;pointer-events:none}#ui{z-index:3;pointer-events:none}#scr{z-index:5}#scr:empty{pointer-events:none}
+#hots{z-index:6;pointer-events:none}#fx{z-index:8;pointer-events:none}#pages{z-index:10;pointer-events:none}
+#sheetwrap{z-index:20;pointer-events:none}#over{z-index:30;pointer-events:none}#toast{z-index:40;pointer-events:none}#flash{z-index:50;pointer-events:none;background:#fff;opacity:0}
+.scr{position:absolute;inset:0;width:100%;height:100%;display:block}
+.in-fade{animation:inFade .28s ease both}
+.in-push{animation:inPush .36s cubic-bezier(.2,.85,.25,1) both;box-shadow:-20px 0 40px rgba(0,0,0,.35)}
+.out-right{animation:outRight .32s cubic-bezier(.45,0,.6,1) forwards}
+.out-fade{animation:outFade .26s ease forwards}
+@keyframes inFade{from{opacity:0}}
+.hs{position:absolute;animation:inFade .35s .1s both}
+@keyframes inPush{from{transform:translateX(100%)}}
+@keyframes outRight{to{transform:translateX(100%)}}
+@keyframes outFade{to{opacity:0}}
+
+/* hotspots */
+.hot{position:absolute;pointer-events:auto;border-radius:12px;transition:background .15s,outline-color .15s;outline:2px solid transparent;outline-offset:-2px}
+.hot:active{background:rgba(255,255,255,.08)}
+.flash .hot{outline-color:rgba(192,240,0,.95);background:rgba(192,240,0,.14)}
+.pull{position:absolute;pointer-events:auto;touch-action:none;cursor:grab}
+
+/* stickers */
+#wall{transition:opacity .25s}
+.stk{position:absolute;transform-origin:50% 50%;transition:transform .2s cubic-bezier(.2,.8,.2,1),scale .18s,filter .18s;pointer-events:none}
+#wall.edit .stk{pointer-events:auto;cursor:grab;touch-action:none}
+.stk>.art{width:100%;height:100%;display:block}
+.stk.moving{transition:none}
+.stk.lift{scale:1.14;filter:drop-shadow(0 16px 18px rgba(0,0,0,.45));cursor:grabbing;z-index:5}
+.stk.sel{z-index:4}
+.stk .sbox{position:absolute;inset:3px;border:1.5px dashed rgba(255,255,255,.92);border-radius:10px;display:none;pointer-events:none}
+.stk .sx,.stk .sh{position:absolute;width:22px;height:22px;display:none;scale:calc(1 / var(--s,1));touch-action:none}
+.stk .sx{left:-8px;top:-10px;cursor:pointer}
+.stk .sh{right:-4px;bottom:-6px;cursor:nwse-resize}
+.stk.sel .sbox,.stk.sel .sx,.stk.sel .sh{display:block}
+.stk.lift .sx,.stk.lift .sh{display:none}
+.stk.pop{animation:pop .42s cubic-bezier(.3,1.5,.5,1) both}
+.stk.gone{animation:gone .26s ease forwards}
+.stk.wig{animation:wig .5s ease 2}
+@keyframes pop{0%{scale:.2;opacity:0}100%{scale:1;opacity:1}}
+@keyframes gone{to{scale:.3;opacity:0}}
+@keyframes wig{25%{rotate:-7deg}75%{rotate:7deg}}
+.floating{position:absolute;transition:none;filter:drop-shadow(0 16px 18px rgba(0,0,0,.45))}
+
+/* edit-mode layers */
+.uil{position:absolute;opacity:0;transform:translateY(6px);transition:opacity .22s,transform .22s,filter .15s}
+.uil.on{opacity:1;transform:none}
+.uil.drop.hot2{filter:brightness(1.5)}
+.line{position:absolute;left:0;right:0;border-top:1.5px dashed rgba(255,255,255,.55);opacity:0;transition:opacity .2s}
+.line.on{opacity:1}
+
+/* pull-down visuals */
+.slice{position:absolute;inset:0;width:100%;height:100%}
+.gap{position:absolute;left:0;right:0}
+
+/* pushed pages */
+.page{position:absolute;inset:0;pointer-events:auto;background:var(--ink)}
+.page>img{position:absolute;inset:0;width:100%;height:100%}
+
+/* sheet */
+.dim{position:absolute;inset:0;background:rgba(0,0,0,.4);opacity:0;transition:opacity .25s}
+.sheet{position:absolute;left:0;transform:translateY(105%);transition:transform .34s cubic-bezier(.2,.85,.25,1)}
+.sheet>img{display:block;width:100%;height:100%}
+#sheetwrap:not(.open) .hot,#over:not(.open) .hot{pointer-events:none}
+#sheetwrap.open .dim{opacity:1;pointer-events:auto}
+#sheetwrap.open .sheet{transform:none;pointer-events:auto}
+.glyph{position:absolute;width:34px;height:34px;background:var(--sheet);display:grid;place-items:center;pointer-events:none}
+.glyph svg{width:20px;height:20px}
+
+/* overlay + toast */
+#over{opacity:0;transition:opacity .28s}
+#over.open{opacity:1;pointer-events:auto}
+#over>img{position:absolute;inset:0;width:100%;height:100%;transform:scale(1.03);transition:transform .4s cubic-bezier(.2,.9,.3,1)}
+#over.open>img{transform:none}
+.toast{position:absolute;animation:toast 2.6s ease forwards}
+@keyframes toast{0%{opacity:0;transform:translateY(16px)}10%,82%{opacity:1;transform:none}100%{opacity:0;transform:translateY(8px)}}
+.flashing{animation:flash .32s ease}
+@keyframes flash{0%{opacity:0}20%{opacity:.85}100%{opacity:0}}
+
+/* narrow window: drop the guide, keep the phone + compact switch */
+@media (max-width:820px){
+  .guide{display:none}
+  .stage{flex-direction:column;gap:14px}
+  .mini{display:flex}
+}
+/* real phone: the demo is the whole screen */
+@media (max-width:560px){
+  .stage{padding:8px 0 0;gap:8px;justify-content:flex-start}
+  .device{padding:0;border-radius:0;background:none;box-shadow:none}
+  .app{border-radius:0}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="stage">
+  <aside class="guide" aria-label="Demo guide">
+    <div>
+      <h1>Wanaka · Me 的 4 种方案</h1>
+      <p class="sub">四套 Me 页面各自的完整流程。画面直接从 Figma 画板导出，贴纸、按钮、面板都能真的拖、真的点。</p>
+    </div>
+    <div>
+      <h2>方案</h2>
+      <div class="vers" id="vers"></div>
+    </div>
+    <div>
+      <h2>试试这些</h2>
+      <div class="try" id="try"></div>
+    </div>
+    <p class="note" id="note"></p>
+  </aside>
+
+  <div class="mini" id="mini" aria-label="Versions"></div>
+
+  <div class="devwrap" id="devwrap">
+    <div class="device" id="device">
+      <div class="app" id="app">
+        <div class="lay" id="base"></div>
+        <div class="lay" id="wall"></div>
+        <div class="lay" id="ui"></div>
+        <div class="lay" id="scr"></div>
+        <div class="lay" id="hots"></div>
+        <div class="lay" id="fx"></div>
+        <div class="lay" id="pages"></div>
+        <div class="lay" id="sheetwrap"></div>
+        <div class="lay" id="over"></div>
+        <div class="lay" id="toast"></div>
+        <div class="lay" id="flash"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const M='media/me/';
+/* where each separate layer sat in its Figma frame: [x, y, w, h] */
+const P={"f-s-player":[275.98,236.6,87.44,101.35],"f-s-debut":[49.36,111.46,102.49,108.28],"f-s-maker":[292.03,129.08,89.14,92.27],"f-s-together":[31.33,241.33,86.14,93.93],"f-s-explorer":[238.4,81.2,79.21,86.04],"f-hint":[95.68,343.87,210.64,12.37],"f-libbar":[16,372,314,48],"f-plus":[338,372,48,48],"f-drop":[16,364,370,64],"f-x":[41.55,99.05,22,22],"f-handle":[137.66,200.95,22,22],"f-toast":[44,720,314,80],"f-sheet":[0,352,402,522],"f-get":[0,0,402,874],
+"b-libbar":[16,382,305,48],"b-plus":[329,382,48,48],"b-linehint":[67,171,260,25],"b-drop":[16,370,361,64],"b-sheet":[0,330,393,522],"b-get":[0,0,393,852],"b-s-4":[270.67,213,121.93,141.8],"b-s-5":[118.67,196,147.45,149.05],"b-s-3":[24.48,167.26,112.29,118.24],"b-s-1":[76.67,39,118.23,125.65],"b-s-6":[225,73.4,117.66,146.38],
+"c-s-explorer":[56,155,83.6,90.62],"c-x":[51,144,22,22],"c-handle":[122.6,222.62,22,22],
+"d-s-player":[266.93,208.67,91.32,105.86],"d-s-debut":[44.87,84.9,107.05,113.09],"d-s-maker":[284.32,103.4,93.11,96.38],"d-s-together":[27.75,209.57,89.96,98.11],"d-s-explorer":[9.22,253.36,89.55,97.28],"d-hint":[91.18,353.87,210.64,12.37],"d-libbar":[16,388,305,48],"d-plus":[329,388,48,48],"d-drop":[16,380,361,64],"d-toast":[54,704,286,80],"d-sheet":[0,330,393,522],"d-get":[0,0,393,852]};
+
+/* avatar flow screens are the same shape in ME-C and ME-D */
+function avatarFlow(p){
+  return {
+    [p+'-avatar']:{hot:[[16,50,40,40,'back'],[16,746,176,54,'go:'+p+'-av3'],[202,746,176,54,'home']]},
+    [p+'-av2']:{hot:[[16,50,40,40,'back'],[16,692,361,54,'go:'+p+'-av3'],[120,760,153,30,'go:'+p+'-av4']]},
+    [p+'-av3']:{hot:[[8,46,44,40,'back'],[159,715,76,76,'shutter:'+p+'-av4']]},
+    [p+'-av4']:{hot:[[8,46,44,40,'back'],[16,746,176,54,'back'],[202,746,176,54,'go:'+p+'-av5']]},
+    [p+'-av5']:{hot:[[16,50,40,40,'home'],[16,748,361,52,'home']],auto:[p+'-you',3400]},
+    [p+'-you']:{hot:[[16,50,40,40,'home'],[16,746,176,54,'go:'+p+'-av3'],[202,746,176,54,'home']]},
+  };
+}
+const LIB393={img:'b-lib',hot:[[8,44,52,52,'pop']]};
+
+const VERS={
+  f:{label:'最终版 · 照片 + 贴纸',short:'最终版',desc:'1118 画板 · Games / Rankings / Me',W:402,H:874,home:'me',
+    stickers:{player:'f-s-player',debut:'f-s-debut',maker:'f-s-maker',together:'f-s-together'},
+    explorer:{img:'f-s-explorer'},sel:['f-x','f-handle'],
+    walls:{
+      me:{img:'f-me',live:true,pull:[0,0,402,362],cut:238,gap:'#2a1f1c',hot:[[246,62,40,40,'edit'],[294,62,40,40,'push:notif']]},
+      edit:{img:'f-edit',live:true,edit:true,ui:['f-hint','f-libbar','f-plus'],drop:'f-drop',
+        hot:[[8,60,80,44,'cancel'],[309,58,77,48,'done'],[16,372,314,48,'push:lib'],[338,372,48,48,'sheet']]},
+    },
+    toast:'f-toast',
+    sheet:{img:'f-sheet',gx:361,close:[342,14,44,44],rows:{explorer:0,together:2,player:3,maker:4}},
+    get:{img:'f-get',hot:[[25,711,353,52,'getyes'],[60,770,282,36,'getno']]},
+    pages:{lib:{img:'f-lib',hot:[[12,58,52,52,'pop']]},
+           notif:{img:'f-nall',hot:[[16,74,44,44,'pop'],[72,134,82,35,'img:f-nrev'],[16,134,48,35,'img:f-nall'],[315,416,64,44,'nadd','f-nall']]}},
+    tries:[['edit','点编辑 / 下拉封面','进入编辑'],['drag','拖动、旋转贴纸','拖到下方放回库'],['sheet','点 +','添加贴纸'],['get','解锁新贴纸','加到主页'],['lib','贴纸库','收集进度'],['notif','点铃铛','通知里点 Add 直接贴上']],
+    note:'按 Figma「1118」画板（402 宽）：Me 是第三个 Tab，贴纸围着头像。编辑里点 Done 会提示已同步到 Studio 和网页。',
+    figma:'50437-22197'},
+  b:{label:'ME-B · 贴纸墙',short:'ME-B',desc:'贴纸铺满封面，下拉放大成墙',W:393,H:852,home:'me',
+    stickers:{c1:'b-s-1',c3:'b-s-3',c4:'b-s-4',c5:'b-s-5',c6:'b-s-6'},
+    explorer:{img:'f-s-explorer',at:[18,268,79.21,86.04]},sel:['f-x','f-handle'],
+    walls:{
+      me:{img:'b-me',live:false,pull:[0,0,393,163],cut:163,gap:'#1d1516',hot:[]},
+      edit:{img:'b-edit',live:true,edit:true,ui:['b-libbar','b-plus'],drop:'b-drop',dragShow:['b-linehint'],line:162,pullUp:true,
+        hot:[[150,352,94,28,'done'],[16,382,305,48,'push:lib'],[329,382,48,48,'sheet']]},
+    },
+    sheet:{img:'b-sheet',gx:360.5,close:[333,12,44,44],rows:{explorer:0,c6:1,c5:2,c4:3,c3:4}},
+    get:{img:'b-get',hot:[[20,700,353,52,'getyes'],[56,762,282,36,'getno']]},
+    pages:{lib:LIB393},
+    tries:[['edit','下拉封面','贴纸墙展开'],['drag','拖动、旋转贴纸','拖到下方放回库'],['sheet','点 +','添加贴纸'],['get','解锁新贴纸','贴到墙上'],['lib','贴纸库','收集进度'],['done','点墙下的箭头 / 往上推','收起']],
+    note:'按 Figma「1118」探索画板第一行（393 宽，旧 5 Tab）。Me 页是静态图，编辑后收起会回到画板原样。',
+    figma:'50391-42499'},
+  c:{label:'ME-C · 3D 戴贴纸',short:'ME-C',desc:'贴纸直接贴在 3D 形象上',W:393,H:852,home:'c-me',no3d:'c-no3d',
+    stickers:{},explorer:{img:'c-s-explorer'},sel:['c-x','c-handle'],homeMap:[.89,218,205,216,204],
+    walls:{
+      cedit:{img:()=>S.stk.explorer.on?'c-placed':'c-edit',live:true,edit:true,tray:[20,674,76,100],
+        hot:[[8,48,80,48,'cancel'],[300,48,77,48,'done'],[326,630,60,36,'push:lib']]},
+    },
+    screens:Object.assign({
+      'c-me':{hot:[[68,405,126,40,'cedit'],[200,405,126,40,'go:c-avatar']]},
+      'c-get':{hot:[[20,700,353,52,'cget'],[56,762,282,36,'home']]},
+      'c-no3d':{hot:[[126,390,141,42,'go:c-av2']]},
+    },avatarFlow('c')),
+    pages:{lib:LIB393},
+    tries:[['edit','Edit stickers','从托盘拖 Explorer 贴到 3D'],['get','解锁新贴纸','贴到 3D 上'],['avatar','Edit avatar','重拍 3D'],['no3d','还没有 3D 时','拍一张生成'],['lib','See all','贴纸库']],
+    note:'按 Figma「1118」探索画板第二行。编辑时把下方托盘里的 Explorer 拖到 3D 上，角上可以旋转缩放，× 取下。',
+    figma:'50391-42499'},
+  d:{label:'ME-D · 3D 在中间',short:'ME-D',desc:'3D 居中，贴纸围在四周',W:393,H:852,home:'me',no3d:'d-no3d',
+    stickers:{player:'d-s-player',debut:'d-s-debut',maker:'d-s-maker',together:'d-s-together'},
+    explorer:{img:'d-s-explorer'},sel:['f-x','f-handle'],
+    walls:{
+      me:{img:'d-me',live:true,pull:[0,0,393,380],cut:330,gap:'#241a18',hot:[[241,52,40,40,'edit']]},
+      edit:{img:'d-edit',live:true,edit:true,ui:['d-hint','d-libbar','d-plus'],drop:'d-drop',
+        hot:[[8,48,80,48,'cancel'],[300,48,77,48,'done'],[136,292,122,42,'go:d-avatar'],[16,388,305,48,'push:lib'],[329,388,48,48,'sheet']]},
+    },
+    toast:'d-toast',
+    sheet:{img:'d-sheet',gx:360.5,close:[333,12,44,44],rows:{explorer:0,together:2,player:3,maker:4}},
+    get:{img:'d-get',hot:[[20,700,353,52,'getyes'],[56,762,282,36,'getno']]},
+    screens:Object.assign({'d-no3d':{hot:[[126,232,141,42,'go:d-av2']]}},avatarFlow('d')),
+    pages:{lib:LIB393},
+    tries:[['edit','点编辑 / 下拉封面','进入编辑'],['drag','拖动、旋转贴纸','拖到下方放回库'],['sheet','点 +','添加贴纸'],['get','解锁新贴纸','加到主页'],['avatar','编辑里点 Edit avatar','重拍 3D'],['no3d','还没有 3D 时','拍一张生成']],
+    note:'按 Figma「1118」探索画板第三行。3D 不动，贴纸围着它摆；编辑里可以进 Edit avatar 重拍。',
+    figma:'50391-42499'},
+};
+
+const $=s=>document.querySelector(s);
+const L={app:$('#app'),base:$('#base'),wall:$('#wall'),ui:$('#ui'),scr:$('#scr'),hots:$('#hots'),fx:$('#fx'),pages:$('#pages'),sheet:$('#sheetwrap'),over:$('#over'),toast:$('#toast'),flash:$('#flash')};
+const S={};
+const img=(k,cls)=>{const i=new Image(); i.src=M+k+'.webp'; i.alt=''; i.draggable=false; if(cls)i.className=cls; return i;};
+const box=(el,b)=>Object.assign(el.style,{left:b[0]+'px',top:b[1]+'px',width:b[2]+'px',height:b[3]+'px'});
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const later=(f,ms)=>{const t=setTimeout(f,ms); S.timers.push(t); return t;};
+
+/* ---------- version switch ---------- */
+function useVersion(k){
+  (S.timers||[]).forEach(clearTimeout);
+  Object.assign(S,{k,c:VERS[k],cur:null,mode:null,baseImg:null,hist:[],pages:[],stk:{},snap:null,sel:null,timers:[]});
+  for(const id of ['base','wall','ui','scr','hots','fx','pages','sheetwrap','over','toast']) document.getElementById(id).innerHTML='';
+  L.sheet.classList.remove('open'); L.over.classList.remove('open');
+  const c=S.c; L.app.style.width=c.W+'px'; L.app.style.height=c.H+'px';
+  // stickers
+  for(const [name,key] of Object.entries(c.stickers)) S.stk[name]={name,img:key,b:P[key],on:true};
+  S.stk.explorer={name:'explorer',img:c.explorer.img,b:c.explorer.at||P[c.explorer.img],on:false};
+  for(const s of Object.values(S.stk)) Object.assign(s,{dx:0,dy:0,r:0,s:1});
+  buildWall(); buildUi(); buildSheet();
+  nav(c.home,'none',{noHist:true});
+  renderGuide(); fit();
+}
+function renderGuide(){
+  const vers=$('#vers'), mini=$('#mini'); vers.innerHTML=''; mini.innerHTML='';
+  for(const [k,v] of Object.entries(VERS)){
+    const b=document.createElement('button'); b.type='button'; b.className='ver'+(k===S.k?' on':''); b.innerHTML=`<b>${v.label}</b><span>${v.desc}</span>`; b.onclick=()=>useVersion(k); vers.append(b);
+    const m=document.createElement('button'); m.type='button'; m.className=k===S.k?'on':''; m.textContent=v.short; m.onclick=()=>useVersion(k); mini.append(m);
+  }
+  const t=$('#try'); t.innerHTML='';
+  for(const [a,l,r] of [...S.c.tries,['reset','重新开始','回到初始']]){
+    const b=document.createElement('button'); b.type='button'; b.innerHTML=`<span>${l}</span><span>${r}</span>`; b.onclick=()=>guide(a); t.append(b);
+  }
+  $('#note').innerHTML=S.c.note+` 点到没有交互的地方，会闪一下可点区域。<br><a href="https://www.figma.com/design/PWtgAaGdl6znpuQykrnIbb/Wanaka-Studio?node-id=${S.c.figma}" target="_blank" rel="noopener">在 Figma 里看画板 ↗</a>`;
+}
+function guide(a){
+  const c=S.c; closeAll();
+  if(a==='reset') return useVersion(S.k);
+  if(a==='edit'||a==='drag'){ goHome('none'); act(c.home==='me'?'edit':'cedit'); if(a==='drag') later(()=>{for(const s of Object.values(S.stk)) if(s.on){s.el.classList.remove('wig'); void s.el.offsetWidth; s.el.classList.add('wig');}},380); return; }
+  if(a==='sheet'){ if(S.cur!=='edit'){goHome('none'); act('edit');} later(openSheet,300); return; }
+  if(a==='get'){ goHome('none'); if(S.k==='c') return nav('c-get','fade'); return later(openGet,150); }
+  if(a==='lib') return pushPage('lib');
+  if(a==='notif') return pushPage('notif');
+  if(a==='done') return S.cur==='edit'?act('done'):(goHome('none'),act('edit'));
+  if(a==='avatar'){ goHome('none'); if(S.k==='c') return nav('c-avatar'); act('edit'); return later(()=>nav('d-avatar'),420); }
+  if(a==='no3d'){ goHome('none'); S.hist=[]; return nav(c.no3d,'fade',{noHist:true}); }
+}
+
+/* ---------- navigation ---------- */
+function nav(key,how='push',opt={}){
+  const c=S.c, from=S.cur;
+  if(from&&!opt.noHist) S.hist.push(from);
+  S.cur=key; clearTimeout(S.autoT);
+  const w=c.walls&&c.walls[key];
+  if(w){
+    setWall(key, from&&c.walls[from]&&how!=='none' ? 'fade':'none');
+    const old=[...L.scr.children];
+    if(old.length){ old.forEach(o=>o.classList.add(how==='back'?'out-right':'out-fade')); setTimeout(()=>old.forEach(o=>o.remove()),340); }
+  } else {
+    const sc=c.screens[key]; showScr(sc.img||key,how);
+    if(sc.auto) S.autoT=later(()=>{ if(S.cur===key) nav(sc.auto[0],'fade',{noHist:true}); },sc.auto[1]);
+  }
+  renderHots(); homeStk();
+}
+/* ME-C: keep the placed sticker on the 3D in the Me page (same head, ~0.89x) */
+function homeStk(){
+  L.fx.querySelectorAll('.hs').forEach(e=>e.remove());
+  const m=S.c.homeMap, s=S.stk.explorer; if(!m||S.cur!==S.c.home||!s||!s.on) return;
+  const [k,ax,ay,bx,by]=m, c=center(s), w=s.b[2]*k, h=s.b[3]*k, x=bx+(c.x-ax)*k, y=by+(c.y-ay)*k;
+  const i=img(s.img,'hs'); box(i,[x-w/2,y-h/2,w,h]); i.style.transform=`rotate(${s.r}deg) scale(${s.s})`; L.fx.append(i);
+}
+function back(){ const p=S.hist.pop(); if(p) nav(p,'back',{noHist:true}); }
+function goHome(how='fade'){ S.hist=[]; closeAll(); if(S.cur!==S.c.home) nav(S.c.home,how,{noHist:true}); }
+function showScr(k,how){
+  const i=img(k,'scr'), old=[...L.scr.children];
+  if(how==='back'){ L.scr.prepend(i); old.forEach(o=>o.classList.add('out-right')); setTimeout(()=>old.forEach(o=>o.remove()),340); }
+  else { L.scr.append(i); if(how!=='none') i.classList.add('in-'+how); setTimeout(()=>old.forEach(o=>o.remove()),how==='none'?0:380); }
+}
+function showBase(k,how){
+  const i=img(k,'scr'), old=[...L.base.children];
+  L.base.append(i); if(how!=='none') i.classList.add('in-fade');
+  setTimeout(()=>old.forEach(o=>o.remove()),how==='none'?0:320);
+}
+function setWall(key,how){
+  const w=S.c.walls[key], k=typeof w.img==='function'?w.img():w.img;
+  if(S.baseImg!==k) showBase(k,how);
+  S.mode=key; S.baseImg=k;
+  L.wall.style.opacity=w.live?1:0;
+  L.wall.classList.toggle('edit',!!w.edit);
+  for(const el of L.ui.children) el.classList.toggle('on',(w.ui||[]).includes(el.dataset.k));
+  if(!w.edit) select(null);
+}
+
+/* ---------- hotspots ---------- */
+function hotEl(h,parent){
+  const b=document.createElement('button'); b.type='button'; b.className='hot'; box(b,h); b.setAttribute('aria-label',h[4]);
+  if(h[5]) b.dataset.only=h[5];
+  b.addEventListener('click',e=>{e.stopPropagation(); act(h[4]);}); parent.append(b); return b;
+}
+function renderHots(){
+  L.hots.innerHTML='';
+  const c=S.c, w=c.walls&&c.walls[S.cur], d=w||c.screens[S.cur];
+  if(w&&w.pull) pullZone(w);
+  if(w&&w.tray&&!S.stk.explorer.on) trayTile(w.tray);
+  for(const h of d.hot||[]) hotEl(h,L.hots);
+}
+function act(a){
+  const [k,arg]=a.split(':');
+  switch(k){
+    case 'edit': S.snap=snapshot(); return nav('edit','fade');
+    case 'cedit': S.snap=snapshot(); return nav('cedit','fade');
+    case 'cancel': restore(S.snap); select(null); return goHome('fade');
+    case 'done': { select(null); const t=S.c.toast; goHome('fade'); if(t) later(()=>toast(t),260); return; }
+    case 'go': return nav(arg);
+    case 'back': return back();
+    case 'home': return goHome('fade');
+    case 'push': return pushPage(arg);
+    case 'pop': return popPage();
+    case 'img': { const p=S.pages[S.pages.length-1]; if(!p) return; p.querySelector('img').src=M+arg+'.webp'; p.querySelectorAll('.hot[data-only]').forEach(b=>b.hidden=b.dataset.only!==arg); return; }
+    case 'nadd': popPage(); return later(()=>act('getyes'),320);
+    case 'sheet': return openSheet();
+    case 'shutter': L.flash.classList.remove('flashing'); void L.flash.offsetWidth; L.flash.classList.add('flashing'); return later(()=>nav(arg,'fade'),180);
+    case 'getyes': closeGet(); if(S.cur!=='edit'){ S.snap=snapshot(); nav('edit','fade'); } return later(()=>{ addSticker('explorer'); select('explorer'); },260);
+    case 'getno': return closeGet();
+    case 'cget': S.snap=snapshot(); S.stk.explorer.on=true; paint(S.stk.explorer); nav('cedit','fade'); select('explorer'); return;
+  }
+}
+function flashHots(){
+  const ctx=L.over.classList.contains('open')?L.over:L.sheet.classList.contains('open')?L.sheet:S.pages.length?S.pages[S.pages.length-1]:L.hots;
+  ctx.classList.remove('flash'); void ctx.offsetWidth; ctx.classList.add('flash'); setTimeout(()=>ctx.classList.remove('flash'),650);
+}
+function pt(e){ const r=L.app.getBoundingClientRect(), s=r.width/S.c.W; return {x:(e.clientX-r.left)/s,y:(e.clientY-r.top)/s}; }
+
+/* ---------- stickers ---------- */
+function buildWall(){
+  for(const s of Object.values(S.stk)){
+    const el=document.createElement('div'); el.className='stk'; el.dataset.n=s.name; box(el,s.b);
+    el.append(img(s.img,'art'));
+    const sb=document.createElement('i'); sb.className='sbox'; el.append(sb);
+    el.append(img(S.c.sel[0],'sx'), img(S.c.sel[1],'sh'));
+    el.addEventListener('animationend',ev=>{ if(ev.animationName!=='gone') el.classList.remove('pop','wig'); });
+    s.el=el; L.wall.append(el); paint(s);
+  }
+}
+function paint(s){
+  s.el.style.transform=`translate(${s.dx}px,${s.dy}px) rotate(${s.r}deg) scale(${s.s})`;
+  s.el.style.setProperty('--s',s.s); s.el.style.display=s.on?'':'none';
+  s.el.classList.toggle('sel',S.sel===s.name);
+}
+function select(n){ S.sel=n; for(const s of Object.values(S.stk)) s.el&&s.el.classList.toggle('sel',s.name===n); }
+function snapshot(){ const o={}; for(const s of Object.values(S.stk)) o[s.name]={on:s.on,dx:s.dx,dy:s.dy,r:s.r,s:s.s}; return o; }
+function restore(o){ if(!o) return; for(const [n,v] of Object.entries(o)){ Object.assign(S.stk[n],v); paint(S.stk[n]); } changed(); }
+function addSticker(n){ const s=S.stk[n]; if(!s) return; Object.assign(s,{on:true,dx:0,dy:0,r:0,s:1}); paint(s); s.el.classList.remove('pop'); void s.el.offsetWidth; s.el.classList.add('pop'); changed(); }
+function removeSticker(n){
+  const s=S.stk[n]; if(!s||!s.on) return; if(S.sel===n) select(null);
+  s.el.classList.add('gone');
+  setTimeout(()=>{ s.el.classList.remove('gone','pop'); s.on=false; paint(s); changed(); },240);
+}
+function changed(){ updateGlyphs(); const w=S.c.walls[S.cur]; if(w&&typeof w.img==='function'){ setWall(S.cur,'fade'); renderHots(); } }
+function center(s){ return {x:s.b[0]+s.b[2]/2+s.dx,y:s.b[1]+s.b[3]/2+s.dy}; }
+let drag=null;
+L.wall.addEventListener('pointerdown',e=>{
+  const el=e.target.closest('.stk'); if(!el||!L.wall.classList.contains('edit')) return;
+  e.preventDefault(); e.stopPropagation();
+  const s=S.stk[el.dataset.n], p0=pt(e);
+  if(e.target.classList.contains('sx')){ removeSticker(s.name); return; }
+  select(s.name); el.classList.add('moving');
+  if(e.target.classList.contains('sh')){
+    const c=center(s), a0=Math.atan2(p0.y-c.y,p0.x-c.x), d0=Math.hypot(p0.x-c.x,p0.y-c.y)||1, r0=s.r, s0=s.s;
+    drag={move(p){ s.r=r0+(Math.atan2(p.y-c.y,p.x-c.x)-a0)*180/Math.PI; s.s=clamp(s0*Math.hypot(p.x-c.x,p.y-c.y)/d0,.5,2.2); paint(s); },
+          up(){ el.classList.remove('moving'); }};
+    return;
+  }
+  const ox=s.dx, oy=s.dy; let moved=false;
+  drag={move(p){ const dx=p.x-p0.x, dy=p.y-p0.y; if(!moved&&Math.hypot(dx,dy)<4) return;
+          if(!moved){ moved=true; el.classList.add('lift'); dragUi(true); }
+          s.dx=ox+dx; s.dy=oy+dy; paint(s); const d=dropEl(); if(d) d.classList.toggle('hot2',inDrop(p)); },
+        up(p){ el.classList.remove('moving','lift'); if(!moved) return; dragUi(false); if(inDrop(p)) removeSticker(s.name); }};
+});
+addEventListener('pointermove',e=>{ if(drag) drag.move(pt(e)); });
+addEventListener('pointerup',e=>{ if(drag){ const d=drag; drag=null; d.up(pt(e)); } });
+addEventListener('pointercancel',()=>{ if(drag){ const d=drag; drag=null; d.up({x:-999,y:-999}); } });
+
+/* edit-mode layers: hint, library bar, +, drop zone */
+function buildUi(){
+  const w=S.c.walls.edit; if(!w||!w.ui) return;
+  for(const k of [...w.ui, w.drop, ...(w.dragShow||[])]){ const i=img(k,'uil'+(k===w.drop?' drop':'')); i.dataset.k=k; box(i,P[k]); L.ui.append(i); }
+  if(w.line!=null){ const l=document.createElement('div'); l.className='line'; l.style.top=w.line+'px'; L.ui.append(l); }
+}
+function dropEl(){ const w=S.c.walls[S.cur]; return w&&w.drop?L.ui.querySelector(`[data-k="${w.drop}"]`):null; }
+function inDrop(p){ const w=S.c.walls[S.cur]; if(!w||!w.drop) return false; const b=P[w.drop]; return p.x>b[0]-10&&p.x<b[0]+b[2]+10&&p.y>b[1]-34&&p.y<b[1]+b[3]+60; }
+function dragUi(on){
+  const w=S.c.walls[S.cur]; if(!w||!w.ui) return;
+  for(const el of L.ui.children){
+    const k=el.dataset.k;
+    if(el.classList.contains('line')) el.classList.toggle('on',on);
+    else if(w.ui.includes(k)) el.classList.toggle('on',!on);
+    else el.classList.toggle('on',on);
+    el.classList.remove('hot2');
+  }
+}
+
+/* empty-area taps: deselect, flash hotspots; ME-B: push the wall back up */
+L.app.addEventListener('pointerdown',e=>{
+  if(e.target.closest('.hot,.stk,.pull,.tile')) return;
+  const p0=pt(e), w=S.c.walls&&S.c.walls[S.cur], top=S.pages.length||L.sheet.classList.contains('open')||L.over.classList.contains('open');
+  let dy=0;
+  const mv=ev=>{ dy=pt(ev).y-p0.y; };
+  const up=()=>{ removeEventListener('pointermove',mv); removeEventListener('pointerup',up);
+    if(!top&&w&&w.pullUp&&dy<-70) return act('done');
+    if(Math.abs(dy)<6){ if(!top&&S.sel){ select(null); return; } flashHots(); } };
+  addEventListener('pointermove',mv); addEventListener('pointerup',up);
+});
+
+/* pull the cover down → edit */
+function pullZone(w){
+  const z=document.createElement('div'); z.className='pull'; box(z,w.pull); L.hots.append(z);
+  z.addEventListener('pointerdown',e=>{
+    e.preventDefault(); const p0=pt(e); let dy=0, setup=false, top, bot, gap;
+    const base=L.base.lastElementChild;
+    const mv=ev=>{ dy=Math.max(0,pt(ev).y-p0.y); if(dy<3&&!setup) return;
+      if(!setup){ setup=true;
+        top=img(S.baseImg,'slice'); top.style.clipPath=`inset(0 0 ${S.c.H-w.cut}px 0)`;
+        bot=img(S.baseImg,'slice'); bot.style.clipPath=`inset(${w.cut}px 0 0 0)`;
+        gap=document.createElement('div'); gap.className='gap'; gap.style.top=w.cut+'px'; gap.style.background=w.gap;
+        L.base.append(gap,top,bot); if(base) base.style.visibility='hidden'; }
+      const d=Math.min(260,dy*.62); bot.style.transform=`translateY(${d}px)`; bot.style.filter=`brightness(${1-d/700})`; gap.style.height=d+'px'; };
+    const cleanup=()=>{ [top,bot,gap].forEach(x=>x&&x.remove()); if(base) base.style.visibility=''; };
+    const up=()=>{ removeEventListener('pointermove',mv); removeEventListener('pointerup',up);
+      if(!setup){ flashHots(); return; }
+      if(dy>90){ act('edit'); setTimeout(cleanup,300); }
+      else { bot.style.transition='transform .25s,filter .25s'; bot.style.transform=''; bot.style.filter=''; gap.style.transition='height .25s'; gap.style.height='0'; setTimeout(cleanup,260); } };
+    addEventListener('pointermove',mv); addEventListener('pointerup',up);
+  });
+}
+
+/* ME-C: drag the Explorer tile from the tray onto your 3D */
+function trayTile(t){
+  const z=document.createElement('div'); z.className='pull tile'; box(z,t); L.hots.append(z);
+  z.addEventListener('pointerdown',e=>{
+    e.preventDefault(); const s=S.stk.explorer, p0=pt(e); let moved=false;
+    const f=img(s.img,'floating'); f.style.width=s.b[2]+'px'; f.style.height=s.b[3]+'px';
+    const place=p=>{ f.style.left=(p.x-s.b[2]/2)+'px'; f.style.top=(p.y-s.b[3]/2)+'px'; };
+    const mv=ev=>{ const p=pt(ev); if(!moved&&Math.hypot(p.x-p0.x,p.y-p0.y)<5) return; if(!moved){moved=true; L.fx.append(f);} place(p); };
+    const up=ev=>{ removeEventListener('pointermove',mv); removeEventListener('pointerup',up); const p=pt(ev); f.remove();
+      if(!moved){ s.dx=0; s.dy=0; }
+      else if(p.y<600){ s.dx=p.x-(s.b[0]+s.b[2]/2); s.dy=p.y-(s.b[1]+s.b[3]/2); }
+      else return;
+      Object.assign(s,{on:true,r:0,s:1}); paint(s); s.el.classList.remove('pop'); void s.el.offsetWidth; s.el.classList.add('pop'); changed(); select('explorer'); };
+    addEventListener('pointermove',mv); addEventListener('pointerup',up);
+  });
+}
+
+/* ---------- pushed pages ---------- */
+function pushPage(k){
+  const pg=S.c.pages[k]; if(!pg) return;
+  const d=document.createElement('div'); d.className='page in-push'; d.append(img(pg.img));
+  for(const h of pg.hot) hotEl(h,d);
+  L.pages.append(d); S.pages.push(d);
+}
+function popPage(){ const d=S.pages.pop(); if(!d) return; d.classList.remove('in-push'); d.classList.add('out-right'); setTimeout(()=>d.remove(),330); }
+
+/* ---------- add-stickers sheet ---------- */
+const PLUS='<svg viewBox="0 0 20 20"><path d="M10 3v14M3 10h14" stroke="#fff" stroke-opacity=".88" stroke-width="2" stroke-linecap="round"/></svg>';
+const MINUS='<svg viewBox="0 0 20 20"><path d="M3 10h14" stroke="#fff" stroke-opacity=".88" stroke-width="2" stroke-linecap="round"/></svg>';
+function buildSheet(){
+  const sh=S.c.sheet; if(!sh) return;
+  const b=P[sh.img];
+  const dim=document.createElement('div'); dim.className='dim'; dim.addEventListener('click',e=>{e.stopPropagation(); closeSheet();});
+  const s=document.createElement('div'); s.className='sheet'; box(s,b); s.append(img(sh.img));
+  for(const [n,i] of Object.entries(sh.rows)){
+    const g=document.createElement('div'); g.className='glyph'; g.dataset.n=n; Object.assign(g.style,{left:(sh.gx-17)+'px',top:(120+90*i-17)+'px'}); s.append(g);
+    const h=document.createElement('button'); h.type='button'; h.className='hot'; box(h,[0,75+90*i,b[2],90]); h.setAttribute('aria-label','toggle '+n);
+    h.addEventListener('click',e=>{ e.stopPropagation(); const st=S.stk[n]; if(!st) return; st.on?removeSticker(n):addSticker(n); setTimeout(updateGlyphs,260); }); s.append(h);
+  }
+  const x=document.createElement('button'); x.type='button'; x.className='hot'; box(x,sh.close); x.setAttribute('aria-label','close'); x.addEventListener('click',e=>{e.stopPropagation(); closeSheet();}); s.append(x);
+  L.sheet.append(dim,s); updateGlyphs();
+}
+function updateGlyphs(){ for(const g of L.sheet.querySelectorAll('.glyph')){ const st=S.stk[g.dataset.n]; g.innerHTML=st&&st.on?MINUS:PLUS; } }
+function openSheet(){ if(!S.c.sheet) return; select(null); updateGlyphs(); L.sheet.classList.add('open'); }
+function closeSheet(){ L.sheet.classList.remove('open'); }
+
+/* ---------- new-sticker moment, toast ---------- */
+function openGet(){ const g=S.c.get; if(!g) return; L.over.innerHTML=''; L.over.append(img(g.img)); for(const h of g.hot) hotEl(h,L.over); requestAnimationFrame(()=>L.over.classList.add('open')); }
+function closeGet(){ L.over.classList.remove('open'); }
+function toast(k){ const i=img(k,'toast'); box(i,P[k]); L.toast.append(i); setTimeout(()=>i.remove(),2700); }
+function closeAll(){ closeSheet(); closeGet(); while(S.pages&&S.pages.length) S.pages.pop().remove(); }
+
+addEventListener('keydown',e=>{ if(e.key!=='Escape') return;
+  if(L.over.classList.contains('open')) return closeGet();
+  if(L.sheet.classList.contains('open')) return closeSheet();
+  if(S.pages.length) return popPage();
+  if(S.sel) return select(null);
+  back(); });
+
+/* ---------- fit the phone to the window ---------- */
+function fit(){
+  const w=$('#devwrap'), d=$('#device'), W=S.c.W, H=S.c.H, phone=innerWidth<=560;
+  const miniH=getComputedStyle($('#mini')).display==='none'?0:$('#mini').offsetHeight+14;
+  const bez=phone?0:20, availH=innerHeight-(phone?8:48)-miniH, availW=innerWidth-(phone?0:32);
+  const s=Math.min(phone?9:1,availH/(H+bez),availW/(W+bez));
+  d.style.transform=`scale(${s})`; w.style.width=(W+bez)*s+'px'; w.style.height=(H+bez)*s+'px';
+}
+addEventListener('resize',()=>S.c&&fit());
+/* re-fit once fonts settle (the version pills change height) */
+if(document.fonts) document.fonts.ready.then(()=>S.c&&fit());
+addEventListener('load',()=>S.c&&fit());
+
+/* preload every screen and layer so switching never flashes */
+for(const k of new Set(JSON.stringify(VERS).match(/"[fbcd]-[a-z0-9-]+"/g).map(s=>s.slice(1,-1)).concat(['c-edit','c-placed'],Object.keys(P)))){ const i=new Image(); i.src=M+k+'.webp'; }
+const start=(location.hash.slice(1)||'f'); useVersion(VERS[start]?start:'f');
+</script>
+
+</html>
