@@ -239,7 +239,7 @@ const VERS={
     tries:[['edit','点编辑 / 下拉封面','进入编辑'],['drag','拖动、旋转贴纸','拖到下方放回库'],['sheet','点 +','添加贴纸'],['get','解锁新贴纸','加到主页'],['lib','贴纸库','收集进度'],['notif','点铃铛','通知里点 Add 直接贴上']],
     note:'按 Figma「1118」画板（402 宽）：Me 是第三个 Tab，贴纸围着头像。编辑里点 Done 会提示已同步到 Studio 和网页。',
     figma:'50437-22197'},
-  b:{label:'ME-B · 贴纸墙',short:'ME-B',desc:'贴纸铺满封面，下拉放大成墙',W:393,H:852,home:'me',
+  b:{label:'A · 贴纸墙',short:'A',desc:'贴纸铺满封面，下拉放大成墙',W:393,H:852,home:'me',
     stickers:{c1:'b-s-1',c3:'b-s-3',c4:'b-s-4',c5:'b-s-5',c6:'b-s-6'},
     explorer:{img:'f-s-explorer',at:[18,268,79.21,86.04]},sel:['f-x','f-handle'],
     walls:{
@@ -258,7 +258,7 @@ const VERS={
     tries:[['edit','下拉封面','贴纸墙展开'],['drag','拖动、旋转贴纸','拖到下方放回库'],['sheet','点 +','添加贴纸'],['get','解锁新贴纸','贴到墙上'],['lib','贴纸库','收集进度'],['done','点墙下的箭头 / 往上推','收起']],
     note:'按 Figma「1118」探索画板第一行（393 宽，旧 5 Tab）。下拉封面，墙会跟着手指拉长；收起后主页保留你的摆放。',
     figma:'50391-42499'},
-  c:{label:'ME-C · 3D 戴贴纸',short:'ME-C',desc:'贴纸直接贴在 3D 形象上',W:393,H:852,home:'c-me',no3d:'c-no3d',
+  c:{label:'B · 3D 戴贴纸',short:'B',desc:'贴纸直接贴在 3D 形象上',W:393,H:852,home:'c-me',no3d:'c-no3d',
     stickers:{},explorer:{img:'c-s-explorer'},sel:['c-x','c-handle'],homeMap:[.89,218,205,216,204],compose:{'c-me':()=>cMe()},
     walls:{
       cedit:{img:()=>S.stk.explorer.on?'c-placed':'c-edit',live:true,edit:true,tray:[20,674,76,100],
@@ -273,7 +273,7 @@ const VERS={
     tries:[['edit','Edit stickers','从托盘拖 Explorer 贴到 3D'],['get','解锁新贴纸','贴到 3D 上'],['avatar','Edit avatar','重拍 3D'],['no3d','还没有 3D 时','拍一张生成'],['lib','See all','贴纸库']],
     note:'按 Figma「1118」探索画板第二行。编辑时把下方托盘里的 Explorer 拖到 3D 上，角上可以旋转缩放，× 取下。',
     figma:'50391-42499'},
-  d:{label:'ME-D · 3D 在中间',short:'ME-D',desc:'3D 居中，贴纸围在四周',W:393,H:852,home:'me',no3d:'d-no3d',
+  d:{label:'C · 3D 在中间',short:'C',desc:'3D 居中，贴纸围在四周',W:393,H:852,home:'me',no3d:'d-no3d',
     stickers:{player:'d-s-player',debut:'d-s-debut',maker:'d-s-maker',together:'d-s-together'},
     explorer:{img:'d-s-explorer'},sel:['f-x','f-handle'],
     walls:{
