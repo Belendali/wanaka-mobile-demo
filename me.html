@@ -62,7 +62,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
   user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
 .app img{-webkit-user-drag:none;user-select:none}
 .lay{position:absolute;inset:0}
-#base{z-index:1}#wall{z-index:2;pointer-events:none}#ui{z-index:3;pointer-events:none}#scr{z-index:5}#scr:empty{pointer-events:none}
+#base{z-index:1}#wall{z-index:2;pointer-events:none}#comp{z-index:3;pointer-events:none}#ui{z-index:4;pointer-events:none}#scr{z-index:5}#scr:empty{pointer-events:none}
 #hots{z-index:6;pointer-events:none}#fx{z-index:8;pointer-events:none}#pages{z-index:10;pointer-events:none}
 #sheetwrap{z-index:20;pointer-events:none}#over{z-index:30;pointer-events:none}#toast{z-index:40;pointer-events:none}#flash{z-index:50;pointer-events:none;background:#fff;opacity:0}
 .scr{position:absolute;inset:0;width:100%;height:100%;display:block}
@@ -71,7 +71,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .out-right{animation:outRight .32s cubic-bezier(.45,0,.6,1) forwards}
 .out-fade{animation:outFade .26s ease forwards}
 @keyframes inFade{from{opacity:0}}
-.hs{position:absolute;animation:inFade .35s .1s both}
+.hs{position:absolute}
 @keyframes inPush{from{transform:translateX(100%)}}
 @keyframes outRight{to{transform:translateX(100%)}}
 @keyframes outFade{to{opacity:0}}
@@ -88,6 +88,8 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 #wall.edit .stk{pointer-events:auto;cursor:grab;touch-action:none}
 .stk>.art{width:100%;height:100%;display:block}
 .stk.moving{transition:none}
+.cpull .stk{transition:none!important}
+.dragging #wall{z-index:7}
 .stk.lift{scale:1.14;filter:drop-shadow(0 16px 18px rgba(0,0,0,.45));cursor:grabbing;z-index:5}
 .stk.sel{z-index:4}
 .stk .sbox{position:absolute;inset:3px;border:1.5px dashed rgba(255,255,255,.92);border-radius:10px;display:none;pointer-events:none}
@@ -113,7 +115,13 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 
 /* pull-down visuals */
 .slice{position:absolute;inset:0;width:100%;height:100%}
-.gap{position:absolute;left:0;right:0}
+.gap{position:absolute;left:0;right:0;overflow:hidden}
+.gapfill{position:absolute;inset:0;width:100%;height:100%}
+.gapdots{position:absolute;inset:0;background-image:radial-gradient(circle at 10px 10px,rgba(255,255,255,.95) .8px,transparent 1.25px);background-size:20px 20px}
+/* ME-B: the cover is drawn live so it can grow when you pull it down */
+.cv{position:absolute;left:0;top:-33px;width:100%;overflow:hidden}
+.cvfade{position:absolute;left:0;width:100%;height:80px;background:linear-gradient(rgba(20,14,16,0),rgba(20,14,16,.85))}
+.cvl{position:absolute;left:0;top:0;width:100%;height:100%;will-change:transform,opacity}
 
 /* pushed pages */
 .page{position:absolute;inset:0;pointer-events:auto;background:var(--ink)}
@@ -178,6 +186,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
       <div class="app" id="app">
         <div class="lay" id="base"></div>
         <div class="lay" id="wall"></div>
+        <div class="lay" id="comp"></div>
         <div class="lay" id="ui"></div>
         <div class="lay" id="scr"></div>
         <div class="lay" id="hots"></div>
@@ -196,7 +205,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 const M='media/me/';
 /* where each separate layer sat in its Figma frame: [x, y, w, h] */
 const P={"f-s-player":[275.98,236.6,87.44,101.35],"f-s-debut":[49.36,111.46,102.49,108.28],"f-s-maker":[292.03,129.08,89.14,92.27],"f-s-together":[31.33,241.33,86.14,93.93],"f-s-explorer":[238.4,81.2,79.21,86.04],"f-hint":[95.68,343.87,210.64,12.37],"f-libbar":[16,372,314,48],"f-plus":[338,372,48,48],"f-drop":[16,364,370,64],"f-x":[41.55,99.05,22,22],"f-handle":[137.66,200.95,22,22],"f-toast":[44,720,314,80],"f-sheet":[0,352,402,522],"f-get":[0,0,402,874],
-"b-libbar":[16,382,305,48],"b-plus":[329,382,48,48],"b-linehint":[67,171,260,25],"b-drop":[16,370,361,64],"b-sheet":[0,330,393,522],"b-get":[0,0,393,852],"b-s-4":[270.67,213,121.93,141.8],"b-s-5":[118.67,196,147.45,149.05],"b-s-3":[24.48,167.26,112.29,118.24],"b-s-1":[76.67,39,118.23,125.65],"b-s-6":[225,73.4,117.66,146.38],
+"b-libbar":[16,382,305,48],"b-chev":[191,368,12,6],"b-plus":[329,382,48,48],"b-linehint":[67,171,260,25],"b-drop":[16,370,361,64],"b-sheet":[0,330,393,522],"b-get":[0,0,393,852],"b-s-4":[270.67,213,121.93,141.8],"b-s-5":[118.67,196,147.45,149.05],"b-s-3":[24.48,167.26,112.29,118.24],"b-s-1":[76.67,39,118.23,125.65],"b-s-6":[225,73.4,117.66,146.38],
 "c-s-explorer":[56,155,83.6,90.62],"c-x":[51,144,22,22],"c-handle":[122.6,222.62,22,22],
 "d-s-player":[266.93,208.67,91.32,105.86],"d-s-debut":[44.87,84.9,107.05,113.09],"d-s-maker":[284.32,103.4,93.11,96.38],"d-s-together":[27.75,209.57,89.96,98.11],"d-s-explorer":[9.22,253.36,89.55,97.28],"d-hint":[91.18,353.87,210.64,12.37],"d-libbar":[16,388,305,48],"d-plus":[329,388,48,48],"d-drop":[16,380,361,64],"d-toast":[54,704,286,80],"d-sheet":[0,330,393,522],"d-get":[0,0,393,852]};
 
@@ -218,7 +227,7 @@ const VERS={
     stickers:{player:'f-s-player',debut:'f-s-debut',maker:'f-s-maker',together:'f-s-together'},
     explorer:{img:'f-s-explorer'},sel:['f-x','f-handle'],
     walls:{
-      me:{img:'f-me',live:true,pull:[0,0,402,362],cut:238,gap:'#2a1f1c',hot:[[246,62,40,40,'edit'],[294,62,40,40,'push:notif']]},
+      me:{img:'f-me',live:true,pull:[0,0,402,362],cut:250,gap:'#3a2c25',dot:[11,11.8],hot:[[246,62,40,40,'edit'],[294,62,40,40,'push:notif']]},
       edit:{img:'f-edit',live:true,edit:true,ui:['f-hint','f-libbar','f-plus'],drop:'f-drop',
         hot:[[8,60,80,44,'cancel'],[309,58,77,48,'done'],[16,372,314,48,'push:lib'],[338,372,48,48,'sheet']]},
     },
@@ -234,18 +243,23 @@ const VERS={
     stickers:{c1:'b-s-1',c3:'b-s-3',c4:'b-s-4',c5:'b-s-5',c6:'b-s-6'},
     explorer:{img:'f-s-explorer',at:[18,268,79.21,86.04]},sel:['f-x','f-handle'],
     walls:{
-      me:{img:'b-me',live:false,pull:[0,0,393,163],cut:163,gap:'#1d1516',hot:[]},
-      edit:{img:'b-edit',live:true,edit:true,ui:['b-libbar','b-plus'],drop:'b-drop',dragShow:['b-linehint'],line:162,pullUp:true,
+      me:{img:null,live:true,pull:[0,0,393,163],hot:[]},
+      edit:{img:null,live:true,edit:true,ui:['b-libbar','b-plus','b-chev'],drop:'b-drop',dragShow:['b-linehint'],line:162,pullUp:true,
         hot:[[150,352,94,28,'done'],[16,382,305,48,'push:lib'],[329,382,48,48,'sheet']]},
     },
+    /* live cover: Figma "ME-B Me" (cover 196 tall) → "Sticker edit" (393 tall, radius 32, profile +335, rest at 30%).
+       Sticker poses are [centre x, centre y, rotation, scale] from each frame. */
+    comp:{h0:196,h1:393,top:-33,r1:32,dy1:335,
+      home:{c1:[41.34,78.12,-8,.75],c3:[125.97,92.53,-52.43,.75],c4:[316.73,124.17,9,.75],c5:[246.3,151.89,-39.88,.75],c6:[174.77,141.74,-3,.625],explorer:[213.04,68.44,15.92,.78]},
+      edit:{c1:[135.79,96.49,-8],c3:[80.63,221.04,3.85],c4:[331.63,278.57,9],c5:[192.39,265.19,-39.88],c6:[283.83,140.19,-3]}},
     sheet:{img:'b-sheet',gx:360.5,close:[333,12,44,44],rows:{explorer:0,c6:1,c5:2,c4:3,c3:4}},
     get:{img:'b-get',hot:[[20,700,353,52,'getyes'],[56,762,282,36,'getno']]},
     pages:{lib:LIB393},
     tries:[['edit','下拉封面','贴纸墙展开'],['drag','拖动、旋转贴纸','拖到下方放回库'],['sheet','点 +','添加贴纸'],['get','解锁新贴纸','贴到墙上'],['lib','贴纸库','收集进度'],['done','点墙下的箭头 / 往上推','收起']],
-    note:'按 Figma「1118」探索画板第一行（393 宽，旧 5 Tab）。Me 页是静态图，编辑后收起会回到画板原样。',
+    note:'按 Figma「1118」探索画板第一行（393 宽，旧 5 Tab）。下拉封面，墙会跟着手指拉长；收起后主页保留你的摆放。',
     figma:'50391-42499'},
   c:{label:'ME-C · 3D 戴贴纸',short:'ME-C',desc:'贴纸直接贴在 3D 形象上',W:393,H:852,home:'c-me',no3d:'c-no3d',
-    stickers:{},explorer:{img:'c-s-explorer'},sel:['c-x','c-handle'],homeMap:[.89,218,205,216,204],
+    stickers:{},explorer:{img:'c-s-explorer'},sel:['c-x','c-handle'],homeMap:[.89,218,205,216,204],compose:{'c-me':()=>cMe()},
     walls:{
       cedit:{img:()=>S.stk.explorer.on?'c-placed':'c-edit',live:true,edit:true,tray:[20,674,76,100],
         hot:[[8,48,80,48,'cancel'],[300,48,77,48,'done'],[326,630,60,36,'push:lib']]},
@@ -263,7 +277,7 @@ const VERS={
     stickers:{player:'d-s-player',debut:'d-s-debut',maker:'d-s-maker',together:'d-s-together'},
     explorer:{img:'d-s-explorer'},sel:['f-x','f-handle'],
     walls:{
-      me:{img:'d-me',live:true,pull:[0,0,393,380],cut:330,gap:'#241a18',hot:[[241,52,40,40,'edit']]},
+      me:{img:'d-me',live:true,pull:[0,0,393,380],cut:342,gap:'#1f1716',dot:[10.6,6.6],hot:[[241,52,40,40,'edit']]},
       edit:{img:'d-edit',live:true,edit:true,ui:['d-hint','d-libbar','d-plus'],drop:'d-drop',
         hot:[[8,48,80,48,'cancel'],[300,48,77,48,'done'],[136,292,122,42,'go:d-avatar'],[16,388,305,48,'push:lib'],[329,388,48,48,'sheet']]},
     },
@@ -278,7 +292,7 @@ const VERS={
 };
 
 const $=s=>document.querySelector(s);
-const L={app:$('#app'),base:$('#base'),wall:$('#wall'),ui:$('#ui'),scr:$('#scr'),hots:$('#hots'),fx:$('#fx'),pages:$('#pages'),sheet:$('#sheetwrap'),over:$('#over'),toast:$('#toast'),flash:$('#flash')};
+const L={app:$('#app'),base:$('#base'),wall:$('#wall'),comp:$('#comp'),ui:$('#ui'),scr:$('#scr'),hots:$('#hots'),fx:$('#fx'),pages:$('#pages'),sheet:$('#sheetwrap'),over:$('#over'),toast:$('#toast'),flash:$('#flash')};
 const S={};
 const img=(k,cls)=>{const i=new Image(); i.src=M+k+'.webp'; i.alt=''; i.draggable=false; if(cls)i.className=cls; return i;};
 const box=(el,b)=>Object.assign(el.style,{left:b[0]+'px',top:b[1]+'px',width:b[2]+'px',height:b[3]+'px'});
@@ -288,15 +302,17 @@ const later=(f,ms)=>{const t=setTimeout(f,ms); S.timers.push(t); return t;};
 /* ---------- version switch ---------- */
 function useVersion(k){
   (S.timers||[]).forEach(clearTimeout);
-  Object.assign(S,{k,c:VERS[k],cur:null,mode:null,baseImg:null,hist:[],pages:[],stk:{},snap:null,sel:null,timers:[]});
-  for(const id of ['base','wall','ui','scr','hots','fx','pages','sheetwrap','over','toast']) document.getElementById(id).innerHTML='';
+  cancelAnimationFrame(S.cRaf);
+  Object.assign(S,{k,c:VERS[k],cur:null,mode:null,baseImg:null,hist:[],pages:[],stk:{},snap:null,sel:null,timers:[],ct:0});
+  for(const id of ['base','wall','comp','ui','scr','hots','fx','pages','sheetwrap','over','toast']) document.getElementById(id).innerHTML='';
+  L.wall.style.clipPath=''; L.app.classList.remove('cpull','dragging');
   L.sheet.classList.remove('open'); L.over.classList.remove('open');
   const c=S.c; L.app.style.width=c.W+'px'; L.app.style.height=c.H+'px';
   // stickers
   for(const [name,key] of Object.entries(c.stickers)) S.stk[name]={name,img:key,b:P[key],on:true};
   S.stk.explorer={name:'explorer',img:c.explorer.img,b:c.explorer.at||P[c.explorer.img],on:false};
   for(const s of Object.values(S.stk)) Object.assign(s,{dx:0,dy:0,r:0,s:1});
-  buildWall(); buildUi(); buildSheet();
+  buildWall(); buildComp(); buildUi(); buildSheet();
   nav(c.home,'none',{noHist:true});
   renderGuide(); fit();
 }
@@ -339,19 +355,12 @@ function nav(key,how='push',opt={}){
     const sc=c.screens[key]; showScr(sc.img||key,how);
     if(sc.auto) S.autoT=later(()=>{ if(S.cur===key) nav(sc.auto[0],'fade',{noHist:true}); },sc.auto[1]);
   }
-  renderHots(); homeStk();
-}
-/* ME-C: keep the placed sticker on the 3D in the Me page (same head, ~0.89x) */
-function homeStk(){
-  L.fx.querySelectorAll('.hs').forEach(e=>e.remove());
-  const m=S.c.homeMap, s=S.stk.explorer; if(!m||S.cur!==S.c.home||!s||!s.on) return;
-  const [k,ax,ay,bx,by]=m, c=center(s), w=s.b[2]*k, h=s.b[3]*k, x=bx+(c.x-ax)*k, y=by+(c.y-ay)*k;
-  const i=img(s.img,'hs'); box(i,[x-w/2,y-h/2,w,h]); i.style.transform=`rotate(${s.r}deg) scale(${s.s})`; L.fx.append(i);
+  renderHots();
 }
 function back(){ const p=S.hist.pop(); if(p) nav(p,'back',{noHist:true}); }
 function goHome(how='fade'){ S.hist=[]; closeAll(); if(S.cur!==S.c.home) nav(S.c.home,how,{noHist:true}); }
 function showScr(k,how){
-  const i=img(k,'scr'), old=[...L.scr.children];
+  const cp=S.c.compose&&S.c.compose[k], i=cp?cp():img(k,'scr'), old=[...L.scr.children];
   if(how==='back'){ L.scr.prepend(i); old.forEach(o=>o.classList.add('out-right')); setTimeout(()=>old.forEach(o=>o.remove()),340); }
   else { L.scr.append(i); if(how!=='none') i.classList.add('in-'+how); setTimeout(()=>old.forEach(o=>o.remove()),how==='none'?0:380); }
 }
@@ -361,9 +370,10 @@ function showBase(k,how){
   setTimeout(()=>old.forEach(o=>o.remove()),how==='none'?0:320);
 }
 function setWall(key,how){
-  const w=S.c.walls[key], k=typeof w.img==='function'?w.img():w.img;
-  if(S.baseImg!==k) showBase(k,how);
-  S.mode=key; S.baseImg=k;
+  const w=S.c.walls[key];
+  if(S.c.comp) compTo(w.edit?1:0,how!=='none');
+  else { const k=typeof w.img==='function'?w.img():w.img; if(S.baseImg!==k) showBase(k,how); S.baseImg=k; }
+  S.mode=key;
   L.wall.style.opacity=w.live?1:0;
   L.wall.classList.toggle('edit',!!w.edit);
   for(const el of L.ui.children) el.classList.toggle('on',(w.ui||[]).includes(el.dataset.k));
@@ -422,9 +432,46 @@ function buildWall(){
   }
 }
 function paint(s){
-  s.el.style.transform=`translate(${s.dx}px,${s.dy}px) rotate(${s.r}deg) scale(${s.s})`;
-  s.el.style.setProperty('--s',s.s); s.el.style.display=s.on?'':'none';
+  const p=pose(s);
+  s.el.style.transform=`translate(${p.dx}px,${p.dy}px) rotate(${p.r}deg) scale(${p.s})`;
+  s.el.style.setProperty('--s',p.s); s.el.style.display=s.on?'':'none';
   s.el.classList.toggle('sel',S.sel===s.name);
+}
+/* ME-B: where a sticker sits on the Me cover vs on the open wall; edits made on the wall carry back at half size */
+function pose(s){
+  const cp=S.c.comp, t=S.ct||0; if(!cp||t>=1) return {dx:s.dx,dy:s.dy,r:s.r,s:s.s};
+  const H=cp.home[s.name], E=cp.edit[s.name], b=s.b, ic={x:b[0]+b[2]/2,y:b[1]+b[3]/2}, ec=E?{x:E[0],y:E[1]}:ic, er=E?E[2]:0, k=H[3];
+  const h={dx:H[0]-ec.x+(ic.x-ec.x)*(k-1)+s.dx*.5, dy:H[1]-ec.y+(ic.y-ec.y)*(k-1)+s.dy*.5, r:H[2]-er+s.r, s:k*s.s};
+  return {dx:h.dx+(s.dx-h.dx)*t, dy:h.dy+(s.dy-h.dy)*t, r:h.r+(s.r-h.r)*t, s:h.s+(s.s-h.s)*t};
+}
+function buildComp(){
+  const cp=S.c.comp; if(!cp) return;
+  const cv=document.createElement('div'); cv.className='cv'; L.base.append(cv);
+  const fade=document.createElement('div'); fade.className='cvfade'; L.comp.append(fade);
+  const lay={}; for(const k of ['b-pf-rest','b-pf-top','b-chrome','b-btns','b-status']){ lay[k]=img(k,'cvl'); L.comp.append(lay[k]); }
+  S.cv={cv,fade,lay}; setComp(0);
+}
+function setComp(t){
+  const cp=S.c.comp, v=S.cv; if(!cp||!v) return; S.ct=t;
+  const h=cp.h0+(cp.h1-cp.h0)*t, r=cp.r1*t, vis=h+cp.top, y=cp.dy1*t;
+  // Figma gradient: u = .8·x/W + .6·y/h − .2, so it re-angles as the cover grows
+  const deg=90+Math.atan2(.6/h,.8/S.c.W)*180/Math.PI;
+  Object.assign(v.cv.style,{height:h+'px',borderRadius:`0 0 ${r}px ${r}px`,backgroundSize:'20px 20px,100% 100%',
+    backgroundImage:`radial-gradient(circle at 10.8px 10.8px,#fff .8px,transparent 1.25px),linear-gradient(${deg}deg,#6B4F3D 14.29%,#2B211F 85.71%)`});
+  v.fade.style.top=(vis-80)+'px'; v.fade.style.opacity=1-.4*t;
+  v.lay['b-pf-top'].style.transform=v.lay['b-pf-rest'].style.transform=`translateY(${y}px)`;
+  v.lay['b-pf-rest'].style.opacity=1-.7*t;
+  v.lay['b-chrome'].style.opacity=v.lay['b-btns'].style.opacity=clamp(1-t*1.6,0,1);
+  L.wall.style.clipPath=t>=1?'':`inset(0 0 ${S.c.H-vis}px 0 round 0 0 ${r}px ${r}px)`;
+  for(const s of Object.values(S.stk)) if(s.el) paint(s);
+}
+function compTo(t1,anim){
+  cancelAnimationFrame(S.cRaf); const t0=S.ct||0;
+  if(!anim||t0===t1){ L.app.classList.remove('cpull'); return setComp(t1); }
+  L.app.classList.add('cpull'); const T=380, st=performance.now();
+  const step=now=>{ const k=Math.min(1,(now-st)/T); setComp(t0+(t1-t0)*(1-Math.pow(1-k,3)));
+    if(k<1) S.cRaf=requestAnimationFrame(step); else L.app.classList.remove('cpull'); };
+  S.cRaf=requestAnimationFrame(step);
 }
 function select(n){ S.sel=n; for(const s of Object.values(S.stk)) s.el&&s.el.classList.toggle('sel',s.name===n); }
 function snapshot(){ const o={}; for(const s of Object.values(S.stk)) o[s.name]={on:s.on,dx:s.dx,dy:s.dy,r:s.r,s:s.s}; return o; }
@@ -452,9 +499,9 @@ L.wall.addEventListener('pointerdown',e=>{
   }
   const ox=s.dx, oy=s.dy; let moved=false;
   drag={move(p){ const dx=p.x-p0.x, dy=p.y-p0.y; if(!moved&&Math.hypot(dx,dy)<4) return;
-          if(!moved){ moved=true; el.classList.add('lift'); dragUi(true); }
+          if(!moved){ moved=true; el.classList.add('lift'); L.app.classList.add('dragging'); dragUi(true); }
           s.dx=ox+dx; s.dy=oy+dy; paint(s); const d=dropEl(); if(d) d.classList.toggle('hot2',inDrop(p)); },
-        up(p){ el.classList.remove('moving','lift'); if(!moved) return; dragUi(false); if(inDrop(p)) removeSticker(s.name); }};
+        up(p){ el.classList.remove('moving','lift'); L.app.classList.remove('dragging'); if(!moved) return; dragUi(false); if(inDrop(p)) removeSticker(s.name); }};
 });
 addEventListener('pointermove',e=>{ if(drag) drag.move(pt(e)); });
 addEventListener('pointerup',e=>{ if(drag){ const d=drag; drag=null; d.up(pt(e)); } });
@@ -494,6 +541,7 @@ L.app.addEventListener('pointerdown',e=>{
 /* pull the cover down → edit */
 function pullZone(w){
   const z=document.createElement('div'); z.className='pull'; box(z,w.pull); L.hots.append(z);
+  if(S.c.comp) return compPull(z);
   z.addEventListener('pointerdown',e=>{
     e.preventDefault(); const p0=pt(e); let dy=0, setup=false, top, bot, gap;
     const base=L.base.lastElementChild;
@@ -502,6 +550,10 @@ function pullZone(w){
         top=img(S.baseImg,'slice'); top.style.clipPath=`inset(0 0 ${S.c.H-w.cut}px 0)`;
         bot=img(S.baseImg,'slice'); bot.style.clipPath=`inset(${w.cut}px 0 0 0)`;
         gap=document.createElement('div'); gap.className='gap'; gap.style.top=w.cut+'px'; gap.style.background=w.gap;
+        // fill the gap with the header row at the cut, stretched, plus the same dot grid continuing
+        if(base&&base.naturalWidth){ const sc=base.naturalWidth/S.c.W, cv=document.createElement('canvas'); cv.width=base.naturalWidth; cv.height=1;
+          cv.getContext('2d').drawImage(base,0,Math.round(w.cut*sc),base.naturalWidth,1,0,0,base.naturalWidth,1); cv.className='gapfill'; gap.append(cv); }
+        if(w.dot){ const dd=document.createElement('div'); dd.className='gapdots'; dd.style.backgroundPosition=`${w.dot[0]-10}px ${(((w.dot[1]-w.cut-10)%20)+20)%20}px`; gap.append(dd); }
         L.base.append(gap,top,bot); if(base) base.style.visibility='hidden'; }
       const d=Math.min(260,dy*.62); bot.style.transform=`translateY(${d}px)`; bot.style.filter=`brightness(${1-d/700})`; gap.style.height=d+'px'; };
     const cleanup=()=>{ [top,bot,gap].forEach(x=>x&&x.remove()); if(base) base.style.visibility=''; };
@@ -513,6 +565,27 @@ function pullZone(w){
   });
 }
 
+/* ME-B: pull the cover and the wall grows with your finger */
+function compPull(z){
+  z.addEventListener('pointerdown',e=>{
+    e.preventDefault(); const p0=pt(e), span=S.c.comp.h1-S.c.comp.h0; let t=0, moved=false;
+    const mv=ev=>{ const dy=pt(ev).y-p0.y; if(!moved&&dy<3) return;
+      if(!moved){ moved=true; cancelAnimationFrame(S.cRaf); L.app.classList.add('cpull'); }
+      t=clamp(dy*.8/span,0,1); setComp(t); };
+    const up=()=>{ removeEventListener('pointermove',mv); removeEventListener('pointerup',up);
+      if(!moved){ flashHots(); return; }
+      if(t>.25) act('edit'); else compTo(0,true); };
+    addEventListener('pointermove',mv); addEventListener('pointerup',up);
+  });
+}
+/* ME-C: the Me screen = 3D + your sticker + the name and stats on top */
+function cMe(){
+  const d=document.createElement('div'); d.className='scr'; d.append(img('c-me','scr'));
+  const m=S.c.homeMap, s=S.stk.explorer;
+  if(m&&s&&s.on){ const [k,ax,ay,bx,by]=m, c=center(s), w=s.b[2]*k, h=s.b[3]*k, x=bx+(c.x-ax)*k, y=Math.min(372,by+(c.y-ay)*k);
+    const i=img(s.img,'hs'); box(i,[x-w/2,y-h/2,w,h]); i.style.transform=`rotate(${s.r}deg) scale(${s.s})`; d.append(i); }
+  d.append(img('c-me-ui','scr')); return d;
+}
 /* ME-C: drag the Explorer tile from the tray onto your 3D */
 function trayTile(t){
   const z=document.createElement('div'); z.className='pull tile'; box(z,t); L.hots.append(z);
@@ -586,7 +659,7 @@ if(document.fonts) document.fonts.ready.then(()=>S.c&&fit());
 addEventListener('load',()=>S.c&&fit());
 
 /* preload every screen and layer so switching never flashes */
-for(const k of new Set(JSON.stringify(VERS).match(/"[fbcd]-[a-z0-9-]+"/g).map(s=>s.slice(1,-1)).concat(['c-edit','c-placed'],Object.keys(P)))){ const i=new Image(); i.src=M+k+'.webp'; }
+for(const k of new Set(JSON.stringify(VERS).match(/"[fbcd]-[a-z0-9-]+"/g).map(s=>s.slice(1,-1)).concat(['c-edit','c-placed','c-me-ui','b-pf-top','b-pf-rest','b-chrome','b-btns','b-status'],Object.keys(P)))){ const i=new Image(); i.src=M+k+'.webp'; }
 const start=(location.hash.slice(1)||'f'); useVersion(VERS[start]?start:'f');
 </script>
 
