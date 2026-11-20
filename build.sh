@@ -9,6 +9,7 @@
 #   1110.html — board "1109 V1.1", from app-1110.html (self-contained, no WK_VER switch)
 #   me.html   — the 4 Me versions (boards "1118" final + exploration), from app-me.html; screens in media/me/
 #   play.html — play & comment, portrait (board "1117 create" P1–P10), from app-play.html; screens in media/play/
+#   me1119.html — Me with physics 3D stickers + Edit stickers list + Library + Edit avatar (board "1119 Me"), from app-me1119.html; media/me1119/
 cd "$(dirname "$0")" || exit 1
 page() {
   cat <<'HEAD'
@@ -24,7 +25,7 @@ page() {
 HEAD
   case "$1" in chat*|1105) printf "<script>window.WK_VER='chat'</script>\n" ;; esac
   case "$1" in *onb) printf "<script>window.WK_ONB=1</script>\n" ;; esac
-  case "$1" in 1105) cat app-1105.html ;; 1110) cat app-1110.html ;; me) cat app-me.html ;; play) cat app-play.html ;; *) cat app.html ;; esac
+  case "$1" in 1105) cat app-1105.html ;; 1110) cat app-1110.html ;; me) cat app-me.html ;; play) cat app-play.html ;; me1119) cat app-me1119.html ;; *) cat app.html ;; esac
   printf '\n</html>\n'
 }
 page > index.html
@@ -40,4 +41,6 @@ page 1110 > 1110.html
 page me > me.html
 # play.html — play & comment user journey, portrait; #1–#10 opens a step
 page play > play.html
-echo "built index.html + chat.html + onboarding.html + chat-onboarding.html + 1105.html + 1110.html + me.html + play.html"
+# me1119.html — board "1119 Me": stickers fall in, tap to toss; #edit #lib #a1–#a4 open a screen
+page me1119 > me1119.html
+echo "built index.html + chat.html + onboarding.html + chat-onboarding.html + 1105.html + 1110.html + me.html + play.html + me1119.html"

@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#140E10">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<style>:root{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Wanaka Me Stickers</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap">
+<style>
+/* Me · 3D stickers — Figma section "1119 Me" (ME-C, S1, S4, A1–A4).
+   Screens are exported from the board (2x webp in media/me1119/); stickers are real physics bodies (Matter.js).
+   Single dark look on purpose: the app itself is dark (Wanaka Foundations). */
+:root{
+  --ink:#140E10; --lime:#C0F000;
+  --stage:#0C0809; --stage-line:#2A2225; --guide-fg:#E9E2E4; --guide-dim:#9D9295;
+  --font:"Poppins",ui-sans-serif,system-ui,-apple-system,"PingFang SC","Segoe UI",sans-serif;
+  color-scheme:dark;
+}
+html,body{height:100%}
+body{margin:0;background:var(--stage);color:#fff;font-family:var(--font);-webkit-font-smoothing:antialiased;overflow:hidden}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:2px solid var(--lime);outline-offset:2px}
+
+/* ---------- stage + guide ---------- */
+.stage{height:100%;display:flex;align-items:center;justify-content:center;gap:56px;box-sizing:border-box;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:24px}
+.guide{width:320px;flex:none;color:var(--guide-fg);display:flex;flex-direction:column;gap:22px;max-height:100%;overflow:auto;scrollbar-width:none}
+.guide h1{font-size:22px;font-weight:600;margin:0;letter-spacing:-.01em;text-wrap:balance}
+.guide .sub{margin:6px 0 0;font-size:13px;color:var(--guide-dim);line-height:1.6}
+.guide h2{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--guide-dim);font-weight:500;margin:0 0 10px}
+.how{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.how li{display:grid;grid-template-columns:22px 1fr;gap:10px;font-size:13px;line-height:1.55}
+.how i{font-style:normal;width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.07);display:grid;place-items:center;font-size:11px;font-weight:600;color:var(--guide-dim);margin-top:-1px}
+.how b{font-weight:500;color:#fff}
+.how span{color:var(--guide-dim)}
+.jump{display:flex;flex-direction:column;gap:2px}
+.jump .grp{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--guide-dim);opacity:.7;padding:10px 10px 4px}
+.jump .grp:first-child{padding-top:0}
+.jump button{text-align:left;padding:8px 10px;border-radius:12px;font-size:13.5px;line-height:1.4;color:var(--guide-dim);transition:background .15s}
+.jump button:hover{background:rgba(255,255,255,.05)}
+.jump button.on{background:rgba(192,240,0,.07);box-shadow:inset 0 0 0 1px rgba(192,240,0,.5);color:var(--lime);font-weight:500}
+.guide .note{font-size:12px;line-height:1.65;color:var(--guide-dim);border-top:1px solid var(--stage-line);padding-top:14px;margin:0}
+
+/* compact bar when the guide is hidden */
+.mini{display:none;align-items:center;gap:8px;width:100%;max-width:420px;box-sizing:border-box;font-size:12.5px;line-height:1.4;color:var(--guide-dim);min-height:22px}
+.mini b{color:var(--lime);font-weight:600;flex:none}
+.mini span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* ---------- device ---------- */
+.devwrap{flex:none;position:relative}
+.device{position:relative;width:max-content;border-radius:62px;padding:10px;box-sizing:content-box;background:#1D1719;transform-origin:top left;
+  box-shadow:0 0 0 1px #2c2427,0 40px 80px -30px rgba(0,0,0,.8)}
+.app{width:393px;height:852px;border-radius:52px;overflow:hidden;overflow:clip;position:relative;background:var(--ink);isolation:isolate;
+  user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+.app img{-webkit-user-drag:none;user-select:none;display:block}
+.scr{position:absolute;inset:0;overflow:hidden;background:var(--ink)}
+.full{position:absolute;left:0;top:0;width:393px;height:852px}
+.fadein{animation:fadein .28s ease both}
+.pushin{animation:pushin .34s cubic-bezier(.2,.9,.3,1) both}
+.pushout{animation:pushout .3s cubic-bezier(.4,0,.6,1) both}
+@keyframes fadein{from{opacity:0}}
+@keyframes pushin{from{transform:translateX(100%)}}
+@keyframes pushout{to{transform:translateX(100%)}}
+.hot{position:absolute;border-radius:14px;z-index:6;transition:background .12s}
+.hot:active{background:rgba(255,255,255,.1)}
+.pill{border-radius:999px}
+.round{border-radius:50%}
+
+/* ---------- Me hero: 3D you + stickers ---------- */
+.hero{position:absolute;left:0;top:0;width:393px;height:455px;border-radius:0 0 40px 40px;overflow:hidden;touch-action:none;cursor:grab;z-index:1}
+.hero.grab{cursor:grabbing}
+.av3d{position:absolute;inset:0;perspective:900px;pointer-events:none}
+.av3d img{position:absolute;left:56.8px;top:137px;width:280.6px;height:335.8px;transform-origin:50% 62%;will-change:transform}
+#stk{position:absolute;inset:0;pointer-events:none}
+.sk{position:absolute;left:0;top:0;will-change:transform}
+.sk img{width:100%;height:100%}
+.sk.hit img{animation:squash .26s ease-out}
+.sk.out img{animation:out .26s ease-in forwards}
+@keyframes squash{0%{transform:scale(.82)}60%{transform:scale(1.08)}100%{transform:none}}
+@keyframes out{0%{transform:scale(1.15)}100%{transform:scale(0);opacity:0}}
+.ui{position:absolute;left:0;top:0;width:393px;pointer-events:none;z-index:2;transition:opacity .25s}
+#meui{height:455px}
+#s1ui{height:110px;opacity:0}
+.edit #meui{opacity:0}
+.edit #s1ui{opacity:1}
+.mode-edit{display:none}
+.edit .mode-edit{display:block}
+.edit .mode-me{display:none}
+
+/* ---------- Edit stickers: list below ---------- */
+.sheet{position:absolute;left:0;top:455px;width:393px;height:397px;background:var(--ink);overflow-y:auto;overscroll-behavior:contain;
+  scrollbar-width:none;touch-action:pan-y;z-index:3;transform:translateY(100%);transition:transform .38s cubic-bezier(.2,.9,.3,1)}
+.sheet::-webkit-scrollbar{display:none}
+.edit .sheet{transform:none}
+.sh-head{display:flex;align-items:center;justify-content:space-between;padding:22px 20px 0}
+.sh-head h3{margin:0;font-size:17px;line-height:26px;font-weight:600}
+.lib{display:flex;align-items:center;gap:4px;font-size:14px;font-weight:500;color:rgba(255,255,255,.7);padding:4px 0 4px 10px}
+.lib svg{width:12px;height:12px}
+.tiles{display:grid;grid-template-columns:repeat(3,110px);justify-content:space-between;row-gap:11.5px;padding:16px 20px 40px}
+.tile{position:relative;width:110px;height:110px;border-radius:20px;background:rgba(255,255,255,.05);display:grid;place-items:center;transition:background .15s,transform .12s}
+.tile.on{background:rgba(255,255,255,.1)}
+.tile:active{transform:scale(.95)}
+.rd{position:absolute;left:82px;top:8px;width:20px;height:20px;border-radius:50%;background:rgba(0,0,0,.28);box-shadow:inset 0 0 0 1px rgba(255,255,255,.07);display:grid;place-items:center;transition:background .15s}
+.rd svg{width:12px;height:12px;opacity:0;transition:opacity .15s}
+.on .rd{background:#fff;box-shadow:none}
+.on .rd svg{opacity:1}
+
+/* ---------- Library (awards wall) ---------- */
+.scroll{position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none;background:var(--ink)}
+.scroll::-webkit-scrollbar{display:none}
+.scroll img{width:393px;height:1552px}
+
+/* ---------- Edit avatar ---------- */
+.a1stage{position:absolute;left:16px;top:102px;width:361px;height:628px;border-radius:32px;overflow:hidden;touch-action:none;cursor:grab;z-index:1}
+.a1box{position:absolute;left:-4px;top:70px;width:370px;height:444px;overflow:hidden;perspective:1000px;pointer-events:none}
+.a1box img{position:absolute;left:0;top:-9.25px;width:370px;height:462.5px;transform-origin:50% 50%;will-change:transform}
+.a1box.b{height:453px}
+.a1box.b img{top:-.25px}
+.flash{position:absolute;inset:0;background:#fff;z-index:9;pointer-events:none;animation:flash .4s ease-out forwards}
+@keyframes flash{from{opacity:.85}to{opacity:0}}
+
+@media (max-width:820px){
+  .guide{display:none}
+  .stage{flex-direction:column;gap:10px}
+  .mini{display:flex}
+}
+/* real phone: the demo is the whole screen */
+@media (max-width:560px){
+  .stage{padding:8px 0 0;gap:6px;justify-content:flex-start}
+  .mini{padding-inline:max(14px,env(safe-area-inset-left,0px)) max(14px,env(safe-area-inset-right,0px))}
+  .device{padding:0;border-radius:0;background:none;box-shadow:none}
+  .app{border-radius:0}
+}
+@media (prefers-reduced-motion:reduce){.fadein,.pushin,.pushout{animation-duration:.01s}}
+</style>
+<div class="stage">
+  <aside class="guide" aria-label="Demo guide">
+    <div>
+      <h1>Wanaka · Me</h1>
+      <p class="sub">来到 Me，3D 贴纸从上面掉下来，落在你的 3D 两边。手机和电脑都能玩。</p>
+    </div>
+    <div>
+      <h2>怎么玩</h2>
+      <ol class="how">
+        <li><i>1</i><div><b>点贴纸</b><br><span>抛起来，再自然落下</span></div></li>
+        <li><i>2</i><div><b>拖动 3D 形象</b><br><span>轻轻转一下，松手弹回</span></div></li>
+        <li><i>3</i><div><b>Edit stickers</b><br><span>下面列表点一下加进来，再点一下拿走</span></div></li>
+        <li><i>4</i><div><b>Library</b><br><span>看 Awards 墙</span></div></li>
+        <li><i>5</i><div><b>Edit avatar</b><br><span>自拍 → 生成新的 3D</span></div></li>
+      </ol>
+    </div>
+    <div>
+      <h2>画面</h2>
+      <div class="jump" id="jump">
+        <div class="grp">Me</div>
+        <button type="button" data-k="me">Me</button>
+        <button type="button" data-k="edit">Edit stickers</button>
+        <button type="button" data-k="lib">Library · Awards</button>
+        <div class="grp">Edit avatar</div>
+        <button type="button" data-k="a1">Your 3D</button>
+        <button type="button" data-k="a2">Take a selfie</button>
+        <button type="button" data-k="a3">Looks good?</button>
+        <button type="button" data-k="a4">Making the 3D you</button>
+      </div>
+    </div>
+    <p class="note">画面来自 Figma「1119 Me」。</p>
+  </aside>
+  <div class="mini" id="mini"><b id="mname"></b><span id="mhint"></span></div>
+  <div class="devwrap" id="devwrap">
+    <div class="device" id="device">
+      <div class="app" id="app">
+
+        <section class="scr" id="s-me">
+          <img class="full" src="media/me1119/me-bg.webp" alt="">
+          <div class="hero" id="hero">
+            <div class="av3d"><img id="meav" src="media/me1119/me-avatar.webp" alt="Your 3D avatar"></div>
+            <div id="stk"></div>
+          </div>
+          <img class="ui" id="meui" src="media/me1119/me-ui.webp" alt="">
+          <img class="ui" id="s1ui" src="media/me1119/s1-top.webp" alt="">
+          <div class="mode-me">
+            <button type="button" class="hot pill" style="left:68px;top:409px;width:128px;height:38px" data-go="edit" aria-label="Edit stickers"></button>
+            <button type="button" class="hot pill" style="left:204px;top:409px;width:122px;height:38px" data-go="a1" aria-label="Edit avatar"></button>
+          </div>
+          <div class="mode-edit">
+            <button type="button" class="hot" style="left:8px;top:48px;width:82px;height:44px" id="cancel" aria-label="Cancel"></button>
+            <button type="button" class="hot pill" style="left:304px;top:56px;width:69px;height:33px" id="done" aria-label="Done"></button>
+          </div>
+          <div class="sheet" id="sheet">
+            <div class="sh-head">
+              <h3>My stickers</h3>
+              <button type="button" class="lib" data-go="lib">Library <svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 2.5 8 6l-3.5 3.5"/></svg></button>
+            </div>
+            <div class="tiles" id="tiles"></div>
+          </div>
+        </section>
+
+        <section class="scr" id="s-lib" hidden>
+          <div class="scroll" id="libscroll">
+            <img src="media/me1119/s4.webp" alt="Awards wall: 13 collected, 7 not yet" loading="lazy">
+            <button type="button" class="hot round" style="left:8px;top:44px;width:46px;height:46px" data-go="edit" aria-label="Back"></button>
+          </div>
+        </section>
+
+        <section class="scr" id="s-a1" hidden>
+          <img class="full" src="media/me1119/a1-base.webp" alt="">
+          <div class="a1stage" id="a1stage"><div class="a1box" id="a1box"><img id="a1av" src="media/me1119/a1-avatar.webp" alt="Your 3D avatar, full body"></div></div>
+          <button type="button" class="hot round" style="left:16px;top:50px;width:40px;height:40px" data-go="me" aria-label="Close"></button>
+          <button type="button" class="hot pill" style="left:16px;top:746px;width:176px;height:54px" data-go="a2" aria-label="Retake"></button>
+          <button type="button" class="hot pill" style="left:202px;top:746px;width:176px;height:54px" data-go="me" aria-label="Done"></button>
+        </section>
+
+        <section class="scr" id="s-a2" hidden>
+          <img class="full" src="media/me1119/a2.webp" alt="Take a selfie">
+          <button type="button" class="hot round" style="left:10px;top:45px;width:40px;height:40px" data-go="a1" aria-label="Close"></button>
+          <button type="button" class="hot round" style="left:56px;top:729px;width:47px;height:47px" data-go="a3" aria-label="Upload a photo"></button>
+          <button type="button" class="hot round" style="left:158px;top:714px;width:77px;height:77px" id="shutter" aria-label="Take photo"></button>
+        </section>
+
+        <section class="scr" id="s-a3" hidden>
+          <img class="full" src="media/me1119/a3.webp" alt="Looks good?">
+          <button type="button" class="hot round" style="left:10px;top:45px;width:40px;height:40px" data-go="a1" aria-label="Close"></button>
+          <button type="button" class="hot pill" style="left:16px;top:746px;width:175px;height:54px" data-go="a2" aria-label="Retake"></button>
+          <button type="button" class="hot pill" style="left:202px;top:746px;width:175px;height:54px" data-go="a4" aria-label="Use this"></button>
+        </section>
+
+        <section class="scr" id="s-a4" hidden>
+          <img class="full" src="media/me1119/a4.webp" alt="Making the 3D you">
+          <button type="button" class="hot round" style="left:16px;top:50px;width:40px;height:40px" data-go="a1" aria-label="Close"></button>
+          <button type="button" class="hot pill" style="left:16px;top:748px;width:361px;height:52px" data-go="me" aria-label="Ping me when it's ready"></button>
+        </section>
+
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+<script>
+(()=>{
+const $=s=>document.querySelector(s), W=393, H=852, M='media/me1119/';
+const rand=(a,b)=>a+Math.random()*(b-a);
+
+/* ---------- stickers (names + cut size in the sprite sheet) ---------- */
+const STK={disc:['Disc',141,152],star:['Star',141,151],like:['First like',151,152],splash:['Splash',151,117],mystery:['Mystery box',152,148],
+  globe:['Globe',153,150],sayhi:['Say hi',135,152],pc:['Retro PC',148,143],bug:['Pixel bug',153,101],coin:['Coin',130,152],
+  zap:['Zap',116,153],ghost:['Ghost',152,139],snack:['Snack',138,137]};
+const ORDER=['disc','star','like','splash','mystery','globe','sayhi','pc','bug','coin','zap','ghost','snack'];
+let inSpace=new Set(['disc','star','splash','mystery','globe','pc','bug','zap','ghost']);
+let snapshot=new Set(inSpace);
+
+/* ---------- screens ---------- */
+const SCR={me:'s-me',edit:'s-me',lib:'s-lib',a1:'s-a1',a2:'s-a2',a3:'s-a3',a4:'s-a4'};
+const NAME={me:'Me',edit:'Edit stickers',lib:'Library',a1:'Your 3D',a2:'Take a selfie',a3:'Looks good?',a4:'Making the 3D you'};
+const HINT={me:'点贴纸抛起来 · 拖动 3D 转一下',edit:'点一下加进来，再点一下拿走',lib:'Awards 墙 · 左上角返回',
+  a1:'拖动 3D 转一下 · Retake 重拍',a2:'点快门拍一张',a3:'Use this 开始生成',a4:'生成中，几秒后完成'};
+let cur='me', finish=null, a4timer=0, made=false;
+
+function swap(from,to,kind){
+  if(finish) finish();
+  if(from===to) return;
+  to.hidden=false;
+  const top=kind==='back'?from:to, under=kind==='back'?to:from;
+  top.style.zIndex=3; under.style.zIndex=2;
+  const cls=kind==='back'?'pushout':kind==='push'?'pushin':'fadein';
+  top.classList.add(cls);
+  let t;
+  finish=()=>{ clearTimeout(t); finish=null; from.hidden=true; top.classList.remove(cls); top.style.zIndex=under.style.zIndex=''; };
+  t=setTimeout(finish,kind==='back'?300:340);
+}
+
+function go(k){
+  const prev=cur; if(k===prev) return;
+  cur=k;
+  const fromEl=$('#'+SCR[prev]), toEl=$('#'+SCR[k]);
+  const meScr=$('#s-me');
+  clearTimeout(a4timer);
+  if(k==='edit'&&prev!=='lib') snapshot=new Set(inSpace);
+  if(k==='lib'&&prev!=='edit') snapshot=new Set(inSpace);
+  meScr.classList.toggle('edit',k==='edit'||k==='lib');
+  if(k==='edit'&&prev!=='lib') $('#sheet').scrollTop=0;
+  if(k==='lib') $('#libscroll').scrollTop=0;
+  if(k==='a1'){ $('#a1av').src=M+(made?'a1b-avatar.webp':'a1-avatar.webp'); $('#a1box').classList.toggle('b',made); }
+  if(k==='a4') a4timer=setTimeout(()=>{ made=true; go('a1'); },3600);
+  const kind=k==='lib'?'push':prev==='lib'?'back':'fade';
+  swap(fromEl,toEl,kind);
+  // coming back to Me from Edit avatar: the stickers drop back in
+  if((k==='me'||k==='edit')&&prev[0]==='a') dropAll();
+  phys=(k==='me'||k==='edit'||k==='lib');
+  renderTiles(); paint();
+  try{ history.replaceState(null,'','#'+k); }catch(e){}
+}
+document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.go)));
+$('#done').onclick=()=>go('me');
+$('#cancel').onclick=()=>{
+  ORDER.forEach(k=>{ if(snapshot.has(k)&&!inSpace.has(k)) add(k); else if(!snapshot.has(k)&&inSpace.has(k)) remove(k); });
+  go('me');
+};
+$('#shutter').onclick=()=>{
+  const f=document.createElement('div'); f.className='flash'; $('#s-a2').appendChild(f);
+  setTimeout(()=>{ f.remove(); go('a3'); },260);
+};
+document.querySelectorAll('#jump button').forEach(b=>b.addEventListener('click',()=>{
+  const k=b.dataset.k; if(k==='a1'&&cur!=='a1') made=false; go(k);
+}));
+function paint(){
+  document.querySelectorAll('#jump button').forEach(b=>b.classList.toggle('on',b.dataset.k===cur));
+  $('#mname').textContent=NAME[cur]; $('#mhint').textContent=HINT[cur];
+}
+
+/* ---------- list: tap to add, tap again to remove ---------- */
+const CHECK='<svg viewBox="0 0 12 12" fill="none" stroke="#140E10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.6 6.2 5 8.5l4.4-4.8"/></svg>';
+$('#tiles').innerHTML=ORDER.map(k=>{
+  const [n,w,h]=STK[k];
+  return `<button type="button" class="tile" data-k="${k}" aria-label="${n}"><img src="${M}stk-${k}.webp" alt="" style="width:${(w*.3875).toFixed(1)}px;height:${(h*.3875).toFixed(1)}px"><span class="rd">${CHECK}</span></button>`;
+}).join('');
+function renderTiles(){
+  document.querySelectorAll('.tile').forEach(t=>{ const on=inSpace.has(t.dataset.k); t.classList.toggle('on',on); t.setAttribute('aria-pressed',on); });
+}
+$('#tiles').addEventListener('click',e=>{
+  const t=e.target.closest('.tile'); if(!t) return;
+  const k=t.dataset.k;
+  if(inSpace.has(k)) remove(k); else add(k);
+  renderTiles();
+});
+
+/* ---------- physics: drop in, lie at the bottom, tap to toss ---------- */
+const {Engine,Bodies,Body,Composite,Query,Sleeping,Vertices}=Matter;
+const HW=393, HH=455, SC=.27, STEP=1000/60;
+const engine=Engine.create({positionIterations:8,velocityIterations:6}), world=engine.world;
+engine.gravity.y=1;
+Composite.add(world,[
+  Bodies.rectangle(HW/2,HH+40,HW*3,80,{isStatic:true,friction:.7}),
+  Bodies.rectangle(-40,-500,80,2200,{isStatic:true,friction:.1}),
+  Bodies.rectangle(HW+40,-500,80,2200,{isStatic:true,friction:.1})
+]);
+// the 3D you is a solid body: outline traced from the avatar's alpha, pulled in a little so stickers can tuck against the hair
+const HULL=[[69.4,398.1],[76.1,270.9],[80.3,239.1],[86.1,219],[92.8,203.9],[102.9,190.5],[117.1,175.5],[131.3,165.4],[169,157.1],[186.6,158.8],
+  [202.5,165.4],[217.6,175.5],[237.7,193.9],[246.1,205.6],[257.8,224],[267.9,244.1],[278.8,269.2],[314.8,356.2],[331.5,443.2],[331.5,458.3],
+  [317.3,461.6],[254.5,465],[152.3,465],[128.8,463.3],[85.3,460]].map(([x,y])=>({x:198+(x-198)*.92,y:y+6}));
+const hc=Vertices.centre(HULL);
+Composite.add(world,Bodies.fromVertices(hc.x,hc.y,[HULL],{isStatic:true,friction:.04}));
+
+const live=new Map();            // key -> {b, el}
+let gen=0;
+function spawn(k,x,y){
+  const [,w0,h0]=STK[k], w=w0*SC, h=h0*SC;
+  const b=Bodies.rectangle(x,y,w*.84,h*.84,{chamfer:{radius:5},restitution:.32,friction:.22,frictionAir:.012,density:.002,angle:rand(-.7,.7)});
+  Body.setAngularVelocity(b,rand(-.08,.08));
+  const el=document.createElement('div'); el.className='sk'; el.style.width=w+'px'; el.style.height=h+'px';
+  el.innerHTML=`<img src="${M}stk-${k}.webp" alt="">`;
+  $('#stk').appendChild(el);
+  b.k=k; b.w=w; b.h=h;
+  Composite.add(world,b); live.set(k,{b,el}); place(b,el);
+}
+function add(k){ inSpace.add(k); if(live.has(k)) return; spawn(k,rand(40,HW-40),rand(-70,-40)); wakeAll(); }
+function remove(k){
+  inSpace.delete(k);
+  const s=live.get(k); if(!s) return;
+  live.delete(k); Composite.remove(world,s.b);
+  s.el.classList.add('out'); setTimeout(()=>s.el.remove(),280);
+  wakeAll();
+}
+function dropAll(){
+  const g=++gen;
+  live.forEach(s=>{ Composite.remove(world,s.b); s.el.remove(); }); live.clear();
+  ORDER.filter(k=>inSpace.has(k)).forEach((k,i)=>setTimeout(()=>{
+    if(g!==gen||!inSpace.has(k)||live.has(k)) return;
+    spawn(k,rand(30,HW-30),rand(-60,-30));
+  },180+i*120));
+}
+function wakeAll(){ live.forEach(s=>Sleeping.set(s.b,false)); }
+function toss(b,el){
+  wakeAll();
+  const side=b.position.x<HW/2?1:-1;
+  Body.setVelocity(b,{x:rand(-2.2,2.2)+side*1.4,y:rand(-17,-13.5)});
+  Body.setAngularVelocity(b,rand(-.32,.32));
+  el.classList.remove('hit'); void el.offsetWidth; el.classList.add('hit');
+}
+function place(b,el){
+  el.style.transform=`translate(${(b.position.x-b.w/2).toFixed(1)}px,${(b.position.y-b.h/2).toFixed(1)}px) rotate(${b.angle.toFixed(3)}rad)`;
+}
+
+/* ---------- drag the 3D you: turns a little, springs back ---------- */
+function turner(img,max){
+  let a=0,v=0,held=false,base=0;
+  return {
+    start(){ held=true; base=a; v=0; },
+    move(dx){ a=Math.max(-max,Math.min(max,base+dx*.28)); },
+    end(){ held=false; },
+    tick(){
+      if(!held){ v+=-a*.085; v*=.8; a+=v; if(Math.abs(a)<.02&&Math.abs(v)<.02){ a=0; v=0; } }
+      img.style.transform=a?`rotateY(${a.toFixed(2)}deg)`:'';
+    }
+  };
+}
+const meTurn=turner($('#meav'),30), a1Turn=turner($('#a1av'),34);
+
+function local(el,e){ const r=el.getBoundingClientRect(), s=el.offsetWidth/r.width; return {x:(e.clientX-r.left)*s,y:(e.clientY-r.top)*s}; }
+function bindDrag(el,t,onDown){
+  let id=null,x0=0,moved=false;
+  el.addEventListener('pointerdown',e=>{
+    if(id!==null) return;
+    if(onDown&&onDown(e)) return;
+    id=e.pointerId; x0=e.clientX; moved=false;
+    try{ el.setPointerCapture(id); }catch(_){}
+    el.classList.add('grab'); t.start();
+  });
+  el.addEventListener('pointermove',e=>{
+    if(e.pointerId!==id) return;
+    const r=el.getBoundingClientRect(), s=el.offsetWidth/r.width, dx=(e.clientX-x0)*s;
+    if(Math.abs(dx)>4) moved=true;
+    t.move(dx);
+  });
+  const up=e=>{ if(e.pointerId!==id) return; id=null; el.classList.remove('grab'); t.end(); };
+  el.addEventListener('pointerup',up); el.addEventListener('pointercancel',up);
+}
+// on the Me hero: a press on a sticker tosses it; anywhere else turns the 3D
+bindDrag($('#hero'),meTurn,e=>{
+  const p=local($('#hero'),e);
+  const bodies=[...live.values()].map(s=>s.b);
+  let hit=Query.point(bodies,p).pop();
+  if(!hit){
+    let best=26;
+    bodies.forEach(b=>{ const d=Math.hypot(b.position.x-p.x,b.position.y-p.y)-Math.max(b.w,b.h)/2; if(d<best){ best=d; hit=b; } });
+  }
+  if(!hit) return false;
+  toss(hit,live.get(hit.k).el);
+  return true;
+});
+bindDrag($('#a1stage'),a1Turn);
+
+/* ---------- loop ---------- */
+let phys=true, last=0, acc=0;
+function loop(t){
+  requestAnimationFrame(loop);
+  const dt=Math.min(t-last,60); last=t;
+  if(phys){
+    acc+=dt; let n=0;
+    while(acc>=STEP&&n<4){ Engine.update(engine,STEP); acc-=STEP; n++; }
+    if(n===4) acc=0;
+    live.forEach(s=>{
+      const b=s.b;
+      if(b.position.y>HH+80||b.position.x<-60||b.position.x>HW+60){ Body.setPosition(b,{x:rand(40,HW-40),y:-40}); Body.setVelocity(b,{x:0,y:0}); }
+      place(b,s.el);
+    });
+  }
+  if(cur==='me'||cur==='edit') meTurn.tick();
+  if(cur==='a1') a1Turn.tick();
+}
+
+/* ---------- fit the phone to the window ---------- */
+function fit(){
+  const w=$('#devwrap'), d=$('#device'), phone=innerWidth<=560;
+  const miniH=getComputedStyle($('#mini')).display==='none'?0:$('#mini').offsetHeight+(phone?6:10);
+  const bez=phone?0:20, availH=innerHeight-(phone?8:48)-miniH, availW=innerWidth-(phone?0:32);
+  const s=Math.min(phone?9:1,availH/(H+bez),availW/(W+bez));
+  d.style.transform=`scale(${s})`; w.style.width=(W+bez)*s+'px'; w.style.height=(H+bez)*s+'px';
+}
+addEventListener('resize',fit);
+if(document.fonts) document.fonts.ready.then(fit);
+addEventListener('load',fit);
+
+['a1-base','a1-avatar','a1b-avatar','a2','a3','a4','s4'].forEach(k=>{ const i=new Image(); i.src=M+k+'.webp'; });
+
+renderTiles(); paint(); fit();
+requestAnimationFrame(t=>{ last=t; requestAnimationFrame(loop); });
+const start=location.hash.slice(1);
+if(SCR[start]&&start!=='me'){
+  if(start[0]==='a'){ go(start); }
+  else { dropAll(); go(start); }
+} else dropAll();
+})();
+</script>
+
+</html>
