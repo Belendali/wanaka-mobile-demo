@@ -100,6 +100,23 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .pin{position:absolute;left:0;top:0;width:393px;height:92px;background-repeat:no-repeat;background-size:393px auto;z-index:4;pointer-events:none;
   -webkit-mask-image:linear-gradient(#000 74%,transparent);mask-image:linear-gradient(#000 74%,transparent)}
 
+/* Top: one game per swipe, the bars stay. Full layout = frame "Top", slim layout = frame "Top · scrolled" */
+.reel{position:absolute;inset:0;overflow:hidden;background:var(--ink)}
+.rtrack{position:absolute;inset:0;transition:transform .36s cubic-bezier(.2,.9,.3,1);will-change:transform}
+.rtrack.hold{transition:none}
+.ritem{position:absolute;left:0;top:0;width:393px;height:852px}
+.rvid{position:absolute;left:8px;top:80px;width:377px;height:609px;object-fit:cover;border-radius:40px;transition:top .22s ease,height .22s ease}
+.rinfo{position:absolute;left:16px;top:701px;width:361px;height:59px;transition:top .22s ease}
+.scr[data-k="topS"] .rvid{top:76px;height:623px}
+.scr[data-k="topS"] .rinfo{top:711px}
+.rbar{position:absolute;left:0;width:393px;z-index:3;pointer-events:none;background-repeat:no-repeat;background-size:393px 852px;transition:opacity .2s}
+.rbar.ft{top:0;height:80px;background-position:0 0}
+.rbar.fb{top:762px;height:90px;background-position:0 -762px}
+.rbar.st{top:0;height:76px;background-position:0 0;opacity:0}
+.rbar.sb{top:772px;height:80px;background-position:0 -772px;opacity:0}
+.scr[data-k="topS"] .rbar.ft,.scr[data-k="topS"] .rbar.fb{opacity:0}
+.scr[data-k="topS"] .rbar.st,.scr[data-k="topS"] .rbar.sb{opacity:1}
+
 /* ---------- live pieces on top of the board screens ---------- */
 #cat{position:absolute;left:178.5px;top:764px;width:36px;height:36px;z-index:5;pointer-events:none;transition:left .22s ease,top .22s ease,width .22s ease,height .22s ease,opacity .14s}
 #cat.compact{left:181.3px;top:774px;width:30.6px;height:30.6px}
@@ -162,7 +179,7 @@ html.bars body{min-height:calc(100lvh + 320px)}
       <h2>怎么玩</h2>
       <ol class="how">
         <li><i>1</i><div><b>底部 Tab</b><br><span>Home、Library、Create、Chats、Me</span></div></li>
-        <li><i>2</i><div><b>Top</b><br><span>上滑收起导航，下滑展开。停留几秒，小礼物会涨水</span></div></li>
+        <li><i>2</i><div><b>Top</b><br><span>上下滑切换游戏，上滑时导航收起。停留几秒，小礼物会涨水</span></div></li>
         <li><i>3</i><div><b>Create</b><br><span>选视频或照片 → 编辑 → Publish</span></div></li>
         <li><i>4</i><div><b>右上角小礼物</b><br><span>Earn、Exchange、Achievements、Stickers</span></div></li>
       </ol>
@@ -244,6 +261,9 @@ const GROUPS=[['Home',['foryou','top','topS','rooms']],['Library',['libG','libM'
 
 let cur=null, el=null, stack=[], linked=false, token=0, progress=60, gainT=0, clearT=0;
 const pos={};
+/* Top feed: Dark Room is the board's frame, the others reuse game covers and stats from For you / Rooms */
+const REEL=[['dark','Dark Room'],['sling','Slingshot Menace'],['neon','Wanaka Neon'],['still','Stillwater Garden']], STEP=716;
+let reelPos=0;
 const last={home:'foryou',library:'libG',chats:'chat',me:'me'};
 
 const nav=(k,m)=>{ stack.push([cur,m]); show(k,m); };
@@ -274,8 +294,8 @@ const CHAT=[h(241,52,40,40,()=>swap('chatF'),'Filter')];
 
 const S={
   foryou:{tab:'home',feed:{img:'foryou-content',bars:'foryou-chrome',h:1318},hot:[...HOME,...TAB]},
-  top:{tab:'home',hot:[...HOME,h(16,702,132,46,()=>nav('otherP','push'),'Creator'),...TAB]},
-  topS:{tab:'home',compact:1,hot:[...HOMEC,h(16,712,132,46,()=>nav('otherP','push'),'Creator'),...TABC]},
+  top:{tab:'home',reel:1,hot:[...HOME,h(16,702,132,46,()=>nav('otherP','push'),'Creator'),...TAB]},
+  topS:{tab:'home',reel:1,compact:1,hot:[...HOMEC,h(16,712,132,46,()=>nav('otherP','push'),'Creator'),...TABC]},
   rooms:{tab:'home',feed:{img:'rooms-content',bars:'rooms-chrome',h:1022},hot:[...HOME,...TAB]},
   libG:{tab:'library',hot:[...LIB,h(316,632,62,36,()=>tabTo('top'),'Play Dark Room'),...TAB]},
   libM:{tab:'library',hot:[...LIB,...TAB]},
@@ -312,7 +332,11 @@ function addHot(box,a){
 }
 function mount(k){
   const s=S[k], n=document.createElement('div'); n.className='scr'; n.dataset.k=k;
-  if(s.feed){
+  if(s.reel){
+    const b=(c,f)=>`<div class="rbar ${c}" style="background-image:url(${M+f}.webp)"></div>`;
+    n.innerHTML=`<div class="reel"><div class="rtrack"></div></div>`+b('ft','top')+b('fb','top')+b('st','topS')+b('sb','topS');
+    syncReel(n);
+  } else if(s.feed){
     n.innerHTML=`<div class="scroll"><div class="tall" style="height:${s.feed.h}px"><img src="${M+s.feed.img}.webp" alt="${NAMES[k]}" style="height:${s.feed.h}px"></div></div><div class="topcover"></div><div class="barblur"></div><img class="bars-on" src="${M+s.feed.bars}.webp" alt="">`;
   } else if(s.tall){
     n.innerHTML=`<div class="scroll"><div class="tall" style="height:${s.tall}px"><img src="${M+k}.webp" alt="${NAMES[k]}" style="height:${s.tall}px"></div></div><div class="pin" style="background-image:url(${M+k}.webp)"></div>`;
@@ -327,7 +351,26 @@ function sheetParts(n,y){
   img.style.clipPath=`inset(${y}px 0 0 0 round 32px 32px 0 0)`; img.style.setProperty('--d',(H-y)+'px');
   return {img,bd};
 }
+function syncReel(box){
+  const t=box&&box.querySelector('.rtrack'); if(!t) return;
+  t.style.transform=`translateY(${-reelPos*STEP}px)`;
+  const want=[]; for(let p=Math.max(0,reelPos-1);p<=reelPos+2;p++) want.push(p);
+  [...t.children].forEach(c=>{ if(!want.includes(+c.dataset.p)) c.remove(); });
+  want.forEach(p=>{ if(t.querySelector(`[data-p="${p}"]`)) return;
+    const g=REEL[p%REEL.length], d=document.createElement('div'); d.className='ritem'; d.dataset.p=p; d.style.transform=`translateY(${p*STEP}px)`;
+    d.innerHTML=`<img class="rvid" src="${M}reel-${g[0]}.webp" alt="${g[1]}"><img class="rinfo" src="${M}reel-${g[0]}-info.webp" alt="">`; t.appendChild(d); });
+}
+function reelStep(dir){
+  if(dir>0){ reelPos++; if(cur!=='topS') swap('topS'); }
+  else { if(reelPos>0) reelPos--; if(cur!=='top') swap('top'); }
+  syncReel(el);
+}
 function show(k,mode){
+  if(el&&S[cur].reel&&S[k].reel){ // Top <-> Top · scrolled: same feed, only the bars change
+    if(k===cur) return;
+    el.dataset.k=k; [...el.children].forEach(c=>{ if(c.classList.contains('hot')) c.remove(); });
+    S[k].hot.forEach(a=>addHot(el,a)); cur=k; chrome(k); return;
+  }
   const box=$('#screens'), old=el, t=++token;
   [...box.children].forEach(c=>{ if(c!==old) c.remove(); });
   if(old){ const sc=old.querySelector('.scroll'); if(sc) pos[old.dataset.k]=sc.scrollTop;
@@ -385,17 +428,27 @@ function gain(){
 setLevel();
 
 /* ---------- Top: swipe up / down ---------- */
-const app=$('#app'); let sy=null, moved=false, wheelT=0;
-app.addEventListener('pointerdown',e=>{ sy=e.clientY; moved=false; },true);
-app.addEventListener('pointermove',e=>{ if(sy!==null&&Math.abs(e.clientY-sy)>10) moved=true; },true);
-app.addEventListener('pointerup',e=>{ if(sy===null) return; const dy=e.clientY-sy; sy=null;
-  if(cur==='top'&&dy<-36) swap('topS'); else if(cur==='topS'&&dy>36) swap('top'); },true);
-app.addEventListener('pointercancel',()=>{ sy=null; },true);
-app.addEventListener('click',e=>{ if(moved&&(cur==='top'||cur==='topS'||S[cur].feed||S[cur].tall)){ e.stopPropagation(); e.preventDefault(); } moved=false; },true);
+const app=$('#app'); let sy=null, st=0, moved=false, wheelT=0, wheelL=0;
+const zoom=()=>app.getBoundingClientRect().height/H;
+const reelTrack=()=>S[cur].reel&&el?el.querySelector('.rtrack'):null;
+app.addEventListener('pointerdown',e=>{ if(!e.isPrimary) return; sy=e.clientY; st=e.timeStamp; moved=false; },true);
+addEventListener('pointermove',e=>{ if(sy===null||!e.isPrimary) return; const d=e.clientY-sy;
+  if(Math.abs(d)>10) moved=true;
+  const t=reelTrack(); if(!t||!moved) return;
+  const y=d/zoom(), pull=reelPos===0&&y>0?y*.28:y; // first game: rubber band
+  t.classList.add('hold'); t.style.transform=`translateY(${-reelPos*STEP+pull}px)`; },true);
+addEventListener('pointerup',e=>{ if(sy===null||!e.isPrimary) return; const y=(e.clientY-sy)/zoom(), dt=e.timeStamp-st; sy=null;
+  const t=reelTrack(); if(!t) return; t.classList.remove('hold'); if(!moved) return;
+  if(Math.abs(y)>110||(Math.abs(y)>36&&dt<260)) reelStep(y<0?1:-1); else syncReel(el); },true);
+addEventListener('pointercancel',()=>{ sy=null; const t=reelTrack(); if(t){ t.classList.remove('hold'); syncReel(el); } },true);
+app.addEventListener('click',e=>{ if(moved&&(S[cur].reel||S[cur].feed||S[cur].tall)){ e.stopPropagation(); e.preventDefault(); } moved=false; },true);
 app.addEventListener('wheel',e=>{
   if(S[cur].feed){ const sc=el.querySelector('.scroll'); if(sc&&!sc.contains(e.target)) sc.scrollTop+=e.deltaY; return; }
-  if(cur!=='top'&&cur!=='topS') return; const now=Date.now(); if(now<wheelT) return;
-  if(e.deltaY>12&&cur==='top'){ swap('topS'); wheelT=now+500; } else if(e.deltaY<-12&&cur==='topS'){ swap('top'); wheelT=now+500; } },{passive:true});
+  if(!S[cur].reel) return;
+  // one step per trackpad flick: its inertia keeps sending events
+  const now=Date.now(), fresh=now-wheelL>160; wheelL=now;
+  if((!fresh&&now<wheelT)||Math.abs(e.deltaY)<=12) return;
+  reelStep(e.deltaY>0?1:-1); wheelT=now+900; },{passive:true});
 
 /* ---------- scrolling pages: mouse drag with a little momentum (touch scrolls natively) ---------- */
 let drag=null, flick=0;
@@ -460,6 +513,7 @@ if(document.fonts) document.fonts.ready.then(fit);
 addEventListener('load',fit);
 
 Object.keys(S).forEach(k=>{ const f=S[k].feed; (f?[f.img,f.bars]:[k]).forEach(n=>{ const i=new Image(); i.src=M+n+'.webp'; }); });
+REEL.forEach(g=>['','-info'].forEach(x=>{ const i=new Image(); i.src=M+'reel-'+g[0]+x+'.webp'; }));
 fit();
 function boot(){ const start=location.hash.slice(1); if(start==='meG') linked=true; show(S[start]?start:'foryou','fade'); }
 let top0=true; try{ top0=window.top===window; }catch(_){ top0=false; }
