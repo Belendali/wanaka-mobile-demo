@@ -94,9 +94,15 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .scroll{cursor:grab}
 .scroll.drag{cursor:grabbing}
 /* Home: content scrolls under the fixed top bar and tab bar */
-.barblur{position:absolute;left:27px;top:776px;width:340px;height:52px;border-radius:999px;z-index:3;pointer-events:none;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
-.topcover{position:absolute;left:0;top:0;width:393px;height:82px;z-index:3;pointer-events:none;background:linear-gradient(var(--ink) 86%,transparent)}
-.bars-on{position:absolute;left:0;top:0;width:393px;height:852px;z-index:4;pointer-events:none}
+.barblur{position:absolute;left:26.5px;top:776px;width:340px;height:52px;border-radius:999px;z-index:3;pointer-events:none;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);transition:left .22s ease,top .22s ease,width .22s ease,height .22s ease}
+.topcover{position:absolute;left:0;top:0;width:393px;height:82px;z-index:3;pointer-events:none;background:linear-gradient(var(--ink) 86%,transparent);transition:height .22s ease}
+.bars-on{position:absolute;left:0;top:0;width:393px;height:852px;z-index:4;pointer-events:none;transition:opacity .2s}
+.bars-on.slim{opacity:0}
+/* scrolled down: same compact bars as "Top · scrolled" */
+.scr[data-slim] .bars-on{opacity:0}
+.scr[data-slim] .bars-on.slim{opacity:1}
+.scr[data-slim] .barblur{left:68.5px;top:786px;width:256px;height:42px}
+.scr[data-slim] .topcover{height:78px}
 .pin{position:absolute;left:0;top:0;width:393px;height:92px;background-repeat:no-repeat;background-size:393px auto;z-index:4;pointer-events:none;
   -webkit-mask-image:linear-gradient(#000 74%,transparent);mask-image:linear-gradient(#000 74%,transparent)}
 
@@ -179,7 +185,7 @@ html.bars body{min-height:calc(100lvh + 320px)}
       <h2>怎么玩</h2>
       <ol class="how">
         <li><i>1</i><div><b>底部 Tab</b><br><span>Home、Library、Create、Chats、Me</span></div></li>
-        <li><i>2</i><div><b>Top</b><br><span>上下滑切换游戏，上滑时导航收起。停留几秒，小礼物会涨水</span></div></li>
+        <li><i>2</i><div><b>Home</b><br><span>上滑收起导航，下滑展开。Top 一屏一个游戏，停留几秒小礼物会涨水</span></div></li>
         <li><i>3</i><div><b>Create</b><br><span>选视频或照片 → 编辑 → Publish</span></div></li>
         <li><i>4</i><div><b>右上角小礼物</b><br><span>Earn、Exchange、Achievements、Stickers</span></div></li>
       </ol>
@@ -264,6 +270,7 @@ const pos={};
 /* Top feed: Dark Room is the board's frame, the others reuse game covers and stats from For you / Rooms */
 const REEL=[['dark','Dark Room'],['sling','Slingshot Menace'],['neon','Wanaka Neon'],['still','Stillwater Garden']], STEP=716;
 let reelPos=0;
+const slim={}, feedY={};
 const last={home:'foryou',library:'libG',chats:'chat',me:'me'};
 
 const nav=(k,m)=>{ stack.push([cur,m]); show(k,m); };
@@ -277,10 +284,10 @@ const games=()=>swap(linked?'meG':'meGN');
 const h=(x,y,w,ht,fn,label,cls)=>({x,y,w,h:ht,fn,label,cls});
 const TAB=[h(34,770,54,60,()=>tabTo(last.home),'Home'),h(98,770,54,60,()=>tabTo(last.library),'Library'),
   h(162,762,70,68,()=>nav('createP','up'),'Create'),h(242,770,54,60,()=>tabTo(last.chats),'Chats'),h(306,770,54,60,()=>tabTo(last.me),'Me')];
-const TABC=[h(73,782,44,46,()=>tabTo('top'),'Home'),h(121,782,44,46,()=>tabTo(last.library),'Library'),
+const TABC=[h(73,782,44,46,()=>tabTo(last.home),'Home'),h(121,782,44,46,()=>tabTo(last.library),'Library'),
   h(169,772,56,56,()=>nav('createP','up'),'Create'),h(229,782,44,46,()=>tabTo(last.chats),'Chats'),h(277,782,44,46,()=>tabTo(last.me),'Me')];
 const HOME=[h(108,44,66,36,()=>swap('foryou'),'For you'),h(174,44,44,36,()=>swap('top'),'Top'),h(218,44,68,36,()=>swap('rooms'),'Rooms'),h(345,44,36,36,()=>nav('earn','push'),'Rewards')];
-const HOMEC=[h(120,44,54,30,()=>swap('foryou'),'For you'),h(174,44,38,30,()=>swap('topS'),'Top'),h(212,44,60,30,()=>swap('rooms'),'Rooms'),h(349,44,32,30,()=>nav('earn','push'),'Rewards')];
+const HOMEC=[h(120,44,54,30,()=>swap('foryou'),'For you'),h(174,44,38,30,()=>swap(cur==='topS'?'topS':'top'),'Top'),h(212,44,60,30,()=>swap('rooms'),'Rooms'),h(349,44,32,30,()=>nav('earn','push'),'Rewards')];
 const LIB=[h(135,44,62,36,()=>swap('libG'),'Games'),h(199,44,60,36,()=>swap('libM'),'Media'),h(14,44,34,36,()=>nav('libS','fade'),'Search')];
 const MET=[h(20,463,88,44,()=>swap('me'),'Post'),h(108,463,88,44,games,'My games'),h(196,463,88,44,()=>swap('meS'),'Saved'),h(285,463,88,44,()=>swap('meP'),'Played'),h(16,166,74,34,()=>swap('meP'),'Played stat')];
 const OTH=[h(21,52,40,40,back,'Back'),h(20,463,118,44,()=>swap('otherP'),'Post'),h(138,463,118,44,()=>swap('otherG'),'Games'),h(255,463,118,44,()=>swap('otherPl'),'Played')];
@@ -293,10 +300,10 @@ const PUB=[h(8,46,44,40,back,'Back'),h(20,384,353,64,()=>nav('addgame','sheet'),
 const CHAT=[h(241,52,40,40,()=>swap('chatF'),'Filter')];
 
 const S={
-  foryou:{tab:'home',feed:{img:'foryou-content',bars:'foryou-chrome',h:1318},hot:[...HOME,...TAB]},
+  foryou:{tab:'home',feed:{img:'foryou-content',bars:'foryou-chrome',slim:'foryou-chromeS',h:1318},hot:[...HOME,...TAB]},
   top:{tab:'home',reel:1,hot:[...HOME,h(16,702,132,46,()=>nav('otherP','push'),'Creator'),...TAB]},
   topS:{tab:'home',reel:1,compact:1,hot:[...HOMEC,h(16,712,132,46,()=>nav('otherP','push'),'Creator'),...TABC]},
-  rooms:{tab:'home',feed:{img:'rooms-content',bars:'rooms-chrome',h:1022},hot:[...HOME,...TAB]},
+  rooms:{tab:'home',feed:{img:'rooms-content',bars:'rooms-chrome',slim:'rooms-chromeS',h:1022},hot:[...HOME,...TAB]},
   libG:{tab:'library',hot:[...LIB,h(316,632,62,36,()=>tabTo('top'),'Play Dark Room'),...TAB]},
   libM:{tab:'library',hot:[...LIB,...TAB]},
   libS:{hot:[h(321,46,60,34,back,'Cancel')]},
@@ -337,12 +344,14 @@ function mount(k){
     n.innerHTML=`<div class="reel"><div class="rtrack"></div></div>`+b('ft','top')+b('fb','top')+b('st','topS')+b('sb','topS');
     syncReel(n);
   } else if(s.feed){
-    n.innerHTML=`<div class="scroll"><div class="tall" style="height:${s.feed.h}px"><img src="${M+s.feed.img}.webp" alt="${NAMES[k]}" style="height:${s.feed.h}px"></div></div><div class="topcover"></div><div class="barblur"></div><img class="bars-on" src="${M+s.feed.bars}.webp" alt="">`;
+    n.innerHTML=`<div class="scroll"><div class="tall" style="height:${s.feed.h}px"><img src="${M+s.feed.img}.webp" alt="${NAMES[k]}" style="height:${s.feed.h}px"></div></div><div class="topcover"></div><div class="barblur"></div><img class="bars-on" src="${M+s.feed.bars}.webp" alt=""><img class="bars-on slim" src="${M+s.feed.slim}.webp" alt="">`;
+    if(slim[k]) n.dataset.slim='1';
+    const sc=n.querySelector('.scroll'); sc.addEventListener('scroll',()=>feedScroll(k,sc),{passive:true});
   } else if(s.tall){
     n.innerHTML=`<div class="scroll"><div class="tall" style="height:${s.tall}px"><img src="${M+k}.webp" alt="${NAMES[k]}" style="height:${s.tall}px"></div></div><div class="pin" style="background-image:url(${M+k}.webp)"></div>`;
     (s.scrollHot||[]).forEach(a=>addHot(n.querySelector('.tall'),a));
   } else n.innerHTML=`<img class="full" src="${M+k}.webp" alt="${NAMES[k]}">`;
-  s.hot.forEach(a=>addHot(n,a));
+  hotsOf(k).forEach(a=>addHot(n,a));
   return n;
 }
 function sheetParts(n,y){
@@ -350,6 +359,22 @@ function sheetParts(n,y){
   bd.style.clipPath=`inset(0 0 ${H-y}px 0)`; n.style.background='transparent'; n.insertBefore(bd,img);
   img.style.clipPath=`inset(${y}px 0 0 0 round 32px 32px 0 0)`; img.style.setProperty('--d',(H-y)+'px');
   return {img,bd};
+}
+function hotsOf(k){ return S[k].feed&&slim[k]?[...HOMEC,...TABC]:S[k].hot; }
+function setSlim(k,on){
+  if(!!slim[k]===on) return; slim[k]=on;
+  if(cur!==k||!el) return;
+  if(on) el.dataset.slim='1'; else delete el.dataset.slim;
+  [...el.children].forEach(c=>{ if(c.classList.contains('hot')) c.remove(); });
+  hotsOf(k).forEach(a=>addHot(el,a));
+  $('#cat').classList.toggle('compact',on); $('#gift').classList.toggle('compact',on);
+}
+function feedScroll(k,sc){ // scrolling down collapses the bars, scrolling up brings them back
+  if(cur!==k||sc.closest('.scr')!==el) return;
+  const y=Math.max(0,Math.min(sc.scrollTop,sc.scrollHeight-sc.clientHeight)), f=feedY[k]||(feedY[k]={y:0,run:0}), d=y-f.y;
+  f.y=y; if(!d) return;
+  f.run=(d>0)===(f.run>0)?f.run+d:d;
+  if(y<=2) setSlim(k,false); else if(f.run>10) setSlim(k,true); else if(f.run<-10) setSlim(k,false);
 }
 function syncReel(box){
   const t=box&&box.querySelector('.rtrack'); if(!t) return;
@@ -366,6 +391,7 @@ function reelStep(dir){
   syncReel(el);
 }
 function show(k,mode){
+  if(el&&k===cur&&S[k].feed) return;
   if(el&&S[cur].reel&&S[k].reel){ // Top <-> Top · scrolled: same feed, only the bars change
     if(k===cur) return;
     el.dataset.k=k; [...el.children].forEach(c=>{ if(c.classList.contains('hot')) c.remove(); });
@@ -400,8 +426,9 @@ function show(k,mode){
 }
 function chrome(k){
   const s=S[k], onTab=!!s.tab, home=s.tab==='home';
-  $('#cat').classList.toggle('off',!onTab); $('#cat').classList.toggle('compact',!!s.compact);
-  $('#gift').classList.toggle('off',!home); $('#gift').classList.toggle('compact',!!s.compact);
+  const small=!!s.compact||!!(s.feed&&slim[k]);
+  $('#cat').classList.toggle('off',!onTab); $('#cat').classList.toggle('compact',small);
+  $('#gift').classList.toggle('off',!home); $('#gift').classList.toggle('compact',small);
   // Top frames have the gift baked in, so the live one covers it. Home feeds have no baked gift
   clearTimeout(clearT);
   if(s.feed) clearT=setTimeout(()=>$('#gift').classList.add('clear'),230); else $('#gift').classList.remove('clear');
@@ -443,6 +470,7 @@ addEventListener('pointerup',e=>{ if(sy===null||!e.isPrimary) return; const y=(e
 addEventListener('pointercancel',()=>{ sy=null; const t=reelTrack(); if(t){ t.classList.remove('hold'); syncReel(el); } },true);
 app.addEventListener('click',e=>{ if(moved&&(S[cur].reel||S[cur].feed||S[cur].tall)){ e.stopPropagation(); e.preventDefault(); } moved=false; },true);
 app.addEventListener('wheel',e=>{
+  cancelAnimationFrame(flick);
   if(S[cur].feed){ const sc=el.querySelector('.scroll'); if(sc&&!sc.contains(e.target)) sc.scrollTop+=e.deltaY; return; }
   if(!S[cur].reel) return;
   // one step per trackpad flick: its inertia keeps sending events
@@ -469,7 +497,9 @@ addEventListener('pointermove',e=>{ if(!drag) return;
 const endDrag=e=>{ if(!drag) return;
   const sc=drag.sc; let v=e.timeStamp-drag.lt>80?0:drag.v, p=sc.scrollTop, t=performance.now();
   drag=null; sc.classList.remove('drag');
-  const step=n=>{ const dt=Math.min(32,n-t); t=n; p+=v*dt; sc.scrollTop=p; v*=Math.pow(.995,dt);
+  const step=n=>{ const dt=Math.min(32,n-t), max=sc.scrollHeight-sc.clientHeight; t=n; p+=v*dt;
+    if(p<=0||p>=max){ sc.scrollTop=Math.max(0,Math.min(p,max)); return; } // stop at the ends
+    sc.scrollTop=p; v*=Math.pow(.995,dt);
     if(Math.abs(v)>.02&&sc.isConnected) flick=requestAnimationFrame(step); };
   if(Math.abs(v)>.05) flick=requestAnimationFrame(step);
 };
@@ -512,7 +542,7 @@ document.addEventListener('fullscreenchange',fit);
 if(document.fonts) document.fonts.ready.then(fit);
 addEventListener('load',fit);
 
-Object.keys(S).forEach(k=>{ const f=S[k].feed; (f?[f.img,f.bars]:[k]).forEach(n=>{ const i=new Image(); i.src=M+n+'.webp'; }); });
+Object.keys(S).forEach(k=>{ const f=S[k].feed; (f?[f.img,f.bars,f.slim]:[k]).forEach(n=>{ const i=new Image(); i.src=M+n+'.webp'; }); });
 REEL.forEach(g=>['','-info'].forEach(x=>{ const i=new Image(); i.src=M+'reel-'+g[0]+x+'.webp'; }));
 fit();
 function boot(){ const start=location.hash.slice(1); if(start==='meG') linked=true; show(S[start]?start:'foryou','fade'); }
