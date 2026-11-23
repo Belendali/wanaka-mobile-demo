@@ -10,6 +10,7 @@
 #   me.html   — the 4 Me versions (boards "1118" final + exploration), from app-me.html; screens in media/me/
 #   play.html — play & comment, portrait (board "1117 create" P1–P10), from app-play.html; screens in media/play/
 #   me1119.html — Me with physics 3D stickers + Edit stickers list + Library + Edit avatar (board "1119 Me"), from app-me1119.html; media/me1119/
+#   1122.html — launch version, all tabs (board "1122 V0.0"), from app-1122.html; screens in media/1122/
 cd "$(dirname "$0")" || exit 1
 page() {
   cat <<'HEAD'
@@ -25,7 +26,7 @@ page() {
 HEAD
   case "$1" in chat*|1105) printf "<script>window.WK_VER='chat'</script>\n" ;; esac
   case "$1" in *onb) printf "<script>window.WK_ONB=1</script>\n" ;; esac
-  case "$1" in 1105) cat app-1105.html ;; 1110) cat app-1110.html ;; me) cat app-me.html ;; play) cat app-play.html ;; me1119) cat app-me1119.html ;; *) cat app.html ;; esac
+  case "$1" in 1105) cat app-1105.html ;; 1110) cat app-1110.html ;; me) cat app-me.html ;; play) cat app-play.html ;; me1119) cat app-me1119.html ;; 1122) cat app-1122.html ;; *) cat app.html ;; esac
   printf '\n</html>\n'
 }
 page > index.html
@@ -43,4 +44,6 @@ page me > me.html
 page play > play.html
 # me1119.html — board "1119 Me": stickers fall in, tap to toss; #edit #lib #a1–#a4 open a screen
 page me1119 > me1119.html
-echo "built index.html + chat.html + onboarding.html + chat-onboarding.html + 1105.html + 1110.html + me.html + play.html + me1119.html"
+# 1122.html — board "1122 V0.0": the launch version, all tabs; #top #libG #createP #earn … open a screen
+page 1122 > 1122.html
+echo "built index.html + chat.html + onboarding.html + chat-onboarding.html + 1105.html + 1110.html + me.html + play.html + me1119.html + 1122.html"

@@ -1,0 +1,10 @@
+{
+  "name": "Wanaka",
+  "short_name": "Wanaka",
+  "start_url": "../../1122.html",
+  "scope": "../../",
+  "display": "standalone",
+  "background_color": "#140E10",
+  "theme_color": "#140E10",
+  "icons": [{ "src": "../me1119/touch-icon.png", "sizes": "180x180", "type": "image/png" }]
+}

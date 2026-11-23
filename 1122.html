@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#140E10">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<style>:root{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Wanaka Mobile</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="apple-mobile-web-app-title" content="Wanaka">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" href="media/me1119/touch-icon.png">
+<link rel="manifest" href="media/1122/manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap">
+<style>
+/* Wanaka mobile launch version — Figma section "1122 V0.0".
+   Screens are exported from the board (2x webp in media/1122/) without the status bar and the old Create cat.
+   Live on top: the new cat (from "New cat.gif"), the reward gift water wave, transitions, Top swipe. */
+:root{
+  --ink:#140E10; --lime:#C0F000;
+  --stage:#0C0809; --stage-line:#2A2225; --guide-fg:#E9E2E4; --guide-dim:#9D9295;
+  --font:"Poppins",ui-sans-serif,system-ui,-apple-system,"PingFang SC","Segoe UI",sans-serif;
+  color-scheme:dark;
+}
+html,body{height:100%}
+body{margin:0;background:var(--stage);color:#fff;font-family:var(--font);-webkit-font-smoothing:antialiased;overflow:hidden}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:2px solid var(--lime);outline-offset:2px}
+
+/* ---------- stage + guide ---------- */
+.stage{height:100%;display:flex;align-items:center;justify-content:center;gap:56px;box-sizing:border-box;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:24px}
+.guide{width:320px;flex:none;color:var(--guide-fg);display:flex;flex-direction:column;gap:22px;max-height:100%;overflow:auto;scrollbar-width:none}
+.guide::-webkit-scrollbar{display:none}
+.guide h1{font-size:22px;font-weight:600;margin:0;letter-spacing:-.01em;text-wrap:balance}
+.guide .sub{margin:6px 0 0;font-size:13px;color:var(--guide-dim);line-height:1.6}
+.guide h2{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--guide-dim);font-weight:500;margin:0 0 10px}
+.how{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.how li{display:grid;grid-template-columns:22px 1fr;gap:10px;font-size:13px;line-height:1.55}
+.how i{font-style:normal;width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.07);display:grid;place-items:center;font-size:11px;font-weight:600;color:var(--guide-dim);margin-top:-1px}
+.how b{font-weight:500;color:#fff}
+.how span{color:var(--guide-dim)}
+.jump{display:flex;flex-direction:column;gap:2px}
+.jump .grp{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--guide-dim);opacity:.7;padding:10px 10px 4px}
+.jump .grp:first-child{padding-top:0}
+.jump button{text-align:left;padding:7px 10px;border-radius:12px;font-size:13.5px;line-height:1.4;color:var(--guide-dim);transition:background .15s}
+.jump button:hover{background:rgba(255,255,255,.05)}
+.jump button.on{background:rgba(192,240,0,.07);box-shadow:inset 0 0 0 1px rgba(192,240,0,.5);color:var(--lime);font-weight:500}
+.guide .note{font-size:12px;line-height:1.65;color:var(--guide-dim);border-top:1px solid var(--stage-line);padding-top:14px;margin:0}
+.mini{display:none;align-items:center;gap:8px;width:100%;max-width:420px;box-sizing:border-box;font-size:12.5px;line-height:1.4;color:var(--guide-dim);min-height:22px}
+.mini b{color:var(--lime);font-weight:600;flex:none}
+
+/* ---------- device ---------- */
+.devwrap{flex:none;position:relative}
+.device{position:relative;width:max-content;border-radius:62px;padding:10px;box-sizing:content-box;background:#1D1719;transform-origin:top left;
+  box-shadow:0 0 0 1px #2c2427,0 40px 80px -30px rgba(0,0,0,.8)}
+.app{width:393px;height:852px;border-radius:52px;overflow:hidden;overflow:clip;position:relative;background:var(--ink);isolation:isolate;
+  user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;touch-action:none}
+.app img{-webkit-user-drag:none;user-select:none;display:block}
+#screens{position:absolute;inset:0;z-index:1}
+.scr{position:absolute;inset:0;overflow:hidden;background:var(--ink)}
+.full{position:absolute;left:0;top:0;width:393px;height:852px}
+.hot{position:absolute;border-radius:14px;z-index:6;transition:background .12s}
+.hot:active{background:rgba(255,255,255,.1)}
+.hot.nofb:active{background:none}
+
+/* transitions */
+.a-fade{animation:fadein .18s ease both}
+.a-fadeout{animation:fadeout .24s ease both}
+.a-push{animation:pushin .32s cubic-bezier(.2,.9,.3,1) both}
+.a-pop{animation:pushout .26s cubic-bezier(.4,0,.6,1) both}
+.a-up{animation:upin .36s cubic-bezier(.2,.9,.3,1) both}
+.a-drop{animation:dropout .28s cubic-bezier(.4,0,.6,1) both}
+.sheetin{animation:sheetin .34s cubic-bezier(.2,.9,.3,1) both}
+.sheetout{animation:sheetout .26s cubic-bezier(.4,0,.6,1) both}
+@keyframes fadein{from{opacity:0}}
+@keyframes fadeout{to{opacity:0}}
+@keyframes pushin{from{transform:translateX(100%)}}
+@keyframes pushout{to{transform:translateX(100%)}}
+@keyframes upin{from{transform:translateY(100%)}}
+@keyframes dropout{to{transform:translateY(100%)}}
+@keyframes sheetin{from{transform:translateY(var(--d))}}
+@keyframes sheetout{to{transform:translateY(var(--d))}}
+
+/* Stickers: tall page, the top bar stays */
+.scroll{position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none;background:var(--ink);touch-action:pan-y}
+.scroll::-webkit-scrollbar{display:none}
+.scroll .tall{position:relative;width:393px}
+.scroll img{width:393px}
+.pin{position:absolute;left:0;top:0;width:393px;height:92px;background-repeat:no-repeat;background-size:393px auto;z-index:4;pointer-events:none;
+  -webkit-mask-image:linear-gradient(#000 74%,transparent);mask-image:linear-gradient(#000 74%,transparent)}
+
+/* ---------- live pieces on top of the board screens ---------- */
+#cat{position:absolute;left:178.5px;top:764px;width:36px;height:36px;z-index:5;pointer-events:none;transition:left .22s ease,top .22s ease,width .22s ease,height .22s ease,opacity .14s}
+#cat.compact{left:181.3px;top:774px;width:30.6px;height:30.6px}
+#gift{position:absolute;left:351px;top:51px;width:22px;height:22px;z-index:5;pointer-events:none;background:var(--ink);box-shadow:0 0 0 2px var(--ink);border-radius:4px;
+  transition:left .22s ease,top .22s ease,width .22s ease,height .22s ease,opacity .14s}
+#gift.compact{left:357px;top:52px;width:16px;height:16px}
+#gift svg{display:block;width:100%;height:100%;overflow:visible}
+#gift.pop svg{animation:giftpop .62s cubic-bezier(.3,1.5,.5,1)}
+@keyframes giftpop{0%{transform:scale(1)}30%{transform:scale(1.38) rotate(-8deg)}60%{transform:scale(.94) rotate(4deg)}100%{transform:none}}
+#level{transition:transform .8s cubic-bezier(.3,1.2,.5,1)}
+.wf{animation:wf 1.7s linear infinite}
+.wb{animation:wb 2.5s linear infinite}
+@keyframes wf{to{transform:translateX(-8.8px)}}
+@keyframes wb{from{transform:translateX(-8.8px)}to{transform:none}}
+.off{opacity:0}
+
+@media (max-width:820px){
+  .guide{display:none}
+  .stage{flex-direction:column;gap:10px}
+  .mini{display:flex}
+}
+.sbar,.hbar{display:none}
+html.pc .sbar{display:block;position:absolute;left:0;top:0;width:393px;height:54px;z-index:8;pointer-events:none}
+html.pc .sbar svg{position:absolute;inset:0}
+.sb-time{position:absolute;left:21px;top:13.6px;width:56.6px;height:19.9px;display:flex;align-items:center;justify-content:center;
+  font:600 15.72px/1 -apple-system,"SF Pro Text",system-ui,sans-serif;letter-spacing:-.31px;color:#fff}
+html.pc .hbar{display:block;position:absolute;left:129.5px;top:842px;width:134px;height:5px;border-radius:3px;background:#fff;z-index:8;pointer-events:none}
+#probe{position:fixed;left:0;top:0;width:0;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);visibility:hidden;pointer-events:none}
+
+/* real phone: the app is the whole screen */
+html.phone,html.phone body{background:var(--ink)}
+html.phone .stage{position:fixed;top:0;left:0;right:0;height:100vh;height:100dvh;display:block;padding:0;overflow:hidden}
+html.phone .guide,html.phone .mini{display:none}
+html.phone .devwrap{position:absolute;left:0;top:0;overflow:hidden}
+html.phone .device{padding:0;border-radius:0;background:none;box-shadow:none}
+html.phone .app{border-radius:0}
+html.bars,html.bars body{height:auto;overflow:auto;overscroll-behavior:auto}
+html.bars body{min-height:calc(100lvh + 320px)}
+.gate{position:fixed;inset:0;z-index:20;background:var(--ink);display:none;align-items:center;justify-content:center}
+.gate.show{display:flex}
+.gate-in{display:flex;flex-direction:column;align-items:center;gap:8px;color:#fff;text-align:center}
+.gate-in img{width:76px;height:76px;border-radius:20px;margin-bottom:6px}
+.gate-in b{font-size:20px;font-weight:600}
+.gate-in span{font-size:13px;color:var(--guide-dim)}
+.gate-in svg{width:26px;height:26px;margin-top:10px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;animation:nudge 1.2s ease-in-out infinite}
+@keyframes nudge{0%,100%{transform:translateY(4px);opacity:.5}50%{transform:translateY(-4px);opacity:1}}
+@media (prefers-reduced-motion:reduce){
+  .a-fade,.a-fadeout,.a-push,.a-pop,.a-up,.a-drop,.sheetin,.sheetout{animation-duration:.01s}
+  .wf,.wb{animation:none}
+}
+</style>
+<div class="stage">
+  <aside class="guide" aria-label="Demo guide">
+    <div>
+      <h1>Wanaka Mobile</h1>
+      <p class="sub">按 1122 V0.0 版面做的可点 demo，手机和电脑都能玩。</p>
+    </div>
+    <div>
+      <h2>怎么玩</h2>
+      <ol class="how">
+        <li><i>1</i><div><b>底部 Tab</b><br><span>Home、Library、Create、Chats、Me</span></div></li>
+        <li><i>2</i><div><b>Top</b><br><span>上滑收起导航，下滑展开。停留几秒，小礼物会涨水</span></div></li>
+        <li><i>3</i><div><b>Create</b><br><span>选视频或照片 → 编辑 → Publish</span></div></li>
+        <li><i>4</i><div><b>右上角小礼物</b><br><span>Earn、Exchange、Achievements、Stickers</span></div></li>
+      </ol>
+    </div>
+    <div>
+      <h2>画面</h2>
+      <div class="jump" id="jump"></div>
+    </div>
+    <p class="note">只包含版面上的界面。版面没画下一步的按钮（比如 Join、Claim）点了不跳转。</p>
+  </aside>
+  <div class="mini" id="mini"><b id="mname"></b></div>
+  <div class="devwrap" id="devwrap">
+    <div class="device" id="device">
+      <div class="app" id="app">
+        <div id="screens"></div>
+        <img id="cat" src="media/1122/cat.webp" alt="">
+        <div id="gift" aria-hidden="true">
+          <svg viewBox="0 0 22 22">
+            <defs>
+              <clipPath id="gclip">
+                <path transform="translate(3.3 7.15)" d="M1.375 0H14.025C14.784 0 15.4.616 15.4 1.375V2.75C15.4 3.509 14.784 4.125 14.025 4.125H1.375C.616 4.125 0 3.509 0 2.75V1.375C0 .616.616 0 1.375 0Z"/>
+                <path transform="translate(4.95 11.28)" d="M0 0V5.225C0 6.44.985 7.425 2.2 7.425H9.9C11.116 7.425 12.1 6.44 12.1 5.225V0Z"/>
+                <path transform="translate(4.73 3.03)" d="M6.27 4.125C5.39 1.705 4.015 0 2.255 0 .935 0 0 .935 0 2.09 0 3.245.935 4.125 2.255 4.125Z"/>
+                <path transform="translate(11 3.03)" d="M0 4.125C.88 1.705 2.255 0 4.015 0 5.335 0 6.27.935 6.27 2.09 6.27 3.245 5.335 4.125 4.015 4.125Z"/>
+              </clipPath>
+              <linearGradient id="gw" gradientUnits="userSpaceOnUse" x1="11" y1="18.7" x2="11" y2="5">
+                <stop offset="0" stop-color="#FD8020"/><stop offset=".25" stop-color="#F0BA42"/><stop offset=".66" stop-color="#B9C4A5"/>
+              </linearGradient>
+            </defs>
+            <g clip-path="url(#gclip)">
+              <g id="level">
+                <path id="wb" class="wb" fill="url(#gw)" opacity=".55"/>
+                <path id="wf" class="wf" fill="url(#gw)"/>
+              </g>
+            </g>
+            <g fill="none" stroke="#fff" stroke-width="1.925" stroke-linecap="round" stroke-linejoin="round">
+              <path transform="translate(3.3 7.15)" d="M1.375 0H14.025C14.784 0 15.4.616 15.4 1.375V2.75C15.4 3.509 14.784 4.125 14.025 4.125H1.375C.616 4.125 0 3.509 0 2.75V1.375C0 .616.616 0 1.375 0Z"/>
+              <path transform="translate(4.95 11.28)" d="M0 0V5.225C0 6.44.985 7.425 2.2 7.425H9.9C11.116 7.425 12.1 6.44 12.1 5.225V0"/>
+              <path d="M11 7.15V18.7"/>
+              <path transform="translate(4.73 3.03)" d="M6.27 4.125C5.39 1.705 4.015 0 2.255 0 .935 0 0 .935 0 2.09 0 3.245.935 4.125 2.255 4.125Z"/>
+              <path transform="translate(11 3.03)" d="M0 4.125C.88 1.705 2.255 0 4.015 0 5.335 0 6.27.935 6.27 2.09 6.27 3.245 5.335 4.125 4.015 4.125Z"/>
+            </g>
+          </svg>
+        </div>
+        <div class="sbar" aria-hidden="true"><span class="sb-time">9:41</span>
+          <svg viewBox="0 0 393 54" width="393" height="54" fill="#fff">
+            <rect x="307.1" y="24.5" width="3.1" height="4.2" rx=".8"/><rect x="312" y="22.4" width="3.1" height="6.3" rx=".8"/>
+            <rect x="316.8" y="20" width="3.1" height="8.7" rx=".8"/><rect x="321.7" y="17.5" width="3.1" height="11.2" rx=".8"/>
+            <path d="M338.15 28.6 335.6 26.05A3.6 3.6 0 0 1 340.7 26.05Z" stroke="#fff" stroke-width="1" stroke-linejoin="round"/>
+            <path d="M333.13 23.58A7.1 7.1 0 0 1 343.17 23.58M330.58 21.03A10.7 10.7 0 0 1 345.72 21.03" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round"/>
+            <rect x="351.925" y="17.625" width="22.05" height="10.85" rx="2.5" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="1.05"/>
+            <path d="M375.5 21v4.2a2.3 2.3 0 0 0 0-4.2Z" fill-opacity=".4"/>
+            <rect x="353.5" y="19.2" width="18.9" height="7.7" rx="1.4"/>
+          </svg>
+        </div>
+        <i class="hbar" aria-hidden="true"></i>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="gate" id="gate"><div class="gate-in"><img src="media/app-icon.webp" alt=""><b>Wanaka</b><span>Swipe up to start</span><svg viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></svg></div></div>
+<div id="probe"></div>
+<script>
+(()=>{
+const $=s=>document.querySelector(s), M='media/1122/', W=393, H=852;
+
+/* ---------- screens: every key is one frame on the board ---------- */
+const NAMES={foryou:'For you',top:'Top',topS:'Top · scrolled',rooms:'Rooms',
+  libG:'Games',libM:'Media',libS:'Search',
+  createG:'Game · go to PC',createP:'Post',pick:'Pick photos',trim:'Edit · Trim',music:'Edit · Music',text:'Edit · Text',publish:'Publish',publishNo:'Publish · no game',addgame:'Add game',posted:'Posted',
+  chat:'Chats',chatF:'Filter',chatB:'Filter · Bots',
+  me:'Post',meG:'My games',meGN:'My games · not linked',meS:'Saved',meP:'Played',
+  otherP:'Post',otherG:'Games',otherPl:'Played',
+  earn:'Earn',exch:'Exchange',exched:'Exchanged',ach:'Achievements',stick:'Stickers',newStick:'New sticker'};
+const GROUPS=[['Home',['foryou','top','topS','rooms']],['Library',['libG','libM','libS']],
+  ['Create',['createG','createP','pick','trim','music','text','publish','publishNo','addgame','posted']],
+  ['Chats',['chat','chatF','chatB']],['Me',['me','meG','meGN','meS','meP']],['Others see',['otherP','otherG','otherPl']],
+  ['Rewards',['earn','exch','exched','ach','stick','newStick']]];
+
+let cur=null, el=null, stack=[], linked=false, token=0, progress=60, gainT=0;
+const last={home:'foryou',library:'libG',chats:'chat',me:'me'};
+
+const nav=(k,m)=>{ stack.push([cur,m]); show(k,m); };
+const swap=k=>show(k,'fade');
+const tabTo=k=>{ stack=[]; show(k,'fade'); };
+const REV={push:'pop',up:'drop',sheet:'sheetdown',fade:'fade'};
+const back=()=>{ const e=stack.pop(); if(e) show(e[0],REV[e[1]]); else tabTo(last.home); };
+const closeTo=k=>{ stack.pop(); show(k,'sheetdown'); };
+const games=()=>swap(linked?'meG':'meGN');
+
+const h=(x,y,w,ht,fn,label,cls)=>({x,y,w,h:ht,fn,label,cls});
+const TAB=[h(34,770,54,60,()=>tabTo(last.home),'Home'),h(98,770,54,60,()=>tabTo(last.library),'Library'),
+  h(162,762,70,68,()=>nav('createP','up'),'Create'),h(242,770,54,60,()=>tabTo(last.chats),'Chats'),h(306,770,54,60,()=>tabTo(last.me),'Me')];
+const TABC=[h(73,782,44,46,()=>tabTo('top'),'Home'),h(121,782,44,46,()=>tabTo(last.library),'Library'),
+  h(169,772,56,56,()=>nav('createP','up'),'Create'),h(229,782,44,46,()=>tabTo(last.chats),'Chats'),h(277,782,44,46,()=>tabTo(last.me),'Me')];
+const HOME=[h(108,44,66,36,()=>swap('foryou'),'For you'),h(174,44,44,36,()=>swap('top'),'Top'),h(218,44,68,36,()=>swap('rooms'),'Rooms'),h(345,44,36,36,()=>nav('earn','push'),'Rewards')];
+const HOMEC=[h(120,44,54,30,()=>swap('foryou'),'For you'),h(174,44,38,30,()=>swap('topS'),'Top'),h(212,44,60,30,()=>swap('rooms'),'Rooms'),h(349,44,32,30,()=>nav('earn','push'),'Rewards')];
+const LIB=[h(135,44,62,36,()=>swap('libG'),'Games'),h(199,44,60,36,()=>swap('libM'),'Media'),h(14,44,34,36,()=>nav('libS','fade'),'Search')];
+const MET=[h(20,463,88,44,()=>swap('me'),'Post'),h(108,463,88,44,games,'My games'),h(196,463,88,44,()=>swap('meS'),'Saved'),h(285,463,88,44,()=>swap('meP'),'Played'),h(16,166,74,34,()=>swap('meP'),'Played stat')];
+const OTH=[h(21,52,40,40,back,'Back'),h(20,463,118,44,()=>swap('otherP'),'Post'),h(138,463,118,44,()=>swap('otherG'),'Games'),h(255,463,118,44,()=>swap('otherPl'),'Played')];
+const REW=[h(14,50,36,36,back,'Back'),h(139,50,46,38,()=>swap('earn'),'Earn'),h(186,50,68,38,()=>swap('stick'),'Stickers')];
+const MODES=(n)=>[h(16,50,40,40,back,'Close'),h(146,52,56,38,()=>swap('createG'),'Game'),h(204,52,44,38,()=>swap('createP'),'Post'),h(314,54,63,32,n,'Next')];
+const TOOLS={trim:h(16,770,100,52,()=>swap('trim'),'Trim'),music:h(147,770,100,52,()=>swap('music'),'Music'),text:h(277,770,100,52,()=>swap('text'),'Text')};
+const EDIT=[h(16,62,40,40,back,'Back'),h(308,62,64,37,()=>nav('publish','push'),'Next')];
+const tiles=fn=>{ const o=[]; for(let r=0;r<4;r++)for(let c=0;c<4;c++){ if(!r&&!c)continue; o.push(h([16,107,199,290][c],536+r*91,87,87,fn,'Album item')); } return o; };
+const PUB=[h(8,46,44,40,back,'Back'),h(20,384,353,64,()=>nav('addgame','sheet'),'Game'),h(20,768,353,54,()=>nav('posted','push'),'Post')];
+const CHAT=[h(241,52,40,40,()=>swap('chatF'),'Filter')];
+
+const S={
+  foryou:{tab:'home',hot:[...HOME,...TAB]},
+  top:{tab:'home',hot:[...HOME,h(16,702,132,46,()=>nav('otherP','push'),'Creator'),...TAB]},
+  topS:{tab:'home',compact:1,hot:[...HOMEC,h(16,712,132,46,()=>nav('otherP','push'),'Creator'),...TABC]},
+  rooms:{tab:'home',hot:[...HOME,...TAB]},
+  libG:{tab:'library',hot:[...LIB,h(316,632,62,36,()=>tabTo('top'),'Play Dark Room'),...TAB]},
+  libM:{tab:'library',hot:[...LIB,...TAB]},
+  libS:{hot:[h(321,46,60,34,back,'Cancel')]},
+  createG:{hot:[h(16,50,40,40,back,'Close'),h(204,52,44,38,()=>swap('createP'),'Post')]},
+  createP:{hot:[...MODES(()=>nav('trim','push')),...tiles(()=>swap('pick'))]},
+  pick:{hot:[...MODES(()=>nav('text','push')),h(16,536,87,87,()=>swap('createP'),'Video')]},
+  trim:{hot:[...EDIT,TOOLS.music,TOOLS.text]},
+  music:{hot:[...EDIT,TOOLS.trim,TOOLS.text]},
+  text:{hot:[...EDIT,h(77,770,100,52,()=>swap('music'),'Music')]},
+  publish:{hot:PUB}, publishNo:{hot:PUB},
+  addgame:{sheet:212,hot:[h(0,0,393,212,back,'Close','nofb'),h(16,322,361,48,()=>closeTo('publishNo'),'No game'),h(16,412,361,48,()=>closeTo('publish'),'Deep Feast')]},
+  posted:{hot:[h(16,717,361,54,()=>tabTo(last.home),'Done'),h(162,777,70,45,()=>tabTo('me'),'View post')]},
+  chat:{tab:'chats',hot:[...CHAT,...TAB]},
+  chatF:{tab:'chats',hot:[h(0,0,393,760,()=>swap('chat'),'Close menu','nofb'),h(241,52,40,40,()=>swap('chat'),'Filter'),h(182,109,190,43,()=>swap('chat'),'All'),h(182,152,190,43,()=>swap('chatB'),'AI bot'),h(182,195,190,43,()=>swap('chat'),'Friends'),...TAB]},
+  chatB:{tab:'chats',hot:[...CHAT,h(103,57,73,31,()=>swap('chat'),'Clear filter'),...TAB]},
+  me:{tab:'me',hot:[...MET,...TAB]}, meG:{tab:'me',hot:[...MET,...TAB]},
+  meGN:{tab:'me',hot:[...MET,h(113,673,168,44,()=>{linked=true;swap('meG');},'Link account'),...TAB]},
+  meS:{tab:'me',hot:[...MET,...TAB]}, meP:{tab:'me',hot:[...MET,...TAB]},
+  otherP:{hot:OTH}, otherG:{hot:OTH}, otherPl:{hot:OTH},
+  earn:{hot:[...REW,h(266,123,91,36,()=>nav('exch','sheet'),'Exchange'),h(327,556,52,32,()=>nav('ach','push'),'See all')]},
+  exch:{sheet:521,hot:[h(0,0,393,521,back,'Close','nofb'),h(20,758,353,54,()=>swap('exched'),'Exchange 1,000 coins')]},
+  exched:{sheet:571,hot:[h(0,0,393,571,()=>closeTo('earn'),'Close','nofb'),h(20,722,353,54,()=>nav('createG','up'),'Use in Studio'),h(160,786,74,32,()=>closeTo('earn'),'Done')]},
+  ach:{hot:[h(8,46,44,40,back,'Back')]},
+  stick:{tall:1552,hot:REW,scrollHot:[h(20,316,118,126,()=>nav('newStick','up'),'First like sticker')]},
+  newStick:{hot:[h(20,700,353,52,()=>tabTo('me'),'Add to profile'),h(20,760,353,40,back,'Later')]},
+};
+
+/* ---------- render ---------- */
+function addHot(box,a){
+  const b=document.createElement('button'); b.type='button'; b.className='hot'+(a.cls?' '+a.cls:'');
+  b.style.cssText=`left:${a.x}px;top:${a.y}px;width:${a.w}px;height:${a.h}px`;
+  b.setAttribute('aria-label',a.label); b.onclick=a.fn; box.appendChild(b);
+}
+function mount(k){
+  const s=S[k], n=document.createElement('div'); n.className='scr'; n.dataset.k=k;
+  if(s.tall){
+    n.innerHTML=`<div class="scroll"><div class="tall" style="height:${s.tall}px"><img src="${M+k}.webp" alt="${NAMES[k]}" style="height:${s.tall}px"></div></div><div class="pin" style="background-image:url(${M+k}.webp)"></div>`;
+    (s.scrollHot||[]).forEach(a=>addHot(n.querySelector('.tall'),a));
+  } else n.innerHTML=`<img class="full" src="${M+k}.webp" alt="${NAMES[k]}">`;
+  s.hot.forEach(a=>addHot(n,a));
+  return n;
+}
+function sheetParts(n,y){
+  const img=n.querySelector('img'), bd=img.cloneNode();
+  bd.style.clipPath=`inset(0 0 ${H-y}px 0)`; n.style.background='transparent'; n.insertBefore(bd,img);
+  img.style.clipPath=`inset(${y}px 0 0 0 round 32px 32px 0 0)`; img.style.setProperty('--d',(H-y)+'px');
+  return {img,bd};
+}
+function show(k,mode){
+  const box=$('#screens'), old=el, t=++token;
+  [...box.children].forEach(c=>{ if(c!==old) c.remove(); });
+  if(old){ old.className='scr'; old.style.background=''; old.querySelectorAll('img').forEach((i,x)=>{ if(x===0&&old.querySelectorAll('img').length>1) i.remove(); else { i.style.clipPath=''; i.classList.remove('sheetin','sheetout'); } }); }
+  const n=mount(k), s=S[k]; let dur=200;
+  const outgoing=mode==='pop'||mode==='drop'||mode==='sheetdown';
+  if(outgoing&&old){
+    box.insertBefore(n,old);
+    if(mode==='sheetdown'){ const y=S[old.dataset.k].sheet||0, p=sheetParts(old,y); p.bd.classList.add('a-fadeout'); p.img.classList.add('sheetout'); dur=270; }
+    else { old.classList.add(mode==='pop'?'a-pop':'a-drop'); dur=mode==='pop'?270:290; }
+    old.style.pointerEvents='none';
+  } else {
+    box.appendChild(n);
+    if(!old) dur=0;
+    else if(mode==='sheet'){ const p=sheetParts(n,s.sheet); p.bd.classList.add('a-fade'); p.img.classList.add('sheetin'); dur=350;
+      setTimeout(()=>{ if(t!==token) return; p.bd.remove(); p.img.style.clipPath=''; p.img.classList.remove('sheetin'); n.style.background=''; },dur); }
+    else if(mode==='push'){ n.classList.add('a-push'); dur=330; }
+    else if(mode==='up'){ n.classList.add('a-up'); dur=370; }
+    else n.classList.add('a-fade');
+  }
+  if(old) setTimeout(()=>{ if(old.parentNode&&el!==old) old.remove(); },dur+20);
+  el=n; cur=k;
+  if(s.tab&&k!=='chatF'&&k!=='chatB') last[s.tab]=(k==='topS'?'top':k);
+  chrome(k);
+}
+function chrome(k){
+  const s=S[k], onTab=!!s.tab, home=s.tab==='home';
+  $('#cat').classList.toggle('off',!onTab); $('#cat').classList.toggle('compact',!!s.compact);
+  $('#gift').classList.toggle('off',!home); $('#gift').classList.toggle('compact',!!s.compact);
+  document.querySelectorAll('#jump button').forEach(b=>b.classList.toggle('on',b.dataset.k===k));
+  const g=GROUPS.find(x=>x[1].includes(k)); $('#mname').textContent=(g?g[0]+' · ':'')+NAMES[k];
+  try{ history.replaceState(null,'','#'+k); }catch(_){}
+  clearTimeout(gainT);
+  if((k==='top'||k==='topS')&&progress<100) gainT=setTimeout(gain,4500);
+}
+
+/* ---------- reward gift: water level + gain pop ---------- */
+const wave=()=>{ let d='M0 0'; for(let x=-8.8;x<44;x+=8.8) d+=` ${x===-8.8?'M-8.8 0':''}C${(x+1.467).toFixed(3)} -1.2 ${(x+2.933).toFixed(3)} -1.2 ${(x+4.4).toFixed(3)} 0C${(x+5.867).toFixed(3)} 1.2 ${(x+7.333).toFixed(3)} 1.2 ${(x+8.8).toFixed(3)} 0`; return d.replace('M0 0 ','')+'V30H-8.8Z'; };
+$('#wf').setAttribute('d',wave()); $('#wb').setAttribute('d',wave());
+$('#wb').setAttribute('transform','translate(0 -.9)');
+const setLevel=()=>{ const L=18.7-progress/100*15.67, g=$('#gw');
+  $('#level').style.transform=`translateY(${L.toFixed(2)}px)`;
+  // the colour stays fixed to the gift (orange at the bottom) while the water moves
+  g.setAttribute('y1',(18.7-L).toFixed(2)); g.setAttribute('y2',(5-L).toFixed(2)); };
+function gain(){
+  progress=Math.min(100,progress+20); setLevel();
+  const g=$('#gift'); g.classList.remove('pop'); void g.offsetWidth; g.classList.add('pop');
+  if(progress<100&&(cur==='top'||cur==='topS')) gainT=setTimeout(gain,6000);
+}
+setLevel();
+
+/* ---------- Top: swipe up / down ---------- */
+const app=$('#app'); let sy=null, moved=false, wheelT=0;
+app.addEventListener('pointerdown',e=>{ sy=e.clientY; moved=false; },true);
+app.addEventListener('pointermove',e=>{ if(sy!==null&&Math.abs(e.clientY-sy)>10) moved=true; },true);
+app.addEventListener('pointerup',e=>{ if(sy===null) return; const dy=e.clientY-sy; sy=null;
+  if(cur==='top'&&dy<-36) swap('topS'); else if(cur==='topS'&&dy>36) swap('top'); },true);
+app.addEventListener('pointercancel',()=>{ sy=null; },true);
+app.addEventListener('click',e=>{ if(moved&&(cur==='top'||cur==='topS')){ e.stopPropagation(); e.preventDefault(); } moved=false; },true);
+app.addEventListener('wheel',e=>{ if(cur!=='top'&&cur!=='topS') return; const now=Date.now(); if(now<wheelT) return;
+  if(e.deltaY>12&&cur==='top'){ swap('topS'); wheelT=now+500; } else if(e.deltaY<-12&&cur==='topS'){ swap('top'); wheelT=now+500; } },{passive:true});
+
+/* ---------- guide ---------- */
+const jump=$('#jump');
+GROUPS.forEach(([g,keys])=>{
+  const d=document.createElement('div'); d.className='grp'; d.textContent=g; jump.appendChild(d);
+  keys.forEach(k=>{ const b=document.createElement('button'); b.type='button'; b.dataset.k=k; b.textContent=NAMES[k];
+    b.onclick=()=>{ if(k!==cur){ if(k==='meG') linked=true; if(k==='meGN') linked=false; stack=[]; show(k,'fade'); } }; jump.appendChild(b); });
+});
+
+/* ---------- fit the phone to the window ---------- */
+const standalone=navigator.standalone===true||matchMedia('(display-mode: standalone)').matches||matchMedia('(display-mode: fullscreen)').matches;
+function fit(){
+  const R=document.documentElement, w=$('#devwrap'), d=$('#device'), phone=innerWidth<=560;
+  R.classList.toggle('phone',phone); R.classList.toggle('pc',!phone);
+  if(phone){
+    const st=$('.stage'), SW=st.clientWidth, SH=st.clientHeight;
+    const ps=getComputedStyle($('#probe')), inTop=parseFloat(ps.paddingTop)||0, inBot=parseFloat(ps.paddingBottom)||0;
+    const top=inTop>0||document.fullscreenElement?0:46;
+    const bot=Math.max(0,24-inBot);
+    const s=Math.min(SW/W,SH/(H-top-bot));
+    // spare height goes to the empty status strip, so the tab bar stays at the bottom of the screen
+    const off=Math.max(0,top*s-Math.max(0,SH-(H-top-bot)*s));
+    d.style.transform=`translate(${((SW-W*s)/2).toFixed(1)}px,${(-off).toFixed(1)}px) scale(${s.toFixed(4)})`;
+    w.style.width=SW+'px'; w.style.height=SH+'px';
+    return;
+  }
+  const miniH=getComputedStyle($('#mini')).display==='none'?0:$('#mini').offsetHeight+10;
+  const bez=20, availH=innerHeight-48-miniH, availW=innerWidth-32;
+  const s=Math.min(1,availH/(H+bez),availW/(W+bez));
+  d.style.transform=`scale(${s})`; w.style.width=(W+bez)*s+'px'; w.style.height=(H+bez)*s+'px';
+}
+addEventListener('resize',fit);
+if(window.visualViewport) visualViewport.addEventListener('resize',fit);
+addEventListener('orientationchange',()=>setTimeout(fit,300));
+document.addEventListener('fullscreenchange',fit);
+if(document.fonts) document.fonts.ready.then(fit);
+addEventListener('load',fit);
+
+Object.keys(S).forEach(k=>{ const i=new Image(); i.src=M+k+'.webp'; });
+fit();
+function boot(){ const start=location.hash.slice(1); if(start==='meG') linked=true; show(S[start]?start:'foryou','fade'); }
+let top0=true; try{ top0=window.top===window; }catch(_){ top0=false; }
+const touch=('ontouchstart' in window)&&innerWidth<=560;
+if(touch&&!standalone&&top0){
+  try{ history.scrollRestoration='manual'; }catch(_){}
+  document.documentElement.classList.add('bars'); $('#gate').classList.add('show'); scrollTo(0,0);
+  let started=false; const armed=Date.now()+400;
+  const begin=()=>{ if(started) return; started=true; $('#gate').classList.remove('show'); fit(); boot(); };
+  addEventListener('scroll',()=>{ if(Date.now()<armed){ scrollTo(0,0); return; } if(scrollY>40) begin(); },{passive:true});
+  addEventListener('pageshow',e=>{ if(e.persisted&&!started) scrollTo(0,0); });
+  $('#gate').addEventListener('click',()=>{ scrollBy({top:120,behavior:'smooth'}); setTimeout(begin,400); });
+} else boot();
+if(!standalone&&top0&&!/iPhone|iPad|iPod/.test(navigator.userAgent)&&innerWidth<=560){
+  const fs=()=>{ document.removeEventListener('click',fs,true); const r=document.documentElement; if(r.requestFullscreen) r.requestFullscreen().catch(()=>{}); };
+  document.addEventListener('click',fs,true);
+}
+})();
+</script>
+
+</html>
