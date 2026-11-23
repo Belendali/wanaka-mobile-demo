@@ -91,6 +91,12 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 .scroll::-webkit-scrollbar{display:none}
 .scroll .tall{position:relative;width:393px}
 .scroll img{width:393px}
+.scroll{cursor:grab}
+.scroll.drag{cursor:grabbing}
+/* Home: content scrolls under the fixed top bar and tab bar */
+.barblur{position:absolute;left:27px;top:776px;width:340px;height:52px;border-radius:999px;z-index:3;pointer-events:none;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.topcover{position:absolute;left:0;top:0;width:393px;height:82px;z-index:3;pointer-events:none;background:linear-gradient(var(--ink) 86%,transparent)}
+.bars-on{position:absolute;left:0;top:0;width:393px;height:852px;z-index:4;pointer-events:none}
 .pin{position:absolute;left:0;top:0;width:393px;height:92px;background-repeat:no-repeat;background-size:393px auto;z-index:4;pointer-events:none;
   -webkit-mask-image:linear-gradient(#000 74%,transparent);mask-image:linear-gradient(#000 74%,transparent)}
 
@@ -100,6 +106,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 #gift{position:absolute;left:351px;top:51px;width:22px;height:22px;z-index:5;pointer-events:none;background:var(--ink);box-shadow:0 0 0 2px var(--ink);border-radius:4px;
   transition:left .22s ease,top .22s ease,width .22s ease,height .22s ease,opacity .14s}
 #gift.compact{left:357px;top:52px;width:16px;height:16px}
+#gift.clear{background:none;box-shadow:none}
 #gift svg{display:block;width:100%;height:100%;overflow:visible}
 #gift.pop svg{animation:giftpop .62s cubic-bezier(.3,1.5,.5,1)}
 @keyframes giftpop{0%{transform:scale(1)}30%{transform:scale(1.38) rotate(-8deg)}60%{transform:scale(.94) rotate(4deg)}100%{transform:none}}
@@ -235,7 +242,8 @@ const GROUPS=[['Home',['foryou','top','topS','rooms']],['Library',['libG','libM'
   ['Chats',['chat','chatF','chatB']],['Me',['me','meG','meGN','meS','meP']],['Others see',['otherP','otherG','otherPl']],
   ['Rewards',['earn','exch','exched','ach','stick','newStick']]];
 
-let cur=null, el=null, stack=[], linked=false, token=0, progress=60, gainT=0;
+let cur=null, el=null, stack=[], linked=false, token=0, progress=60, gainT=0, clearT=0;
+const pos={};
 const last={home:'foryou',library:'libG',chats:'chat',me:'me'};
 
 const nav=(k,m)=>{ stack.push([cur,m]); show(k,m); };
@@ -265,10 +273,10 @@ const PUB=[h(8,46,44,40,back,'Back'),h(20,384,353,64,()=>nav('addgame','sheet'),
 const CHAT=[h(241,52,40,40,()=>swap('chatF'),'Filter')];
 
 const S={
-  foryou:{tab:'home',hot:[...HOME,...TAB]},
+  foryou:{tab:'home',feed:{img:'foryou-content',bars:'foryou-chrome',h:1318},hot:[...HOME,...TAB]},
   top:{tab:'home',hot:[...HOME,h(16,702,132,46,()=>nav('otherP','push'),'Creator'),...TAB]},
   topS:{tab:'home',compact:1,hot:[...HOMEC,h(16,712,132,46,()=>nav('otherP','push'),'Creator'),...TABC]},
-  rooms:{tab:'home',hot:[...HOME,...TAB]},
+  rooms:{tab:'home',feed:{img:'rooms-content',bars:'rooms-chrome',h:1022},hot:[...HOME,...TAB]},
   libG:{tab:'library',hot:[...LIB,h(316,632,62,36,()=>tabTo('top'),'Play Dark Room'),...TAB]},
   libM:{tab:'library',hot:[...LIB,...TAB]},
   libS:{hot:[h(321,46,60,34,back,'Cancel')]},
@@ -304,7 +312,9 @@ function addHot(box,a){
 }
 function mount(k){
   const s=S[k], n=document.createElement('div'); n.className='scr'; n.dataset.k=k;
-  if(s.tall){
+  if(s.feed){
+    n.innerHTML=`<div class="scroll"><div class="tall" style="height:${s.feed.h}px"><img src="${M+s.feed.img}.webp" alt="${NAMES[k]}" style="height:${s.feed.h}px"></div></div><div class="topcover"></div><div class="barblur"></div><img class="bars-on" src="${M+s.feed.bars}.webp" alt="">`;
+  } else if(s.tall){
     n.innerHTML=`<div class="scroll"><div class="tall" style="height:${s.tall}px"><img src="${M+k}.webp" alt="${NAMES[k]}" style="height:${s.tall}px"></div></div><div class="pin" style="background-image:url(${M+k}.webp)"></div>`;
     (s.scrollHot||[]).forEach(a=>addHot(n.querySelector('.tall'),a));
   } else n.innerHTML=`<img class="full" src="${M+k}.webp" alt="${NAMES[k]}">`;
@@ -312,7 +322,7 @@ function mount(k){
   return n;
 }
 function sheetParts(n,y){
-  const img=n.querySelector('img'), bd=img.cloneNode();
+  const img=n.querySelector('img'), bd=img.cloneNode(); bd.classList.add('bd');
   bd.style.clipPath=`inset(0 0 ${H-y}px 0)`; n.style.background='transparent'; n.insertBefore(bd,img);
   img.style.clipPath=`inset(${y}px 0 0 0 round 32px 32px 0 0)`; img.style.setProperty('--d',(H-y)+'px');
   return {img,bd};
@@ -320,7 +330,9 @@ function sheetParts(n,y){
 function show(k,mode){
   const box=$('#screens'), old=el, t=++token;
   [...box.children].forEach(c=>{ if(c!==old) c.remove(); });
-  if(old){ old.className='scr'; old.style.background=''; old.querySelectorAll('img').forEach((i,x)=>{ if(x===0&&old.querySelectorAll('img').length>1) i.remove(); else { i.style.clipPath=''; i.classList.remove('sheetin','sheetout'); } }); }
+  if(old){ const sc=old.querySelector('.scroll'); if(sc) pos[old.dataset.k]=sc.scrollTop;
+    old.className='scr'; old.style.background=''; old.querySelectorAll('img.bd').forEach(i=>i.remove());
+    old.querySelectorAll('img').forEach(i=>{ i.style.clipPath=''; i.classList.remove('sheetin','sheetout'); }); }
   const n=mount(k), s=S[k]; let dur=200;
   const outgoing=mode==='pop'||mode==='drop'||mode==='sheetdown';
   if(outgoing&&old){
@@ -337,6 +349,7 @@ function show(k,mode){
     else if(mode==='up'){ n.classList.add('a-up'); dur=370; }
     else n.classList.add('a-fade');
   }
+  const sc=n.querySelector('.scroll'); if(sc&&pos[k]) sc.scrollTop=pos[k];
   if(old) setTimeout(()=>{ if(old.parentNode&&el!==old) old.remove(); },dur+20);
   el=n; cur=k;
   if(s.tab&&k!=='chatF'&&k!=='chatB') last[s.tab]=(k==='topS'?'top':k);
@@ -346,6 +359,9 @@ function chrome(k){
   const s=S[k], onTab=!!s.tab, home=s.tab==='home';
   $('#cat').classList.toggle('off',!onTab); $('#cat').classList.toggle('compact',!!s.compact);
   $('#gift').classList.toggle('off',!home); $('#gift').classList.toggle('compact',!!s.compact);
+  // Top frames have the gift baked in, so the live one covers it. Home feeds have no baked gift
+  clearTimeout(clearT);
+  if(s.feed) clearT=setTimeout(()=>$('#gift').classList.add('clear'),230); else $('#gift').classList.remove('clear');
   document.querySelectorAll('#jump button').forEach(b=>b.classList.toggle('on',b.dataset.k===k));
   const g=GROUPS.find(x=>x[1].includes(k)); $('#mname').textContent=(g?g[0]+' · ':'')+NAMES[k];
   try{ history.replaceState(null,'','#'+k); }catch(_){}
@@ -375,9 +391,36 @@ app.addEventListener('pointermove',e=>{ if(sy!==null&&Math.abs(e.clientY-sy)>10)
 app.addEventListener('pointerup',e=>{ if(sy===null) return; const dy=e.clientY-sy; sy=null;
   if(cur==='top'&&dy<-36) swap('topS'); else if(cur==='topS'&&dy>36) swap('top'); },true);
 app.addEventListener('pointercancel',()=>{ sy=null; },true);
-app.addEventListener('click',e=>{ if(moved&&(cur==='top'||cur==='topS')){ e.stopPropagation(); e.preventDefault(); } moved=false; },true);
-app.addEventListener('wheel',e=>{ if(cur!=='top'&&cur!=='topS') return; const now=Date.now(); if(now<wheelT) return;
+app.addEventListener('click',e=>{ if(moved&&(cur==='top'||cur==='topS'||S[cur].feed||S[cur].tall)){ e.stopPropagation(); e.preventDefault(); } moved=false; },true);
+app.addEventListener('wheel',e=>{
+  if(S[cur].feed){ const sc=el.querySelector('.scroll'); if(sc&&!sc.contains(e.target)) sc.scrollTop+=e.deltaY; return; }
+  if(cur!=='top'&&cur!=='topS') return; const now=Date.now(); if(now<wheelT) return;
   if(e.deltaY>12&&cur==='top'){ swap('topS'); wheelT=now+500; } else if(e.deltaY<-12&&cur==='topS'){ swap('top'); wheelT=now+500; } },{passive:true});
+
+/* ---------- scrolling pages: mouse drag with a little momentum (touch scrolls natively) ---------- */
+let drag=null, flick=0;
+app.addEventListener('dragstart',e=>e.preventDefault());
+app.addEventListener('pointerdown',e=>{
+  cancelAnimationFrame(flick);
+  if(e.pointerType!=='mouse'||e.button) return;
+  const sc=e.target.closest&&e.target.closest('.scroll'); if(!sc) return;
+  drag={sc,y:e.clientY,top:sc.scrollTop,k:app.getBoundingClientRect().height/H,ly:e.clientY,lt:e.timeStamp,v:0};
+},true);
+addEventListener('pointermove',e=>{ if(!drag) return;
+  const dy=(e.clientY-drag.y)/drag.k;
+  if(Math.abs(dy)>3) drag.sc.classList.add('drag');
+  drag.sc.scrollTop=drag.top-dy;
+  const dt=e.timeStamp-drag.lt;
+  if(dt>0){ drag.v=.7*(drag.ly-e.clientY)/drag.k/dt+.3*drag.v; drag.ly=e.clientY; drag.lt=e.timeStamp; }
+});
+const endDrag=e=>{ if(!drag) return;
+  const sc=drag.sc; let v=e.timeStamp-drag.lt>80?0:drag.v, p=sc.scrollTop, t=performance.now();
+  drag=null; sc.classList.remove('drag');
+  const step=n=>{ const dt=Math.min(32,n-t); t=n; p+=v*dt; sc.scrollTop=p; v*=Math.pow(.995,dt);
+    if(Math.abs(v)>.02&&sc.isConnected) flick=requestAnimationFrame(step); };
+  if(Math.abs(v)>.05) flick=requestAnimationFrame(step);
+};
+addEventListener('pointerup',endDrag); addEventListener('pointercancel',endDrag);
 
 /* ---------- guide ---------- */
 const jump=$('#jump');
@@ -416,7 +459,7 @@ document.addEventListener('fullscreenchange',fit);
 if(document.fonts) document.fonts.ready.then(fit);
 addEventListener('load',fit);
 
-Object.keys(S).forEach(k=>{ const i=new Image(); i.src=M+k+'.webp'; });
+Object.keys(S).forEach(k=>{ const f=S[k].feed; (f?[f.img,f.bars]:[k]).forEach(n=>{ const i=new Image(); i.src=M+n+'.webp'; }); });
 fit();
 function boot(){ const start=location.hash.slice(1); if(start==='meG') linked=true; show(S[start]?start:'foryou','fade'); }
 let top0=true; try{ top0=window.top===window; }catch(_){ top0=false; }
